@@ -56,7 +56,7 @@ export default {
       this.wines = this.wines.filter(wine => wine.id !== id);
     },
     editWine(id, editedWine) {
-      this.wines = this.wines.map(wine => wine.id ? editedWine : wine);
+      this.wines = this.wines.map(wine => wine.id === id ? editedWine : wine);
     }
   }
 }

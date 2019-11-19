@@ -30,10 +30,10 @@
           <td>{{ wine.url }}</td>
           <td v-if="editing === wine.id">
             <button @click="editWine(wine)">Tallenna</button>
-            <button class="muted-button" @click="editing = null">Peruuta</button>
+            <button class="muted-button" @click="cancelEdit(wine)">Peruuta</button>
           </td>
           <td v-else>
-            <button @click="editMode(wine.id)">Muokkaa</button>
+            <button @click="editMode(wine)">Muokkaa</button>
             <button @click="$emit('delete:wine', wine.id)">Poista</button>
           </td>
         </tr>
@@ -51,19 +51,17 @@
       }
     },
     methods: {
-      editMode(id) {
-        // this.cachedWine = Object.assign({}, wine);
-        this.editing = id;
+      editMode(wine) {
+        this.cachedWine = Object.assign({}, wine);
+        this.editing = wine.id;
       },
       editWine(wine) {
         const wineHasEmptyValue = Array
             .from(Object.values(wine))
             .some(value => value === "" || value === []);
-
         if (wineHasEmptyValue) {
           return;
         }
-        
         this.$emit("edit:wine", wine.id, wine);
         this.editing = null;
       },
