@@ -17,7 +17,10 @@
       </thead>
       <tbody>
         <tr v-for="wine in wines" :key="wine.id">
-          <td>{{ wine.name }}</td>
+          <td v-if="editing === wine.id">
+            <input type="text" v-model="wine.name">
+          </td>
+          <td v-else>{{ wine.name }}</td>
           <td>{{ wine.type }}</td>
           <td>{{ wine.country }}</td>
           <td>{{ wine.price }}</td>
@@ -25,8 +28,12 @@
           <td>{{ wine.description }}</td>
           <td>{{ wine.foodPairings }}</td>
           <td>{{ wine.url }}</td>
-          <td>
-            <button>Muokkaa</button>
+          <td v-if="editing === wine.id">
+            <button @click="editWine(wine)">Tallenna</button>
+            <button class="muted-button" @click="editing = null">Peruuta</button>
+          </td>
+          <td v-else>
+            <button @click="editMode(wine.id)">Muokkaa</button>
             <button @click="$emit('delete:wine', wine.id)">Poista</button>
           </td>
         </tr>
@@ -38,6 +45,33 @@
 <script>
   export default {
     name: "wine-table",
+    data() {
+      return {
+        editing: null
+      }
+    },
+    methods: {
+      editMode(id) {
+        // this.cachedWine = Object.assign({}, wine);
+        this.editing = id;
+      },
+      editWine(wine) {
+        const wineHasEmptyValue = Array
+            .from(Object.values(wine))
+            .some(value => value === "" || value === []);
+
+        if (wineHasEmptyValue) {
+          return;
+        }
+        
+        this.$emit("edit:wine", wine.id, wine);
+        this.editing = null;
+      },
+      cancelEdit(wine) {
+        Object.assign(wine, this.cachedWine);
+        this.editing = null;
+      }
+    },
     props: {
       wines: Array,
     }

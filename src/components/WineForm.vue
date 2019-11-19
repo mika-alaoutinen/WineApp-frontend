@@ -5,7 +5,8 @@
         <legend>Lisää uusi viini</legend>
         <label>Nimi</label>
         <input type="text" required v-model="wine.name"/>
-        <div class="radiobuttons">
+        <label for="wine-types">Viinin tyyppi</label>
+        <div class="radiobuttons" id="wine-types">
           <input type="radio" name="wine-type" id="kuohu" value="SPARKLING" required v-model="wine.type">
           <label for="kuohu">Kuohuviini</label>
           <input type="radio" name="wine-type" id="puna" value="RED" v-model="wine.type">
