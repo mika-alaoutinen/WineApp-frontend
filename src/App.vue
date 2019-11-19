@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <h1>Viinit</h1>
+    <wine-form/>
     <wine-table :wines="wines"/>
   </div>
 </template>
 
 <script>
+import WineForm from '@/components/WineForm.vue'
 import WineTable from '@/components/WineTable.vue'
 
 export default {
   name: "app",
   components: {
+    WineForm,
     WineTable
   },
   data() {
