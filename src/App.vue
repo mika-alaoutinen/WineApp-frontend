@@ -1,17 +1,45 @@
 <template>
   <div id="app">
     <h1>Viinit</h1>
-    <wine-table/>
+    <wine-table :wines="wines"/>
   </div>
 </template>
 
 <script>
-import WineTable from './components/WineTable.vue'
+import WineTable from '@/components/WineTable.vue'
 
 export default {
   name: "app",
   components: {
     WineTable
+  },
+  data() {
+    return {
+      wines: [
+        {
+          id: 1,
+          name: "Valkoviini",
+          type: "WHITE",
+          country: "Espanja",
+          price: 10.0,
+          quantity: 0.75,
+          description: ["vivahteikas & ryhdikäs", "pirskahteleva"],
+          foodPairings: ["aperatiivi", "vähärasvainen kala","seurustelujuomaksi."],
+          url: "invalid"
+        },
+        {
+          id: 2,
+          name: "Punaviini",
+          type: "RED",
+          country: "Ranska",
+          price: 9.0,
+          quantity: 0.75,
+          description: ["vivahteikas & ryhdikäs", "pirskahteleva"],
+          foodPairings: ["aperatiivi", "vähärasvainen kala","seurustelujuomaksi."],
+          url: "invalid"
+        }
+      ]
+    }
   }
 }
 </script>

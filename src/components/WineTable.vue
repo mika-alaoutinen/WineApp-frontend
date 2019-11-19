@@ -14,25 +14,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Valkoviini 1</td>
-          <td>Valko</td>
-          <td>Espanja</td>
-          <td>9.50</td>
-          <td>0.75</td>
-          <td>Makea ja hedelmäinen</td>
-          <td>Seurustelujuoma, salaatit ja kasvisruoka</td>
-          <td>blank</td>
-        </tr>
-        <tr>
-          <td>Valkoviini 1</td>
-          <td>Valko</td>
-          <td>Espanja</td>
-          <td>9.50</td>
-          <td>0.75</td>
-          <td>Makea ja hedelmäinen</td>
-          <td>Seurustelujuoma, salaatit ja kasvisruoka</td>
-          <td>blank</td>
+        <tr v-for="wine in wines" :key="wine.id">
+          <td>{{ wine.name }}</td>
+          <td>{{ wine.type }}</td>
+          <td>{{ wine.country }}</td>
+          <td>{{ wine.price }}</td>
+          <td>{{ wine.quantity }}</td>
+          <td>{{ wine.description }}</td>
+          <td>{{ wine.foodPairings }}</td>
+          <td>{{ wine.url }}</td>
         </tr>
       </tbody>
     </table>
@@ -41,7 +31,10 @@
 
 <script>
   export default {
-    name: "wine-table"
+    name: "wine-table",
+    props: {
+      wines: Array,
+    }
   };
 </script>
 
