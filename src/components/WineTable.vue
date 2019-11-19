@@ -1,6 +1,8 @@
 <template>
   <div id="wine-table">
-    <table>
+    <!-- Show info message if wine table is empty: -->
+    <p v-if="wines.length < 1" class="empty-table">Ei viinejä</p>    
+    <table v-else>
       <thead>
         <tr>
           <th>Nimi</th>
@@ -23,6 +25,10 @@
           <td>{{ wine.description }}</td>
           <td>{{ wine.foodPairings }}</td>
           <td>{{ wine.url }}</td>
+          <td>
+            <button>Muokkaa</button>
+            <button @click="$emit('delete:wine', wine.id)">Poista</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -39,5 +45,5 @@
 </script>
 
 <style scoped>
-
+  button { margin: 0 0.5rem 0 0 }
 </style>

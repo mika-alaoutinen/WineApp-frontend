@@ -2,7 +2,7 @@
   <div id="app">
     <h1>Viinit</h1>
     <wine-form @add:wine="addWine"/>
-    <wine-table :wines="wines"/>
+    <wine-table :wines="wines" @delete:wine="deleteWine"/>
   </div>
 </template>
 
@@ -51,6 +51,9 @@ export default {
       const id = lastId + 1;
       const newWine = {...wine, id};
       this.wines = [...this.wines, newWine];
+    },
+    deleteWine(id) {
+      this.wines = this.wines.filter(wine => wine.id !== id);
     }
   }
 }
