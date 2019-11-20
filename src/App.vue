@@ -20,30 +20,6 @@ export default {
   data() {
     return {
       wines: []
-    //   wines: [
-    //     {
-    //       id: 1,
-    //       name: "Valkoviini",
-    //       type: "WHITE",
-    //       country: "Espanja",
-    //       price: 10.0,
-    //       quantity: 0.75,
-    //       description: ["vivahteikas & ryhdikäs", "pirskahteleva"],
-    //       foodPairings: ["aperatiivi", "vähärasvainen kala","seurustelujuomaksi."],
-    //       url: "invalid"
-    //     },
-    //     {
-    //       id: 2,
-    //       name: "Punaviini",
-    //       type: "RED",
-    //       country: "Ranska",
-    //       price: 9.0,
-    //       quantity: 0.75,
-    //       description: ["vivahteikas & ryhdikäs", "pirskahteleva"],
-    //       foodPairings: ["aperatiivi", "vähärasvainen kala","seurustelujuomaksi."],
-    //       url: "invalid"
-    //     }
-    //   ]
     }
   },
   mounted() {
@@ -52,11 +28,9 @@ export default {
   // TODO: Move CRUD methods to service component.
   methods: {
     getWines() {
-      // TODO: how to parse response?
       axios.get("http://localhost:8080/api/wines")
         .then((response) => {
           this.wines = response.data;
-          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
