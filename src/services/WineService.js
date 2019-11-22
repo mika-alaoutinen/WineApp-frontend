@@ -1,11 +1,12 @@
-"use strict"
-
 import axios from "axios";
 
 const baseUrl = "http://localhost:8080/api/wines/";
 
 export class WineService {
-    
+    constructor(wineStore) {
+        this.wineStore = wineStore;
+    }
+
     async getWines() {
         axios.get(baseUrl)
             .then((response) => this.wines = response.data)
