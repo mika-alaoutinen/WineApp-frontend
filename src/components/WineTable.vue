@@ -1,7 +1,9 @@
 <template>
   <div id="wine-table">
+    <!-- Show info message if wine table is still loading: -->
+    <p v-if="!dataLoaded">Viinejä ladataan.</p>
     <!-- Show info message if wine table is empty: -->
-    <p v-if="wines.length < 1" class="empty-table">Ei viinejä</p>    
+    <p v-else-if="wines.length < 1" class="empty-table">Ei viinejä</p>
     <table v-else>
       <thead>
         <tr>
@@ -72,7 +74,8 @@
       }
     },
     props: {
-      wines: Array, // Invalid prop: Expected Array, got Object 
+      dataLoaded: Boolean,
+      wines: Array
     }
   };
 </script>

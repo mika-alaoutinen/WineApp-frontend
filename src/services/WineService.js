@@ -12,9 +12,8 @@ export class WineService {
      */
     async getWines() {
         axios.get(baseUrl)
-            .then(response => console.log(response.data))
-            // .then(response => this.wineStore.init(response.data))
-            .catch(error => console.log(error));
+            .then(response => this.wineStore.init(response.data))
+            .catch(error => console.log(error))
     }
 
     /**
@@ -35,6 +34,17 @@ export class WineService {
         axios.post(baseUrl, wine)
             .then(response => this.wineStore.addWine(response))
             .catch(error => console.log(error));
+    }
+
+    /**
+     * Send an edite wine to backend for persisting.
+     * @param {Number} id 
+     * @param {Wine} editedWine 
+     */
+    async editWine(id, editedWine) {
+        axios.put(baseUrl + id, editedWine)
+            .then((response) => this.wines.map(wine => wine.id === id ? response : wine))
+            .catch((error) => console.log(error));
     }
 
     /**

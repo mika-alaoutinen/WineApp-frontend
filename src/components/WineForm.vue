@@ -37,28 +37,28 @@
 </template>
 
 <script>
-export default {
-  name: "wine-form",
-  data() {
-    return {
-      wine: {
-        name: "",
-        type: "",
-        country: "",
-        price: "",
-        quantity: "",
-        description: [],
-        foodPairings: [],
-        url: ""
+  export default {
+    name: "wine-form",
+    data() {
+      return {
+        wine: {
+          name: "",
+          type: "",
+          country: "",
+          price: "",
+          quantity: "",
+          description: [],
+          foodPairings: [],
+          url: ""
+        }
+      }
+    },
+    methods: {
+      submitForm() {
+        this.$emit("add:wine", this.wine)
       }
     }
-  },
-  methods: {
-    submitForm() {
-      this.$emit("add:wine", this.wine)
-    }
-  }
-};
+  };
 </script>
 
 <style scoped>
