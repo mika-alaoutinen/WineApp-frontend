@@ -72,7 +72,7 @@
       }
     },
     props: {
-      wines: Array,
+      wines: Array, // Invalid prop: Expected Array, got Object 
     }
   };
 </script>

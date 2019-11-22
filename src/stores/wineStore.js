@@ -1,9 +1,10 @@
-export const store = {
+export const wineStore = {
+    wines: [],
     state: {
       wines: []
     },
-    addAll(wines) {
-        this.state.wines.concat(wines);
+    addAll(wineArray) {
+        this.state.wines.concat(wineArray);
     },
     addWine(newWine) {
       this.state.wines.push(newWine);
