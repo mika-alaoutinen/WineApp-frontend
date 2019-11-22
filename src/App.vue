@@ -32,8 +32,12 @@ export default {
   // TODO: Move CRUD methods to service component.
   methods: {
     getWines() {
-        wineService.getWines();
-        console.log(this.wines);
+      axios.get("http://localhost:8080/api/wines/")
+          .then(response => this.wines = response.data)
+          .catch(error => console.log(error));
+      
+        // wineService.getWines();
+        // console.log(this.wines);
     },
     getWine(id) {
       // axios.get("http://localhost:8080/api/wines/" + id)

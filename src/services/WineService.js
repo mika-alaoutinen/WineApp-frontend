@@ -12,8 +12,9 @@ export class WineService {
      */
     async getWines() {
         axios.get(baseUrl)
-            .then((response) => this.wineStore.addAll(response.data))
-            .catch((error) => console.log(error));
+            .then(response => console.log(response.data))
+            // .then(response => this.wineStore.init(response.data))
+            .catch(error => console.log(error));
     }
 
     /**
@@ -22,8 +23,8 @@ export class WineService {
      */
     async getWine(id) {
         axios.get(baseUrl + id)
-            .then((response) => this.wineStore.addWine(response.data))
-            .catch((error) => console.log(error));
+            .then(response => this.wineStore.addWine(response.data))
+            .catch(error => console.log(error));
     }
 
     /**
@@ -32,8 +33,8 @@ export class WineService {
      */
     async addWine(wine) {
         axios.post(baseUrl, wine)
-            .then((response) => this.wineStore.addWine(response))
-            .catch((error) => console.log(error));
+            .then(response => this.wineStore.addWine(response))
+            .catch(error => console.log(error));
     }
 
     /**
@@ -43,6 +44,6 @@ export class WineService {
     async deleteWine(id) {
         axios.delete(baseUrl + id)
             .then(() => this.wineStore.deleteWine(id))
-            .catch((error) => console.log(error));
+            .catch(error => console.log(error));
     }
 }
