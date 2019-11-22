@@ -16,6 +16,7 @@
         </tr>
       </thead>
       <tbody>
+        <!-- TODO: figure out a smarter way to edit wines. -->
         <tr v-for="wine in wines" :key="wine.id">
           <td v-if="editing === wine.id">
             <input type="text" v-model="wine.name">
