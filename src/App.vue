@@ -2,7 +2,7 @@
   <div id="app">
     <h1>Viinit</h1>
     <wine-form/>
-    <wine-table @delete:wine="deleteWine" @edit:wine="editWine"/></div>
+    <wine-table @delete:wine="deleteWine"/></div>
 </template>
 
 <script>

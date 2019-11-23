@@ -43,10 +43,12 @@
 </template>
 
 <script>
+  import WineService from "@/services/WineService.js";
   import WineStore from "@/stores/WineStore.js";
 
+  const wineService = new WineService();
+
   export default {
-    name: "wine-table",
     data() {
       return {
         editing: null,
@@ -60,12 +62,14 @@
       },
       editWine(wine) {
         const wineHasEmptyValue = Array
-            .from(Object.values(wine))
-            .some(value => value === "" || value === []);
+          .from(Object.values(wine))
+          .some(value => value === "" || value === []);
+        
         if (wineHasEmptyValue) {
           return;
         }
-        this.$emit("edit:wine", wine.id, wine);
+
+        wineService.editWine(wine.id, wine);
         this.editing = null;
       },
       cancelEdit(wine) {

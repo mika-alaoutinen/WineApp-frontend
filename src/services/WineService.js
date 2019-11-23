@@ -44,7 +44,7 @@ class WineService {
      */
     async editWine(id, editedWine) {
         axios.put(baseUrl + id, editedWine)
-            .then((response) => this.wines.map(wine => wine.id === id ? response : wine))
+            .then((response) => this.wineStore.editWine(id, response))
             .catch((error) => console.log(error));
     }
 
