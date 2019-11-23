@@ -37,28 +37,39 @@
 </template>
 
 <script>
-export default {
-  name: "wine-form",
-  data() {
-    return {
-      wine: {
-        name: "",
-        type: "",
-        country: "",
-        price: "",
-        quantity: "",
-        description: [],
-        foodPairings: [],
-        url: ""
+  import WineService from "@/services/WineService.js";
+
+  const wineService = new WineService();
+
+  export default {
+    data() {
+      return {
+        wine: {
+          name: "",
+          type: "",
+          country: "",
+          price: "",
+          quantity: "",
+          description: "",
+          foodPairings: "",
+          url: ""
+        },
+      }
+    },
+    methods: {
+      submitForm() {
+        // TODO: add feedback on submit. Did submit succeed or fail?
+        // If submit is OK, clear form.
+        this.wine.description = this.parseKeywords(this.wine.description);
+        this.wine.foodPairings = this.parseKeywords(this.wine.foodPairings);
+        wineService.postWine(this.wine);
+      },
+      parseKeywords(string) {
+        return string.split(",").map(word => word.trim());
       }
     }
-  },
-  methods: {
-    submitForm() {
-      this.$emit("add:wine", this.wine)
-    }
-  }
-};
+  };
+
 </script>
 
 <style scoped>
