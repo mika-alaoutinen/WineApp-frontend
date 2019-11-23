@@ -12,7 +12,7 @@ const WineStore = {
         this.data.wines.map(wine => wine.id === id ? editedWine : wine)
     },
     deleteWine(id) {
-        this.data.wines = this.state.wines.filter(wine => wine.id !== id);
+        this.data.wines = this.data.wines.filter(wine => wine.id !== id);
     },
 };
 

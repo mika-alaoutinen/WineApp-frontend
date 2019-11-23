@@ -60,6 +60,8 @@
     },
     methods: {
       submitForm() {
+        // TODO: add feedback on submit. Did submit succeed or fail?
+        // If submit is OK, clear form.
         this.wine.description = this.parseKeywords(this.wine.description);
         this.wine.foodPairings = this.parseKeywords(this.wine.foodPairings);
         wineService.addWine(this.wine);

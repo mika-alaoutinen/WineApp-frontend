@@ -34,7 +34,7 @@
           </td>
           <td v-else>
             <button @click="editMode(wine)">Muokkaa</button>
-            <button @click="$emit('delete:wine', wine.id)">Poista</button>
+            <button @click="deleteWine(wine.id)">Poista</button>
           </td>
         </tr>
       </tbody>
@@ -75,6 +75,9 @@
       cancelEdit(wine) {
         Object.assign(wine, this.cachedWine);
         this.editing = null;
+      },
+      deleteWine(id) {
+        wineService.deleteWine(id);
       }
     },
   };
