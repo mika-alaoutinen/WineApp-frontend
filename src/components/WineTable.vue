@@ -69,7 +69,7 @@
           return;
         }
 
-        wineService.editWine(wine.id, wine);
+        wineService.putWine(wine.id, wine);
         this.editing = null;
       },
       cancelEdit(wine) {
