@@ -18,7 +18,7 @@
         <!-- TODO: figure out a smarter way to edit wines. -->
         <tr v-for="wine in wineStore.wines" :key="wine.id">
           <td v-if="editing === wine.id">
-            <input type="text" v-model="wine.name">
+            <input type="text" @keyup.enter="editWine(wine)" v-model="wine.name">
           </td>
           <td v-else>{{ wine.name }}</td>
           <td>{{ wine.type }}</td>
