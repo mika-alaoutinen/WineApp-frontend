@@ -1,7 +1,6 @@
 <template>
   <div id="wine-table">
-    <!-- Show info message if wine table is empty: -->
-    <p v-if="wines.length < 1" class="empty-table">Ei viinejä</p>    
+    <p v-if="WineStore.wines.length < 1" class="empty-table">Ei viinejä</p>
     <table v-else>
       <thead>
         <tr>
@@ -17,7 +16,7 @@
       </thead>
       <tbody>
         <!-- TODO: figure out a smarter way to edit wines. -->
-        <tr v-for="wine in wines" :key="wine.id">
+        <tr v-for="wine in WineStore.wines" :key="wine.id">
           <td v-if="editing === wine.id">
             <input type="text" v-model="wine.name">
           </td>
@@ -35,7 +34,7 @@
           </td>
           <td v-else>
             <button @click="editMode(wine)">Muokkaa</button>
-            <button @click="$emit('delete:wine', wine.id)">Poista</button>
+            <button @click="deleteWine(wine.id)">Poista</button>
           </td>
         </tr>
       </tbody>
@@ -44,11 +43,16 @@
 </template>
 
 <script>
+  import WineService from "@/services/WineService.js";
+  import WineStore from "@/stores/WineStore.js";
+
+  const wineService = new WineService();
+
   export default {
-    name: "wine-table",
     data() {
       return {
-        editing: null
+        editing: null,
+        WineStore: WineStore.data
       }
     },
     methods: {
@@ -58,22 +62,24 @@
       },
       editWine(wine) {
         const wineHasEmptyValue = Array
-            .from(Object.values(wine))
-            .some(value => value === "" || value === []);
+          .from(Object.values(wine))
+          .some(value => value === "" || value === []);
+        
         if (wineHasEmptyValue) {
           return;
         }
-        this.$emit("edit:wine", wine.id, wine);
+
+        wineService.editWine(wine.id, wine);
         this.editing = null;
       },
       cancelEdit(wine) {
         Object.assign(wine, this.cachedWine);
         this.editing = null;
+      },
+      deleteWine(id) {
+        wineService.deleteWine(id);
       }
     },
-    props: {
-      wines: Array,
-    }
   };
 </script>
 
