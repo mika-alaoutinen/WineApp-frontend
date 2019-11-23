@@ -38,7 +38,6 @@
 
 <script>
   import WineService from "@/services/WineService.js";
-  import WineStore from "@/stores/WineStore.js";
 
   const wineService = new WineService();
 
@@ -55,7 +54,6 @@
           foodPairings: "",
           url: ""
         },
-        WineStore: WineStore.data
       }
     },
     methods: {
@@ -64,7 +62,7 @@
         // If submit is OK, clear form.
         this.wine.description = this.parseKeywords(this.wine.description);
         this.wine.foodPairings = this.parseKeywords(this.wine.foodPairings);
-        wineService.addWine(this.wine);
+        wineService.postWine(this.wine);
       },
       parseKeywords(string) {
         return string.split(",").map(word => word.trim());

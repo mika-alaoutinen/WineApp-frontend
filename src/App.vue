@@ -2,7 +2,7 @@
   <div id="app">
     <h1>Viinit</h1>
     <wine-form/>
-    <wine-table @delete:wine="deleteWine"/></div>
+    <wine-table/></div>
 </template>
 
 <script>
@@ -21,12 +21,6 @@
 
     mounted() {
       wineService.getWines();
-    },
-
-    methods: {
-      async getWine(id) { WineService.getWine(id) },
-      async editWine(id, editedWine) { WineService.edit(id, editedWine) },
-      async deleteWine(id) { WineService.deleteWine(id) }
     },
   }
     

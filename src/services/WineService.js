@@ -9,6 +9,13 @@ class WineService {
     }
 
     /**
+     * @returns WineStore data, i.e. an array of wines.
+     */
+    getWineStore() {
+        return this.wineStore.data;
+    }
+
+    /**
      * Add all wines received from the backend to wineStore.
      */
     async getWines() {
@@ -31,7 +38,7 @@ class WineService {
      * Send a new wine to backend for persisting.
      * @param {Wine} wine 
      */
-    async addWine(wine) {
+    async postWine(wine) {
         axios.post(baseUrl, wine)
             .then(response => this.wineStore.addWine(response.data))
             .catch(error => console.log(error));
@@ -42,7 +49,7 @@ class WineService {
      * @param {Number} id 
      * @param {Wine} editedWine 
      */
-    async editWine(id, editedWine) {
+    async putWine(id, editedWine) {
         axios.put(baseUrl + id, editedWine)
             .then((response) => this.wineStore.editWine(id, response))
             .catch((error) => console.log(error));

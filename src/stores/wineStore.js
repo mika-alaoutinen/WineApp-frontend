@@ -1,6 +1,6 @@
 const WineStore = {
     data: {
-        wines: [], // TODO: change to map?
+        wines: []
     },
     init(wineArray) {
         this.data.wines = wineArray;
