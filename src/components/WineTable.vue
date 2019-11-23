@@ -1,9 +1,6 @@
 <template>
   <div id="wine-table">
-    <!-- Show info message if wine table is still loading: -->
-    <p v-if="!dataLoaded">Viinejä ladataan.</p>
-    <!-- Show info message if wine table is empty: -->
-    <p v-else-if="wines.length < 1" class="empty-table">Ei viinejä</p>
+    <p v-if="WineStore.wines.length < 1" class="empty-table">Ei viinejä</p>
     <table v-else>
       <thead>
         <tr>
@@ -19,7 +16,7 @@
       </thead>
       <tbody>
         <!-- TODO: figure out a smarter way to edit wines. -->
-        <tr v-for="wine in wines" :key="wine.id">
+        <tr v-for="wine in WineStore.wines" :key="wine.id">
           <td v-if="editing === wine.id">
             <input type="text" v-model="wine.name">
           </td>
@@ -46,11 +43,14 @@
 </template>
 
 <script>
+  import WineStore from "@/stores/WineStore.js";
+
   export default {
     name: "wine-table",
     data() {
       return {
-        editing: null
+        editing: null,
+        WineStore: WineStore.data
       }
     },
     methods: {
@@ -73,10 +73,9 @@
         this.editing = null;
       }
     },
-    props: {
-      dataLoaded: Boolean,
-      wines: Array
-    }
+    // props: {
+    //   // wines: Array
+    // }
   };
 </script>
 

@@ -1,10 +1,11 @@
 import axios from "axios";
+import WineStore from "@/stores/WineStore.js";
 
 const baseUrl = "http://localhost:8080/api/wines/";
 
-export class WineService {
-    constructor(wineStore) {
-        this.wineStore = wineStore;
+class WineService {
+    constructor() {
+        this.wineStore = WineStore;
     }
 
     /**
@@ -13,7 +14,9 @@ export class WineService {
     async getWines() {
         axios.get(baseUrl)
             .then(response => this.wineStore.init(response.data))
-            .catch(error => console.log(error))
+            .catch(error => console.log(error));
+        
+        console.log( this.wineStore.data.wines );
     }
 
     /**
@@ -57,3 +60,5 @@ export class WineService {
             .catch(error => console.log(error));
     }
 }
+
+export default WineService;
