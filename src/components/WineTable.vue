@@ -44,7 +44,6 @@
 
 <script>
   import WineService from "@/services/WineService.js";
-  import WineStore from "@/stores/WineStore.js";
 
   const wineService = new WineService();
 
@@ -52,7 +51,7 @@
     data() {
       return {
         editing: null,
-        WineStore: WineStore.data
+        WineStore: wineService.getWineStore()
       }
     },
     methods: {

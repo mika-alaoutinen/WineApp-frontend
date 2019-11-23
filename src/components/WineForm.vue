@@ -38,7 +38,6 @@
 
 <script>
   import WineService from "@/services/WineService.js";
-  import WineStore from "@/stores/WineStore.js";
 
   const wineService = new WineService();
 
@@ -55,7 +54,7 @@
           foodPairings: "",
           url: ""
         },
-        WineStore: WineStore.data
+        WineStore: wineService.getWineStore()
       }
     },
     methods: {

@@ -9,6 +9,13 @@ class WineService {
     }
 
     /**
+     * @returns WineStore data, i.e. an array of wines.
+     */
+    getWineStore() {
+        return this.wineStore.data;
+    }
+
+    /**
      * Add all wines received from the backend to wineStore.
      */
     async getWines() {

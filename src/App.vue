@@ -22,9 +22,6 @@
     mounted() {
       wineService.getWines();
     },
-
-    methods: {
-    },
   }
     
 </script>
