@@ -37,8 +37,12 @@
 </template>
 
 <script>
+  import WineService from "@/services/WineService.js";
+  import WineStore from "@/stores/WineStore.js";
+
+  const wineService = new WineService();
+
   export default {
-    name: "wine-form",
     data() {
       return {
         wine: {
@@ -47,15 +51,21 @@
           country: "",
           price: "",
           quantity: "",
-          description: [],
-          foodPairings: [],
+          description: "",
+          foodPairings: "",
           url: ""
-        }
+        },
+        WineStore: WineStore.data
       }
     },
     methods: {
       submitForm() {
-        this.$emit("add:wine", this.wine)
+        this.wine.description = this.parseKeywords(this.wine.description);
+        this.wine.foodPairings = this.parseKeywords(this.wine.foodPairings);
+        wineService.addWine(this.wine);
+      },
+      parseKeywords(string) {
+        return string.split(",").map(word => word.trim());
       }
     }
   };

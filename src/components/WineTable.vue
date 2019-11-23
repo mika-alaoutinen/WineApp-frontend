@@ -73,9 +73,6 @@
         this.editing = null;
       }
     },
-    // props: {
-    //   // wines: Array
-    // }
   };
 </script>
 

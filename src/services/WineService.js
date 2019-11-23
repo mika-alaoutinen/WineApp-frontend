@@ -15,8 +15,6 @@ class WineService {
         axios.get(baseUrl)
             .then(response => this.wineStore.init(response.data))
             .catch(error => console.log(error));
-        
-        console.log( this.wineStore.data.wines );
     }
 
     /**
@@ -35,7 +33,7 @@ class WineService {
      */
     async addWine(wine) {
         axios.post(baseUrl, wine)
-            .then(response => this.wineStore.addWine(response))
+            .then(response => this.wineStore.addWine(response.data))
             .catch(error => console.log(error));
     }
 
