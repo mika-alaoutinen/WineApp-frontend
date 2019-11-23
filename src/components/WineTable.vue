@@ -1,6 +1,6 @@
 <template>
   <div id="wine-table">
-    <p v-if="WineStore.wines.length < 1" class="empty-table">Ei viinejä</p>
+    <p v-if="wineStore.wines.length < 1" class="empty-table">Ei viinejä</p>
     <table v-else>
       <thead>
         <tr>
@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <!-- TODO: figure out a smarter way to edit wines. -->
-        <tr v-for="wine in WineStore.wines" :key="wine.id">
+        <tr v-for="wine in wineStore.wines" :key="wine.id">
           <td v-if="editing === wine.id">
             <input type="text" v-model="wine.name">
           </td>
@@ -51,7 +51,7 @@
     data() {
       return {
         editing: null,
-        WineStore: wineService.getWineStore()
+        wineStore: wineService.getWineStore()
       }
     },
     methods: {
