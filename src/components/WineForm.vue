@@ -54,7 +54,6 @@
           foodPairings: "",
           url: ""
         },
-        WineStore: wineService.getWineStore()
       }
     },
     methods: {
