@@ -44,7 +44,6 @@
 
 <script>
   import WineService from "@/services/WineService.js";
-
   const wineService = new WineService();
 
   export default {
