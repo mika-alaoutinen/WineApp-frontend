@@ -15,6 +15,20 @@ class WineService {
         return this.wineStore.data;
     }
 
+    // TODO: fix this.
+    getFromWineStore(id) {
+        console.log("ID: ", id);
+        let foundWine = Array
+            .from(this.wineStore.data.wines)
+            .find(wine => wine.id == id);
+        
+        if (foundWine === undefined) {
+            this.getWine(id).then(response => foundWine = response)
+        }
+
+        return foundWine;
+    }
+
     /**
      * Add all wines received from the backend to wineStore.
      */
@@ -29,7 +43,8 @@ class WineService {
      * @param {Number} wine id 
      */
     async getWine(id) {
-        axios.get(baseUrl + id)
+        console.log("get: ", baseUrl, id);
+        axios.get(baseUrl, id)
             .then(response => this.wineStore.addWine(response.data))
             .catch(error => console.log(error));
     }
