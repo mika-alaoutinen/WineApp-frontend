@@ -1,29 +1,25 @@
 <template>
   <div id="app">
-    <h1>Viinit</h1>
-    <wine-form/>
-    <wine-table/></div>
+    <h1>Wine App</h1>
+    <p>Viininmaistelusovellus</p>
+    <div id="navigation">
+      <router-link to="wines">Wines</router-link>
+      <router-link to="add-wine">New wine</router-link>
+    </div>
+    <router-view/>
+  </div>
 </template>
 
 <script>
-  import WineForm from "@/components/WineForm.vue"
-  import WineTable from "@/components/WineTable.vue"
   import WineService from "@/services/WineService.js";
-
-  const wineService = new WineService();
 
   export default {
     name: "app",
-    components: {
-      WineForm,
-      WineTable
-    },
-
+    components: {},
     mounted() {
-      wineService.getWines();
+      new WineService().getWines();
     },
   }
-    
 </script>
 
 <style>
@@ -34,5 +30,9 @@
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+  }
+  #navigation a {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
   }
 </style>
