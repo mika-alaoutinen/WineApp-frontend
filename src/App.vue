@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Home/>
+    <Wine/> <!-- delete -->
     <router-view/>
   </div>
 </template>
@@ -8,11 +9,13 @@
 <script>
   import Home from "@/components/Home.vue";
   import WineService from "@/services/WineService.js";
+  import Wine from "@/components/Wine.vue"; // delete
 
   export default {
     name: "app",
     components: {
-      Home
+      Home,
+      Wine // delete
     },
     mounted() {
       new WineService().getWines();
