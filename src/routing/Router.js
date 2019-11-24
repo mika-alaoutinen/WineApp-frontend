@@ -13,11 +13,7 @@ export default new Router({
             path: "/wine/:id",
             name: "Show a wine",
             component: Wine,
-            props(route) {
-                const props = {...route.params};
-                props.id = +props.id;
-                return props;
-              }
+            props: true
         },
         {
             path: "/wines",

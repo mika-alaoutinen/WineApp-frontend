@@ -39,7 +39,7 @@
       // to Wine component!
       // Deletes the 'name' property from wine, because the name is shown as heading.
       getWine: function() {
-        return wineService.getFromWineStore(this.props.id);
+        return wineService.getFromWineStore(this.$props.id);
       },
       wineWithoutName: function() {
         const wineWithoutName = Object.assign({}, this.wine);
