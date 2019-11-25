@@ -1,21 +1,18 @@
 <template>
   <div id="app">
-    <Home/>
-    <Wine/> <!-- delete -->
+    <Navigation/>
     <router-view/>
   </div>
 </template>
 
 <script>
-  import Home from "@/components/Home.vue";
+  import Navigation from "@/components/Navigation.vue";
   import WineService from "@/services/WineService.js";
-  import Wine from "@/components/Wine.vue"; // delete
 
   export default {
     name: "app",
     components: {
-      Home,
-      Wine // delete
+      Navigation,
     },
     mounted() {
       new WineService().getWines();

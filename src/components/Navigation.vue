@@ -5,17 +5,10 @@
     <div id="navigation">
       <router-link to="wines">Wines</router-link>
       <router-link to="add-wine">New wine</router-link>
+      <router-link to="wine/10">Wine 10</router-link>
     </div>
   </div>
 </template>
-
-<script>
-  export default {
-    data() {
-      return {};
-    }
-  };
-</script>
 
 <style>
   #navigation a {

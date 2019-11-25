@@ -10,7 +10,7 @@ export default new Router({
     mode: "history",
     routes: [
         {
-            path: "/wine/:id",
+            path: "/wine/:wineId",
             name: "Show a wine",
             component: Wine,
             props: true

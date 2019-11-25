@@ -7,10 +7,6 @@
         <div class="right-column">{{value}}</div>
       </div>
     </div>
-
-    <!-- delete -->
-    <div v-for="(attr, index) in wine1" :key="index">{{attr}}</div>
-
   </div>
 </template>
 
@@ -21,33 +17,18 @@
   export default {
     data() {
       return {
-          wine: {
-            name: "Viini",
-            type: "red",
-            country: "Suomi",
-            price: "10",
-            quantity: "1",
-            description: "makea, marjainen",
-            foodPairings: "kaikki käy",
-            url: "mika.fi"
-          },
-          wine1: this.getWine
+          wine: wineService.getFromWineStore(this.$props.wineId)
       };
     },
     computed: {
-      // TODO: This is probably a bad solution if I want to add editing functionality
-      // to Wine component!
       // Deletes the 'name' property from wine, because the name is shown as heading.
-      getWine: function() {
-        return wineService.getFromWineStore(this.$props.id);
-      },
       wineWithoutName: function() {
         const wineWithoutName = Object.assign({}, this.wine);
         delete wineWithoutName.name;
         return wineWithoutName;
       },
     },
-    props: ["id"]
+    props: ["wineId"]
   };
 </script>
 
