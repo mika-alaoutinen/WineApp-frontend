@@ -1,29 +1,24 @@
 <template>
   <div id="app">
-    <h1>Viinit</h1>
-    <wine-form/>
-    <wine-table/></div>
+    <TheNavigation/>
+    <router-view/>
+  </div>
 </template>
 
 <script>
-  import WineForm from "@/components/WineForm.vue"
-  import WineTable from "@/components/WineTable.vue"
+  import TheNavigation from "@/components/TheNavigation.vue";
   import WineService from "@/services/WineService.js";
-
-  const wineService = new WineService();
 
   export default {
     name: "app",
     components: {
-      WineForm,
-      WineTable
+      TheNavigation,
     },
-
+    
     mounted() {
-      wineService.getWines();
+      new WineService().getWines();
     },
   }
-    
 </script>
 
 <style>
