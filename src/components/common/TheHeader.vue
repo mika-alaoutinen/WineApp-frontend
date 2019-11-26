@@ -1,13 +1,12 @@
 <template>
-  
+  <div id="header">
+    <p>Header</p>
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+  export default {};
 </script>
 
 <style>
-
 </style>
