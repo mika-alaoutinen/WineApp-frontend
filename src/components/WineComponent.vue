@@ -18,6 +18,12 @@
       <button class="button-delete" @click="deleteWine(wine.id)">Poista</button>
     </div>
 
+    <!-- TODO: implement editing text fields. Example below. -->
+    <!-- <td v-if="editing === wine.id">
+      <input type="text" @keyup.enter="editWine(wine)" v-model="wine.name">
+    </td>
+    <td v-else>{{ wine.name }}</td> -->
+
   </div>
 </template>
 
