@@ -2,9 +2,10 @@
   <div id="wine-table">
     <p v-if="wineStore.wines.length < 1" class="empty-table">Ei viinejä</p>
     <table v-else>
-      
+
       <thead>
         <tr>
+          <th>ID</th>
           <th>Nimi</th>
           <th>Tyyppi</th>
           <th>Maa</th>
@@ -17,15 +18,9 @@
       </thead>
 
       <tbody>
+        <!-- TODO: how to skip ID? -->
         <tr v-for="wine in wineStore.wines" :key="wine.id">
-          <td>{{ wine.name }}</td>
-          <td>{{ wine.type }}</td>
-          <td>{{ wine.country }}</td>
-          <td>{{ wine.price }}</td>
-          <td>{{ wine.quantity }}</td>
-          <td>{{ wine.description }}</td>
-          <td>{{ wine.foodPairings }}</td>
-          <td>{{ wine.url }}</td>
+          <td v-for="(value, index) in wine" :key="index">{{value}}</td>
           <!-- TODO: wine info should be shown by clicking on a line in the wine table? -->
           <button @click="openWineInfo(wine.id)">Info</button>
         </tr>
