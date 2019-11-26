@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import TheNavigation from "@/components/TheNavigation.vue";
+  import TheNavigation from "@/components/common/TheNavigation.vue";
   import WineService from "@/services/WineService.js";
 
   export default {

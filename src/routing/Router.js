@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import WineComponent from "@/components/WineComponent.vue";
-import WineForm from "@/components/WineForm.vue";
-import WineTable from "@/components/WineTable.vue";
+import WineComponent from "@/components/wine/WineComponent.vue";
+import WineForm from "@/components/wine/WineForm.vue";
+import WineTable from "@/components/wine/WineTable.vue";
 
 Vue.use(Router);
 
