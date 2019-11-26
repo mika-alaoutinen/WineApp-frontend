@@ -20,6 +20,7 @@
           wine: wineService.getFromWineStore(this.$props.wineId)
       };
     },
+
     computed: {
       // Deletes the 'name' property from wine, because the name is shown as heading.
       wineWithoutName: function() {
@@ -28,7 +29,13 @@
         return wineWithoutName;
       },
     },
-    props: ["wineId"]
+
+    props: {
+      wineId: {
+        type: String,
+        required: true
+      }
+    }
   };
 </script>
 

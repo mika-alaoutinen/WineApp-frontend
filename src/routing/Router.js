@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Wine from "@/components/Wine.vue";
+import WineComponent from "@/components/WineComponent.vue";
 import WineForm from "@/components/WineForm.vue";
 import WineTable from "@/components/WineTable.vue";
 
@@ -12,14 +12,16 @@ export default new Router({
         {
             path: "/wine/:wineId",
             name: "Show a wine",
-            component: Wine,
+            component: WineComponent,
             props: true
         },
+        
         {
             path: "/wines",
             name: "Show wines",
             component: WineTable
         },
+
         {
             path: "/add-wine",
             name: "Add wine",

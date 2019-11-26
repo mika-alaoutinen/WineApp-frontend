@@ -28,6 +28,7 @@
           <td>{{ wine.description }}</td>
           <td>{{ wine.foodPairings }}</td>
           <td>{{ wine.url }}</td>
+
           <td v-if="editing === wine.id">
             <button @click="editWine(wine)">Tallenna</button>
             <button class="muted-button" @click="cancelEdit(wine)">Peruuta</button>
@@ -53,32 +54,39 @@
         wineStore: wineService.getWineStore()
       }
     },
+
     methods: {
       editMode(wine) {
         this.cachedWine = Object.assign({}, wine);
         this.editing = wine.id;
       },
+
       editWine(wine) {
-        const wineHasEmptyValue = Array
-          .from(Object.values(wine))
-          .some(value => value === "" || value === []);
-        
-        if (wineHasEmptyValue) {
+        if (inputIsInvalid(wine)) {
           return;
         }
-
         wineService.putWine(wine.id, wine);
         this.editing = null;
       },
+
       cancelEdit(wine) {
         Object.assign(wine, this.cachedWine);
         this.editing = null;
       },
+
       deleteWine(id) {
         wineService.deleteWine(id);
       }
     },
   };
+
+  // Private functions:
+  function inputIsInvalid(wine) {
+    return Array
+        .from(Object.values(wine))
+        .some(value => value === "" || value === []);
+  }
+
 </script>
 
 <style scoped>

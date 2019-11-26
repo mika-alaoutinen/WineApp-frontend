@@ -1,19 +1,20 @@
 <template>
   <div id="app">
-    <Navigation/>
+    <TheNavigation/>
     <router-view/>
   </div>
 </template>
 
 <script>
-  import Navigation from "@/components/Navigation.vue";
+  import TheNavigation from "@/components/TheNavigation.vue";
   import WineService from "@/services/WineService.js";
 
   export default {
     name: "app",
     components: {
-      Navigation,
+      TheNavigation,
     },
+    
     mounted() {
       new WineService().getWines();
     },
