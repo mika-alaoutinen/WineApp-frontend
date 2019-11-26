@@ -34,6 +34,8 @@
             <button class="muted-button" @click="cancelEdit(wine)">Peruuta</button>
           </td>
           <td v-else>
+            <!-- TODO: wine info should be shown by clicking on a line in the wine table? -->
+            <button @click="openWineInfo(wine.id)">Info</button>
             <button @click="editMode(wine)">Muokkaa</button>
             <button @click="deleteWine(wine.id)">Poista</button>
           </td>
@@ -56,6 +58,10 @@
     },
 
     methods: {
+      openWineInfo(id) {
+        this.$router.push("/wine/" + id);
+      },
+
       editMode(wine) {
         this.cachedWine = Object.assign({}, wine);
         this.editing = wine.id;
