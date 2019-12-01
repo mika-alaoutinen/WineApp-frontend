@@ -51,7 +51,7 @@ class WineService {
      */
     async putWine(id, editedWine) {
         axios.put(baseUrl + id, editedWine)
-             .then((response) => this.wineStore.editWine(id, response))
+             .then(response => this.wineStore.editWine(id, response))
              .catch((error) => console.log(error));
     }
 

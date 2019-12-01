@@ -1,14 +1,20 @@
 <template>
   <div id="wine">
-
     <div class="wine-name">{{this.wine.name}}</div>
+    
     <div class="table">
-      <div class="tablerow" v-for="(value, attribute, index) in wineWithoutName" :key="index">
-        <div class="left-column">{{attribute}}</div>
-        <div class="right-column">{{value}}</div>
+      <div class="tablerow" v-for="(value, attribute, index) in wine" :key="index">
+        <div class="left-column">{{ attribute }}</div>
+        <!-- Editing mode -->
+        <div v-if="editing === wine.id" class="right-column">
+          <input type="text" @keyup.enter="editWine(wine)" v-model="wine[attribute]">
+        </div>
+        <!-- View mode -->
+        <div v-else class="right-colument"> {{ value }} </div>
       </div>
     </div>
 
+    <!-- Edit and delete buttons -->
     <div class="buttons" v-if="editing === this.wine.id">
       <button @click="editWine(wine)">Tallenna</button>
       <button class="muted-button" @click="cancelEdit(wine)">Peruuta</button>
@@ -17,12 +23,6 @@
       <button class="button-edit" @click="editMode(wine)">Muokkaa</button>
       <button class="button-delete" @click="deleteWine(wine.id)">Poista</button>
     </div>
-
-    <!-- TODO: implement editing text fields. Example below. -->
-    <!-- <td v-if="editing === wine.id">
-      <input type="text" @keyup.enter="editWine(wine)" v-model="wine.name">
-    </td>
-    <td v-else>{{ wine.name }}</td> -->
 
   </div>
 </template>
@@ -37,7 +37,7 @@
     data() {
       return {
         editing: null,
-        wine: wineService.getFromWineStore(this.$props.wineId)
+        wine: wineService.getFromWineStore(this.$props.wineId),
       };
     },
 
@@ -95,7 +95,7 @@
   .table, .wine-name {
     background: pink;
     margin: auto;
-    width:75%;
+    /* width:75%; */
   }
   .table { display: table }
   .tablerow { display: table-row }
