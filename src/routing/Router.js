@@ -16,23 +16,21 @@ export default new Router({
             name: "Home page",
             component: TheHomePage,
         },
-
+        
         // Reviews:
 
         // Wines:
         {
-            path: "/wine/:wineId",
+            path: "/wines",
+            name: "Show wines",
+            component: WineTable,
+        },
+        {
+            path: "/wines/:wineId",
             name: "Show a wine",
             component: WineComponent,
             props: true
         },
-        
-        {
-            path: "/wines",
-            name: "Show wines",
-            component: WineTable
-        },
-
         {
             path: "/add-wine",
             name: "Add wine",
