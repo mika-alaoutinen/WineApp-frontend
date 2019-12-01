@@ -1,6 +1,5 @@
 <template>
   <div id="navigation">
-    
     <h1>Wine App</h1>
     <p>Viinin maistelu sovellus.</p>
 
