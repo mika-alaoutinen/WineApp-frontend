@@ -44,7 +44,7 @@
 
     methods: {
       openWineInfo(id) {
-        this.$router.push("/wine/" + id);
+        this.$router.push("/wines/" + id);
       },
     },
   };
