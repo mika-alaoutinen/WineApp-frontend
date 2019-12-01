@@ -1,9 +1,11 @@
 import axios from "axios";
+import ReviewStore from "@/stores/ReviewStore.js";
 
 const baseUrl = "http://localhost:8080/api/reviews/";
 
 class ReviewService {
     constructor() {
+        this.reviewStore = ReviewStore;
     }
 
     async getReviewCount() {
