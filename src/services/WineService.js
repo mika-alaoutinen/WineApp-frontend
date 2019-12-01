@@ -15,23 +15,23 @@ class WineService {
         return this.wineStore.data;
     }
 
+    async getWineCount() {
+        return axios.get(baseUrl + "count")
+                    .catch(error => console.log(error));
+    }
+
+    getFromWineStore(id) {
+        return Array.from(this.wineStore.data.wines)
+                    .find(wine => wine.id == id);
+    }
+
     /**
      * Add all wines received from the backend to wineStore.
      */
     async getWines() {
         axios.get(baseUrl)
-            .then(response => this.wineStore.init(response.data))
-            .catch(error => console.log(error));
-    }
-
-    /**
-     * Add a single found wine to wineStore.
-     * @param {Number} wine id 
-     */
-    async getWine(id) {
-        axios.get(baseUrl + id)
-            .then(response => this.wineStore.addWine(response.data))
-            .catch(error => console.log(error));
+             .then(response => this.wineStore.addAll(response.data))
+             .catch(error => console.log(error));
     }
 
     /**
@@ -40,8 +40,8 @@ class WineService {
      */
     async postWine(wine) {
         axios.post(baseUrl, wine)
-            .then(response => this.wineStore.addWine(response.data))
-            .catch(error => console.log(error));
+             .then(response => this.wineStore.addWine(response.data))
+             .catch(error => console.log(error));
     }
 
     /**
@@ -51,8 +51,8 @@ class WineService {
      */
     async putWine(id, editedWine) {
         axios.put(baseUrl + id, editedWine)
-            .then((response) => this.wineStore.editWine(id, response))
-            .catch((error) => console.log(error));
+             .then(response => this.wineStore.editWine(id, response))
+             .catch((error) => console.log(error));
     }
 
     /**
@@ -61,8 +61,8 @@ class WineService {
      */
     async deleteWine(id) {
         axios.delete(baseUrl + id)
-            .then(() => this.wineStore.deleteWine(id))
-            .catch(error => console.log(error));
+             .then(() => this.wineStore.deleteWine(id))
+             .catch(error => console.log(error));
     }
 }
 
