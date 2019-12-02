@@ -4,7 +4,7 @@
       <fieldset id="add-wine">
         <legend>Lisää uusi viini</legend>
 
-        <label>Nimi</label>
+        <!-- <label>Nimi</label>
         <input type="text" required v-model="wine.name"/>
 
         <label for="wine-types">Viinin tyyppi</label>
@@ -31,13 +31,41 @@
         <input v-model="wine.quantity" type="text" />
 
         <label>Kuvaus</label>
-        <input v-model="wine.description" type="text" /> <!-- TODO: change to array -->
+        <input v-model="wine.description" type="text" />
 
         <label>Sopii nautittavaksi</label>
-        <input v-model="wine.foodPairings" type="text" /> <!-- TODO: change to array -->
+        <input v-model="wine.foodPairings" type="text" />
 
         <label>URL</label>
-        <input v-model="wine.url" type="text" />
+        <input v-model="wine.url" type="text" /> -->
+
+        <!-- Create form fields, except for wine type -->
+        <div v-for="(value, attribute) in wine" :key="attribute">
+          <div v-if="attribute !== 'type'" :id="'new-wine-' + attribute">
+            <label> {{ attribute }} </label>
+            <input type="text" v-model="wine[attribute]">
+          </div>
+          <!-- Radio buttons for wine type -->
+          <div id="radio-buttons" v-else></div>
+        </div>
+
+        <!-- Radio buttons for selecting wine type -->
+        <!-- TODO: replace with winetypes[] for loop -->
+        <div id="wine-type-radio-buttons">
+          <label for="wine-types">Viinin tyyppi</label>
+          <div class="radiobuttons" id="wine-types">
+            <input type="radio" name="wine-type" value="SPARKLING" required v-model="wine.type">
+            <label for="kuohu">Kuohuviini</label>
+            <input type="radio" name="wine-type" value="RED" v-model="wine.type">
+            <label for="puna">Punaviini</label>
+            <input type="radio" name="wine-type" value="ROSE" v-model="wine.type">
+            <label for="rose">Roseviini</label>
+            <input type="radio" name="wine-type" value="WHITE" v-model="wine.type">
+            <label for="valko">Valkoviini</label>
+            <input type="radio" name="wine-type" value="OTHER" v-model="wine.type">
+            <label for="muu">Muu viini</label>
+          </div>
+        </div>
         
         <p><button>Lisää viini</button></p>
       </fieldset>
@@ -63,6 +91,11 @@
           url: ""
         },
       }
+    },
+
+    mounted() {
+      const buttons = document.getElementById("wine-type-radio-buttons");
+      document.getElementById("radio-buttons").appendChild(buttons);
     },
 
     methods: {
