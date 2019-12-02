@@ -18,7 +18,8 @@
           <div class="radio-buttons" v-for="wineType in wineTypes" :key="wineType">
             <input type="radio" name="wine-type"
                    :id="wineType" :value="wineType.toUpperCase()" v-model="wine.type">
-            <label class="wine-type-label" :for="wineType">{{ wineType }}</label>
+            <!-- <label class="wine-type-label" :for="wineType">{{ wineType }}</label> -->
+            <label class="wine-type-label" :for="wineType">{{ translate(wineType) }}</label>
           </div>
         </div>
 
@@ -30,6 +31,8 @@
 
 <script>
   import WineService from "@/services/WineService.js";
+  import Dictionary from "@/utilities/Dictionary.js";
+
   const wineService = new WineService();
 
   export default {
@@ -45,7 +48,7 @@
           foodPairings: "",
           url: ""
         },
-        wineTypes: [ "sparkling", "red", "rose", "white", "other" ]
+        wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
       }
     },
 
@@ -57,6 +60,9 @@
     },
 
     methods: {
+      translate(word) {
+        return Dictionary[word];
+      },
       submitForm() {
         // TODO: add feedback on submit. Did submit succeed or fail?
         // If submit is OK, clear form.
