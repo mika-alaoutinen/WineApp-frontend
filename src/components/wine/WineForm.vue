@@ -6,14 +6,13 @@
 
         <!-- Create form fields, except for wine type -->
         <div v-for="(value, attribute) in wine" :key="attribute">
-          <div v-if="attribute !== 'type'">
+          <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
             <label> {{ attribute }} </label>
             <input type="text" v-model="wine[attribute]">
           </div>
-          <!-- Radio buttons for wine type -->
-          <div v-else id="radio-buttons"></div>
         </div>
 
+        <!-- Radio buttons for selecting wine type -->
         <div id="wine-type-radio-buttons">
           <label for="wine-types">Viinin tyyppi</label>
           <div class="radio-buttons" v-for="wineType in wineTypes" :key="wineType">
@@ -51,14 +50,13 @@
     },
 
     mounted() {
-      this.createRadioButtons();
+      // Move wine type radio buttons under the name field:
+      const buttons = document.getElementById("wine-type-radio-buttons");
+      document.getElementById("wine-name")
+              .appendChild(buttons);
     },
 
     methods: {
-      createRadioButtons() {
-        const buttons = document.getElementById("wine-type-radio-buttons");
-        document.getElementById("radio-buttons").appendChild(buttons);
-      },
       submitForm() {
         // TODO: add feedback on submit. Did submit succeed or fail?
         // If submit is OK, clear form.
