@@ -3,7 +3,7 @@
 
     <div class="table">
       <div class="tablerow" v-for="(value, attribute, index) in displayWine" :key="index">
-        <div class="left-column">{{ attribute }}</div>
+        <div class="left-column">{{ translate(attribute) }}</div>
         <!-- Editing mode -->
         <div v-if="editing === wine.id" class="right-column">
           <input type="text" @keyup.enter="editWine(wine)" v-model="wine[attribute]">
@@ -28,6 +28,8 @@
 
 <script>
   import WineService from "@/services/WineService.js";
+  import Dictionary from "@/utilities/Dictionary.js";
+  
   const wineService = new WineService();
 
   export default {
@@ -68,7 +70,10 @@
       deleteWine(id) {
         wineService.deleteWine(id);
         this.$router.push("/wines/");
-      }
+      },
+      translate(word) {
+        return Dictionary[word];
+      },
     },
 
     props: {

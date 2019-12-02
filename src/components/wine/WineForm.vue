@@ -62,9 +62,6 @@
     },
 
     methods: {
-      translate(word) {
-        return Dictionary[word];
-      },
       submitForm() {
         // TODO: add feedback on submit. Did submit succeed or fail?
         // If submit is OK, clear form.
@@ -74,6 +71,9 @@
       },
       parseKeywords(string) {
         return string.split(",").map(word => word.trim());
+      },
+      translate(word) {
+        return Dictionary[word];
       },
     }
   };
