@@ -10,6 +10,7 @@ export default {
     quantity: "Määrä",
     description: "Kuvaus",
     foodPairings: "Sopii nautittavaksi",
+    url: "URL",
     
     // Wine types
     sparkling: "Kuohuviini",

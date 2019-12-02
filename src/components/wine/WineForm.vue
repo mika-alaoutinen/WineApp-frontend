@@ -7,7 +7,7 @@
         <!-- Create form fields, except for wine type -->
         <div v-for="(value, attribute) in wine" :key="attribute">
           <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
-            <label> {{ attribute }} </label>
+            <label> {{ translate(attribute) }} </label>
             <input type="text" v-model="wine[attribute]">
           </div>
         </div>
@@ -18,8 +18,10 @@
           <div class="radio-buttons" v-for="wineType in wineTypes" :key="wineType">
             <input type="radio" name="wine-type"
                    :id="wineType" :value="wineType.toUpperCase()" v-model="wine.type">
-            <!-- <label class="wine-type-label" :for="wineType">{{ wineType }}</label> -->
-            <label class="wine-type-label" :for="wineType">{{ translate(wineType) }}</label>
+            <label class="wine-type-label" :for="wineType">
+              <!-- Wine type is translated to Finnish -->
+              {{ translate(wineType) }}
+            </label>
           </div>
         </div>
 
