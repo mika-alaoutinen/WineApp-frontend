@@ -11,31 +11,14 @@
             <input type="text" v-model="wine[attribute]">
           </div>
           <!-- Radio buttons for wine type -->
-          <div id="radio-buttons" v-else></div>
+          <div v-else id="radio-buttons"></div>
         </div>
-
-        <!-- Radio buttons for selecting wine type -->
-        <!-- TODO: replace with winetypes[] for loop -->
-        <!-- <div id="wine-type-radio-buttons">
-          <label for="wine-types">Viinin tyyppi</label>
-          <div class="radio-buttons" id="wine-types">
-            <input type="radio" name="wine-type" id="kuohu" value="SPARKLING" required v-model="wine.type">
-            <label for="kuohu">Kuohuviini</label>
-            <input type="radio" name="wine-type" id="puna" value="RED" v-model="wine.type">
-            <label for="puna">Punaviini</label>
-            <input type="radio" name="wine-type" id="rose" value="ROSE" v-model="wine.type">
-            <label for="rose">Roseviini</label>
-            <input type="radio" name="wine-type" id="valko" value="WHITE" v-model="wine.type">
-            <label for="valko">Valkoviini</label>
-            <input type="radio" name="wine-type" id="muu" value="OTHER" v-model="wine.type">
-            <label for="muu">Muu viini</label>
-          </div>
-        </div> -->
 
         <div id="wine-type-radio-buttons">
           <label for="wine-types">Viinin tyyppi</label>
           <div class="radio-buttons" v-for="wineType in wineTypes" :key="wineType">
-            <input type="radio" name="wine-type" value=wineType v-model="wine.type" :id="wineType">
+            <input type="radio" name="wine-type"
+                   :id="wineType" :value="wineType.toUpperCase()" v-model="wine.type">
             <label class="wine-type-label" :for="wineType">{{ wineType }}</label>
           </div>
         </div>
