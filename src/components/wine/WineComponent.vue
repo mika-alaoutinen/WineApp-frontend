@@ -91,13 +91,14 @@
   }
 </script>
 
-<style>
+<style scoped>
   .left-column { font-weight: bold }
   .table {
     display: table;
     background: pink;
     margin: auto;
+    
   }
-  .tablerow { display: table-row }
+  .tablerow { display: table-row; }
   .tablerow > div { display: table-cell }
 </style>

@@ -8,7 +8,7 @@
   export default {};
 </script>
 
-<style>
+<style scoped>
   #footer {
     bottom: 0;
     height: 2.5rem;

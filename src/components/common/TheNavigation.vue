@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
   #navigation a {
     padding-left: 0.5em;
     padding-right: 0.5em;
