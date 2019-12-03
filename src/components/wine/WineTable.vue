@@ -40,7 +40,6 @@
     data() {
       return {
         dictionary: Dictionary,
-        editing: null,
         shownAttributes: ["name", "type", "country", "price", "quantity"],
         wineStore: wineService.getWineStore(),
       }

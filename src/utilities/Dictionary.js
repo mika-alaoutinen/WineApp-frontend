@@ -19,7 +19,7 @@ export default {
         rose: "Roseviini",
         white: "Valkoviini",
         other: "Muu viini"
-        },
+    },
 
     translate(word) {
         return this.data[word];
