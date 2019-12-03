@@ -4,24 +4,17 @@
     <table v-else>
 
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nimi</th>
-          <th>Tyyppi</th>
-          <th>Maa</th>
-          <th>Hinta (€)</th>
-          <th>Määrä (l)</th>
-          <th>Kuvaus</th>
-          <th>Ruokasuositukset</th>
-          <th>URL</th>
-        </tr>
+        <th v-for="attribute in shownAttributes" :key="attribute">
+          {{ dictionary.translate(attribute) }}
+        </th>
       </thead>
 
       <tbody>
-        <!-- TODO: how to skip ID? -->
+        <!-- TODO: wine info should be shown by clicking on a line in the wine table? -->
         <tr v-for="wine in wineStore.wines" :key="wine.id">
-          <td v-for="(value, index) in wine" :key="index">{{value}}</td>
-          <!-- TODO: wine info should be shown by clicking on a line in the wine table? -->
+          <td v-for="attribute in shownAttributes" :key="attribute">
+            {{ wine[attribute] }}
+          </td>
           <button @click="openWineInfo(wine.id)">Info</button>
         </tr>
       </tbody>
@@ -32,14 +25,28 @@
 
 <script>
   import WineService from "@/services/WineService.js";
+  import Dictionary from "@/utilities/Dictionary.js";
+  
   const wineService = new WineService();
+
+  /*
+  TODO:
+  - Change dictionary to have translate(word) method.
+  - Add sorting buttons to table headings: sort by name, type, country, price or quantity.
+  - Show wine type with the background color of the row?
+  */
 
   export default {
     data() {
       return {
-        editing: null,
-        wineStore: wineService.getWineStore()
+        dictionary: Dictionary,
+        shownAttributes: ["name", "type", "country", "price", "quantity"],
+        wineStore: wineService.getWineStore(),
       }
+    },
+
+    mounted() {
+      wineService.getWines();
     },
 
     methods: {
