@@ -4,15 +4,15 @@
     <p>Viinin maistelu sovellus.</p>
 
     <div id="navigation">
-      <router-link to="/home">Home</router-link>
-      <router-link to="/wines">Wines</router-link>
-      <router-link to="/add-wine">New wine</router-link>
+      <router-link to="/home">Aloitus</router-link>
+      <router-link to="/wines">Viinit</router-link>
+      <router-link to="/add-wine">Lisää viini</router-link>
     </div>
     
   </div>
 </template>
 
-<style>
+<style scoped>
   #navigation a {
     padding-left: 0.5em;
     padding-right: 0.5em;

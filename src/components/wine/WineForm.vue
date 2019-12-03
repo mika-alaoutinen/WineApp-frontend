@@ -4,41 +4,27 @@
       <fieldset id="add-wine">
         <legend>Lisää uusi viini</legend>
 
-        <label>Nimi</label>
-        <input type="text" required v-model="wine.name"/>
-
-        <label for="wine-types">Viinin tyyppi</label>
-        <div class="radiobuttons" id="wine-types">
-          <input type="radio" name="wine-type" id="kuohu" value="SPARKLING" required v-model="wine.type">
-          <label for="kuohu">Kuohuviini</label>
-          <input type="radio" name="wine-type" id="puna" value="RED" v-model="wine.type">
-          <label for="puna">Punaviini</label>
-          <input type="radio" name="wine-type" id="rose" value="ROSE" v-model="wine.type">
-          <label for="rose">Roseviini</label>
-          <input type="radio" name="wine-type" id="valko" value="WHITE" v-model="wine.type">
-          <label for="valko">Valkoviini</label>
-          <input type="radio" name="wine-type" id="muu" value="OTHER" v-model="wine.type">
-          <label for="muu">Muu viini</label>
+        <!-- Create form fields, except for wine type -->
+        <div v-for="(value, attribute) in wine" :key="attribute">
+          <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
+            <label> {{ translate(attribute) }} </label>
+            <input type="text" v-model="wine[attribute]">
+          </div>
         </div>
-        
-        <label>Maa</label>
-        <input v-model="wine.country" type="text" />
 
-        <label>Hinta (€)</label>
-        <input v-model="wine.price" type="text" />
+        <!-- Radio buttons for selecting wine type -->
+        <div id="wine-type-radio-buttons">
+          <label for="wine-types">Viinin tyyppi</label>
+          <div class="radio-buttons" v-for="wineType in wineTypes" :key="wineType">
+            <input type="radio" name="wine-type"
+                   :id="wineType" :value="wineType.toUpperCase()" v-model="wine.type">
+            <label class="wine-type-label" :for="wineType">
+              <!-- Wine type is translated to Finnish -->
+              {{ translate(wineType) }}
+            </label>
+          </div>
+        </div>
 
-        <label>Määrä (l)</label>
-        <input v-model="wine.quantity" type="text" />
-
-        <label>Kuvaus</label>
-        <input v-model="wine.description" type="text" /> <!-- TODO: change to array -->
-
-        <label>Sopii nautittavaksi</label>
-        <input v-model="wine.foodPairings" type="text" /> <!-- TODO: change to array -->
-
-        <label>URL</label>
-        <input v-model="wine.url" type="text" />
-        
         <p><button>Lisää viini</button></p>
       </fieldset>
     </form>
@@ -47,6 +33,8 @@
 
 <script>
   import WineService from "@/services/WineService.js";
+  import Dictionary from "@/utilities/Dictionary.js";
+
   const wineService = new WineService();
 
   export default {
@@ -62,8 +50,17 @@
           foodPairings: "",
           url: ""
         },
+        wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
       }
     },
+
+    mounted() {
+      // Move wine type radio buttons under the name field:
+      const buttons = document.getElementById("wine-type-radio-buttons");
+      document.getElementById("wine-name")
+              .appendChild(buttons);
+    },
+
     methods: {
       submitForm() {
         // TODO: add feedback on submit. Did submit succeed or fail?
@@ -74,7 +71,10 @@
       },
       parseKeywords(string) {
         return string.split(",").map(word => word.trim());
-      }
+      },
+      translate(word) {
+        return Dictionary[word];
+      },
     }
   };
 
@@ -86,7 +86,10 @@
     display: inline-block;
     width: 50%
   }
-  .radiobuttons label {
+  .radio-buttons {
+    display: inline;
+  }
+  .wine-type-label {
     display: inline;
     margin-left: 0.5em;
     margin-right: 1em;
