@@ -11,7 +11,6 @@
   import TheFooter from "@/components/common/TheFooter.vue";
   import TheHeader from "@/components/common/TheHeader.vue";
   import TheNavigation from "@/components/common/TheNavigation.vue";
-  import WineService from "@/services/WineService.js";
 
   export default {
     name: "app",
@@ -19,10 +18,6 @@
       TheFooter,
       TheHeader,
       TheNavigation,
-    },
-    
-    mounted() {
-      new WineService().getWines();
     },
   }
 </script>

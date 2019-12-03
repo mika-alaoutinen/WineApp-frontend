@@ -7,7 +7,7 @@
         <!-- Create form fields, except for wine type -->
         <div v-for="(value, attribute) in wine" :key="attribute">
           <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
-            <label> {{ translate(attribute) }} </label>
+            <label> {{ dictionary.translate(attribute) }} </label>
             <input type="text" v-model="wine[attribute]">
           </div>
         </div>
@@ -19,8 +19,7 @@
             <input type="radio" name="wine-type"
                    :id="wineType" :value="wineType.toUpperCase()" v-model="wine.type">
             <label class="wine-type-label" :for="wineType">
-              <!-- Wine type is translated to Finnish -->
-              {{ translate(wineType) }}
+              {{ dictionary.translate(wineType) }}
             </label>
           </div>
         </div>
@@ -40,6 +39,7 @@
   export default {
     data() {
       return {
+        dictionary: Dictionary,
         wine: {
           name: "",
           type: "",
@@ -70,10 +70,8 @@
         wineService.postWine(this.wine);
       },
       parseKeywords(string) {
-        return string.split(",").map(word => word.trim());
-      },
-      translate(word) {
-        return Dictionary[word];
+        return string.split(",")
+                     .map(word => word.trim());
       },
     }
   };
