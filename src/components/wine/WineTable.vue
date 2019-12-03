@@ -4,13 +4,9 @@
     <table v-else>
 
       <thead>
-        <tr>
-          <th>Nimi</th>
-          <th>Tyyppi</th>
-          <th>Maa</th>
-          <th>Hinta (€)</th>
-          <th>Määrä (l)</th>
-        </tr>
+        <th v-for="attribute in displayedWineAttributes" :key="attribute">
+          {{ translate(attribute) }}
+        </th>
       </thead>
 
       <tbody>
@@ -29,12 +25,13 @@
 
 <script>
   import WineService from "@/services/WineService.js";
+  import Dictionary from "@/utilities/Dictionary.js";
+  
   const wineService = new WineService();
 
   /*
   TODO:
   - Add sorting buttons to table headings: sort by name, type, country, price or quantity.
-  - Reformat rows. Don't show ID, description, food pairings and URL.
   - Show wine type with the background color of the row?
   */
 
@@ -54,6 +51,9 @@
     methods: {
       openWineInfo(id) {
         this.$router.push("/wines/" + id);
+      },
+      translate(word) {
+        return Dictionary[word];
       },
     },
   };
