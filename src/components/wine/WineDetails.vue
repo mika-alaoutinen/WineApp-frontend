@@ -42,7 +42,7 @@
     },
 
     computed: {
-      displayWine: function() {
+      displayWine() {
         const wineCopy = Object.assign({}, this.wine);
         delete wineCopy.id;
         return wineCopy;
