@@ -6,7 +6,11 @@
       :items="wineStore.wines"
       :items-per-page="30"
       @click:row="openWineInfo"
-    ></v-data-table>
+    >
+      <template v-slot:item.type="{ item }">
+        <td>{{ dictionary.translate(item.type) }}</td>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
@@ -25,6 +29,7 @@
     data() {
       return {
         dictionary: Dictionary,
+        headers: this.translateHeaders,
         wineStore: wineService.getWineStore(),
       }
     },
@@ -38,6 +43,14 @@
           { text: this.dictionary.translate("price"), value: "price" },
           { text: this.dictionary.translate("quantity"), value: "quantity" },
         ]
+      },
+      translateWineTypes() {
+        for (let wine of this.wineStore.wines) {
+          this.dictionary.translate(wine.type);
+        }
+
+        // wines.forEach(wine => wine.type = this.dictionary.translate(wine.type));
+        return this.wineStore.wines;
       }
     },
 
