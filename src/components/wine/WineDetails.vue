@@ -1,5 +1,5 @@
 <template>
-  <div id="wine">
+  <div id="wine-details">
 
     <div class="table">
       <div class="tablerow" v-for="(value, attribute, index) in displayWine" :key="index">
