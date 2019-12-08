@@ -1,25 +1,12 @@
 <template>
   <div id="wine-table">
     <p v-if="wineStore.wines.length < 1" class="empty-table">Ei viinejä</p>
-    <table v-else>
-
-      <thead>
-        <th v-for="attribute in shownAttributes" :key="attribute">
-          {{ dictionary.translate(attribute) }}
-        </th>
-      </thead>
-
-      <tbody>
-        <!-- TODO: wine info should be shown by clicking on a line in the wine table? -->
-        <tr v-for="wine in wineStore.wines" :key="wine.id">
-          <td v-for="attribute in shownAttributes" :key="attribute">
-            {{ wine[attribute] }}
-          </td>
-          <button @click="openWineInfo(wine.id)">Info</button>
-        </tr>
-      </tbody>
-      
-    </table>
+    <v-data-table v-else
+      :headers="translateHeaders"
+      :items="wineStore.wines"
+      :items-per-page="30"
+      @click:row="openWineInfo"
+    ></v-data-table>
   </div>
 </template>
 
@@ -31,8 +18,6 @@
 
   /*
   TODO:
-  - Change dictionary to have translate(word) method.
-  - Add sorting buttons to table headings: sort by name, type, country, price or quantity.
   - Show wine type with the background color of the row?
   */
 
@@ -40,8 +25,19 @@
     data() {
       return {
         dictionary: Dictionary,
-        shownAttributes: ["name", "type", "country", "price", "quantity"],
         wineStore: wineService.getWineStore(),
+      }
+    },
+
+    computed: {
+      translateHeaders() {
+        return [
+          { text: this.dictionary.translate("name"), value: "name" },
+          { text: this.dictionary.translate("type"), value: "type" },
+          { text: this.dictionary.translate("country"), value: "country" },
+          { text: this.dictionary.translate("price"), value: "price" },
+          { text: this.dictionary.translate("quantity"), value: "quantity" },
+        ]
       }
     },
 
@@ -50,9 +46,9 @@
     },
 
     methods: {
-      openWineInfo(id) {
-        this.$router.push("/wines/" + id);
-      },
+      openWineInfo(wine) {
+        this.$router.push("/wines/" + wine.id);
+      }
     },
   };
 
