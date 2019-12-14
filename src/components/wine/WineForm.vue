@@ -1,29 +1,33 @@
 <template>
-  <v-form @submit.prevent="submitForm" ref="add-wine">
-    <legend>Lisää uusi viini</legend>
-    <div v-for="(value, attribute) in wine" :key="attribute">
+  <div>
+    <h2>Lisää uusi viini</h2>
 
-      <!-- Generate text fields for wine attributes: -->
-      <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
-        <v-text-field
-          :label="dictionary.translate(attribute)"
-          v-model="wine[attribute]"
-        ></v-text-field>
+    <v-form @submit.prevent="submitForm" ref="add-wine">
+      <div v-for="(value, attribute) in wine" :key="attribute">
+
+        <!-- Generate text fields for wine attributes: -->
+        <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
+          <v-text-field
+            :label="dictionary.translate(attribute)"
+            v-model="wine[attribute]"
+          ></v-text-field>
+        </div>
+        
+        <!-- Generate radio buttons for wine types: -->
+        <v-radio-group v-else v-model="wine.type" row>
+          <v-radio
+            v-for="wineType in wineTypes" :key="wineType"
+            :label="dictionary.translate(wineType)"
+            :value="wineType.toUpperCase()"
+          ></v-radio>
+        </v-radio-group>
+
       </div>
-      
-      <!-- Generate radio buttons for wine types: -->
-      <v-radio-group v-else v-model="wine.type" row>
-        <v-radio
-          v-for="wineType in wineTypes" :key="wineType"
-          :label="dictionary.translate(wineType)"
-          :value="wineType.toUpperCase()"
-        ></v-radio>
-      </v-radio-group>
+      <!-- Form submit button to save the new wine: -->
+      <p><button>Lisää viini</button></p>
+    </v-form>
 
-    </div>
-    <!-- Form submit button to save the new wine: -->
-    <p><button>Lisää viini</button></p>
-  </v-form>
+  </div>
 </template>
 
 <script>

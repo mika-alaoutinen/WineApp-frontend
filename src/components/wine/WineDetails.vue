@@ -1,5 +1,6 @@
 <template>
-  <div id="wine-details">
+  <div>
+    <h2>Viinin tiedot</h2>
 
     <div class="table">
       <div class="tablerow" v-for="(value, attribute, index) in displayWine" :key="index">
@@ -92,7 +93,6 @@
     display: table;
     background: pink;
     margin: auto;
-    
   }
   .tablerow { display: table-row; }
   .tablerow > div { display: table-cell }
