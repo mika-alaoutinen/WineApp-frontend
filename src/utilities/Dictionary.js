@@ -22,6 +22,6 @@ export default {
     },
 
     translate(word) {
-        return this.data[word];
+        return this.data[word.toLowerCase()];
     }
 };

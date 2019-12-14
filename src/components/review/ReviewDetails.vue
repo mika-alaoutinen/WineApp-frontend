@@ -1,5 +1,5 @@
 <template>
-  
+  <div id="review-details"></div>
 </template>
 
 <script>

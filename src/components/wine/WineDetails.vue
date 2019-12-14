@@ -1,5 +1,5 @@
 <template>
-  <div id="wine">
+  <div id="wine-details">
 
     <div class="table">
       <div class="tablerow" v-for="(value, attribute, index) in displayWine" :key="index">
@@ -42,7 +42,7 @@
     },
 
     computed: {
-      displayWine: function() {
+      displayWine() {
         const wineCopy = Object.assign({}, this.wine);
         delete wineCopy.id;
         return wineCopy;
