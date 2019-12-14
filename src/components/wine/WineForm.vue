@@ -45,7 +45,7 @@
           type: "",
           country: "",
           price: "",
-          quantity: "",
+          volume: "",
           description: "",
           foodPairings: "",
           url: ""

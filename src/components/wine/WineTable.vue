@@ -41,7 +41,7 @@
           { text: this.dictionary.translate("type"), value: "type" },
           { text: this.dictionary.translate("country"), value: "country" },
           { text: this.dictionary.translate("price"), value: "price" },
-          { text: this.dictionary.translate("quantity"), value: "quantity" },
+          { text: this.dictionary.translate("volume"), value: "volume" },
         ]
       }
     },
@@ -60,5 +60,8 @@
 </script>
 
 <style scoped>
-  button { margin: 0 0.5rem 0 0 }
+  /*
+  TODO:
+    - Align price and volume to the right.
+  */
 </style>
