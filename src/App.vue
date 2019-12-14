@@ -11,7 +11,6 @@
   import TheFooter from "@/components/common/TheFooter.vue";
   import TheHeader from "@/components/common/TheHeader.vue";
   import TheNavigation from "@/components/common/TheNavigation.vue";
-
   export default {
     name: "app",
     components: {
@@ -33,7 +32,6 @@
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
-
     align-items: center;
     display: flex;
     flex-direction: column;
