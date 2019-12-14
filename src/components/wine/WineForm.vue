@@ -1,33 +1,29 @@
 <template>
-  <div id="wine-form">
-    <form @submit.prevent="submitForm">
-      <fieldset id="add-wine">
-        <legend>Lisää uusi viini</legend>
+  <v-form @submit.prevent="submitForm" ref="add-wine">
+    <legend>Lisää uusi viini</legend>
+    <div v-for="(value, attribute) in wine" :key="attribute">
 
-        <!-- Create form fields, except for wine type -->
-        <div v-for="(value, attribute) in wine" :key="attribute">
-          <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
-            <label> {{ dictionary.translate(attribute) }} </label>
-            <input type="text" v-model="wine[attribute]">
-          </div>
-        </div>
+      <!-- Generate text fields for wine attributes: -->
+      <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
+        <v-text-field
+          :label="dictionary.translate(attribute)"
+          v-model="wine[attribute]"
+        ></v-text-field>
+      </div>
+      
+      <!-- Generate radio buttons for wine types: -->
+      <v-radio-group v-else v-model="wine.type" row>
+        <v-radio
+          v-for="wineType in wineTypes" :key="wineType"
+          :label="dictionary.translate(wineType)"
+          :value="wineType.toUpperCase()"
+        ></v-radio>
+      </v-radio-group>
 
-        <!-- Radio buttons for selecting wine type -->
-        <div id="wine-type-radio-buttons">
-          <label for="wine-types">Viinin tyyppi</label>
-          <div class="radio-buttons" v-for="wineType in wineTypes" :key="wineType">
-            <input type="radio" name="wine-type"
-                   :id="wineType" :value="wineType.toUpperCase()" v-model="wine.type">
-            <label class="wine-type-label" :for="wineType">
-              {{ dictionary.translate(wineType) }}
-            </label>
-          </div>
-        </div>
-
-        <p><button>Lisää viini</button></p>
-      </fieldset>
-    </form>
-  </div>
+    </div>
+    <!-- Form submit button to save the new wine: -->
+    <p><button>Lisää viini</button></p>
+  </v-form>
 </template>
 
 <script>
@@ -54,13 +50,6 @@
       }
     },
 
-    mounted() {
-      // Move wine type radio buttons under the name field:
-      const buttons = document.getElementById("wine-type-radio-buttons");
-      document.getElementById("wine-name")
-              .appendChild(buttons);
-    },
-
     methods: {
       submitForm() {
         // TODO: add feedback on submit. Did submit succeed or fail?
@@ -78,18 +67,4 @@
 
 </script>
 
-<style scoped>
-  form { margin-bottom: 2rem }
-  input[type=text] {
-    display: inline-block;
-    width: 50%
-  }
-  .radio-buttons {
-    display: inline;
-  }
-  .wine-type-label {
-    display: inline;
-    margin-left: 0.5em;
-    margin-right: 1em;
-  }
-</style>
+<style scoped></style>
