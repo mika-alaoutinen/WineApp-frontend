@@ -3,7 +3,9 @@
 </template>
 
 <script>
-  // Search for wines by name, type, country, etc.
+  /*
+    - Search for wines by name, type, country, etc.
+  */
   export default {};
 </script>
 
