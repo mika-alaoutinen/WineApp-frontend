@@ -1,21 +1,15 @@
 <template>
-  <div id="footer">
-    <p>Footer</p>
-  </div>
+  <v-footer fixed>
+    <v-spacer class="footer">
+      <a href="https://github.com/mika-alaoutinen/WineApp-frontend">Link to GitHub</a>
+    </v-spacer>
+  </v-footer>
 </template>
 
-<script>
-  /*
-  TODO:
-    - Replace with v-footer?
-  */
-  export default {};
-</script>
-
 <style scoped>
-  #footer {
-    bottom: 0;
-    height: 2.5rem;
-    width: 100%;
+  a { color: whitesmoke }
+  .footer {
+    background-color: maroon;
+    padding: 1em;
   }
 </style>
