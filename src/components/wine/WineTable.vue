@@ -1,15 +1,19 @@
 <template>
-  <div id="wine-table">
+  <div>
+    <h2>Viinilistaus</h2>
+
     <p v-if="wineStore.wines.length < 1" class="empty-table">Ei viinejä</p>
+    
     <v-data-table v-else
       :headers="translateHeaders"
       :items="wineStore.wines"
-      :items-per-page="30"
-      @click:row="openWineInfo"
-    >
+      :items-per-page="20"
+      @click:row="openWineInfo">
+
       <template v-slot:item.type="{ item }">
         <td>{{ dictionary.translate(item.type) }}</td>
       </template>
+
     </v-data-table>
   </div>
 </template>
@@ -22,7 +26,11 @@
 
   /*
   TODO:
-  - Show wine type with the background color of the row?
+    - Bug fix: when wine is deleted in WineDetails, it still shows up in wine table.
+      Deleted wine disappears once a different page is loaded.
+    - Show wine type with the background color of the row?
+    - Implement filters: only show red wines, wines with volume = 0.75, etc.
+    - Use v-chip to present active filters?
   */
 
   export default {
@@ -41,7 +49,7 @@
           { text: this.dictionary.translate("type"), value: "type" },
           { text: this.dictionary.translate("country"), value: "country" },
           { text: this.dictionary.translate("price"), value: "price" },
-          { text: this.dictionary.translate("quantity"), value: "quantity" },
+          { text: this.dictionary.translate("volume"), value: "volume" },
         ]
       }
     },
@@ -60,5 +68,8 @@
 </script>
 
 <style scoped>
-  button { margin: 0 0.5rem 0 0 }
+  /*
+  TODO:
+    - Align price and volume to the right.
+  */
 </style>

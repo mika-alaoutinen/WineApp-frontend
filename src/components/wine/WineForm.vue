@@ -1,32 +1,33 @@
 <template>
-  <div id="wine-form">
-    <form @submit.prevent="submitForm">
-      <fieldset id="add-wine">
-        <legend>Lisää uusi viini</legend>
+  <div>
+    <h2>Lisää uusi viini</h2>
 
-        <!-- Create form fields, except for wine type -->
+    <v-card class="card-add-wine" max-width="60em">
+      <v-form @submit.prevent="submitForm" ref="add-wine">
         <div v-for="(value, attribute) in wine" :key="attribute">
+
+          <!-- Generate text fields for wine attributes: -->
           <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
-            <label> {{ dictionary.translate(attribute) }} </label>
-            <input type="text" v-model="wine[attribute]">
+            <v-text-field
+              :label="dictionary.translate(attribute)"
+              v-model="wine[attribute]"
+            ></v-text-field>
           </div>
-        </div>
+          
+          <!-- Generate radio buttons for wine types: -->
+          <v-radio-group v-else v-model="wine.type" row>
+            <v-radio
+              v-for="wineType in wineTypes" :key="wineType"
+              :label="dictionary.translate(wineType)"
+              :value="wineType.toUpperCase()"
+            ></v-radio>
+          </v-radio-group>
 
-        <!-- Radio buttons for selecting wine type -->
-        <div id="wine-type-radio-buttons">
-          <label for="wine-types">Viinin tyyppi</label>
-          <div class="radio-buttons" v-for="wineType in wineTypes" :key="wineType">
-            <input type="radio" name="wine-type"
-                   :id="wineType" :value="wineType.toUpperCase()" v-model="wine.type">
-            <label class="wine-type-label" :for="wineType">
-              {{ dictionary.translate(wineType) }}
-            </label>
-          </div>
         </div>
-
-        <p><button>Lisää viini</button></p>
-      </fieldset>
-    </form>
+        <!-- Form submit button to save the new wine: -->
+        <button class="button-save">Lisää viini</button>
+      </v-form>
+    </v-card>
   </div>
 </template>
 
@@ -45,20 +46,13 @@
           type: "",
           country: "",
           price: "",
-          quantity: "",
+          volume: "",
           description: "",
           foodPairings: "",
           url: ""
         },
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
       }
-    },
-
-    mounted() {
-      // Move wine type radio buttons under the name field:
-      const buttons = document.getElementById("wine-type-radio-buttons");
-      document.getElementById("wine-name")
-              .appendChild(buttons);
     },
 
     methods: {
@@ -75,21 +69,19 @@
       },
     }
   };
-
 </script>
 
 <style scoped>
-  form { margin-bottom: 2rem }
-  input[type=text] {
-    display: inline-block;
-    width: 50%
+  .button-save {
+    color: green;
+    font-weight: bold;
+    padding: 1em;
   }
-  .radio-buttons {
-    display: inline;
-  }
-  .wine-type-label {
-    display: inline;
-    margin-left: 0.5em;
-    margin-right: 1em;
+  .card-add-wine {
+    margin: auto;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
   }
 </style>

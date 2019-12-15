@@ -8,9 +8,9 @@ export default {
         type: "Tyyppi",
         country: "Maa",
         price: "Hinta (€)",
-        quantity: "Määrä (l)",
+        volume: "Määrä (l)",
         description: "Kuvaus",
-        foodPairings: "Sopii nautittavaksi",
+        foodpairings: "Sopii nautittavaksi",
         url: "URL",
         
         // Wine types
