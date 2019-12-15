@@ -7,7 +7,7 @@
     <v-data-table v-else
       :headers="translateHeaders"
       :items="wineStore.wines"
-      :items-per-page="30"
+      :items-per-page="20"
       @click:row="openWineInfo">
 
       <template v-slot:item.type="{ item }">
