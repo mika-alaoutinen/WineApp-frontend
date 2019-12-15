@@ -25,6 +25,13 @@ class WineService {
                     .find(wine => wine.id == id);
     }
 
+    // TODO: how to send search params?
+    async searchWines(searchParams) {
+        axios.get(baseUrl + "search?params=" + searchParams)
+             .then(response => response.data)
+             .catch(error => console.log(error));
+    }
+
     /**
      * Add all wines received from the backend to wineStore.
      */
