@@ -1,6 +1,6 @@
 <template>
-  <v-card class="card-add-wine" max-width="65%">
-    <v-card-title class="title">Lisää uusi viini</v-card-title>
+  <v-card class="full-page-card" max-width="60%">
+    <v-card-title class="card-title">Lisää uusi viini</v-card-title>
     
     <v-form @submit.prevent="submitForm" ref="add-wine">
       <div v-for="(value, attribute) in wine" :key="attribute">
@@ -75,14 +75,7 @@
     font-weight: bold;
     padding: 1em;
   }
-  .card-add-wine {
-    margin: auto;
-    padding-bottom: 1em;
-    padding-top: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
-  }
-  .title {
+  .card-title {
     font-weight: bold;
     padding-left: 0;
   }

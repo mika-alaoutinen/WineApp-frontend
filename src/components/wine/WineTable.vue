@@ -1,5 +1,5 @@
 <template>
-  <v-card class="card-wine-table" max-width="85%">
+  <v-card class="full-page-card" max-width="85%">
     <v-card-title><b>Viinilistaus</b> <v-spacer/>
       <v-text-field
         label="Hae viinejä"
@@ -76,11 +76,4 @@
 
 <style scoped>
   .align-left { text-align: left }
-  .card-wine-table {
-    margin: auto;
-    padding-bottom: 1em;
-    padding-top: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
-  }
 </style>

@@ -27,4 +27,11 @@
     text-align: center;
     margin-top: 30px;
   }
+  .full-page-card {
+    margin: auto;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+  }
 </style>
