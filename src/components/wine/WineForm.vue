@@ -18,8 +18,8 @@
           <v-radio
             v-for="wineType in wineTypes" :key="wineType"
             :label="dictionary.translate(wineType)"
-            :value="wineType.toUpperCase()"
-          ></v-radio>
+            :value="wineType.toUpperCase()">
+          </v-radio>
         </v-radio-group>
 
       </div>
@@ -30,8 +30,8 @@
 </template>
 
 <script>
-  import WineService from "@/services/WineService.js";
   import Dictionary from "@/utilities/Dictionary.js";
+  import WineService from "@/services/WineService.js";
 
   const wineService = new WineService();
 

@@ -5,27 +5,41 @@
     <v-form @submit.prevent="submitForm" ref="search-wines">
       <v-text-field label="Nimi" v-model="searchParams.name"/>
 
-    </v-form>
+      <!-- Search wines by type. Can select multiple types to search for! -->
+      <v-row>
+        <v-col v-for="wineType in wineTypes" :key="wineType">
+        <v-checkbox
+          v-model="searchParams.types"
+          :label="dictionary.translate(wineType)"
+          :value="wineType.toUpperCase()">
+        </v-checkbox>
+        </v-col>
+      </v-row>
 
+    </v-form>
   </v-card>
 </template>
 
 <script>
+  import Dictionary from "@/utilities/Dictionary.js";
   import WineService from "@/services/WineService.js";
+  
   const wineService = new WineService();
 
   export default {
     data() {
       return {
+        dictionary: Dictionary,
         searchParams: {
           name: "",
-          type: "",
+          types: [],
           country: "",
           minPrice: 0,
           maxPrice: 0,
           minVolume: 0,
           maxVolume: 0,
         },
+        wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
       }
     },
 
