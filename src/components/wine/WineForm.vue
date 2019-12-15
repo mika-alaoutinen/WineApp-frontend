@@ -1,34 +1,32 @@
 <template>
-  <div>
-    <h2>Lisää uusi viini</h2>
+  <v-card class="card-add-wine" max-width="65%">
+    <v-card-title class="title">Lisää uusi viini</v-card-title>
+    
+    <v-form @submit.prevent="submitForm" ref="add-wine">
+      <div v-for="(value, attribute) in wine" :key="attribute">
 
-    <v-card class="card-add-wine" max-width="60em">
-      <v-form @submit.prevent="submitForm" ref="add-wine">
-        <div v-for="(value, attribute) in wine" :key="attribute">
-
-          <!-- Generate text fields for wine attributes: -->
-          <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
-            <v-text-field
-              :label="dictionary.translate(attribute)"
-              v-model="wine[attribute]"
-            ></v-text-field>
-          </div>
-          
-          <!-- Generate radio buttons for wine types: -->
-          <v-radio-group v-else v-model="wine.type" row>
-            <v-radio
-              v-for="wineType in wineTypes" :key="wineType"
-              :label="dictionary.translate(wineType)"
-              :value="wineType.toUpperCase()"
-            ></v-radio>
-          </v-radio-group>
-
+        <!-- Generate text fields for wine attributes: -->
+        <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
+          <v-text-field
+            :label="dictionary.translate(attribute)"
+            v-model="wine[attribute]"
+          ></v-text-field>
         </div>
-        <!-- Form submit button to save the new wine: -->
-        <button class="button-save">Lisää viini</button>
-      </v-form>
-    </v-card>
-  </div>
+        
+        <!-- Generate radio buttons for wine types: -->
+        <v-radio-group v-else v-model="wine.type" row>
+          <v-radio
+            v-for="wineType in wineTypes" :key="wineType"
+            :label="dictionary.translate(wineType)"
+            :value="wineType.toUpperCase()"
+          ></v-radio>
+        </v-radio-group>
+
+      </div>
+      <!-- Form submit button to save the new wine: -->
+      <button class="button-save">Lisää viini</button>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
@@ -83,5 +81,9 @@
     padding-top: 1em;
     padding-left: 2em;
     padding-right: 2em;
+  }
+  .title {
+    font-weight: bold;
+    padding-left: 0;
   }
 </style>
