@@ -5,6 +5,10 @@
 </template>
 
 <script>
+  /*
+  TODO:
+    - Replace with v-footer?
+  */
   export default {};
 </script>
 
