@@ -4,11 +4,13 @@
 
     <v-form @submit.prevent="submitForm" ref="search-wines">
 
-      <!-- Search wines by name -->
+      <!-- Search wines by name or country -->
+      <v-subheader class="subheader">Hae nimen tai maan perusteella</v-subheader>
       <v-text-field label="Nimi" v-model="searchParams.name"/>
+      <v-text-field label="Maa" v-model="searchParams.country"/>
 
       <!-- Search wines by type. Multiple types can be selected. -->
-      <v-subheader>Valitse, minkälaisia viinejä haetaan</v-subheader>
+      <v-subheader class="subheader">Hae viinin tyypin perusteella</v-subheader>
       <v-row>
         <v-col v-for="wineType in wineTypes" :key="wineType">
         <v-checkbox
@@ -19,12 +21,21 @@
         </v-col>
       </v-row>
 
-      <!-- Search wines by country -->
-      <v-text-field label="Maa" v-model="searchParams.country"/>
+      <!-- Search wines by volume range -->
+      <v-subheader class="subheader">Hae määrän perusteella (litraa)</v-subheader>
+      <v-row>
+        <v-col v-for="volume in wineVolumes" :key="volume">
+        <v-checkbox
+          v-model="searchParams.volumes"
+          :label="volume.toString()"
+          :value="volume">
+        </v-checkbox>
+        </v-col>
+      </v-row>
 
       <!-- Search wines by price range -->
-      <v-app class="slider-price-range">
-        <v-subheader>Valitse hintahaitari</v-subheader>
+      <v-app class="range-slider">
+        <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
         <v-range-slider
           v-model="searchParams.priceRange"
           :min="searchParams.minPrice"
@@ -51,7 +62,7 @@
         </v-range-slider>
       </v-app>
 
-      <!-- Search wines by volume range -->
+      <button class="button-save">Hae viinejä</button>
 
     </v-form>
   </v-card>
@@ -62,6 +73,11 @@
   import WineService from "@/services/WineService.js";
   
   const wineService = new WineService();
+
+  /*
+  TODO:
+    - Maybe change wine type selection to radio buttons.
+  */
 
   export default {
     data() {
@@ -74,23 +90,31 @@
           minPrice: 0,
           maxPrice: 50, // TODO: Get the most expensive wine price
           priceRange: [10, 40],
-          minVolume: 0,
-          maxVolume: 0,
+          volumes: [],
         },
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
+        wineVolumes: [ 0.75, 1, 1.5, 2, 3 ],
       }
     },
 
-    mounted() {
-      wineService.getWineCount(); // TODO: delete
-    }
+    methods: {
+      submitForm() {
+        wineService.searchWines(this.searchParams);
+      }
+    },
   };
 </script>
 
 <style scoped>
+  .button-save {
+    color: green;
+    font-weight: bold;
+    padding: 1em;
+  }
   .card-title {
     font-weight: bold;
     padding-left: 0;
   }
-  .slider-price-range {height: 125px;}
+  .range-slider { height: 125px }
+  .subheader { padding-left: 0 }
 </style>
