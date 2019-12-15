@@ -11,14 +11,15 @@
 
     <v-data-table
       @click:row="openWineInfo"
+      class="align-left"
+      loading loading-text="Ladataan viinejä..."
       :headers="translateHeaders"
       :items="wineStore.wines"
       :items-per-page="15"
-      loading loading-text="Ladataan viinejä..."
       :search="search">
 
       <template v-slot:item.type="{ item }">
-        <td>{{ dictionary.translate(item.type) }}</td>
+        {{ dictionary.translate(item.type) }}
       </template>
       
     </v-data-table>
@@ -44,7 +45,6 @@
     data() {
       return {
         dictionary: Dictionary,
-        headers: this.translateHeaders,
         search: "",
         wineStore: wineService.getWineStore(),
       }
@@ -72,14 +72,10 @@
       }
     },
   };
-
 </script>
 
 <style scoped>
-  /*
-  TODO:
-    - Align price and volume to the right.
-  */
+  .align-left { text-align: left }
   .card-wine-table {
     margin: auto;
     padding-bottom: 1em;
