@@ -1,22 +1,28 @@
 <template>
-  <div>
-    <h2>Viinilistaus</h2>
+  <v-card class="card-wine-table" max-width="85%">
+    <v-card-title><b>Viinilistaus</b> <v-spacer/>
+      <v-text-field
+        label="Hae viinejä"
+        hide-details
+        single-line
+        v-model="search">
+      </v-text-field>
+    </v-card-title>
 
-    <v-card class="card-wine-table" max-width="85%">
-      <v-data-table
-        @click:row="openWineInfo"
-        :headers="translateHeaders"
-        :items="wineStore.wines"
-        :items-per-page="20"
-        loading loading-text="Ladataan viinejä...">
+    <v-data-table
+      @click:row="openWineInfo"
+      :headers="translateHeaders"
+      :items="wineStore.wines"
+      :items-per-page="15"
+      loading loading-text="Ladataan viinejä..."
+      :search="search">
 
-        <template v-slot:item.type="{ item }">
-          <td>{{ dictionary.translate(item.type) }}</td>
-        </template>
-        
-      </v-data-table>
-    </v-card>
-  </div>
+      <template v-slot:item.type="{ item }">
+        <td>{{ dictionary.translate(item.type) }}</td>
+      </template>
+      
+    </v-data-table>
+  </v-card>
 </template>
 
 <script>
@@ -39,6 +45,7 @@
       return {
         dictionary: Dictionary,
         headers: this.translateHeaders,
+        search: "",
         wineStore: wineService.getWineStore(),
       }
     },
