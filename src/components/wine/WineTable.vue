@@ -1,21 +1,29 @@
 <template>
-  <div>
-    <h2>Viinilistaus</h2>
+  <v-card class="card-wine-table" max-width="85%">
+    <v-card-title><b>Viinilistaus</b> <v-spacer/>
+      <v-text-field
+        label="Hae viinejä"
+        hide-details
+        single-line
+        v-model="search">
+      </v-text-field>
+    </v-card-title>
 
-    <p v-if="wineStore.wines.length < 1" class="empty-table">Ei viinejä</p>
-    
-    <v-data-table v-else
+    <v-data-table
+      @click:row="openWineInfo"
+      class="align-left"
+      loading loading-text="Ladataan viinejä..."
       :headers="translateHeaders"
       :items="wineStore.wines"
-      :items-per-page="20"
-      @click:row="openWineInfo">
+      :items-per-page="15"
+      :search="search">
 
       <template v-slot:item.type="{ item }">
-        <td>{{ dictionary.translate(item.type) }}</td>
+        {{ dictionary.translate(item.type) }}
       </template>
-
+      
     </v-data-table>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -37,7 +45,7 @@
     data() {
       return {
         dictionary: Dictionary,
-        headers: this.translateHeaders,
+        search: "",
         wineStore: wineService.getWineStore(),
       }
     },
@@ -64,12 +72,15 @@
       }
     },
   };
-
 </script>
 
 <style scoped>
-  /*
-  TODO:
-    - Align price and volume to the right.
-  */
+  .align-left { text-align: left }
+  .card-wine-table {
+    margin: auto;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+  }
 </style>
