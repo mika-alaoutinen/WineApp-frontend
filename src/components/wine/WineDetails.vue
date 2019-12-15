@@ -2,35 +2,11 @@
   <div>
     <h2>Viinin tiedot</h2>
 
-    <!-- <div class="table">
-      <div class="tablerow" v-for="(value, attribute, index) in displayWine" :key="index">
-        <div class="left-column">{{ dictionary.translate(attribute) }}</div>
-
-        <div v-if="editing === wine.id" class="right-column">
-          <input type="text" @keyup.enter="editWine(wine)" v-model="wine[attribute]">
-        </div>
-
-        <div v-else class="right-colument"> {{ value }} </div>
-      </div>
-    </div>
-    
-    <div class="buttons" v-if="editing === this.wine.id">
-      <button @click="editWine(wine)">Tallenna</button>
-      <button class="muted-button" @click="cancelEdit(wine)">Peruuta</button>
-    </div>
-    <div class="buttons" v-else>
-      <button class="button-edit" @click="editMode(wine)">Muokkaa</button>
-      <button class="button-delete" @click="deleteWine(wine.id)">Poista</button>
-    </div> -->
-
     <v-card class="wine-detail-card" max-width="60em">
       <v-row v-for="(value, attribute) in displayWine" :key="attribute">
         
         <!-- Left column for attribute names: -->
-        <v-col
-          class="attribute-text"
-          align="start"
-          sm="3">
+        <v-col class="attribute-text" align="start" sm="3">
             {{ dictionary.translate(attribute) }}
         </v-col>
 
@@ -46,12 +22,12 @@
 
     <!-- Edit and delete buttons -->
     <div v-if="editing === this.wine.id">
-      <button @click="editWine(wine)">Tallenna</button>
-      <button class="muted-button" @click="cancelEdit(wine)">Peruuta</button>
+      <button @click="saveEdit(wine)" class="button-save">Tallenna</button>
+      <button @click="cancelEdit(wine)" class="button-delete">Peruuta</button>
     </div>
     <div v-else>
-      <button class="button-edit" @click="editMode(wine)">Muokkaa</button>
-      <button class="button-delete" @click="deleteWine(wine.id)">Poista</button>
+      <button @click="editMode(wine)" class="button-edit">Muokkaa</button>
+      <button @click="deleteWine(wine.id)" class="button-delete">Poista</button>
     </div>
       
     </v-card>
@@ -83,12 +59,17 @@
     },
 
     methods: {
+      deleteWine(id) {
+        wineService.deleteWine(id);
+        this.$router.push("/wines/");
+      },
+      
       editMode(wine) {
         this.cachedWine = Object.assign({}, wine);
         this.editing = wine.id;
       },
 
-      editWine(wine) {
+      saveEdit(wine) {
         if (inputIsInvalid(wine)) {
           return;
         }
@@ -99,11 +80,6 @@
       cancelEdit(wine) {
         Object.assign(wine, this.cachedWine);
         this.editing = null;
-      },
-
-      deleteWine(id) {
-        wineService.deleteWine(id);
-        this.$router.push("/wines/");
       },
     },
 
@@ -120,15 +96,6 @@
 </script>
 
 <style scoped>
-  /* .left-column { font-weight: bold }
-  .table {
-    display: table;
-    background: pink;
-    margin: auto;
-  }
-  .tablerow { display: table-row; }
-  .tablerow > div { display: table-cell } */
-
   .attribute-text {
     font-weight: bold;
   }
