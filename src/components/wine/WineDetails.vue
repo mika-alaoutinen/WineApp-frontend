@@ -34,23 +34,14 @@
             {{ dictionary.translate(attribute) }}
         </v-col>
 
-        
-        <!-- <v-col align="start">
-          {{ value }}
-        </v-col> -->
-
-        <v-col align="start">
-          <!-- Editing mode -->
-          <v-text-field v-if="editing === wine.id"
-            @keyup.enter="editWine(wine)"
-            v-model="wine[attribute]">
-          </v-text-field>
-          <!-- View mode -->
-          <div v-else> {{ value }} </div>
+        <!-- Right column for values: -->
+        <v-col v-if="editing === wine.id" align="start"> <!-- Editing mode -->
+          <v-text-field @keyup.enter="editWine(wine)" v-model="wine[attribute]"></v-text-field>
         </v-col>
 
-
-        
+        <v-col v-else align="start"> <!-- View mode -->
+          {{ value }}
+        </v-col>
       </v-row>
 
     <!-- Edit and delete buttons -->
