@@ -25,9 +25,44 @@
 
     <v-card class="wine-detail-card" max-width="60em">
       <v-row v-for="(value, attribute) in displayWine" :key="attribute">
-        <v-col align="start" sm="3">{{ dictionary.translate(attribute) }}</v-col>
-        <v-col align="start">{{ value }}</v-col>
+        
+        <!-- Left column for attribute names: -->
+        <v-col
+          class="attribute-text"
+          align="start"
+          sm="3">
+            {{ dictionary.translate(attribute) }}
+        </v-col>
+
+        
+        <!-- <v-col align="start">
+          {{ value }}
+        </v-col> -->
+
+        <v-col align="start">
+          <!-- Editing mode -->
+          <v-text-field v-if="editing === wine.id"
+            @keyup.enter="editWine(wine)"
+            v-model="wine[attribute]">
+          </v-text-field>
+          <!-- View mode -->
+          <div v-else> {{ value }} </div>
+        </v-col>
+
+
+        
       </v-row>
+
+    <!-- Edit and delete buttons -->
+    <div v-if="editing === this.wine.id">
+      <button @click="editWine(wine)">Tallenna</button>
+      <button class="muted-button" @click="cancelEdit(wine)">Peruuta</button>
+    </div>
+    <div v-else>
+      <button class="button-edit" @click="editMode(wine)">Muokkaa</button>
+      <button class="button-delete" @click="deleteWine(wine.id)">Poista</button>
+    </div>
+      
     </v-card>
 
   </div>
@@ -103,6 +138,9 @@
   .tablerow { display: table-row; }
   .tablerow > div { display: table-cell } */
 
+  .attribute-text {
+    font-weight: bold;
+  }
   .wine-detail-card {
     margin: auto;
     padding-bottom: 1em;
