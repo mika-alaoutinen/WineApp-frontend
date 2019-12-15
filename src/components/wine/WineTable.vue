@@ -2,19 +2,20 @@
   <div>
     <h2>Viinilistaus</h2>
 
-    <p v-if="wineStore.wines.length < 1" class="empty-table">Ei viinejä</p>
-    
-    <v-data-table v-else
-      :headers="translateHeaders"
-      :items="wineStore.wines"
-      :items-per-page="20"
-      @click:row="openWineInfo">
+    <v-card class="card-wine-table" max-width="85%">
+      <v-data-table
+        @click:row="openWineInfo"
+        :headers="translateHeaders"
+        :items="wineStore.wines"
+        :items-per-page="20"
+        loading loading-text="Ladataan viinejä...">
 
-      <template v-slot:item.type="{ item }">
-        <td>{{ dictionary.translate(item.type) }}</td>
-      </template>
-
-    </v-data-table>
+        <template v-slot:item.type="{ item }">
+          <td>{{ dictionary.translate(item.type) }}</td>
+        </template>
+        
+      </v-data-table>
+    </v-card>
   </div>
 </template>
 
@@ -72,4 +73,11 @@
   TODO:
     - Align price and volume to the right.
   */
+  .card-wine-table {
+    margin: auto;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+  }
 </style>
