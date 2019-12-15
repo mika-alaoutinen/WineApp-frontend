@@ -20,18 +20,17 @@
         </v-col>
       </v-row>
 
-    <!-- Edit and delete buttons -->
-    <div v-if="editing === this.wine.id">
-      <button @click="saveEdit(wine)" class="button-save">Tallenna</button>
-      <button @click="cancelEdit(wine)" class="button-delete">Peruuta</button>
-    </div>
-    <div v-else>
-      <button @click="editMode(wine)" class="button-edit">Muokkaa</button>
-      <button @click="deleteWine(wine.id)" class="button-delete">Poista</button>
-    </div>
+      <!-- Edit and delete buttons -->
+      <div v-if="editing === this.wine.id">
+        <button @click="saveEdit(wine)" class="button-save">Tallenna</button>
+        <button @click="cancelEdit(wine)" class="button-delete">Peruuta</button>
+      </div>
+      <div v-else>
+        <button @click="editMode(wine)" class="button-edit">Muokkaa</button>
+        <button @click="deleteWine(wine.id)" class="button-delete">Poista</button>
+      </div>
       
     </v-card>
-
   </div>
 </template>
 
@@ -63,7 +62,7 @@
         wineService.deleteWine(id);
         this.$router.push("/wines/");
       },
-      
+
       editMode(wine) {
         this.cachedWine = Object.assign({}, wine);
         this.editing = wine.id;
@@ -96,9 +95,16 @@
 </script>
 
 <style scoped>
+  button {
+    font-weight: bold;
+    padding: 1em;
+  }  
   .attribute-text {
     font-weight: bold;
   }
+  .button-delete { color: red }
+  .button-edit { color: mediumblue }
+  .button-save { color: green }
   .wine-detail-card {
     margin: auto;
     padding-bottom: 1em;
