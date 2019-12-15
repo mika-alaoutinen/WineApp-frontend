@@ -26,7 +26,9 @@
 
   /*
   TODO:
-  - Show wine type with the background color of the row?
+    - Show wine type with the background color of the row?
+    - Implement filters: only show red wines, wines with volume = 0.75, etc.
+    - Use v-chip to present active filters?
   */
 
   export default {
