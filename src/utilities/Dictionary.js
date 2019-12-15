@@ -10,7 +10,7 @@ export default {
         price: "Hinta (€)",
         volume: "Määrä (l)",
         description: "Kuvaus",
-        foodPairings: "Sopii nautittavaksi",
+        foodpairings: "Sopii nautittavaksi",
         url: "URL",
         
         // Wine types

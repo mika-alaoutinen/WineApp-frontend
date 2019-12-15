@@ -1,15 +1,19 @@
 <template>
-  <div id="wine-table">
+  <div>
+    <h2>Viinilistaus</h2>
+
     <p v-if="wineStore.wines.length < 1" class="empty-table">Ei viinejä</p>
+    
     <v-data-table v-else
       :headers="translateHeaders"
       :items="wineStore.wines"
       :items-per-page="30"
-      @click:row="openWineInfo"
-    >
+      @click:row="openWineInfo">
+
       <template v-slot:item.type="{ item }">
         <td>{{ dictionary.translate(item.type) }}</td>
       </template>
+
     </v-data-table>
   </div>
 </template>
