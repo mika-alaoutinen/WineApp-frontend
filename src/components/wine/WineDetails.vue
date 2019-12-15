@@ -2,7 +2,7 @@
   <div>
     <h2>Viinin tiedot</h2>
 
-    <v-card class="wine-detail-card" max-width="60em">
+    <v-card class="card-wine-detail" max-width="60em">
       <v-row v-for="(value, attribute) in displayWine" :key="attribute">
         
         <!-- Left column for attribute names: -->
@@ -98,14 +98,12 @@
   button {
     font-weight: bold;
     padding: 1em;
-  }  
-  .attribute-text {
-    font-weight: bold;
   }
+  .attribute-text { font-weight: bold }
   .button-delete { color: red }
   .button-edit { color: mediumblue }
   .button-save { color: green }
-  .wine-detail-card {
+  .card-wine-detail {
     margin: auto;
     padding-bottom: 1em;
     padding-top: 1em;
