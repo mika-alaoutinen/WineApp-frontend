@@ -36,17 +36,20 @@
       <!-- Search wines by price range -->
       <v-app class="range-slider">
         <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
+        <v-switch @change="resetPriceRange" label="Hintahaku päällä" v-model=priceSearchEnabled></v-switch>
+
         <v-range-slider
+          :disabled=!priceSearchEnabled
           min=0
           max=50
-          v-model="searchParams.priceRange">
+          v-model="selectedPriceRange">
 
           <template v-slot:prepend>
             <v-text-field
               class="slider-value-field"
               single-line
               type="number"
-              v-model="searchParams.priceRange[0]">
+              v-model="selectedPriceRange[0]">
             </v-text-field>
           </template>
 
@@ -55,7 +58,7 @@
               class="slider-value-field"
               single-line
               type="number"
-              v-model="searchParams.priceRange[1]">
+              v-model="selectedPriceRange[1]">
             </v-text-field>
           </template>
           
@@ -83,25 +86,39 @@
     data() {
       return {
         dictionary: Dictionary,
+        priceSearchEnabled: false,
+        selectedPriceRange: [0, 50],
+        wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
+        wineVolumes: [ 0.75, 1, 1.5, 2, 3 ],
+        
+        // Search parameters that get returned to backend:
         searchParams: {
           name: "",
           types: [],
           country: "",
-          priceRange: [10, 40],
+          priceRange: [],
           volumes: [],
         },
-        wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
-        wineVolumes: [ 0.75, 1, 1.5, 2, 3 ],
       }
     },
 
     methods: {
       submitForm() {
         // wineService.searchWines(this.searchParams);
+        
+        // Update price range if it has been set:
+        if (this.priceSearchEnabled) {
+          this.searchParams.priceRange = this.selectedPriceRange;
+        }
+        
         console.log(this.searchParams);
         wineService.dummyFunction(this.searchParams);
+      },
+      resetPriceRange() {
+       this.searchParams.priceRange = [0, 50];
       }
     },
+    
   };
 </script>
 
@@ -116,7 +133,7 @@
     padding-left: 0;
   }
   .range-slider {
-    height: 9em;
+    height: 14em;
     overflow: hidden;
   }
   .slider-value-field { width: 60px }
