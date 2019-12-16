@@ -40,8 +40,8 @@
 
         <v-range-slider
           :disabled=!priceSearchEnabled
-          min=0
-          max=50
+          :min=minPrice
+          :max=maxPrice
           v-model="selectedPriceRange">
 
           <template v-slot:prepend>
@@ -86,8 +86,12 @@
     data() {
       return {
         dictionary: Dictionary,
+
+        minPrice: 0,
+        maxPrice: 50,
         priceSearchEnabled: false,
         selectedPriceRange: [0, 50],
+
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
         wineVolumes: [ 0.75, 1, 1.5, 2, 3 ],
         
@@ -115,7 +119,7 @@
         wineService.dummyFunction(this.searchParams);
       },
       resetPriceRange() {
-       this.searchParams.priceRange = [0, 50];
+       this.searchParams.priceRange = [this.minPrice, this.maxPrice];
       }
     },
     
@@ -137,5 +141,6 @@
     overflow: hidden;
   }
   .slider-value-field { width: 60px }
+  .slider-value-field >>> input { text-align: center }
   .subheader { padding-left: 0 }
 </style>

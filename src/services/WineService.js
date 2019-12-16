@@ -32,6 +32,9 @@ class WineService {
              .catch(error => console.log(error));
     }
 
+    // TODO: delete
+    dummyFunction(searchParams) { console.log("lähetä: " + searchParams) }
+
     /**
      * Add all wines received from the backend to wineStore.
      */
