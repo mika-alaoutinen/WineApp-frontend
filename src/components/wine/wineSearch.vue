@@ -37,8 +37,8 @@
       <v-app class="range-slider">
         <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
         <v-range-slider
-          :max="searchParams.maxPrice"
-          :min="searchParams.minPrice"
+          min=0
+          max=50
           v-model="searchParams.priceRange">
 
           <template v-slot:prepend>
@@ -87,8 +87,6 @@
           name: "",
           types: [],
           country: "",
-          minPrice: 0,
-          maxPrice: 50, // TODO: Get the most expensive wine price
           priceRange: [10, 40],
           volumes: [],
         },
@@ -99,7 +97,9 @@
 
     methods: {
       submitForm() {
-        wineService.searchWines(this.searchParams);
+        // wineService.searchWines(this.searchParams);
+        console.log(this.searchParams);
+        wineService.dummyFunction(this.searchParams);
       }
     },
   };
