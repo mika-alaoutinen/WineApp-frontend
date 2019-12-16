@@ -14,9 +14,9 @@
       <v-row>
         <v-col v-for="wineType in wineTypes" :key="wineType">
         <v-checkbox
-          v-model="searchParams.types"
           :label="dictionary.translate(wineType)"
-          :value="wineType.toUpperCase()">
+          :value="wineType.toUpperCase()"
+          v-model="searchParams.types">
         </v-checkbox>
         </v-col>
       </v-row>
@@ -26,9 +26,9 @@
       <v-row>
         <v-col v-for="volume in wineVolumes" :key="volume">
         <v-checkbox
-          v-model="searchParams.volumes"
           :label="volume.toString()"
-          :value="volume">
+          :value="volume"
+          v-model="searchParams.volumes">
         </v-checkbox>
         </v-col>
       </v-row>
@@ -37,25 +37,25 @@
       <v-app class="range-slider">
         <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
         <v-range-slider
-          v-model="searchParams.priceRange"
+          :max="searchParams.maxPrice"
           :min="searchParams.minPrice"
-          :max="searchParams.maxPrice">
+          v-model="searchParams.priceRange">
 
           <template v-slot:prepend>
             <v-text-field
-              v-model="searchParams.priceRange[0]"
+              class="slider-value-field"
               single-line
               type="number"
-              style="width: 60px">
+              v-model="searchParams.priceRange[0]">
             </v-text-field>
           </template>
 
           <template v-slot:append>
             <v-text-field
-              v-model="searchParams.priceRange[1]"
+              class="slider-value-field"
               single-line
               type="number"
-              style="width: 60px">
+              v-model="searchParams.priceRange[1]">
             </v-text-field>
           </template>
           
@@ -115,6 +115,10 @@
     font-weight: bold;
     padding-left: 0;
   }
-  .range-slider { height: 125px }
+  .range-slider {
+    height: 9em;
+    overflow: hidden;
+  }
+  .slider-value-field { width: 60px }
   .subheader { padding-left: 0 }
 </style>
