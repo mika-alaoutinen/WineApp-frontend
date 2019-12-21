@@ -89,7 +89,7 @@
         minPrice: 0,
         maxPrice: 50,
         priceSearchEnabled: false,
-        selectedPriceRange: [0, 50],
+        selectedPriceRange: [ 0, 50 ],
 
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
         wineVolumes: [ 0.75, 1, 1.5, 2, 3 ],

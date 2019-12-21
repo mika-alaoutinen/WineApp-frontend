@@ -16,9 +16,9 @@
         <!-- Generate radio buttons for wine types: -->
         <v-radio-group v-else v-model="wine.type" row>
           <v-radio
-            v-for="wineType in wineTypes" :key="wineType"
-            :label="dictionary.translate(wineType)"
-            :value="wineType.toUpperCase()">
+            v-for="type in wineTypes" :key="type"
+            :label="dictionary.translate(type)"
+            :value="type.toUpperCase()">
           </v-radio>
         </v-radio-group>
 
