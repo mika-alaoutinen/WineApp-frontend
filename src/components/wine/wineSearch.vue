@@ -9,17 +9,15 @@
       <v-text-field label="Nimi" v-model="searchParams.name"/>
       <v-text-field label="Maa" v-model="searchParams.country"/>
 
-      <!-- Search wines by type. Multiple types can be selected. -->
+      <!-- Search wines by type. -->
       <v-subheader class="subheader">Hae viinin tyypin perusteella</v-subheader>
-      <v-row>
-        <v-col v-for="wineType in wineTypes" :key="wineType">
-        <v-checkbox
-          :label="dictionary.translate(wineType)"
-          :value="wineType.toUpperCase()"
-          v-model="searchParams.types">
-        </v-checkbox>
-        </v-col>
-      </v-row>
+      <v-radio-group v-model="searchParams.type" row>
+        <v-radio
+          v-for="type in wineTypes" :key="type"
+          :label="dictionary.translate(type)"
+          :value="type.toUpperCase()">
+        </v-radio>
+      </v-radio-group>
 
       <!-- Search wines by volume range -->
       <v-subheader class="subheader">Hae määrän perusteella (litraa)</v-subheader>
@@ -79,6 +77,7 @@
 
   /*
   TODO:
+    - Give searchParams to WineService.js and POST to backend.
     - Maybe change wine type selection to radio buttons.
   */
 
@@ -98,7 +97,7 @@
         // Search parameters that get returned to backend:
         searchParams: {
           name: "",
-          types: [],
+          type: "",
           country: "",
           priceRange: [],
           volumes: [],
@@ -107,6 +106,9 @@
     },
 
     methods: {
+      resetPriceRange() {
+       this.searchParams.priceRange = [ this.minPrice, this.maxPrice ];
+      },
       submitForm() {
         // wineService.searchWines(this.searchParams);
         
@@ -114,13 +116,10 @@
         if (this.priceSearchEnabled) {
           this.searchParams.priceRange = this.selectedPriceRange;
         }
-        
+
         console.log(this.searchParams);
         wineService.dummyFunction(this.searchParams);
       },
-      resetPriceRange() {
-       this.searchParams.priceRange = [this.minPrice, this.maxPrice];
-      }
     },
     
   };
