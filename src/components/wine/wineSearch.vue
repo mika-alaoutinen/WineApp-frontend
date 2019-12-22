@@ -75,22 +75,23 @@
     <v-card class="full-page-card" id="results-table-card" max-width="60%" v-show=showResults>
       <v-card-title class="card-title">Haun tulokset</v-card-title>
       <v-simple-table>
+
         <thead>
           <tr>
-            <th>Nimi</th>
-            <th>Maa</th>
+            <th v-for="attribute in wineAttributes" :key="attribute">
+              {{ dictionary.translate(attribute) }}
+            </th>
           </tr>
         </thead>
+        
         <tbody>
-          <tr>
-            <td>Viini1</td>
-            <td>Suomi</td>
-          </tr>
-          <tr>
-            <td>Viini2</td>
-            <td>Suomi</td>
+          <tr v-for="wine in searchResults" :key="wine.id">
+            <td v-for="attribute in wineAttributes" :key="attribute">
+              {{ wine[attribute] }}
+            </td>
           </tr>
         </tbody>
+
       </v-simple-table>
     </v-card>
 
@@ -108,6 +109,8 @@
     - Give searchParams to WineService.js and POST to backend.
     - Validate form so that at least one search criteria is given.
     - Disable search button if no search criteria is given.
+    - Split search form and results table into separate components.
+      => create WineSearchPage component.
   */
 
   export default {
@@ -135,6 +138,7 @@
         // Search results that were retrieved from backend:
         searchResults: [],
         showResults: false,
+        wineAttributes: [ "name", "type", "country", "price", "volume" ],
       }
     },
 
