@@ -12,11 +12,17 @@
 
         <!-- Right column for values: -->
         <v-col v-if="editing === wine.id" align="start"> <!-- Editing mode -->
-          <v-text-field @keyup.enter="editWine(wine)" v-model="wine[attribute]"></v-text-field>
+          <v-text-field @keyup.enter="editWine(wine)" v-model="wine[attribute]" />
         </v-col>
 
-        <v-col v-else align="start"> <!-- View mode -->
-          {{ value }}
+        <!-- View mode: -->
+        <v-col v-else align="start">
+          <!-- Keyword lists are shown as chips -->
+          <div v-if="attribute === 'description' || attribute === 'foodPairings'">
+            <v-chip v-for="keyword in value" :key="keyword">{{ keyword }}</v-chip>
+          </div>
+          <!-- Regular text: -->
+          <div v-else>{{ value }}</div>
         </v-col>
       </v-row>
 
@@ -92,7 +98,7 @@
     return Array.from(Object.values(wine))
                 .some(value => value === "" || value === []);
   }
-  
+
 </script>
 
 <style scoped>
