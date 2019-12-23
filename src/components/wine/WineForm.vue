@@ -57,16 +57,19 @@
       submitForm() {
         // TODO: add feedback on submit. Did submit succeed or fail?
         // If submit is OK, clear form.
-        this.wine.description = this.parseKeywords(this.wine.description);
-        this.wine.foodPairings = this.parseKeywords(this.wine.foodPairings);
+        this.wine.description = parseKeywords(this.wine.description);
+        this.wine.foodPairings = parseKeywords(this.wine.foodPairings);
         wineService.postWine(this.wine);
-      },
-      parseKeywords(string) {
-        return string.split(",")
-                     .map(word => word.trim());
       },
     }
   };
+
+  // Private functions:
+  function parseKeywords(string) {
+    return string.split(",")
+                 .map(word => word.trim());
+  }
+
 </script>
 
 <style scoped>

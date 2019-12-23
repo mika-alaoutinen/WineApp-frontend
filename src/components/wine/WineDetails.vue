@@ -92,6 +92,7 @@
     return Array.from(Object.values(wine))
                 .some(value => value === "" || value === []);
   }
+  
 </script>
 
 <style scoped>

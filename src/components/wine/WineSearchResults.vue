@@ -43,8 +43,8 @@
     },
 
     props: {
-      searchResults: Array,
-      showResults: Boolean,
+      searchResults: { type: Array, required: true },
+      showResults: { type: Boolean, required: true },
     }    
   };
 </script>
