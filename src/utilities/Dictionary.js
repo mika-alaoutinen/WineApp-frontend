@@ -16,7 +16,7 @@ export default {
         // Wine types
         sparkling: "Kuohuviini",
         red: "Punaviini",
-        rose: "Roseviini",
+        rose: "Roseeviini",
         white: "Valkoviini",
         other: "Muu viini"
     },

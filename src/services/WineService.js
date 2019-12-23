@@ -25,6 +25,12 @@ class WineService {
                     .find(wine => wine.id == id);
     }
 
+    // TODO: how to send search params?
+    async searchWines(searchParams) {
+        return axios.get(baseUrl + "search?" + buildQueryParams(searchParams))
+                    .catch(error => console.log(error));
+    }
+
     /**
      * Add all wines received from the backend to wineStore.
      */
@@ -64,6 +70,20 @@ class WineService {
              .then(() => this.wineStore.deleteWine(id))
              .catch(error => console.log(error));
     }
+}
+
+// Private helper functions:
+
+/**
+ * Parses searchParams object and builds a query params string from it.
+ * @param {Object} searchParams
+ * @return {String} query string
+ */
+function buildQueryParams(searchParams) {
+    return Object.keys(searchParams)
+        .filter(key => searchParams[key].length > 0)
+        .map(key => key + "=" + searchParams[key])
+        .join("&");
 }
 
 export default WineService;

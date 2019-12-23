@@ -1,5 +1,5 @@
 <template>
-  <v-card class="card-wine-table" max-width="85%">
+  <v-card class="full-page-card" max-width="85%">
     <v-card-title><b>Viinilistaus</b> <v-spacer/>
       <v-text-field
         label="Hae viinejä"
@@ -52,13 +52,8 @@
 
     computed: {
       translateHeaders() {
-        return [
-          { text: this.dictionary.translate("name"), value: "name" },
-          { text: this.dictionary.translate("type"), value: "type" },
-          { text: this.dictionary.translate("country"), value: "country" },
-          { text: this.dictionary.translate("price"), value: "price" },
-          { text: this.dictionary.translate("volume"), value: "volume" },
-        ]
+        const headers = [ "name", "type", "country", "price", "volume" ];
+        return headers.map(header => ({ text: this.dictionary.translate(header), value: header }));
       }
     },
 
@@ -76,11 +71,4 @@
 
 <style scoped>
   .align-left { text-align: left }
-  .card-wine-table {
-    margin: auto;
-    padding-bottom: 1em;
-    padding-top: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
-  }
 </style>

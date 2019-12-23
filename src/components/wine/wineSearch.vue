@@ -1,13 +1,33 @@
 <template>
-  <div id="wine-search"></div>
+  <div>
+    <WineSearchForm @get:wines="getWines" />
+    <br>
+    <WineSearchResults :searchResults="wines" :showResults="showResults" />
+  </div>
 </template>
 
 <script>
-  /*
-    - Search for wines by name, type, country, etc.
-  */
-  export default {};
-</script>
+  import WineSearchForm from "@/components/wine/WineSearchForm.vue";
+  import WineSearchResults from "@/components/wine/WineSearchResults.vue";
+  
+  export default {
+    components: {
+      WineSearchForm,
+      WineSearchResults
+    },
 
-<style scoped>
-</style>
+    data() {
+      return {
+        wines: [],
+        showResults: false,
+      }
+    },
+
+    methods: {
+      getWines(wines) {
+        this.wines = wines;
+        this.showResults = true;
+      }
+    }
+  };
+</script>
