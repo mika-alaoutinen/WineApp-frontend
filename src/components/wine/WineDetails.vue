@@ -21,6 +21,10 @@
           <div v-if="attribute === 'description' || attribute === 'foodPairings'">
             <v-chip v-for="keyword in value" :key="keyword">{{ keyword }}</v-chip>
           </div>
+          <!-- Valid URLs are shown as hyperlinks, invalid URLs are hidden: -->
+          <div v-else-if="attribute === 'url'">
+            <a :href="value">{{ validateUrl(value) }}</a>
+          </div>
           <!-- Regular text: -->
           <div v-else>{{ value }}</div>
         </v-col>
@@ -64,6 +68,11 @@
     },
 
     methods: {
+      cancelEdit(wine) {
+        Object.assign(wine, this.cachedWine);
+        this.editing = null;
+      },
+
       deleteWine(id) {
         wineService.deleteWine(id);
         this.$router.push("/wines/");
@@ -82,9 +91,8 @@
         this.editing = null;
       },
 
-      cancelEdit(wine) {
-        Object.assign(wine, this.cachedWine);
-        this.editing = null;
+      validateUrl(url) {
+        return url.includes("http") || url.includes("https") ? url : "";
       },
     },
 
@@ -93,7 +101,7 @@
     }
   };
 
-  // Private functions:
+  // Utility functions:
   function inputIsInvalid(wine) {
     return Array.from(Object.values(wine))
                 .some(value => value === "" || value === []);
