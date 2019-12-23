@@ -2,7 +2,7 @@
   <div>
     <WineSearchForm @get:wines="getWines" />
     <br>
-    <WineSearchResults :searchResults="foundWines" :showResults="showResults" />
+    <WineSearchResults :searchResults="wines" :showResults="showResults" />
   </div>
 </template>
 
@@ -18,14 +18,14 @@
 
     data() {
       return {
-        foundWines: [],
+        wines: [],
         showResults: false,
       }
     },
 
     methods: {
       getWines(wines) {
-        this.foundWines = wines;
+        this.wines = wines;
         this.showResults = true;
       }
     }

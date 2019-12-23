@@ -52,13 +52,8 @@
 
     computed: {
       translateHeaders() {
-        return [
-          { text: this.dictionary.translate("name"), value: "name" },
-          { text: this.dictionary.translate("type"), value: "type" },
-          { text: this.dictionary.translate("country"), value: "country" },
-          { text: this.dictionary.translate("price"), value: "price" },
-          { text: this.dictionary.translate("volume"), value: "volume" },
-        ]
+        const headers = [ "name", "type", "country", "price", "volume" ];
+        return headers.map(header => ({ text: this.dictionary.translate(header), value: header }));
       }
     },
 
