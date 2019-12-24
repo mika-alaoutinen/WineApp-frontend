@@ -5,14 +5,15 @@
     <v-card class="card-wine-detail" max-width="60em">
       <v-row v-for="(value, attribute) in displayWine" :key="attribute">
         
-        <!-- Left column for attribute names: -->
+        <!-- Left column for attribute names. -->
         <v-col class="attribute-text" align="start" sm="3">
             {{ dictionary.translate(attribute) }}
         </v-col>
 
-        <!-- Right column for values: -->
-        <v-col v-if="editing === wine.id" align="start"> <!-- Editing mode -->
-          <v-text-field @keyup.enter="editWine(wine)" v-model="wine[attribute]" />
+        <!-- Right column for values. -->
+        <!-- Editing mode: -->
+        <v-col v-if="editing === wine.id" align="start">
+          <v-text-field @keyup.enter="saveEdit(wine)" v-model="wine[attribute]" />
         </v-col>
 
         <!-- View mode: -->
