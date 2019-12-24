@@ -1,6 +1,7 @@
 <template>
   <v-card class="full-page-card" max-width="60%">
     <v-card-title class="card-title">Lisää uusi viini</v-card-title>
+    <v-card-subtitle id="post-message">{{ postResultMessage }}</v-card-subtitle>
     
     <v-form @submit.prevent="submitForm" id="add-wine-form">
       <div v-for="(value, attribute) in wine" :key="attribute">
@@ -39,6 +40,8 @@
     data() {
       return {
         dictionary: Dictionary,
+        postResultMessage: "",
+
         wine: {
           name: "",
           type: "",
@@ -49,6 +52,7 @@
           foodPairings: "",
           url: ""
         },
+        
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
       }
     },
@@ -57,17 +61,20 @@
       submitForm() {
         this.wine.description = parseKeywords(this.wine.description);
         this.wine.foodPairings = parseKeywords(this.wine.foodPairings);
-        const wineAdded = wineService.postWine(this.wine);
-
-        wineAdded ? this.successfulPost() : this.failedPost();
+        wineService.postWine(this.wine).then(
+          isWineAdded => isWineAdded ? this.successfulPost() : this.failedPost()
+        );
       },
 
       successfulPost() {
         Object.keys(this.wine).forEach(key => this.wine[key] = "");
+        this.postResultMessage = "Uusi viini lisätty!";
+        changePostMessageColor("#008000");
       },
 
       failedPost() {
-        console.log("Failfish");
+        this.postResultMessage = "Viinin lisääminen epäonnistui!";
+        changePostMessageColor("ff0000");
       },
     }
   };
@@ -78,7 +85,9 @@
                  .map(word => word.trim());
   }
 
-  
+  function changePostMessageColor(colorCode) {
+    document.getElementById("post-message").style.backgroundColor = colorCode;
+  }
 
 </script>
 
@@ -91,5 +100,12 @@
   .card-title {
     font-weight: bold;
     padding-left: 0;
+  }
+  #post-message {
+    background-color: transparent;
+    font-weight: bold;
+    color: whitesmoke;
+    opacity: 70%;
+    padding: 6px;
   }
 </style>
