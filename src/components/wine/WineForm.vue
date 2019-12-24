@@ -13,16 +13,19 @@
     <v-form @submit.prevent="submitForm" id="add-wine-form">
       <div v-for="(value, attribute) in wine" :key="attribute">
 
-        <!-- Generate text fields for wine attributes: -->
-        <div v-if="attribute !== 'type'" :id="'wine-' + attribute">
-          <v-text-field
-            :label="dictionary.translate(attribute)"
-            v-model="wine[attribute]"
-          ></v-text-field>
-        </div>
-        
+        <!-- Add chips to distinguish keywords: -->
+        <v-text-field
+          @keyup.space="checkForKeyword(attribute)"
+          v-if="attribute === 'description' || attribute === 'foodPairings'"
+          v-model=" placeholder[attribute]"
+          :label="dictionary.translate(attribute)">
+        </v-text-field>
+
         <!-- Generate radio buttons for wine types: -->
-        <v-radio-group v-else v-model="wine.type" row>
+        <v-radio-group
+          v-else-if="attribute === 'type'"
+          v-model="wine.type"
+          row>
           <v-radio
             v-for="type in wineTypes" :key="type"
             :label="dictionary.translate(type)"
@@ -30,7 +33,14 @@
           </v-radio>
         </v-radio-group>
 
+        <!-- Generate text fields for other attributes: -->
+        <v-text-field
+          v-else
+          v-model="wine[attribute]"
+          :label="dictionary.translate(attribute)">
+        </v-text-field>
       </div>
+
       <!-- Form submit button to save the new wine: -->
       <button class="button-save">Lisää viini</button>
     </v-form>
@@ -49,24 +59,38 @@
         dictionary: Dictionary,
         showErrorAlert: false,
         showSuccessAlert: false,
+
+        // Placeholders for inputs that are being entered:
+        placeholder: {
+          description: "",
+          foodPairings: "",
+        },
+        
         wine: {
           name: "",
           type: "",
           country: "",
           price: "",
           volume: "",
-          description: "",
-          foodPairings: "",
+          description: [],
+          foodPairings: [],
           url: ""
         },
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
       }
-    },
+    },  
 
     methods: {
+      checkForKeyword(attribute) {
+        let keyword = this.placeholder[attribute];
+
+        if (keyword.includes(",") || keyword.includes(";")) {
+          this.wine[attribute].push(keyword.trim().replace(",", ""));
+          this.placeholder[attribute] = "";
+        }
+      },
+
       submitForm() {
-        this.wine.description = parseKeywords(this.wine.description);
-        this.wine.foodPairings = parseKeywords(this.wine.foodPairings);
         wineService.postWine(this.wine).then(
           isWineAdded => isWineAdded ? this.successfulPost() : this.failedPost()
         );
@@ -82,13 +106,6 @@
       },
     }
   };
-
-  // Private functions:
-  function parseKeywords(string) {
-    return string.split(",")
-                 .map(word => word.trim());
-  }
-
 </script>
 
 <style scoped>
