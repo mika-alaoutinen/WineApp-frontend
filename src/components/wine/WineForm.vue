@@ -2,7 +2,15 @@
   <v-card class="full-page-card" max-width="60%">
     <v-card-title class="card-title">Lisää uusi viini</v-card-title>
     
-    <v-form @submit.prevent="submitForm" ref="add-wine">
+    <!-- Alerts that inform user if adding new wine was successful or not: -->
+    <v-alert dismissible type="success" :value=showSuccessAlert>
+      Uusi viini lisätty!
+    </v-alert>
+    <v-alert dismissible type="error" :value=showErrorAlert>
+      Viinin lisääminen epäonnistui!
+    </v-alert>
+    
+    <v-form @submit.prevent="submitForm" id="add-wine-form">
       <div v-for="(value, attribute) in wine" :key="attribute">
 
         <!-- Generate text fields for wine attributes: -->
@@ -39,6 +47,8 @@
     data() {
       return {
         dictionary: Dictionary,
+        showErrorAlert: false,
+        showSuccessAlert: false,
         wine: {
           name: "",
           type: "",
@@ -55,18 +65,30 @@
 
     methods: {
       submitForm() {
-        // TODO: add feedback on submit. Did submit succeed or fail?
-        // If submit is OK, clear form.
-        this.wine.description = this.parseKeywords(this.wine.description);
-        this.wine.foodPairings = this.parseKeywords(this.wine.foodPairings);
-        wineService.postWine(this.wine);
+        this.wine.description = parseKeywords(this.wine.description);
+        this.wine.foodPairings = parseKeywords(this.wine.foodPairings);
+        wineService.postWine(this.wine).then(
+          isWineAdded => isWineAdded ? this.successfulPost() : this.failedPost()
+        );
       },
-      parseKeywords(string) {
-        return string.split(",")
-                     .map(word => word.trim());
+
+      successfulPost() {
+        Object.keys(this.wine).forEach(key => this.wine[key] = "");
+        this.showSuccessAlert = true;
+      },
+
+      failedPost() {
+        this.showErrorAlert = true;
       },
     }
   };
+
+  // Private functions:
+  function parseKeywords(string) {
+    return string.split(",")
+                 .map(word => word.trim());
+  }
+
 </script>
 
 <style scoped>

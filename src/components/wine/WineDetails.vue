@@ -5,18 +5,32 @@
     <v-card class="card-wine-detail" max-width="60em">
       <v-row v-for="(value, attribute) in displayWine" :key="attribute">
         
-        <!-- Left column for attribute names: -->
+        <!-- Left column for attribute names. -->
         <v-col class="attribute-text" align="start" sm="3">
             {{ dictionary.translate(attribute) }}
         </v-col>
 
-        <!-- Right column for values: -->
-        <v-col v-if="editing === wine.id" align="start"> <!-- Editing mode -->
-          <v-text-field @keyup.enter="editWine(wine)" v-model="wine[attribute]"></v-text-field>
-        </v-col>
+        <!-- Right column for values. -->
+        <!-- Editing mode: -->
+        <v-text-field v-if="editing === wine.id"
+          @keyup.enter="saveEdit(wine)"
+          align="start"
+          class="text-field"
+          v-model="wine[attribute]">
+        </v-text-field>
 
-        <v-col v-else align="start"> <!-- View mode -->
-          {{ value }}
+        <!-- View mode: -->
+        <v-col v-else align="start">
+          <!-- Keyword lists are shown as chips -->
+          <div v-if="attribute === 'description' || attribute === 'foodPairings'">
+            <v-chip v-for="keyword in value" :key="keyword">{{ keyword }}</v-chip>
+          </div>
+          <!-- Valid URLs are shown as hyperlinks, invalid URLs are hidden: -->
+          <div v-else-if="attribute === 'url'">
+            <a :href="value">{{ validateUrl(value) }}</a>
+          </div>
+          <!-- Regular text: -->
+          <div v-else>{{ value }}</div>
         </v-col>
       </v-row>
 
@@ -58,6 +72,11 @@
     },
 
     methods: {
+      cancelEdit(wine) {
+        Object.assign(wine, this.cachedWine);
+        this.editing = null;
+      },
+
       deleteWine(id) {
         wineService.deleteWine(id);
         this.$router.push("/wines/");
@@ -76,9 +95,8 @@
         this.editing = null;
       },
 
-      cancelEdit(wine) {
-        Object.assign(wine, this.cachedWine);
-        this.editing = null;
+      validateUrl(url) {
+        return url.includes("http") || url.includes("https") ? url : "";
       },
     },
 
@@ -87,11 +105,12 @@
     }
   };
 
-  // Private functions:
+  // Utility functions:
   function inputIsInvalid(wine) {
     return Array.from(Object.values(wine))
                 .some(value => value === "" || value === []);
   }
+
 </script>
 
 <style scoped>
@@ -110,4 +129,5 @@
     padding-left: 2em;
     padding-right: 2em;
   }
+  .text-field { padding-top: 0 }
 </style>
