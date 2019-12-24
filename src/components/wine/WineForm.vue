@@ -15,10 +15,11 @@
       <div v-for="(value, attribute) in wine" :key="attribute">
 
         <!-- Add chips for description and food pairing keywords: -->
-        <div v-if="attribute === 'description' || attribute === 'foodPairings'">
+        <div v-if="attribute === 'description' || attribute === 'foodPairings'" class="align-left">
           <v-chip
             v-for="keyword in wine[attribute]" :key="keyword"
             @click:close="deleteKeyword(attribute, keyword)"
+            class="keyword-chip"
             close>
             {{ keyword }}
           </v-chip>
@@ -121,6 +122,7 @@
 </script>
 
 <style scoped>
+  .align-left { text-align: left }
   .button-save {
     color: green;
     font-weight: bold;
