@@ -1,7 +1,14 @@
 <template>
   <v-card class="full-page-card" max-width="60%">
     <v-card-title class="card-title">Lisää uusi viini</v-card-title>
-    <v-card-subtitle id="post-message">{{ postResultMessage }}</v-card-subtitle>
+    
+    <!-- Alerts that inform user if adding new wine was successful or not: -->
+    <v-alert dismissible type="success" :value=showSuccessAlert>
+      Uusi viini lisätty!
+    </v-alert>
+    <v-alert dismissible type="error" :value=showErrorAlert>
+      Viinin lisääminen epäonnistui!
+    </v-alert>
     
     <v-form @submit.prevent="submitForm" id="add-wine-form">
       <div v-for="(value, attribute) in wine" :key="attribute">
@@ -40,8 +47,8 @@
     data() {
       return {
         dictionary: Dictionary,
-        postResultMessage: "",
-
+        showErrorAlert: false,
+        showSuccessAlert: false,
         wine: {
           name: "",
           type: "",
@@ -52,7 +59,6 @@
           foodPairings: "",
           url: ""
         },
-        
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
       }
     },
@@ -68,13 +74,11 @@
 
       successfulPost() {
         Object.keys(this.wine).forEach(key => this.wine[key] = "");
-        this.postResultMessage = "Uusi viini lisätty!";
-        changePostMessageColor("#008000");
+        this.showSuccessAlert = true;
       },
 
       failedPost() {
-        this.postResultMessage = "Viinin lisääminen epäonnistui!";
-        changePostMessageColor("ff0000");
+        this.showErrorAlert = true;
       },
     }
   };
@@ -83,10 +87,6 @@
   function parseKeywords(string) {
     return string.split(",")
                  .map(word => word.trim());
-  }
-
-  function changePostMessageColor(colorCode) {
-    document.getElementById("post-message").style.backgroundColor = colorCode;
   }
 
 </script>
@@ -100,12 +100,5 @@
   .card-title {
     font-weight: bold;
     padding-left: 0;
-  }
-  #post-message {
-    background-color: transparent;
-    font-weight: bold;
-    color: whitesmoke;
-    opacity: 70%;
-    padding: 6px;
   }
 </style>
