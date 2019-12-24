@@ -12,9 +12,12 @@
 
         <!-- Right column for values. -->
         <!-- Editing mode: -->
-        <v-col v-if="editing === wine.id" align="start">
-          <v-text-field @keyup.enter="saveEdit(wine)" v-model="wine[attribute]" />
-        </v-col>
+        <v-text-field v-if="editing === wine.id"
+          @keyup.enter="saveEdit(wine)"
+          align="start"
+          class="text-field"
+          v-model="wine[attribute]">
+        </v-text-field>
 
         <!-- View mode: -->
         <v-col v-else align="start">
@@ -126,4 +129,5 @@
     padding-left: 2em;
     padding-right: 2em;
   }
+  .text-field { padding-top: 0 }
 </style>
