@@ -10,22 +10,30 @@
       Viinin lisääminen epäonnistui!
     </v-alert>
     
-    <v-form @submit.prevent="submitForm" id="add-wine-form">
+    <!-- Form begins -->
+    <v-form @submit.prevent="submitForm">
       <div v-for="(value, attribute) in wine" :key="attribute">
 
-        <!-- Add chips to distinguish keywords: -->
-        <v-text-field
-          @keyup.space="checkForKeyword(attribute)"
-          v-if="attribute === 'description' || attribute === 'foodPairings'"
-          v-model=" placeholder[attribute]"
-          :label="dictionary.translate(attribute)">
-        </v-text-field>
+        <!-- Add chips for description and food pairing keywords: -->
+        <div v-if="attribute === 'description' || attribute === 'foodPairings'">
+          <v-chip
+            v-for="keyword in wine[attribute]" :key="keyword"
+            @click:close="deleteKeyword(attribute, keyword)"
+            close>
+            {{ keyword }}
+          </v-chip>
+          <v-text-field
+            @keyup.space="checkForKeyword(attribute)"
+            :label="dictionary.translate(attribute)"
+            v-model=" placeholder[attribute]">
+          </v-text-field>
+        </div>
 
         <!-- Generate radio buttons for wine types: -->
         <v-radio-group
           v-else-if="attribute === 'type'"
-          v-model="wine.type"
-          row>
+          row
+          v-model="wine.type">
           <v-radio
             v-for="type in wineTypes" :key="type"
             :label="dictionary.translate(type)"
@@ -36,8 +44,8 @@
         <!-- Generate text fields for other attributes: -->
         <v-text-field
           v-else
-          v-model="wine[attribute]"
-          :label="dictionary.translate(attribute)">
+          :label="dictionary.translate(attribute)"
+          v-model="wine[attribute]">
         </v-text-field>
       </div>
 
@@ -88,6 +96,10 @@
           this.wine[attribute].push(keyword.trim().replace(",", ""));
           this.placeholder[attribute] = "";
         }
+      },
+
+      deleteKeyword(attribute, keyword) {
+        this.wine[attribute] = this.wine[attribute].filter(item => item !== keyword);
       },
 
       submitForm() {
