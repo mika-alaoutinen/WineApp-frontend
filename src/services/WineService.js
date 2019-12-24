@@ -45,9 +45,12 @@ class WineService {
      * @param {Wine} wine 
      */
     async postWine(wine) {
-        axios.post(baseUrl, wine)
-             .then(response => this.wineStore.addWine(response.data))
-             .catch(error => console.log(error));
+        return axios
+            .post(baseUrl, wine)
+            .then((response) => {
+                return this.wineStore.addWine(response.data);
+            })
+            .catch(error => console.log(error));
     }
 
     /**

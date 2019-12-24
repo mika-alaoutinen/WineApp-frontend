@@ -2,7 +2,7 @@
   <v-card class="full-page-card" max-width="60%">
     <v-card-title class="card-title">Lisää uusi viini</v-card-title>
     
-    <v-form @submit.prevent="submitForm" ref="add-wine">
+    <v-form @submit.prevent="submitForm" id="add-wine-form">
       <div v-for="(value, attribute) in wine" :key="attribute">
 
         <!-- Generate text fields for wine attributes: -->
@@ -55,11 +55,19 @@
 
     methods: {
       submitForm() {
-        // TODO: add feedback on submit. Did submit succeed or fail?
-        // If submit is OK, clear form.
         this.wine.description = parseKeywords(this.wine.description);
         this.wine.foodPairings = parseKeywords(this.wine.foodPairings);
-        wineService.postWine(this.wine);
+        const wineAdded = wineService.postWine(this.wine);
+
+        wineAdded ? this.successfulPost() : this.failedPost();
+      },
+
+      successfulPost() {
+        Object.keys(this.wine).forEach(key => this.wine[key] = "");
+      },
+
+      failedPost() {
+        console.log("Failfish");
       },
     }
   };
@@ -69,6 +77,8 @@
     return string.split(",")
                  .map(word => word.trim());
   }
+
+  
 
 </script>
 
