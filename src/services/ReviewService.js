@@ -9,8 +9,10 @@ class ReviewService {
     }
 
     async getReviewCount() {
-        return axios.get(baseUrl + "count")
-                    .catch(error => console.log(error));
+        return axios
+            .get(baseUrl + "count")
+            .then(response => response.data)
+            .catch(error => console.error(error));
     }
 
     async getNewestReviews(count) {
@@ -21,8 +23,36 @@ class ReviewService {
         return axios
             .get(baseUrl + queryParam)
             .then(response => response.data)
-            .catch(error => console.log(error));
+            .catch(error => console.error(error));
     }
+
+    async searchReviews(searchParams) {
+        return axios
+            .get(baseUrl + "search?" + buildQueryParams(searchParams))
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+
+    async quickSearch(searchParam) {
+        return axios
+            .get(baseUrl + "quickSearch/" + searchParam)
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+}
+
+// Private helper functions:
+
+/**
+ * Parses searchParams object and builds a query params string from it.
+ * @param {Object} searchParams
+ * @return {String} query string
+ */
+function buildQueryParams(searchParams) {
+    return Object.keys(searchParams)
+        .filter(key => searchParams[key].length > 0)
+        .map(key => key + "=" + searchParams[key])
+        .join("&");
 }
 
 export default ReviewService;
