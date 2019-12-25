@@ -7,8 +7,8 @@
       <!-- Review quick search: -->  
       <v-subheader class="subheader">Pikahaut</v-subheader>
       <v-btn-toggle class="quick-search" group>
-        <v-btn @click="doQuickSearch('bestRated')" small>Parhaat</v-btn>
-        <v-btn @click="doQuickSearch('worstRated')" small>Huonoimmat</v-btn>
+        <v-btn @click="doQuickSearch('best')" small>Parhaat</v-btn>
+        <v-btn @click="doQuickSearch('worst')" small>Huonoimmat</v-btn>
         <v-btn @click="doQuickSearch('newest')" small>Uusimmat</v-btn>
       </v-btn-toggle>
 
@@ -45,16 +45,14 @@
     },
 
     methods: {
-      doQuickSearch(searchAttribute) {
-        reviewService.quickSearch(searchAttribute)
-                     .then(response => this.$emit("get:reviews", response.data))
-                     .catch(error => console.log(error));
+      doQuickSearch(searchType) {
+        reviewService.quickSearch(searchType, 10)
+                     .then(reviews => this.$emit("get:reviews", reviews));
       },
 
       submitForm() {
         reviewService.searchReviews(this.searchParams)
-                     .then(response => this.$emit("get:reviews", response.data))
-                     .catch(error => console.log(error));
+                     .then(reviews => this.$emit("get:reviews", reviews))
       }
     }
   };

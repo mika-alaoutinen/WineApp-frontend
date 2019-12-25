@@ -49,7 +49,7 @@ TODO:
     methods: {},
 
     mounted() {
-      reviewService.getNewestReviews()
+      reviewService.quickSearch("newest")
                    .then(newestReviews => this.reviews = newestReviews);
     },
   };

@@ -13,6 +13,10 @@
   import WineSearchForm from "@/components/wine/WineSearchForm.vue";
   import WineSearchResults from "@/components/wine/WineSearchResults.vue";
   
+  /*
+  TODO:
+    - What to do with review results? Add ReviewSearchResults component?
+  */
   export default {
     components: {
       WineSearchForm,
