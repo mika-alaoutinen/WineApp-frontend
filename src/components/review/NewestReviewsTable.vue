@@ -9,10 +9,12 @@
       disable-sort
       loading loading-text="Ladataan arvosteluja...">
 
+      <!-- Clicking on wine name redirects to wine details page: -->
       <template v-slot:item.wine="{ item }">
-        {{ item.wine.name }}
+        <router-link tag="tr" :to="'wines/' + item.wine.id">
+          {{ item.wine.name }}
+        </router-link>
       </template>
-
     </v-data-table>
     
   </v-card>
@@ -24,6 +26,11 @@ import ReviewService from "@/services/ReviewService.js";
 
 const reviewService = new ReviewService();
 
+/*
+TODO:
+  - Add functionality to load more reviews. => I.e. page two has reviews 11-20, etc.
+*/
+
   export default {
     data() {
       return {
@@ -31,7 +38,7 @@ const reviewService = new ReviewService();
         reviews: [],
       }
     },
-    
+
     computed: {
       translateHeaders() {
         const headers = [ "author", "date", "reviewText", "rating", "wine" ];
@@ -42,7 +49,7 @@ const reviewService = new ReviewService();
     methods: {},
 
     mounted() {
-      reviewService.getNewestReviews(15)
+      reviewService.getNewestReviews()
                    .then(newestReviews => this.reviews = newestReviews);
     },
   };
