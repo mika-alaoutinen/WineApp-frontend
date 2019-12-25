@@ -1,12 +1,13 @@
 <template>
   <v-card class="full-page-card" max-width="85%">
-    <v-card-title><b>Viinilistaus</b> <v-spacer/>
+    <v-card-title class="card-title">Viinilistaus<v-spacer/>
       <v-text-field
+        class="search-bar"
         hide-details
         label="Hae viinejä"
         single-line
         v-model="search">
-      </v-text-field>
+      </v-text-field>      
     </v-card-title>
 
     <v-data-table
@@ -27,9 +28,9 @@
 </template>
 
 <script>
-  import WineService from "@/services/WineService.js";
   import Dictionary from "@/utilities/Dictionary.js";
-  
+  import WineService from "@/services/WineService.js";
+
   const wineService = new WineService();
 
   /*
@@ -71,4 +72,6 @@
 
 <style scoped>
   .align-left { text-align: left }
+  .card-title { font-weight: bold }
+  .search-bar { font-weight: normal }
 </style>
