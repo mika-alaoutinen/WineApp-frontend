@@ -21,14 +21,8 @@
     },
 
     mounted() {
-      wineService.getWineCount()
-                 .then(response => this.wineCount = response.data);
-      
-      reviewService.getReviewCount()
-                   .then(response => this.reviewCount = response.data);
+      wineService.getWineCount().then(wines => this.wineCount = wines);
+      reviewService.getReviewCount().then(reviews => this.reviewCount = reviews);
     }
   };
 </script>
-
-<style scoped>
-</style>

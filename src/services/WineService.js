@@ -16,18 +16,23 @@ class WineService {
     }
 
     async getWineCount() {
-        return axios.get(baseUrl + "count")
-                    .catch(error => console.log(error));
+        return axios
+            .get(baseUrl + "count")
+            .then(response => response.data)
+            .catch(error => console.error(error));
     }
 
     getFromWineStore(id) {
-        return Array.from(this.wineStore.data.wines)
-                    .find(wine => wine.id == id);
+        return Array
+            .from(this.wineStore.data.wines)
+            .find(wine => wine.id == id);
     }
 
     async searchWines(searchParams) {
-        return axios.get(baseUrl + "search?" + buildQueryParams(searchParams))
-                    .catch(error => console.log(error));
+        return axios
+            .get(baseUrl + "search?" + buildQueryParams(searchParams))
+            .then(response => response.data)
+            .catch(error => console.error(error));
     }
 
     /**
@@ -36,11 +41,11 @@ class WineService {
     async getWines() {
         axios.get(baseUrl)
              .then(response => this.wineStore.addAll(response.data))
-             .catch(error => console.log(error));
+             .catch(error => console.error(error));
     }
 
     /**
-     * Send a new wine to backend for persisting.
+     * Sends a new wine to backend for persisting.
      * @param {Wine} wine 
      */
     async postWine(wine) {
@@ -49,18 +54,18 @@ class WineService {
             .then((response) => {
                 return this.wineStore.addWine(response.data);
             })
-            .catch(error => console.log(error));
+            .catch(error => console.error(error));
     }
 
     /**
-     * Send an edite wine to backend for persisting.
+     * Send an edited wine to backend for persisting.
      * @param {Number} id 
      * @param {Wine} editedWine 
      */
     async putWine(id, editedWine) {
         axios.put(baseUrl + id, editedWine)
              .then(response => this.wineStore.editWine(id, response))
-             .catch((error) => console.log(error));
+             .catch(error => console.error(error));
     }
 
     /**
@@ -70,7 +75,7 @@ class WineService {
     async deleteWine(id) {
         axios.delete(baseUrl + id)
              .then(() => this.wineStore.deleteWine(id))
-             .catch(error => console.log(error));
+             .catch(error => console.error(error));
     }
 }
 

@@ -28,7 +28,6 @@ export default new Router({
             name: "Show newest reviews",
             component: NewestReviewsTable,
         },
-
         // Wines:
         {
             path: "/wines",

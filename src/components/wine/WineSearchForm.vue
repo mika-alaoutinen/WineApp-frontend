@@ -1,8 +1,8 @@
 <template>
-  <v-card class="full-page-card" id="search-card" max-width="60%">
+  <v-card class="full-page-card" max-width="60%">
     <v-card-title class="card-title">Hae viinejä</v-card-title>
 
-    <v-form @submit.prevent="submitForm" ref="search-wines">
+    <v-form @submit.prevent="submitForm">
 
       <!-- Search wines by name or country -->
       <v-subheader class="subheader">Hae nimen tai maan perusteella</v-subheader>
@@ -96,7 +96,7 @@
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
         wineVolumes: [ 0.75, 1, 1.5, 2, 3 ],
         
-        // Search parameters that get returned to backend:
+        // Search parameters that get sent to backend:
         searchParams: {
           name: "",
           type: "",
@@ -111,6 +111,7 @@
       resetPriceRange() {
        this.searchParams.priceRange = [ this.minPrice, this.maxPrice ];
       },
+
       submitForm() {
         // Update price range if it has been set:
         if (this.priceSearchEnabled) {
@@ -119,7 +120,7 @@
 
         // Send retrieved wines to parent component:
         wineService.searchWines(this.searchParams)
-                   .then(response => this.$emit("get:wines", response.data))
+                   .then(wines => this.$emit("get:wines", wines))
                    .catch(error => console.log(error))
       },
     },
