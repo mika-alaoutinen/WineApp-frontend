@@ -2,8 +2,8 @@
   <v-card class="full-page-card" max-width="85%">
     <v-card-title><b>Viinilistaus</b> <v-spacer/>
       <v-text-field
-        label="Hae viinejä"
         hide-details
+        label="Hae viinejä"
         single-line
         v-model="search">
       </v-text-field>
@@ -11,12 +11,12 @@
 
     <v-data-table
       @click:row="openWineInfo"
-      class="align-left"
-      loading loading-text="Ladataan viinejä..."
       :headers="translateHeaders"
       :items="wineStore.wines"
       :items-per-page="15"
-      :search="search">
+      :search="search"
+      class="align-left"
+      loading loading-text="Ladataan viinejä...">
 
       <template v-slot:item.type="{ item }">
         {{ dictionary.translate(item.type) }}

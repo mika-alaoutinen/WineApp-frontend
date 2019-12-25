@@ -1,51 +1,51 @@
 <template>
-  <div>
-    <h2>Viinin tiedot</h2>
+  <v-card class="card-wine-detail" max-width="60em">
+    <v-card-title class="card-title">Viinin tiedot</v-card-title>
 
-    <v-card class="card-wine-detail" max-width="60em">
-      <v-row v-for="(value, attribute) in displayWine" :key="attribute">
-        
-        <!-- Left column for attribute names. -->
-        <v-col class="attribute-text" align="start" sm="3">
-            {{ dictionary.translate(attribute) }}
-        </v-col>
-
-        <!-- Right column for values. -->
-        <!-- Editing mode: -->
-        <v-text-field v-if="editing === wine.id"
-          @keyup.enter="saveEdit(wine)"
-          align="start"
-          class="text-field"
-          v-model="wine[attribute]">
-        </v-text-field>
-
-        <!-- View mode: -->
-        <v-col v-else align="start">
-          <!-- Keyword lists are shown as chips -->
-          <div v-if="attribute === 'description' || attribute === 'foodPairings'">
-            <v-chip v-for="keyword in value" :key="keyword">{{ keyword }}</v-chip>
-          </div>
-          <!-- Valid URLs are shown as hyperlinks, invalid URLs are hidden: -->
-          <div v-else-if="attribute === 'url'">
-            <a :href="value">{{ validateUrl(value) }}</a>
-          </div>
-          <!-- Regular text: -->
-          <div v-else>{{ value }}</div>
-        </v-col>
-      </v-row>
-
-      <!-- Edit and delete buttons -->
-      <div v-if="editing === this.wine.id">
-        <button @click="saveEdit(wine)" class="button-save">Tallenna</button>
-        <button @click="cancelEdit(wine)" class="button-delete">Peruuta</button>
-      </div>
-      <div v-else>
-        <button @click="editMode(wine)" class="button-edit">Muokkaa</button>
-        <button @click="deleteWine(wine.id)" class="button-delete">Poista</button>
-      </div>
+    <v-row v-for="(value, attribute) in displayWine" :key="attribute">
       
-    </v-card>
-  </div>
+      <!-- Left column for attribute names. -->
+      <v-col align="start" class="attribute-text" sm="3">
+          {{ dictionary.translate(attribute) }}
+      </v-col>
+
+      <!-- Right column for values. -->
+      <!-- Editing mode: -->
+      <v-text-field v-if="editing === wine.id"
+        @keyup.enter="saveEdit(wine)"
+        align="start"
+        class="text-field"
+        v-model="wine[attribute]">
+      </v-text-field>
+
+      <!-- View mode: -->
+      <v-col v-else align="start">
+        <!-- Description and food pairings are shown as chips: -->
+        <div v-if="attribute === 'description' || attribute === 'foodPairings'">
+          <v-chip v-for="keyword in value" :key="keyword">
+            {{ keyword }}
+          </v-chip>
+        </div>
+        <!-- Valid URLs are shown as hyperlinks, invalid URLs are hidden: -->
+        <div v-else-if="attribute === 'url'">
+          <a :href="value">{{ validateUrl(value) }}</a>
+        </div>
+        <!-- Regular text: -->
+        <div v-else>{{ value }}</div>
+      </v-col>
+    </v-row>
+
+    <!-- Edit and delete buttons -->
+    <div v-if="editing !== this.wine.id">
+      <button @click="saveEdit(wine)" class="button-save">Tallenna</button>
+      <button @click="cancelEdit(wine)" class="button-delete">Peruuta</button>
+    </div>
+    <div v-else>
+      <button @click="editMode(wine)" class="button-edit">Muokkaa</button>
+      <button @click="deleteWine(wine.id)" class="button-delete">Poista</button>
+    </div>
+    
+  </v-card>
 </template>
 
 <script>
@@ -122,6 +122,10 @@
   .button-delete { color: red }
   .button-edit { color: mediumblue }
   .button-save { color: green }
+  .card-title {
+    font-weight: bold;
+    padding-left: 0;
+  }
   .card-wine-detail {
     margin: auto;
     padding-bottom: 1em;

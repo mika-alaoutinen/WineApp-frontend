@@ -4,16 +4,16 @@
 
     <v-data-table
       @click:row="openWineInfo"
+      :headers="translateHeaders"
+      :items="searchResults"
       class="align-left"
       hide-default-footer
-      loading loading-text="Haetaan viinejä..."
-      :headers="translateHeaders"
-      :items="searchResults">
+      loading loading-text="Haetaan viinejä...">
 
       <template v-slot:item.type="{ item }">
         {{ dictionary.translate(item.type) }}
       </template>
-
+      
     </v-data-table>
 
   </v-card>

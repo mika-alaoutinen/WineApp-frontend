@@ -11,9 +11,8 @@
 
       <!-- Search wines by type. -->
       <v-subheader class="subheader">Hae viinin tyypin perusteella</v-subheader>
-      <v-radio-group v-model="searchParams.type" row>
-        <v-radio
-          v-for="type in wineTypes" :key="type"
+      <v-radio-group row v-model="searchParams.type">
+        <v-radio v-for="type in wineTypes" :key="type"
           :label="dictionary.translate(type)"
           :value="type.toUpperCase()">
         </v-radio>
@@ -34,7 +33,11 @@
       <!-- Search wines by price range -->
       <v-app class="range-slider">
         <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
-        <v-switch @change="resetPriceRange" label="Hintahaku päällä" v-model=priceSearchEnabled></v-switch>
+        <v-switch
+          @change="resetPriceRange"
+          label="Hintahaku päällä"
+          v-model=priceSearchEnabled>
+        </v-switch>
 
         <v-range-slider
           :disabled=!priceSearchEnabled

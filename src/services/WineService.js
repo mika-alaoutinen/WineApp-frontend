@@ -25,7 +25,6 @@ class WineService {
                     .find(wine => wine.id == id);
     }
 
-    // TODO: how to send search params?
     async searchWines(searchParams) {
         return axios.get(baseUrl + "search?" + buildQueryParams(searchParams))
                     .catch(error => console.log(error));
