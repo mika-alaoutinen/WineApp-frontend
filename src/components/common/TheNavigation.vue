@@ -5,6 +5,7 @@
 
     <div class="navigation">
       <router-link to="/home">Aloitus</router-link>
+      <router-link to="/new-reviews">Uudet arvostelut</router-link>
       <router-link to="/wines">Viinit</router-link>
       <router-link to="/search-wines">Hae viinejä</router-link>
       <router-link to="/add-wine">Lisää viini</router-link>

@@ -12,6 +12,17 @@ class ReviewService {
         return axios.get(baseUrl + "count")
                     .catch(error => console.log(error));
     }
+
+    async getNewestReviews(count) {
+        const queryParam = count !== 0 && count !== null && count !== undefined
+            ? "newest?limit=" + count
+            : "newest";
+
+        return axios
+            .get(baseUrl + queryParam)
+            .then(response => response.data)
+            .catch(error => console.log(error));
+    }
 }
 
 export default ReviewService;
