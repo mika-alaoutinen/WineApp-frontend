@@ -36,7 +36,7 @@
     </v-row>
 
     <!-- Edit and delete buttons -->
-    <div v-if="editing !== this.wine.id">
+    <div v-if="editing === this.wine.id">
       <button @click="saveEdit(wine)" class="button-save">Tallenna</button>
       <button @click="cancelEdit(wine)" class="button-delete">Peruuta</button>
     </div>
