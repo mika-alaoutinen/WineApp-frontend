@@ -104,13 +104,13 @@
       },
 
       submitForm() {
-        wineService.postWine(this.wine).then(
-          isWineAdded => isWineAdded ? this.successfulPost() : this.failedPost()
-        );
+        wineService.postWine(this.wine)
+                   .then(isWineAdded => isWineAdded ? this.successfulPost() : this.failedPost());
       },
 
       successfulPost() {
-        Object.keys(this.wine).forEach(key => this.wine[key] = "");
+        Object.keys(this.wine)
+              .map(key => Array.isArray(this.wine[key]) ? this.wine[key] = [] : this.wine[key] = "");
         this.showSuccessAlert = true;
       },
 
