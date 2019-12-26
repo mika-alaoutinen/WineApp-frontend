@@ -11,9 +11,7 @@ export default {
         },
 
         getSearchUrl(params) {
-            const url = this.wine.paths.search + buildQueryParams(params);
-            console.log(url);
-            return url;
+            return this.paths.search + buildQueryParams(params);
         },
     },
 
@@ -54,8 +52,11 @@ function buildQueryLimit(count) {
  * @returns {String} query string
  */
 function buildQueryParams(searchParams) {
-    return Object.keys(searchParams)
-        // .filter(key => searchParams[key].length > 0)
+    const params = Object.keys(searchParams)
+        .filter(key => searchParams[key] != "")
         .map(key => key + "=" + searchParams[key])
         .join("&");
+
+    console.log(params);
+    return params;
 }
