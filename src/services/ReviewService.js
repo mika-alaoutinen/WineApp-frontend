@@ -1,5 +1,6 @@
 import axios from "axios";
 import ReviewStore from "@/stores/ReviewStore.js";
+import UrlBuilder from "@/utilities/UrlBuilder.js";
 
 const baseUrl = "http://localhost:8080/api/reviews/";
 
@@ -22,18 +23,19 @@ class ReviewService {
             .catch(error => console.error(error));
     }
 
-// Quick search:
     async quickSearch(searchParam, count) {
         if (!isSearchParamValid) {
             console.error("Invalid search param: " + searchParam);
             return;
         }
-
-        const path = "search/" + searchParam;
-        const queryParam = buildQueryLimit(path, count);
+        
+        console.log(UrlBuilder.review.paths.quicksearch);
+        
+        // const path = "search/" + searchParam;
+        // const queryParam = path + buildQueryLimit(count);
 
         return axios
-            .get(baseUrl + queryParam)
+            .get(UrlBuilder.review.getQuickSearchUrl(count))
             .then(response => response.data)
             .catch(error => console.error(error));
     }
@@ -48,11 +50,11 @@ class ReviewService {
  * @param {Number} count of wanted results
  * @returns query parameter.
  */
-function buildQueryLimit(url, count) {
-    return count !== 0 && count !== null && count !== undefined
-        ? url + "?limit=" + count
-        : url;
-}
+// function buildQueryLimit(url, count) {
+//     return count !== 0 && count !== null && count !== undefined
+//         ? url + "?limit=" + count
+//         : url;
+// }
 
 /**
  * Parses searchParams object and builds a query params string from it.
