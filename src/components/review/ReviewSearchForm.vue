@@ -62,7 +62,7 @@
       },
 
       submitForm() {
-        reviewService.searchReviews(this.searchParams)
+        reviewService.search(this.searchParams)
                      .then(reviews => this.$emit("get:reviews", reviews))
       }
     }

@@ -119,7 +119,7 @@
         }
 
         // Send retrieved wines to parent component:
-        wineService.searchWines(this.searchParams)
+        wineService.search(this.searchParams)
                    .then(wines => this.$emit("get:wines", wines))
                    .catch(error => console.log(error))
       },
