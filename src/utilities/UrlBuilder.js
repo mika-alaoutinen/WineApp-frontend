@@ -20,14 +20,14 @@ export default {
     review: {
         paths: {
             base: reviewBasePath,
-            count: reviewBasePath + "/count",
+            count: reviewBasePath + "count",
             quicksearch: reviewBasePath + "search/",
             search: reviewBasePath + "search?",
         },
         
-        getQuickSearchUrl(count) {
-            const url = this.review.paths.quicksearch + buildQueryLimit(count);
-            console.log(url);
+        getQuickSearchUrl(searchParam, count) {
+            const url = this.paths.quicksearch + searchParam + buildQueryLimit(count);
+            console.log("getQuickSearchUrl: " + url);
             return url;
         },
 

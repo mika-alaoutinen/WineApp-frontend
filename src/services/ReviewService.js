@@ -28,33 +28,15 @@ class ReviewService {
             console.error("Invalid search param: " + searchParam);
             return;
         }
-        
-        console.log(UrlBuilder.review.paths.quicksearch);
-        
-        // const path = "search/" + searchParam;
-        // const queryParam = path + buildQueryLimit(count);
 
         return axios
-            .get(UrlBuilder.review.getQuickSearchUrl(count))
+            .get(UrlBuilder.review.getQuickSearchUrl(searchParam, count))
             .then(response => response.data)
             .catch(error => console.error(error));
     }
 }
 
 // Private helper functions:
-
-/**
- * Builds a query parameter with optional limit on wanted results.
- * For example "url/endpoint?limit=10" or "url/endpoint".
- * @param {String} url
- * @param {Number} count of wanted results
- * @returns query parameter.
- */
-// function buildQueryLimit(url, count) {
-//     return count !== 0 && count !== null && count !== undefined
-//         ? url + "?limit=" + count
-//         : url;
-// }
 
 /**
  * Parses searchParams object and builds a query params string from it.

@@ -36,6 +36,7 @@
       getReviews(reviews) {
         this.reviews = reviews;
         this.showResults = true;
+        console.log(this.reviews);
       },
 
       getWines(wines) {
