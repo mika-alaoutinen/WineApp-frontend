@@ -6,7 +6,7 @@ export default {
     wine: {
         paths: {
             base: wineBasePath,
-            count: wineBasePath + "/count",
+            count: wineBasePath + "count",
             search: wineBasePath + "search?",
         },
 

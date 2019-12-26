@@ -2,8 +2,6 @@ import axios from "axios";
 import ReviewStore from "@/stores/ReviewStore.js";
 import UrlBuilder from "@/utilities/UrlBuilder.js";
 
-const baseUrl = "http://localhost:8080/api/reviews/";
-
 class ReviewService {
     constructor() {
         this.reviewStore = ReviewStore;
@@ -11,7 +9,7 @@ class ReviewService {
 
     async getReviewCount() {
         return axios
-            .get(baseUrl + "count")
+            .get(UrlBuilder.review.paths.count)
             .then(response => response.data)
             .catch(error => console.error(error));
     }
@@ -35,8 +33,6 @@ class ReviewService {
             .catch(error => console.error(error));
     }
 }
-
-// Private helper functions:
 
 /**
  * Validates that search param is "best", "worst" or "newest".

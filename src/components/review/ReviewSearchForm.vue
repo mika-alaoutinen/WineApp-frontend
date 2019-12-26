@@ -52,6 +52,8 @@
         reviewService.quickSearch(searchType, 10)
                      .then(reviews => this.$emit("get:reviews", reviews));
       },
+
+      // TODO: delete
       doSearch() {
         this.searchParams.minRating = 3.5;
         this.searchParams.maxRating = 4;
