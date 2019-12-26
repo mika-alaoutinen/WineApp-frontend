@@ -22,19 +22,16 @@ export default {
             base: reviewBasePath,
             count: reviewBasePath + "count",
             quicksearch: reviewBasePath + "search/",
-            search: reviewBasePath + "search?",
+            // search: reviewBasePath + "search?",
+            search: reviewBasePath + "rating?",
         },
         
         getQuickSearchUrl(searchParam, count) {
-            const url = this.paths.quicksearch + searchParam + buildQueryLimit(count);
-            console.log("getQuickSearchUrl: " + url);
-            return url;
+            return this.paths.quicksearch + searchParam + buildQueryLimit(count);
         },
 
-        getSearchUrl(params) {
-            const url = this.review.paths.search + buildQueryParams(params);
-            console.log(url);
-            return url;
+        getSearchUrl(searchParams) {
+            return this.paths.search + buildQueryParams(searchParams);
         },
     },
 };
@@ -58,7 +55,7 @@ function buildQueryLimit(count) {
  */
 function buildQueryParams(searchParams) {
     return Object.keys(searchParams)
-        .filter(key => searchParams[key].length > 0)
+        // .filter(key => searchParams[key].length > 0)
         .map(key => key + "=" + searchParams[key])
         .join("&");
 }

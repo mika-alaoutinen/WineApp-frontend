@@ -16,9 +16,9 @@ class ReviewService {
             .catch(error => console.error(error));
     }
 
-    async searchReviews(searchParams) {
+    async search(searchParams) {
         return axios
-            .get(baseUrl + "search?" + buildQueryParams(searchParams))
+            .get(UrlBuilder.review.getSearchUrl(searchParams))
             .then(response => response.data)
             .catch(error => console.error(error));
     }
@@ -37,18 +37,6 @@ class ReviewService {
 }
 
 // Private helper functions:
-
-/**
- * Parses searchParams object and builds a query params string from it.
- * @param {Object} searchParams
- * @return {String} query string
- */
-function buildQueryParams(searchParams) {
-    return Object.keys(searchParams)
-        .filter(key => searchParams[key].length > 0)
-        .map(key => key + "=" + searchParams[key])
-        .join("&");
-}
 
 /**
  * Validates that search param is "best", "worst" or "newest".

@@ -10,6 +10,8 @@
         <v-btn @click="doQuickSearch('best')" small>Parhaat</v-btn>
         <v-btn @click="doQuickSearch('worst')" small>Huonoimmat</v-btn>
         <v-btn @click="doQuickSearch('newest')" small>Uusimmat</v-btn>
+        <v-btn @click="doSearch()" small>testi</v-btn>
+
       </v-btn-toggle>
 
       <!-- TODO: Maybe change to a select-component..? -->
@@ -38,7 +40,8 @@
         searchParams: {
           author: "",
           date: "",
-          rating: 0,
+          minRating: 0,
+          maxRating: 5,
           wineId: "",
         }
       }
@@ -48,6 +51,12 @@
       doQuickSearch(searchType) {
         reviewService.quickSearch(searchType, 10)
                      .then(reviews => this.$emit("get:reviews", reviews));
+      },
+      doSearch() {
+        this.searchParams.minRating = 3.5;
+        this.searchParams.maxRating = 4;
+        
+        reviewService.search(this.searchParams).then(response => console.log(response));
       },
 
       submitForm() {
