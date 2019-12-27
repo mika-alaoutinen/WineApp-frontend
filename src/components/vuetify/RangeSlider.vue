@@ -1,12 +1,13 @@
 <template>
   <div>
     <v-switch
+      @change="emitSwitchState"
       :label="$props.switchLabel"
       v-model="enabled">
     </v-switch>
 
     <v-range-slider
-      @change="emitValues"
+      @change="emitRange"
       :disabled="!enabled"
       :min="$props.defaultRange[0]"
       :max="$props.defaultRange[1]"
@@ -44,11 +45,17 @@
     },
 
     methods: {
-      emitValues() {
+      emitSwitchState() {
+        this.$emit("get:switch", this.enabled);
+      },
+
+      emitRange() {
         if (this.enabled) {
-          // emit selected range
+          console.log("emitting values");
+          this.$emit("get:range", this.range);
         } else {
-          // emit default range given in props
+          console.log("default values");
+          this.$emit("get:range", this.$props.defaultRange);
         }
       },
     },
