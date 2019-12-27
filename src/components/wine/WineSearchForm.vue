@@ -31,40 +31,38 @@
       </v-row>
 
       <!-- Search wines by price range -->
-      <v-app class="range-slider">
-        <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
-        <v-switch
-          @change="resetPriceRange"
-          label="Hintahaku päällä"
-          v-model=priceSearchEnabled>
-        </v-switch>
+      <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
+      <v-switch
+        @change="resetPriceRange"
+        label="Hintahaku päällä"
+        v-model=priceSearchEnabled>
+      </v-switch>
 
-        <v-range-slider
-          :disabled=!priceSearchEnabled
-          :min=minPrice
-          :max=maxPrice
-          v-model="selectedPriceRange">
+      <v-range-slider
+        :disabled=!priceSearchEnabled
+        :min=minPrice
+        :max=maxPrice
+        v-model="selectedPriceRange">
 
-          <template v-slot:prepend>
-            <v-text-field
-              class="slider-value-field"
-              single-line
-              type="number"
-              v-model="selectedPriceRange[0]">
-            </v-text-field>
-          </template>
+        <template v-slot:prepend>
+          <v-text-field
+            class="slider-value-field"
+            single-line
+            type="number"
+            v-model="selectedPriceRange[0]">
+          </v-text-field>
+        </template>
 
-          <template v-slot:append>
-            <v-text-field
-              class="slider-value-field"
-              single-line
-              type="number"
-              v-model="selectedPriceRange[1]">
-            </v-text-field>
-          </template>
+        <template v-slot:append>
+          <v-text-field
+            class="slider-value-field"
+            single-line
+            type="number"
+            v-model="selectedPriceRange[1]">
+          </v-text-field>
+        </template>
           
-        </v-range-slider>
-      </v-app>
+      </v-range-slider>
 
       <button class="button-save">Hae viinejä</button>
     </v-form>
@@ -136,10 +134,6 @@
   .card-title {
     font-weight: bold;
     padding-left: 0;
-  }
-  .range-slider {
-    height: 14em;
-    overflow: hidden;
   }
   .slider-value-field { width: 60px }
   .slider-value-field >>> input { text-align: center }

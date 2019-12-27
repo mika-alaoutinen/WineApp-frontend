@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <v-app id="vuetify-app">
     <TheNavigation/>
     <TheFooter/>
     <router-view/>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -20,18 +20,20 @@
 </script>
 
 <style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    margin-top: 30px;
-  }
   .full-page-card {
     margin: auto;
     padding-bottom: 1em;
     padding-top: 1em;
     padding-left: 2em;
     padding-right: 2em;
+  }
+  
+  /* Global styles for the entire application */
+  #vuetify-app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    margin-top: 30px;
   }
 </style>
