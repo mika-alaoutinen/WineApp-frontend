@@ -33,7 +33,7 @@
         <v-col>
           <MonthPicker
             @get:date="saveStartDate"
-            :datePickerEnabled="date.enabled"
+            :enabled="date.enabled"
             :labelText="'Aloituspäivämäärä'">
           </MonthPicker>
         </v-col>
@@ -41,7 +41,7 @@
         <v-col>
           <MonthPicker
             @get:date="saveEndDate"
-            :datePickerEnabled="date.enabled"
+            :enabled="date.enabled"
             :labelText="'Lopetuspäivämäärä'">
           </MonthPicker>
         </v-col>
