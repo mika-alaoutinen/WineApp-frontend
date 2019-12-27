@@ -17,7 +17,7 @@
       :items-per-page="15"
       :search="search"
       class="align-left"
-      loading loading-text="Ladataan viinejä...">
+      loading-text="Ladataan viinejä...">
 
       <template v-slot:item.type="{ item }">
         {{ dictionary.translate(item.type) }}
