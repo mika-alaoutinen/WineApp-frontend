@@ -30,7 +30,6 @@
           v-model="range[1]">
         </v-text-field>
       </template>
-        
     </v-range-slider>
   </div>
 </template>
@@ -51,11 +50,7 @@
 
       emitRange() {
         if (this.enabled) {
-          console.log("emitting values");
           this.$emit("get:range", this.range);
-        } else {
-          console.log("default values");
-          this.$emit("get:range", this.$props.defaultRange);
         }
       },
     },

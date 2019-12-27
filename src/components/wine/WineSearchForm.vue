@@ -18,7 +18,7 @@
         </v-radio>
       </v-radio-group>
 
-      <!-- Search wines by volume range -->
+      <!-- Search wines by volumes -->
       <v-subheader class="subheader">Hae määrän perusteella (litraa)</v-subheader>
       <v-row>
         <v-col v-for="volume in wineVolumes" :key="volume">
@@ -115,6 +115,7 @@
 
         this.resetSearchParams();
       },
+
     },
   };
 </script>
