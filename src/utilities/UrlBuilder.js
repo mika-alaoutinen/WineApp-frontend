@@ -1,13 +1,13 @@
 const basePath = "http://localhost:8080/api/";
-const wineBasePath = basePath + "wines/";
-const reviewBasePath = basePath + "reviews/";
+const winePath = basePath + "wines/";
+const reviewPath = basePath + "reviews/";
 
 export default {
     wine: {
         paths: {
-            base: wineBasePath,
-            count: wineBasePath + "count",
-            search: wineBasePath + "search?",
+            base: winePath,
+            count: winePath + "count",
+            search: winePath + "search?",
         },
 
         getSearchUrl(params) {
@@ -17,11 +17,11 @@ export default {
 
     review: {
         paths: {
-            base: reviewBasePath,
-            count: reviewBasePath + "count",
-            quicksearch: reviewBasePath + "search/",
-            // search: reviewBasePath + "search?",
-            search: reviewBasePath + "rating?",
+            base: reviewPath,
+            count: reviewPath + "count",
+            quicksearch: reviewPath + "search/",
+            // search: reviewPath + "search?",
+            search: reviewPath + "rating?",
         },
         
         getQuickSearchUrl(searchParam, count) {
@@ -52,11 +52,8 @@ function buildQueryLimit(count) {
  * @returns {String} query string
  */
 function buildQueryParams(searchParams) {
-    const params = Object.keys(searchParams)
+    return Object.keys(searchParams)
         .filter(key => searchParams[key] != "")
         .map(key => key + "=" + searchParams[key])
         .join("&");
-
-    console.log(params);
-    return params;
 }
