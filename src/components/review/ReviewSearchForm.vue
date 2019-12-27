@@ -20,6 +20,57 @@
       <v-text-field label="Arvostelijan nimi" v-model="searchParams.author"/>
 
       <!-- Search by date range: -->
+      <v-subheader class="subheader">Hae arvostelun päivämäärän perusteella</v-subheader>
+      <!-- <v-row>
+        <v-col>
+          <v-date-picker type="month" v-model="selectedDateRange[0]"></v-date-picker>
+        </v-col>
+        <v-col>
+          <v-date-picker type="month" v-model="selectedDateRange[1]"></v-date-picker>
+        </v-col>
+      </v-row> -->
+
+      <!-- Date range -->
+      <v-row>
+
+        <!-- Start date -->
+        <v-col>
+          <v-menu
+            :close-on-content-click="false"
+            :return-value.sync="selectedDateRange[0]"
+            max-width="290px"
+            min-width="290px"
+            offset-y
+            ref="menu"
+            transition="scale-transition"
+            v-model="displayMenu">
+
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                label="Aloituspäivämäärä"
+                readonly
+                v-on="on"
+                v-model="selectedDateRange[0]">
+              </v-text-field>
+            </template>
+            
+            <v-date-picker
+              no-title
+              scrollable
+              type="month"
+              v-model="selectedDateRange[0]">
+              <v-spacer/>
+              <v-btn @click="displayMenu = false">Peruuta</v-btn>
+              <v-btn @click="$refs.menu.save(selectedDateRange[0])">OK</v-btn>
+            </v-date-picker>
+          </v-menu>
+        </v-col>
+
+        <!-- End date -->
+
+      </v-row>
+
+      <p>ref: {{this.selectedDateRange[0]}}</p>
 
       <!-- Search by rating: -->
       <v-subheader class="subheader">Hae arvosanan perusteella</v-subheader>
@@ -36,14 +87,14 @@
         step="0.25"
         ticks
         tick-size="4"
-        v-model="selectedRange">
+        v-model="selectedRatingRange">
 
         <template v-slot:prepend>
           <v-text-field
             class="slider-value-field"
             single-line
             type="number"
-            v-model="selectedRange[0]">
+            v-model="selectedRatingRange[0]">
           </v-text-field>
         </template>
 
@@ -52,7 +103,7 @@
             class="slider-value-field"
             single-line
             type="number"
-            v-model="selectedRange[1]">
+            v-model="selectedRatingRange[1]">
           </v-text-field>
         </template>
         
@@ -70,15 +121,20 @@
   export default {
     data() {
       return {
+        // Placeholders for date search:
+        displayMenu: false,
+        selectedDateRange: [],
+        
+        // Placeholders for rating search:
         minRating: 0.0,
         maxRating: 5.0,
         searchEnabled: false,
-        selectedRange: [0.0, 5.0],
+        selectedRatingRange: [0.0, 5.0],
 
         // Search parameters that get sent to backend:
         searchParams: {
           author: "",
-          date: "",
+          dateRange: [],
           ratingRange: [],
           wineId: "",
         }
