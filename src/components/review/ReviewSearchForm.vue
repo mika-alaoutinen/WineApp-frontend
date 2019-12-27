@@ -17,12 +17,46 @@
       <!-- TODO: Maybe change to a select-component..? -->
       <!-- Search by author: -->
       <v-subheader class="subheader">Hae arvostelijan nimen perusteella</v-subheader>
-      <v-text-field label="Nimi" v-model="searchParams.author"/>
+      <v-text-field label="Arvostelijan nimi" v-model="searchParams.author"/>
 
       <!-- Search by date range: -->
 
       <!-- Search by rating: -->
+      <v-subheader class="subheader">Hae arvosanan perusteella</v-subheader>
+      <v-switch
+        @change="resetSlider"
+        label="Arvosanahaku päällä"
+        v-model=searchEnabled>
+      </v-switch>
 
+      <v-range-slider
+        :disabled=!searchEnabled
+        :min=minRating
+        :max=maxRating
+        step="0.25"
+        ticks
+        tick-size="4"
+        v-model="selectedRange">
+
+        <template v-slot:prepend>
+          <v-text-field
+            class="slider-value-field"
+            single-line
+            type="number"
+            v-model="selectedRange[0]">
+          </v-text-field>
+        </template>
+
+        <template v-slot:append>
+          <v-text-field
+            class="slider-value-field"
+            single-line
+            type="number"
+            v-model="selectedRange[1]">
+          </v-text-field>
+        </template>
+        
+      </v-range-slider>
       
     </v-form>
 
@@ -36,12 +70,16 @@
   export default {
     data() {
       return {
+        minRating: 0.0,
+        maxRating: 5.0,
+        searchEnabled: false,
+        selectedRange: [0.0, 5.0],
+
         // Search parameters that get sent to backend:
         searchParams: {
           author: "",
           date: "",
-          minRating: 0,
-          maxRating: 5,
+          ratingRange: [],
           wineId: "",
         }
       }
@@ -55,10 +93,11 @@
 
       // TODO: delete
       doSearch() {
-        this.searchParams.minRating = 3.5;
-        this.searchParams.maxRating = 4;
-        
         reviewService.search(this.searchParams).then(response => console.log(response));
+      },
+
+      resetSlider() {
+        this.searchParams.ratingRange = [ this.minRating, this.maxRating ];
       },
 
       submitForm() {
@@ -71,4 +110,10 @@
 
 <style scoped>
   .subheader { padding-left: 0 }
+  .card-title {
+    font-weight: bold;
+    padding-left: 0;
+  }
+  .slider-value-field { width: 60px }
+  .slider-value-field >>> input { text-align: center }
 </style>
