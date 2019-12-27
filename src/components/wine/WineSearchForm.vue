@@ -36,6 +36,7 @@
         @get:range="getRange"
         @get:switch="getSwitchState"
         :defaultRange="price.defaultRange"
+        :step="1"
         :switchLabel="'Hintahaku päällä'">
       </RangeSlider>
 
@@ -95,6 +96,7 @@
         this.price.enabled = state;
       },
 
+      // TODO: move to a generic utility module:
       resetSearchParams() {
         Object.keys(this.searchParams)
               .map(key => Array.isArray(this.searchParams[key])

@@ -10,7 +10,6 @@
         <v-btn @click="doQuickSearch('best')" small>Parhaat</v-btn>
         <v-btn @click="doQuickSearch('worst')" small>Huonoimmat</v-btn>
         <v-btn @click="doQuickSearch('newest')" small>Uusimmat</v-btn>
-        <v-btn @click="doSearch()" small>testi</v-btn>
 
       </v-btn-toggle>
 
@@ -26,13 +25,13 @@
       <v-switch
         @change="resetDateRange"
         label="Päivämäärähaku päällä"
-        v-model=date.enabled>
+        v-model="date.enabled">
       </v-switch>
 
       <v-row>
         <v-col>
           <MonthPicker
-            @get:date="saveStartDate"
+            @get:date="getStartDate"
             :enabled="date.enabled"
             :labelText="'Aloituspäivämäärä'">
           </MonthPicker>
@@ -40,7 +39,7 @@
 
         <v-col>
           <MonthPicker
-            @get:date="saveEndDate"
+            @get:date="getEndDate"
             :enabled="date.enabled"
             :labelText="'Lopetuspäivämäärä'">
           </MonthPicker>
@@ -49,48 +48,21 @@
 
       <!-- Search by rating: -->
       <v-subheader class="subheader">Hae arvosanan perusteella</v-subheader>
-      <v-switch
-        @change="resetSlider"
-        label="Arvosanahaku päällä"
-        v-model=rating.enabled>
-      </v-switch>
+      <RangeSlider
+        @get:range="getRange"
+        @get:switch="getSwitchState"
+        :defaultRange="rating.defaultRange"
+        :step="0.25"
+        :switchLabel="'Arvosanahaku päällä'">
+      </RangeSlider>
 
-      <v-range-slider
-        :disabled=!rating.enabled
-        :min=rating.min
-        :max=rating.max
-        step="0.25"
-        ticks
-        tick-size="4"
-        v-model="rating.range">
-
-        <template v-slot:prepend>
-          <v-text-field
-            class="slider-value-field"
-            single-line
-            type="number"
-            v-model="rating.range[0]">
-          </v-text-field>
-        </template>
-
-        <template v-slot:append>
-          <v-text-field
-            class="slider-value-field"
-            single-line
-            type="number"
-            v-model="rating.range[1]">
-          </v-text-field>
-        </template>
-        
-      </v-range-slider>
-      
     </v-form>
-
   </v-card>
 </template>
 
 <script>
   import MonthPicker from "@/components/vuetify/MonthPicker.vue";
+  import RangeSlider from "@/components/vuetify/RangeSlider.vue";
   import ReviewService from "@/services/ReviewService.js";
 
   const reviewService = new ReviewService();
@@ -98,6 +70,7 @@
   export default {
     components: {
       MonthPicker,
+      RangeSlider,
     },
 
     data() {
@@ -113,9 +86,8 @@
         // Placeholders for rating search:
         rating: {
           enabled: false,
-          min: 0.0,
-          max: 5.0,
-          range: [0.0, 5.0],
+          defaultRange: [ 0.0, 5.0 ],
+          range: [],
         },
 
         // Search parameters that get sent to backend:
@@ -129,37 +101,37 @@
     },
 
     methods: {
-      resetDateRange() {
-        this.searchParams.ratingRange = this.rating.range;
-      },
-
-      saveStartDate(date) {
-        this.date.range[0] = date;
-      },
-
-      saveEndDate(date) {
-        this.date.range[1] = date;
-      },
-
       doQuickSearch(searchType) {
         reviewService.quickSearch(searchType, 10)
                      .then(reviews => this.$emit("get:reviews", reviews));
       },
 
-      // TODO: delete
-      doSearch() {
-        reviewService.search(this.searchParams).then(response => console.log(response));
+      getStartDate(date) {
+        this.date.range[0] = date;
       },
 
-      resetSlider() {
-        this.searchParams.ratingRange = [ this.minRating, this.maxRating ];
+      getEndDate(date) {
+        this.date.range[1] = date;
       },
 
-      submitForm() {
-        this.setSearchParams();
+      getRange(range) {
+        this.rating.range = range;
+      },
 
-        reviewService.search(this.searchParams)
-                     .then(reviews => this.$emit("get:reviews", reviews))
+      getSwitchState(state) {
+        this.rating.enabled = state;
+      },
+
+      // TODO: move to a generic utility module:
+      resetSearchParams() {
+        Object.keys(this.searchParams)
+              .map(key => Array.isArray(this.searchParams[key])
+                ? this.searchParams[key] = []
+                : this.searchParams[key] = "");
+      },
+
+      resetDateRange() {
+        this.searchParams.ratingRange = this.rating.range;
       },
 
       setSearchParams() {
@@ -169,7 +141,17 @@
         if (this.rating.enabled) {
           this.searchParams.ratingRange = this.rating.range;
         }
-      }
+      },
+
+      submitForm() {
+        this.setSearchParams();
+
+        reviewService.search(this.searchParams)
+                     .then(reviews => this.$emit("get:reviews", reviews));
+
+        this.resetSearchParams();
+      },
+      
     }
   };
 </script>

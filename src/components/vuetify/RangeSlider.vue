@@ -11,6 +11,7 @@
       :disabled="!enabled"
       :min="$props.defaultRange[0]"
       :max="$props.defaultRange[1]"
+      :step="$props.step"
       v-model="range">
 
       <template v-slot:prepend>
@@ -57,6 +58,7 @@
 
     props: {
       defaultRange: { type: Array, required: true },
+      step: { type: Number, required: true }, // TODO: how to handle non-required props?
       switchLabel: { type: String, required: true }
     },
 
