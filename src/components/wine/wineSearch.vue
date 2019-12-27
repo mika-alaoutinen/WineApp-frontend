@@ -24,7 +24,7 @@
     components: {
       WineSearchForm,
       ReviewSearchForm,
-      WineSearchResults
+      WineSearchResults,
     },
 
     data() {
