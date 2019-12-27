@@ -32,6 +32,10 @@
 
       <!-- Search wines by price range -->
       <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
+
+      <!-- TODO: get this working -->
+      <RangeSlider :defaultRange="price.range" :switchLabel="'Hintahaku päällä'" />
+
       <v-switch
         @change="resetPriceRange"
         label="Hintahaku päällä"
@@ -71,6 +75,7 @@
 
 <script>
   import Dictionary from "@/utilities/Dictionary.js";
+  import RangeSlider from "@/components/vuetify/RangeSlider.vue";
   import WineService from "@/services/WineService.js";
   
   const wineService = new WineService();
@@ -82,6 +87,10 @@
   */
 
   export default {
+    components: {
+      RangeSlider,
+    },
+
     data() {
       return {
         dictionary: Dictionary,
