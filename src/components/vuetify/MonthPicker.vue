@@ -10,7 +10,7 @@
 
     <template v-slot:activator="{ on }">
       <v-text-field
-        :label="this.$props.label"
+        :label="$props.labelText"
         readonly
         v-on="on"
         v-model="date">
@@ -18,6 +18,7 @@
     </template>
 
     <v-date-picker
+      :disabled=!datePickerEnabled
       no-title
       scrollable
       type="month"
@@ -44,7 +45,8 @@
     },
 
     props: {
-      label: { type: String, required: true }
+      labelText: { type: String, required: true },
+      datePickerEnabled: { type: Boolean, required: true },
     }
   };
 </script>

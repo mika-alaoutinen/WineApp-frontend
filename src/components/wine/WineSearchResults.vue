@@ -1,11 +1,11 @@
 <template>
-  <v-card class="full-page-card" max-width="60%" v-show="showResults">
+  <v-card class="full-page-card" max-width="60%" v-show="this.$props.showResults">
     <v-card-title class="card-title">Haun tulokset</v-card-title>
 
     <v-data-table
       @click:row="openWineInfo"
       :headers="translateHeaders"
-      :items="searchResults"
+      :items="this.$props.searchResults"
       class="align-left"
       hide-default-footer
       loading loading-text="Haetaan viinejä...">

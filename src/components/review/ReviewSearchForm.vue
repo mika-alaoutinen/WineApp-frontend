@@ -23,100 +23,56 @@
       <v-subheader class="subheader">Hae arvostelun päivämäärän perusteella</v-subheader>
 
       <!-- Date range -->
+      <v-switch
+        @change="resetDateRange"
+        label="Päivämäärähaku päällä"
+        v-model=date.enabled>
+      </v-switch>
+
       <v-row>
-
-        <!-- Start date -->
         <v-col>
-          <v-menu
-            :close-on-content-click="false"
-            :return-value.sync="selectedDateRange[0]"
-            max-width="290px"
-            min-width="290px"
-            offset-y
-            transition="scale-transition"
-            v-model="displayStartMenu">
-
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                label="Aloituspäivämäärä"
-                readonly
-                v-on="on"
-                v-model="selectedDateRange[0]">
-              </v-text-field>
-            </template>
-            
-            <v-date-picker
-              no-title
-              scrollable
-              type="month"
-              v-model="selectedDateRange[0]">
-              <v-spacer/>
-              <v-btn @click="displayStartMenu = false">Peruuta</v-btn>
-              <v-btn @click="saveDate()">OK</v-btn>
-            </v-date-picker>
-          </v-menu>
+          <MonthPicker
+            @get:date="saveStartDate"
+            :datePickerEnabled="date.enabled"
+            :labelText="'Aloituspäivämäärä'">
+          </MonthPicker>
         </v-col>
-
-        <!-- End date -->
+        
         <v-col>
-          <v-menu
-            :close-on-content-click="false"
-            :return-value.sync="selectedDateRange[1]"
-            max-width="290px"
-            min-width="290px"
-            offset-y
-            transition="scale-transition"
-            v-model="displayEndMenu">
-
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                label="Lopetuspäivämäärä"
-                readonly
-                v-on="on"
-                v-model="selectedDateRange[1]">
-              </v-text-field>
-            </template>
-            
-            <v-date-picker
-              no-title
-              scrollable
-              type="month"
-              v-model="selectedDateRange[1]">
-              <v-spacer/>
-              <v-btn @click="displayEndMenu = false">Peruuta</v-btn>
-              <v-btn @click="searchParams.dateRange[1] = selectedDateRange[1]">OK</v-btn>
-            </v-date-picker>
-          </v-menu>
+          <MonthPicker
+            @get:date="saveEndDate"
+            :datePickerEnabled="date.enabled"
+            :labelText="'Lopetuspäivämäärä'">
+          </MonthPicker>
         </v-col>
-
       </v-row>
 
-      <p>Start: {{ selectedDateRange[0] }} </p>
-      <p>End: {{ selectedDateRange[1] }} </p>
+      <p>Start: {{ date.range[0] }} </p>
+      <p>End: {{ date.range[1] }} </p>
 
       <!-- Search by rating: -->
       <v-subheader class="subheader">Hae arvosanan perusteella</v-subheader>
       <v-switch
         @change="resetSlider"
         label="Arvosanahaku päällä"
-        v-model=searchEnabled>
+        v-model=rating.enabled>
       </v-switch>
 
       <v-range-slider
-        :disabled=!searchEnabled
-        :min=minRating
-        :max=maxRating
+        :disabled=!rating.enabled
+        :min=rating.min
+        :max=rating.max
         step="0.25"
         ticks
         tick-size="4"
-        v-model="selectedRatingRange">
+        v-model="rating.range">
 
         <template v-slot:prepend>
           <v-text-field
             class="slider-value-field"
             single-line
             type="number"
-            v-model="selectedRatingRange[0]">
+            v-model="rating.range[0]">
           </v-text-field>
         </template>
 
@@ -125,7 +81,7 @@
             class="slider-value-field"
             single-line
             type="number"
-            v-model="selectedRatingRange[1]">
+            v-model="rating.range[1]">
           </v-text-field>
         </template>
         
@@ -137,38 +93,55 @@
 </template>
 
 <script>
+  import MonthPicker from "@/components/vuetify/MonthPicker.vue";
   import ReviewService from "@/services/ReviewService.js";
+
   const reviewService = new ReviewService();
 
   export default {
-    data() {
-      return {
-        // Placeholders for date search:
-        displayStartMenu: false,
-        displayEndMenu: false,
-        selectedDateRange: [],
-        startLabel: "Aloituspäivämäärä",
-        
-        // Placeholders for rating search:
-        minRating: 0.0,
-        maxRating: 5.0,
-        searchEnabled: false,
-        selectedRatingRange: [0.0, 5.0],
-
-        // Search parameters that get sent to backend:
-        searchParams: {
-          author: "",
-          dateRange: [],
-          ratingRange: [],
-          wineId: "",
-        }
-      }
+    components: {
+      MonthPicker,
     },
 
+    data: () => ({
+      // Placeholders for date search:
+      date: {
+        enabled: false,
+        startMenu: false,
+        endMenu: false,
+        range: [],
+      },
+      
+      // Placeholders for rating search:
+      rating: {
+        enabled: false,
+        min: 0.0,
+        max: 5.0,
+        range: [0.0, 5.0],
+      },
+
+      // Search parameters that get sent to backend:
+      searchParams: {
+        author: "",
+        dateRange: [],
+        ratingRange: [],
+        wineId: "",
+      }
+    }),
+
     methods: {
-      saveDate() {
-        this.searchParams.dateRange[0] = this.selectedDateRange[0];
-        this.displayStartMenu = false;
+      resetDateRange() {
+        this.searchParams.ratingRange = this.rating.range;
+      },
+
+      saveEndDate(date) {
+        console.log(date);
+        this.date.range[1] = date;
+      },
+
+      saveStartDate(date) {
+        console.log(date);
+        this.date.range[0] = date;
       },
 
       doQuickSearch(searchType) {
