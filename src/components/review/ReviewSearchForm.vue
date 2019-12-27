@@ -20,30 +20,56 @@
       <v-text-field label="Arvostelijan nimi" v-model="searchParams.author"/>
 
       <!-- Search by date range: -->
+      <v-subheader class="subheader">Hae arvostelun päivämäärän perusteella</v-subheader>
+
+      <!-- Date range -->
+      <v-switch
+        @change="resetDateRange"
+        label="Päivämäärähaku päällä"
+        v-model=date.enabled>
+      </v-switch>
+
+      <v-row>
+        <v-col>
+          <MonthPicker
+            @get:date="saveStartDate"
+            :datePickerEnabled="date.enabled"
+            :labelText="'Aloituspäivämäärä'">
+          </MonthPicker>
+        </v-col>
+
+        <v-col>
+          <MonthPicker
+            @get:date="saveEndDate"
+            :datePickerEnabled="date.enabled"
+            :labelText="'Lopetuspäivämäärä'">
+          </MonthPicker>
+        </v-col>
+      </v-row>
 
       <!-- Search by rating: -->
       <v-subheader class="subheader">Hae arvosanan perusteella</v-subheader>
       <v-switch
         @change="resetSlider"
         label="Arvosanahaku päällä"
-        v-model=searchEnabled>
+        v-model=rating.enabled>
       </v-switch>
 
       <v-range-slider
-        :disabled=!searchEnabled
-        :min=minRating
-        :max=maxRating
+        :disabled=!rating.enabled
+        :min=rating.min
+        :max=rating.max
         step="0.25"
         ticks
         tick-size="4"
-        v-model="selectedRange">
+        v-model="rating.range">
 
         <template v-slot:prepend>
           <v-text-field
             class="slider-value-field"
             single-line
             type="number"
-            v-model="selectedRange[0]">
+            v-model="rating.range[0]">
           </v-text-field>
         </template>
 
@@ -52,7 +78,7 @@
             class="slider-value-field"
             single-line
             type="number"
-            v-model="selectedRange[1]">
+            v-model="rating.range[1]">
           </v-text-field>
         </template>
         
@@ -64,28 +90,55 @@
 </template>
 
 <script>
+  import MonthPicker from "@/components/vuetify/MonthPicker.vue";
   import ReviewService from "@/services/ReviewService.js";
+
   const reviewService = new ReviewService();
 
   export default {
-    data() {
-      return {
-        minRating: 0.0,
-        maxRating: 5.0,
-        searchEnabled: false,
-        selectedRange: [0.0, 5.0],
-
-        // Search parameters that get sent to backend:
-        searchParams: {
-          author: "",
-          date: "",
-          ratingRange: [],
-          wineId: "",
-        }
-      }
+    components: {
+      MonthPicker,
     },
 
+    data: () => ({
+      // Placeholders for date search:
+      date: {
+        enabled: false,
+        startMenu: false,
+        endMenu: false,
+        range: [],
+      },
+      
+      // Placeholders for rating search:
+      rating: {
+        enabled: false,
+        min: 0.0,
+        max: 5.0,
+        range: [0.0, 5.0],
+      },
+
+      // Search parameters that get sent to backend:
+      searchParams: {
+        author: "",
+        dateRange: [],
+        ratingRange: [],
+        wineId: "",
+      }
+    }),
+
     methods: {
+      resetDateRange() {
+        this.searchParams.ratingRange = this.rating.range;
+      },
+
+      saveStartDate(date) {
+        this.date.range[0] = date;
+      },
+
+      saveEndDate(date) {
+        this.date.range[1] = date;
+      },
+
       doQuickSearch(searchType) {
         reviewService.quickSearch(searchType, 10)
                      .then(reviews => this.$emit("get:reviews", reviews));
@@ -101,8 +154,19 @@
       },
 
       submitForm() {
+        this.setSearchParams();
+
         reviewService.search(this.searchParams)
                      .then(reviews => this.$emit("get:reviews", reviews))
+      },
+
+      setSearchParams() {
+        if (this.date.enabled) {
+          this.searchParams.dateRange = this.date.range;
+        }
+        if (this.rating.enabled) {
+          this.searchParams.ratingRange = this.rating.range;
+        }
       }
     }
   };

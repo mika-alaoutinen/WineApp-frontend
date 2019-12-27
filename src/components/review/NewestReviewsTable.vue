@@ -7,7 +7,7 @@
       :items="reviews"
       class="align-left"
       disable-sort
-      loading loading-text="Ladataan arvosteluja...">
+      loading-text="Ladataan arvosteluja...">
 
       <!-- Clicking on wine name redirects to wine details page: -->
       <template v-slot:item.wine="{ item }">

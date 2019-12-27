@@ -35,21 +35,21 @@
       <v-switch
         @change="resetPriceRange"
         label="Hintahaku päällä"
-        v-model=priceSearchEnabled>
+        v-model=price.enabled>
       </v-switch>
 
       <v-range-slider
-        :disabled=!priceSearchEnabled
-        :min=minPrice
-        :max=maxPrice
-        v-model="selectedPriceRange">
+        :disabled=!price.enabled
+        :min=price.min
+        :max=price.max
+        v-model="price.range">
 
         <template v-slot:prepend>
           <v-text-field
             class="slider-value-field"
             single-line
             type="number"
-            v-model="selectedPriceRange[0]">
+            v-model="price.range[0]">
           </v-text-field>
         </template>
 
@@ -58,7 +58,7 @@
             class="slider-value-field"
             single-line
             type="number"
-            v-model="selectedPriceRange[1]">
+            v-model="price.range[1]">
           </v-text-field>
         </template>
           
@@ -85,14 +85,16 @@
     data() {
       return {
         dictionary: Dictionary,
-
-        minPrice: 0,
-        maxPrice: 50,
-        priceSearchEnabled: false,
-        selectedPriceRange: [ 0, 50 ],
-
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
         wineVolumes: [ 0.75, 1, 1.5, 2, 3 ],
+
+        // Placeholders for price search:
+        price: {
+          enabled: false,
+          min: 0,
+          max: 50,
+          range: [ 0, 50 ],
+        },
         
         // Search parameters that get sent to backend:
         searchParams: {
@@ -107,13 +109,13 @@
 
     methods: {
       resetPriceRange() {
-       this.searchParams.priceRange = [ this.minPrice, this.maxPrice ];
+       this.searchParams.priceRange = [ this.price.min, this.price.max ];
       },
 
       submitForm() {
         // Update price range if it has been set:
-        if (this.priceSearchEnabled) {
-          this.searchParams.priceRange = this.selectedPriceRange;
+        if (this.price.enabled) {
+          this.searchParams.priceRange = this.price.range;
         }
 
         // Send retrieved wines to parent component:
