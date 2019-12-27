@@ -37,7 +37,7 @@
             :labelText="'Aloituspäivämäärä'">
           </MonthPicker>
         </v-col>
-        
+
         <v-col>
           <MonthPicker
             @get:date="saveEndDate"
@@ -46,9 +46,6 @@
           </MonthPicker>
         </v-col>
       </v-row>
-
-      <p>Start: {{ date.range[0] }} </p>
-      <p>End: {{ date.range[1] }} </p>
 
       <!-- Search by rating: -->
       <v-subheader class="subheader">Hae arvosanan perusteella</v-subheader>
@@ -134,14 +131,12 @@
         this.searchParams.ratingRange = this.rating.range;
       },
 
-      saveEndDate(date) {
-        console.log(date);
-        this.date.range[1] = date;
+      saveStartDate(date) {
+        this.date.range[0] = date;
       },
 
-      saveStartDate(date) {
-        console.log(date);
-        this.date.range[0] = date;
+      saveEndDate(date) {
+        this.date.range[1] = date;
       },
 
       doQuickSearch(searchType) {
@@ -159,8 +154,19 @@
       },
 
       submitForm() {
+        this.setSearchParams();
+
         reviewService.search(this.searchParams)
                      .then(reviews => this.$emit("get:reviews", reviews))
+      },
+
+      setSearchParams() {
+        if (this.date.enabled) {
+          this.searchParams.dateRange = this.date.range;
+        }
+        if (this.rating.enabled) {
+          this.searchParams.ratingRange = this.rating.range;
+        }
       }
     }
   };

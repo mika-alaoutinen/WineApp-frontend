@@ -8,7 +8,7 @@
       :items="this.$props.searchResults"
       class="align-left"
       hide-default-footer
-      loading loading-text="Haetaan viinejä...">
+      loading-text="Haetaan viinejä...">
 
       <template v-slot:item.type="{ item }">
         {{ dictionary.translate(item.type) }}

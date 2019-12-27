@@ -39,7 +39,6 @@
 
     methods: {
       saveDate() {
-        console.log(this.date);
         this.$emit("get:date", this.date);
       }
     },
