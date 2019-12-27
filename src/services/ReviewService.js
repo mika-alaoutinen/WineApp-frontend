@@ -1,7 +1,6 @@
 import axios from "axios";
 import ReviewStore from "@/stores/ReviewStore.js";
-
-const baseUrl = "http://localhost:8080/api/reviews/";
+import UrlBuilder from "@/utilities/UrlBuilder.js";
 
 class ReviewService {
     constructor() {
@@ -10,60 +9,29 @@ class ReviewService {
 
     async getReviewCount() {
         return axios
-            .get(baseUrl + "count")
+            .get(UrlBuilder.review.paths.count)
             .then(response => response.data)
             .catch(error => console.error(error));
     }
 
-    async searchReviews(searchParams) {
+    async search(searchParams) {
         return axios
-            .get(baseUrl + "search?" + buildQueryParams(searchParams))
+            .get(UrlBuilder.review.getSearchUrl(searchParams))
             .then(response => response.data)
             .catch(error => console.error(error));
     }
 
-// Quick search:
     async quickSearch(searchParam, count) {
         if (!isSearchParamValid) {
             console.error("Invalid search param: " + searchParam);
             return;
         }
 
-        const path = "search/" + searchParam;
-        const queryParam = buildQueryLimit(path, count);
-
         return axios
-            .get(baseUrl + queryParam)
+            .get(UrlBuilder.review.getQuickSearchUrl(searchParam, count))
             .then(response => response.data)
             .catch(error => console.error(error));
     }
-}
-
-// Private helper functions:
-
-/**
- * Builds a query parameter with optional limit on wanted results.
- * For example "url/endpoint?limit=10" or "url/endpoint".
- * @param {String} url
- * @param {Number} count of wanted results
- * @returns query parameter.
- */
-function buildQueryLimit(url, count) {
-    return count !== 0 && count !== null && count !== undefined
-        ? url + "?limit=" + count
-        : url;
-}
-
-/**
- * Parses searchParams object and builds a query params string from it.
- * @param {Object} searchParams
- * @return {String} query string
- */
-function buildQueryParams(searchParams) {
-    return Object.keys(searchParams)
-        .filter(key => searchParams[key].length > 0)
-        .map(key => key + "=" + searchParams[key])
-        .join("&");
 }
 
 /**

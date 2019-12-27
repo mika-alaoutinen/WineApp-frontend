@@ -16,7 +16,10 @@
   /*
   TODO:
     - What to do with review results? Add ReviewSearchResults component?
+    - Have wine and review searches be on their own tabs?
+    - Rename to Search.vue and move under commons components.
   */
+
   export default {
     components: {
       WineSearchForm,
@@ -36,6 +39,7 @@
       getReviews(reviews) {
         this.reviews = reviews;
         this.showResults = true;
+        console.log(this.reviews);
       },
 
       getWines(wines) {
