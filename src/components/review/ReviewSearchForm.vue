@@ -100,31 +100,33 @@
       MonthPicker,
     },
 
-    data: () => ({
-      // Placeholders for date search:
-      date: {
-        enabled: false,
-        startMenu: false,
-        endMenu: false,
-        range: [],
-      },
-      
-      // Placeholders for rating search:
-      rating: {
-        enabled: false,
-        min: 0.0,
-        max: 5.0,
-        range: [0.0, 5.0],
-      },
+    data() {
+      return {
+        // Placeholders for date search:
+        date: {
+          enabled: false,
+          startMenu: false,
+          endMenu: false,
+          range: [],
+        },
+        
+        // Placeholders for rating search:
+        rating: {
+          enabled: false,
+          min: 0.0,
+          max: 5.0,
+          range: [0.0, 5.0],
+        },
 
-      // Search parameters that get sent to backend:
-      searchParams: {
-        author: "",
-        dateRange: [],
-        ratingRange: [],
-        wineId: "",
+        // Search parameters that get sent to backend:
+        searchParams: {
+          author: "",
+          dateRange: [],
+          ratingRange: [],
+          wineId: "",
+        }
       }
-    }),
+    },
 
     methods: {
       resetDateRange() {

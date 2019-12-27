@@ -32,10 +32,12 @@
 
 <script>
   export default {
-    data: () => ({
-      date: new Date().toISOString().substr(0, 7),
-      displayMenu: false,
-    }),
+    data() {
+      return {
+        date: new Date().toISOString().substr(0, 7),
+        displayMenu: false,
+      }
+    },
 
     methods: {
       saveDate() {
