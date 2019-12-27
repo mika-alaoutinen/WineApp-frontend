@@ -21,14 +21,6 @@
 
       <!-- Search by date range: -->
       <v-subheader class="subheader">Hae arvostelun päivämäärän perusteella</v-subheader>
-      <!-- <v-row>
-        <v-col>
-          <v-date-picker type="month" v-model="selectedDateRange[0]"></v-date-picker>
-        </v-col>
-        <v-col>
-          <v-date-picker type="month" v-model="selectedDateRange[1]"></v-date-picker>
-        </v-col>
-      </v-row> -->
 
       <!-- Date range -->
       <v-row>
@@ -41,9 +33,8 @@
             max-width="290px"
             min-width="290px"
             offset-y
-            ref="menu"
             transition="scale-transition"
-            v-model="displayMenu">
+            v-model="displayStartMenu">
 
             <template v-slot:activator="{ on }">
               <v-text-field
@@ -60,17 +51,48 @@
               type="month"
               v-model="selectedDateRange[0]">
               <v-spacer/>
-              <v-btn @click="displayMenu = false">Peruuta</v-btn>
-              <v-btn @click="$refs.menu.save(selectedDateRange[0])">OK</v-btn>
+              <v-btn @click="displayStartMenu = false">Peruuta</v-btn>
+              <v-btn @click="saveDate()">OK</v-btn>
             </v-date-picker>
           </v-menu>
         </v-col>
 
         <!-- End date -->
+        <v-col>
+          <v-menu
+            :close-on-content-click="false"
+            :return-value.sync="selectedDateRange[1]"
+            max-width="290px"
+            min-width="290px"
+            offset-y
+            transition="scale-transition"
+            v-model="displayEndMenu">
+
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                label="Lopetuspäivämäärä"
+                readonly
+                v-on="on"
+                v-model="selectedDateRange[1]">
+              </v-text-field>
+            </template>
+            
+            <v-date-picker
+              no-title
+              scrollable
+              type="month"
+              v-model="selectedDateRange[1]">
+              <v-spacer/>
+              <v-btn @click="displayEndMenu = false">Peruuta</v-btn>
+              <v-btn @click="searchParams.dateRange[1] = selectedDateRange[1]">OK</v-btn>
+            </v-date-picker>
+          </v-menu>
+        </v-col>
 
       </v-row>
 
-      <p>ref: {{this.selectedDateRange[0]}}</p>
+      <p>Start: {{ selectedDateRange[0] }} </p>
+      <p>End: {{ selectedDateRange[1] }} </p>
 
       <!-- Search by rating: -->
       <v-subheader class="subheader">Hae arvosanan perusteella</v-subheader>
@@ -122,8 +144,10 @@
     data() {
       return {
         // Placeholders for date search:
-        displayMenu: false,
+        displayStartMenu: false,
+        displayEndMenu: false,
         selectedDateRange: [],
+        startLabel: "Aloituspäivämäärä",
         
         // Placeholders for rating search:
         minRating: 0.0,
@@ -142,6 +166,11 @@
     },
 
     methods: {
+      saveDate() {
+        this.searchParams.dateRange[0] = this.selectedDateRange[0];
+        this.displayStartMenu = false;
+      },
+
       doQuickSearch(searchType) {
         reviewService.quickSearch(searchType, 10)
                      .then(reviews => this.$emit("get:reviews", reviews));
