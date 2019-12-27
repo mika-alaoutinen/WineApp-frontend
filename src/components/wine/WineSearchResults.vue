@@ -7,7 +7,6 @@
       :headers="translateHeaders"
       :items="this.$props.searchResults"
       class="align-left"
-      hide-default-footer
       loading-text="Haetaan viinejä...">
 
       <template v-slot:item.type="{ item }">

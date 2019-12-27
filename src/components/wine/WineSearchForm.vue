@@ -18,7 +18,7 @@
         </v-radio>
       </v-radio-group>
 
-      <!-- Search wines by volume range -->
+      <!-- Search wines by volumes -->
       <v-subheader class="subheader">Hae määrän perusteella (litraa)</v-subheader>
       <v-row>
         <v-col v-for="volume in wineVolumes" :key="volume">
@@ -32,37 +32,13 @@
 
       <!-- Search wines by price range -->
       <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
-      <v-switch
-        @change="resetPriceRange"
-        label="Hintahaku päällä"
-        v-model=price.enabled>
-      </v-switch>
-
-      <v-range-slider
-        :disabled=!price.enabled
-        :min=price.min
-        :max=price.max
-        v-model="price.range">
-
-        <template v-slot:prepend>
-          <v-text-field
-            class="slider-value-field"
-            single-line
-            type="number"
-            v-model="price.range[0]">
-          </v-text-field>
-        </template>
-
-        <template v-slot:append>
-          <v-text-field
-            class="slider-value-field"
-            single-line
-            type="number"
-            v-model="price.range[1]">
-          </v-text-field>
-        </template>
-          
-      </v-range-slider>
+      <RangeSlider
+        @get:range="getRange"
+        @get:switch="getSwitchState"
+        :defaultRange="price.defaultRange"
+        :step="1"
+        :switchLabel="'Hintahaku päällä'">
+      </RangeSlider>
 
       <button class="button-save">Hae viinejä</button>
     </v-form>
@@ -71,6 +47,7 @@
 
 <script>
   import Dictionary from "@/utilities/Dictionary.js";
+  import RangeSlider from "@/components/vuetify/RangeSlider.vue";
   import WineService from "@/services/WineService.js";
   
   const wineService = new WineService();
@@ -82,6 +59,10 @@
   */
 
   export default {
+    components: {
+      RangeSlider,
+    },
+
     data() {
       return {
         dictionary: Dictionary,
@@ -91,9 +72,8 @@
         // Placeholders for price search:
         price: {
           enabled: false,
-          min: 0,
-          max: 50,
-          range: [ 0, 50 ],
+          defaultRange: [ 0, 50 ],
+          range: [],
         },
         
         // Search parameters that get sent to backend:
@@ -108,8 +88,20 @@
     },
 
     methods: {
-      resetPriceRange() {
-       this.searchParams.priceRange = [ this.price.min, this.price.max ];
+      getRange(range) {
+        this.price.range = range;
+      },
+
+      getSwitchState(state) {
+        this.price.enabled = state;
+      },
+
+      // TODO: move to a generic utility module:
+      resetSearchParams() {
+        Object.keys(this.searchParams)
+              .map(key => Array.isArray(this.searchParams[key])
+                ? this.searchParams[key] = []
+                : this.searchParams[key] = "");
       },
 
       submitForm() {
@@ -121,8 +113,11 @@
         // Send retrieved wines to parent component:
         wineService.search(this.searchParams)
                    .then(wines => this.$emit("get:wines", wines))
-                   .catch(error => console.log(error))
+                   .catch(error => console.log(error));
+
+        this.resetSearchParams();
       },
+
     },
   };
 </script>

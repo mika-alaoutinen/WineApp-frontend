@@ -18,7 +18,7 @@
     </template>
 
     <v-date-picker
-      :disabled=!datePickerEnabled
+      :disabled=!enabled
       no-title
       scrollable
       type="month"
@@ -32,10 +32,12 @@
 
 <script>
   export default {
-    data: () => ({
-      date: new Date().toISOString().substr(0, 7),
-      displayMenu: false,
-    }),
+    data() {
+      return {
+        date: new Date().toISOString().substr(0, 7),
+        displayMenu: false,
+      }
+    },
 
     methods: {
       saveDate() {
@@ -45,7 +47,7 @@
 
     props: {
       labelText: { type: String, required: true },
-      datePickerEnabled: { type: Boolean, required: true },
+      enabled: { type: Boolean, required: true },
     }
   };
 </script>
