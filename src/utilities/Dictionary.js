@@ -1,5 +1,5 @@
 /**
- * Dictionary for translating the English wine attributes to Finnish.
+ * Dictionary for translating the English wine and review attributes to Finnish.
  */
 export default {
     data: {
@@ -18,7 +18,14 @@ export default {
         red: "Punaviini",
         rose: "Roseeviini",
         white: "Valkoviini",
-        other: "Muu viini"
+        other: "Muu viini",
+
+        // Review attributes:
+        author: "Arvostelija",
+        date: "Päivämäärä",
+        reviewtext: "Arvostelu",
+        rating: "Arvosana",
+        wine: "Viini",
     },
 
     translate(word) {

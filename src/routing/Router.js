@@ -1,6 +1,10 @@
 import Vue from "vue";
 import Router from "vue-router";
+
 import TheHomePage from "@/components/common/TheHomePage.vue";
+
+import NewestReviewsTable from "@/components/review/NewestReviewsTable.vue";
+
 import WineDetails from "@/components/wine/WineDetails.vue";
 import WineForm from "@/components/wine/WineForm.vue";
 import WineSearch from "@/components/wine/WineSearch.vue";
@@ -19,7 +23,11 @@ export default new Router({
         },
         
         // Reviews:
-
+        {
+            path: "/new-reviews",
+            name: "Show newest reviews",
+            component: NewestReviewsTable,
+        },
         // Wines:
         {
             path: "/wines",
@@ -30,7 +38,7 @@ export default new Router({
             path: "/wines/:wineId",
             name: "Show a wine",
             component: WineDetails,
-            props: true
+            props: true,
         },
         {
             path: "/add-wine",

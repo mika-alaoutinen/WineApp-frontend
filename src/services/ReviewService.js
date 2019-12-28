@@ -1,7 +1,6 @@
 import axios from "axios";
 import ReviewStore from "@/stores/ReviewStore.js";
-
-const baseUrl = "http://localhost:8080/api/reviews/";
+import UrlBuilder from "@/utilities/UrlBuilder.js";
 
 class ReviewService {
     constructor() {
@@ -9,9 +8,39 @@ class ReviewService {
     }
 
     async getReviewCount() {
-        return axios.get(baseUrl + "count")
-                    .catch(error => console.log(error));
+        return axios
+            .get(UrlBuilder.review.paths.count)
+            .then(response => response.data)
+            .catch(error => console.error(error));
     }
+
+    async search(searchParams) {
+        return axios
+            .get(UrlBuilder.review.getSearchUrl(searchParams))
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+
+    async quickSearch(searchParam, count) {
+        if (!isSearchParamValid) {
+            console.error("Invalid search param: " + searchParam);
+            return;
+        }
+
+        return axios
+            .get(UrlBuilder.review.getQuickSearchUrl(searchParam, count))
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+}
+
+/**
+ * Validates that search param is "best", "worst" or "newest".
+ * @param {String} param
+ * @returns {Boolean}
+ */
+function isSearchParamValid(param) {
+    return [ "best", "worst", "newest" ].includes(param);
 }
 
 export default ReviewService;

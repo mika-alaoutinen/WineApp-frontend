@@ -1,7 +1,6 @@
 import axios from "axios";
+import UrlBuilder from "@/utilities/UrlBuilder.js";
 import WineStore from "@/stores/WineStore.js";
-
-const baseUrl = "http://localhost:8080/api/wines/";
 
 class WineService {
     constructor() {
@@ -16,51 +15,54 @@ class WineService {
     }
 
     async getWineCount() {
-        return axios.get(baseUrl + "count")
-                    .catch(error => console.log(error));
+        return axios
+            .get(UrlBuilder.wine.paths.count)
+            .then(response => response.data)
+            .catch(error => console.error(error));
     }
 
     getFromWineStore(id) {
-        return Array.from(this.wineStore.data.wines)
-                    .find(wine => wine.id == id);
+        return Array
+            .from(this.wineStore.data.wines)
+            .find(wine => wine.id == id);
     }
 
-    async searchWines(searchParams) {
-        return axios.get(baseUrl + "search?" + buildQueryParams(searchParams))
-                    .catch(error => console.log(error));
+    async search(searchParams) {
+        return axios
+            .get(UrlBuilder.wine.getSearchUrl(searchParams))
+            .then(response => response.data)
+            .catch(error => console.error(error));
     }
 
     /**
      * Add all wines received from the backend to wineStore.
      */
     async getWines() {
-        axios.get(baseUrl)
+        axios.get(UrlBuilder.wine.paths.base)
              .then(response => this.wineStore.addAll(response.data))
-             .catch(error => console.log(error));
+             .catch(error => console.error(error));
     }
 
     /**
-     * Send a new wine to backend for persisting.
+     * Sends a new wine to backend for persisting.
      * @param {Wine} wine 
      */
     async postWine(wine) {
         return axios
-            .post(baseUrl, wine)
-            .then((response) => {
-                return this.wineStore.addWine(response.data);
-            })
-            .catch(error => console.log(error));
+            .post(UrlBuilder.wine.paths.base, wine)
+            .then(response => this.wineStore.addWine(response.data))
+            .catch(error => console.error(error));
     }
 
     /**
-     * Send an edite wine to backend for persisting.
+     * Send an edited wine to backend for persisting.
      * @param {Number} id 
      * @param {Wine} editedWine 
      */
     async putWine(id, editedWine) {
-        axios.put(baseUrl + id, editedWine)
+        axios.put(UrlBuilder.wine.paths.base + id, editedWine)
              .then(response => this.wineStore.editWine(id, response))
-             .catch((error) => console.log(error));
+             .catch(error => console.error(error));
     }
 
     /**
@@ -68,24 +70,10 @@ class WineService {
      * @param {Number} id 
      */
     async deleteWine(id) {
-        axios.delete(baseUrl + id)
+        axios.delete(UrlBuilder.wine.paths.base + id)
              .then(() => this.wineStore.deleteWine(id))
-             .catch(error => console.log(error));
+             .catch(error => console.error(error));
     }
-}
-
-// Private helper functions:
-
-/**
- * Parses searchParams object and builds a query params string from it.
- * @param {Object} searchParams
- * @return {String} query string
- */
-function buildQueryParams(searchParams) {
-    return Object.keys(searchParams)
-        .filter(key => searchParams[key].length > 0)
-        .map(key => key + "=" + searchParams[key])
-        .join("&");
 }
 
 export default WineService;

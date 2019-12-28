@@ -2,28 +2,46 @@
   <div>
     <WineSearchForm @get:wines="getWines" />
     <br>
+    <ReviewSearchForm @get:reviews="getReviews" />
+    <br>
     <WineSearchResults :searchResults="wines" :showResults="showResults" />
   </div>
 </template>
 
 <script>
+  import ReviewSearchForm from "@/components/review/ReviewSearchForm.vue";
   import WineSearchForm from "@/components/wine/WineSearchForm.vue";
   import WineSearchResults from "@/components/wine/WineSearchResults.vue";
   
+  /*
+  TODO:
+    - What to do with review results? Add ReviewSearchResults component?
+    - Have wine and review searches be on their own tabs?
+    - Rename to Search.vue and move under commons components.
+  */
+
   export default {
     components: {
       WineSearchForm,
-      WineSearchResults
+      ReviewSearchForm,
+      WineSearchResults,
     },
 
     data() {
       return {
+        reviews: [],
         wines: [],
         showResults: false,
       }
     },
 
     methods: {
+      getReviews(reviews) {
+        this.reviews = reviews;
+        this.showResults = true;
+        console.log(this.reviews);
+      },
+
       getWines(wines) {
         this.wines = wines;
         this.showResults = true;
