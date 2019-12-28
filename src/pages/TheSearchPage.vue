@@ -14,6 +14,7 @@
 
     </v-tabs>
 
+    <br/>
     <WineSearchResults :searchResults="wines" :showResults="showResults" />
   </div>
 </template>
@@ -26,7 +27,6 @@
   /*
   TODO:
     - What to do with review results? Add ReviewSearchResults component?
-    - Have wine and review searches be on their own tabs?
   */
 
   export default {
