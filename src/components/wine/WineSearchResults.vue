@@ -12,9 +12,8 @@
       <template v-slot:item.type="{ item }">
         {{ dictionary.translate(item.type) }}
       </template>
-      
     </v-data-table>
-
+    
   </v-card>
 </template>
 
