@@ -9,7 +9,6 @@
       v-model="enabled">
     </v-switch>
 
-    <!-- @change="emitDateRange" -->
     <v-row>
       <v-col>
         <MonthPickerComponent
@@ -41,18 +40,12 @@ import MonthPickerComponent from "@/components/vuetify/MonthPickerComponent.vue"
 
     data() {
       return {
-        defaultRange: [], // ?
         range: [],
         enabled: false,
       }
     },
 
     methods: {
-      // emitDateRange() {
-      //   console.log("emitDateRange: " + this.range);
-      //   this.$emit("get:range", this.range);
-      // },
-
       flipSwitch() {
         this.enabled
           ? this.$emit("get:range", this.range)

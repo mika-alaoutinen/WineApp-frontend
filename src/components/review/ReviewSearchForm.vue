@@ -21,31 +21,6 @@
       <v-subheader class="subheader">Hae arvostelun päivämäärän perusteella</v-subheader>
       <MonthPicker @get:range="getDateRange"></MonthPicker>
 
-      <!-- Date range -->
-      <!-- <v-switch
-        @change="resetDateRange"
-        label="Päivämäärähaku päällä"
-        v-model="date.enabled">
-      </v-switch>
-
-      <v-row>
-        <v-col>
-          <MonthPickerComponent
-            @get:date="getStartDate"
-            :enabled="date.enabled"
-            :labelText="'Aloituspäivämäärä'">
-          </MonthPickerComponent>
-        </v-col>
-
-        <v-col>
-          <MonthPickerComponent
-            @get:date="getEndDate"
-            :enabled="date.enabled"
-            :labelText="'Lopetuspäivämäärä'">
-          </MonthPickerComponent>
-        </v-col>
-      </v-row> -->
-
       <!-- Search by rating: -->
       <v-subheader class="subheader">Hae arvosanan perusteella</v-subheader>
       <RangeSlider
