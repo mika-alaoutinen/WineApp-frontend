@@ -32,21 +32,19 @@ TODO:
 */
 
   export default {
+    computed: {
+      translateHeaders() {
+        const headers = [ "author", "date", "reviewText", "rating", "wine" ];
+        return headers.map(header => ({ text: this.dictionary.translate("review", header), value: header}));
+      }
+    },
+
     data() {
       return {
         dictionary: Dictionary,
         reviews: [],
       }
     },
-
-    computed: {
-      translateHeaders() {
-        const headers = [ "author", "date", "reviewText", "rating", "wine" ];
-        return headers.map(header => ({ text: this.dictionary.translate(header), value: header}));
-      }
-    },
-
-    methods: {},
 
     mounted() {
       reviewService.quickSearch("newest")

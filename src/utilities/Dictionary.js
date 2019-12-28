@@ -2,42 +2,42 @@
  * Dictionary for translating the English wine and review attributes to Finnish.
  */
 export default {
-    // TODO: separate into three objects: wine, review and common.
-
     data: {
-        // Wine attributes:
-        name: "Nimi",
-        type: "Tyyppi",
-        country: "Maa",
-        price: "Hinta (€)",
-        volume: "Määrä (l)",
-        description: "Kuvaus",
-        foodpairings: "Sopii nautittavaksi",
-        url: "URL",
-        
-        // Wine types
-        sparkling: "Kuohuviini",
-        red: "Punaviini",
-        rose: "Roseeviini",
-        white: "Valkoviini",
-        other: "Muu viini",
+        common: {
+            home: "Aloitus",
+            reviews: "Arvostelut",
+            wines: "Viinit",
+            'add-wine': "Lisää viini",
+            search: "Haku",
+        },
 
-        // Review attributes:
-        author: "Arvostelija",
-        date: "Päivämäärä",
-        reviewtext: "Arvostelu",
-        rating: "Arvosana",
-        wine: "Viini",
+        review: {
+            author: "Arvostelija",
+            date: "Päivämäärä",
+            reviewtext: "Arvostelu",
+            rating: "Arvosana",
+            wine: "Viini",
+        },
 
-        // Common properties:
-        home: "Aloitus",
-        reviews: "Arvostelut",
-        wines: "Viinit",
-        'add-wine': "Lisää viini",
-        search: "Haku",
+        wine: {
+            name: "Nimi",
+            type: "Tyyppi",
+            country: "Maa",
+            price: "Hinta (€)",
+            volume: "Määrä (l)",
+            description: "Kuvaus",
+            foodpairings: "Sopii nautittavaksi",
+            url: "URL",
+
+            sparkling: "Kuohuviini",
+            red: "Punaviini",
+            rose: "Roseeviini",
+            white: "Valkoviini",
+            other: "Muu viini",
+        },
     },
 
-    translate(word) {
-        return this.data[word.toLowerCase()];
+    translate(object, word) {
+        return this.data[object][word.toLowerCase()];
     }
 };

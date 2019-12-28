@@ -25,7 +25,7 @@
           </v-chip>
           <v-text-field
             @keyup.space="checkForKeyword(attribute)"
-            :label="dictionary.translate(attribute)"
+            :label="dictionary.translate('wine', attribute)"
             v-model=" placeholder[attribute]">
           </v-text-field>
         </div>
@@ -35,14 +35,14 @@
           row
           v-model="wine.type">
           <v-radio v-for="type in wineTypes" :key="type"
-            :label="dictionary.translate(type)"
+            :label="dictionary.translate('wine', type)"
             :value="type.toUpperCase()">
           </v-radio>
         </v-radio-group>
 
         <!-- Generate text fields for other attributes: -->
         <v-text-field v-else
-          :label="dictionary.translate(attribute)"
+          :label="dictionary.translate('wine', attribute)"
           v-model="wine[attribute]">
         </v-text-field>
       </div>

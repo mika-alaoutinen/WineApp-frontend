@@ -1,7 +1,7 @@
 <template>
   <div class="navigation">
     <router-link v-for="page in pages" :key="page" :to="{ name: page }">
-      {{ dictionary.translate(page) }}
+      {{ dictionary.translate("common", page) }}
     </router-link>
   </div>
 </template>
