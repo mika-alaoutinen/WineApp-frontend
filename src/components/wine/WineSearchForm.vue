@@ -34,7 +34,6 @@
       <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
       <RangeSlider
         @get:range="getRange"
-        @get:switch="getSwitchState"
         :defaultRange="price.defaultRange"
         :step="1"
         :switchLabel="'Hintahaku päällä'">
@@ -92,10 +91,6 @@
         this.price.range = range;
       },
 
-      getSwitchState(state) {
-        this.price.enabled = state;
-      },
-
       // TODO: move to a generic utility module:
       resetSearchParams() {
         Object.keys(this.searchParams)
@@ -105,10 +100,7 @@
       },
 
       submitForm() {
-        // Update price range if it has been set:
-        if (this.price.enabled) {
-          this.searchParams.priceRange = this.price.range;
-        }
+        this.searchParams.priceRange = this.price.range;
 
         // Send retrieved wines to parent component:
         wineService.search(this.searchParams)

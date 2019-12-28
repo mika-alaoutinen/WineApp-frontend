@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-switch
-      @change="emitSwitchState"
+      @change="flipSwitch"
       :label="$props.switchLabel"
       v-model="enabled">
     </v-switch>
@@ -45,15 +45,15 @@
     },
 
     methods: {
-      emitSwitchState() {
-        this.$emit("get:switch", this.enabled);
-      },
-
       emitRange() {
         if (this.enabled) {
           this.$emit("get:range", this.range);
         }
       },
+
+      flipSwitch() {
+        this.enabled ? this.$emit("get:range", this.range) : this.$emit("get:range", this.$props.defaultRange);
+      }
     },
 
     props: {
