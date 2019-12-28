@@ -37,7 +37,17 @@ export default {
         },
     },
 
+    /**
+     * Translates a given word from English to Finnish.
+     * @param {String} object the word belongs to. Options are 'common', 'review' and 'wine'.
+     * @param {String} word the word to be translated.
+     * @returns {String} translated word or blank if translation is not found.
+     */
     translate(object, word) {
-        return this.data[object][word.toLowerCase()];
+        const translation = this.data[object][word.toLowerCase()];
+
+        return translation === undefined
+            ? console.error("Could not find translation for '" + object + "." + word + "'.")
+            : translation;
     }
 };
