@@ -10,7 +10,6 @@
         <v-btn @click="doQuickSearch('best')" small>Parhaat</v-btn>
         <v-btn @click="doQuickSearch('worst')" small>Huonoimmat</v-btn>
         <v-btn @click="doQuickSearch('newest')" small>Uusimmat</v-btn>
-
       </v-btn-toggle>
 
       <!-- TODO: Maybe change to a select-component..? -->
@@ -20,9 +19,10 @@
 
       <!-- Search by date range: -->
       <v-subheader class="subheader">Hae arvostelun päivämäärän perusteella</v-subheader>
+      <MonthPicker @get:range="getDateRange"></MonthPicker>
 
       <!-- Date range -->
-      <v-switch
+      <!-- <v-switch
         @change="resetDateRange"
         label="Päivämäärähaku päällä"
         v-model="date.enabled">
@@ -44,12 +44,12 @@
             :labelText="'Lopetuspäivämäärä'">
           </MonthPickerComponent>
         </v-col>
-      </v-row>
+      </v-row> -->
 
       <!-- Search by rating: -->
       <v-subheader class="subheader">Hae arvosanan perusteella</v-subheader>
       <RangeSlider
-        @get:range="getRange"
+        @get:range="getRatingRange"
         :defaultRange="rating.defaultRange"
         :step="0.25"
         :switchLabel="'Arvosanahaku päällä'">
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-  import MonthPickerComponent from "@/components/vuetify/MonthPickerComponent.vue";
+  import MonthPicker from "@/components/vuetify/MonthPicker.vue";
   import RangeSlider from "@/components/vuetify/RangeSlider.vue";
   import ReviewService from "@/services/ReviewService.js";
 
@@ -69,7 +69,7 @@
 
   export default {
     components: {
-      MonthPickerComponent,
+      MonthPicker,
       RangeSlider,
     },
 
@@ -77,9 +77,6 @@
       return {
         // Placeholders for date search:
         date: {
-          enabled: false,
-          startMenu: false,
-          endMenu: false,
           range: [],
         },
         
@@ -105,17 +102,9 @@
                      .then(reviews => this.$emit("get:reviews", reviews));
       },
 
-      getStartDate(date) {
-        this.date.range[0] = date;
-      },
+      getDateRange(range) { this.date.range = range },
 
-      getEndDate(date) {
-        this.date.range[1] = date;
-      },
-
-      getRange(range) {
-        this.rating.range = range;
-      },
+      getRatingRange(range) { this.rating.range = range },
 
       // TODO: move to a generic utility module:
       resetSearchParams() {
@@ -125,20 +114,9 @@
                 : this.searchParams[key] = "");
       },
 
-      resetDateRange() {
-        this.searchParams.ratingRange = this.rating.range;
-      },
-
-      setSearchParams() {
-        if (this.date.enabled) {
-          this.searchParams.dateRange = this.date.range;
-        }
-        
-        this.searchParams.ratingRange = this.rating.range;
-      },
-
       submitForm() {
-        this.setSearchParams();
+        this.searchParams.dateRange = this.date.range;
+        this.searchParams.ratingRange = this.rating.range;
 
         reviewService.search(this.searchParams)
                      .then(reviews => this.$emit("get:reviews", reviews));

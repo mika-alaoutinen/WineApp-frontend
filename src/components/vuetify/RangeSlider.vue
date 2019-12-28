@@ -52,7 +52,9 @@
       },
 
       flipSwitch() {
-        this.enabled ? this.$emit("get:range", this.range) : this.$emit("get:range", this.$props.defaultRange);
+        this.enabled
+          ? this.$emit("get:range", this.range)
+          : this.$emit("get:range", this.$props.defaultRange);
       }
     },
 

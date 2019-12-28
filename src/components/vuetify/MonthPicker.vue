@@ -1,53 +1,68 @@
 <template>
-  <v-menu
-    :close-on-content-click="false"
-    :return-value.sync="date"
-    max-width="290px"
-    min-width="290px"
-    offset-y
-    transition="scale-transition"
-    v-model="displayMenu">
+  <div>
+    <!-- Wrapper component for two month pickers and a switch that
+    activates/deactivates the pickers. -->
 
-    <template v-slot:activator="{ on }">
-      <v-text-field
-        :label="$props.labelText"
-        readonly
-        v-on="on"
-        v-model="date">
-      </v-text-field>
-    </template>
+    <v-switch
+      @change="flipSwitch"
+      label="Päivämäärähaku päällä"
+      v-model="enabled">
+    </v-switch>
 
-    <v-date-picker
-      :disabled=!enabled
-      no-title
-      scrollable
-      type="month"
-      v-model="date">
-      <v-spacer />
-      <v-btn @click="displayMenu = false">Peruuta</v-btn>
-      <v-btn @click="saveDate()">OK</v-btn>
-    </v-date-picker>
-  </v-menu>
+    <!-- @change="emitDateRange" -->
+    <v-row>
+      <v-col>
+        <MonthPickerComponent
+          @get:date="getStartDate"
+          :enabled="enabled"
+          :labelText="'Aloituspäivämäärä'">
+        </MonthPickerComponent>
+      </v-col>
+
+      <v-col>
+        <MonthPickerComponent
+          @get:date="getEndDate"
+          :enabled="enabled"
+          :labelText="'Lopetuspäivämäärä'">
+        </MonthPickerComponent>
+      </v-col>
+    </v-row>
+
+  </div>
 </template>
 
 <script>
+import MonthPickerComponent from "@/components/vuetify/MonthPickerComponent.vue";
+
   export default {
+    components: {
+      MonthPickerComponent,
+    },
+
     data() {
       return {
-        date: new Date().toISOString().substr(0, 7),
-        displayMenu: false,
+        defaultRange: [], // ?
+        range: [],
+        enabled: false,
       }
     },
 
     methods: {
-      saveDate() {
-        this.$emit("get:date", this.date);
-      }
+      // emitDateRange() {
+      //   console.log("emitDateRange: " + this.range);
+      //   this.$emit("get:range", this.range);
+      // },
+
+      flipSwitch() {
+        this.enabled
+          ? this.$emit("get:range", this.range)
+          : this.$emit("get:range", this.defaultRange);
+      },
+
+      getStartDate(date) { this.range[0] = date },
+
+      getEndDate(date) { this.range[1] = date },
     },
 
-    props: {
-      labelText: { type: String, required: true },
-      enabled: { type: Boolean, required: true },
-    }
   };
 </script>
