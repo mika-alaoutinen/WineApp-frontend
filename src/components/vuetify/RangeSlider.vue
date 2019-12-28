@@ -2,7 +2,7 @@
   <div>
     <v-switch
       @change="flipSwitch"
-      :label="$props.switchLabel"
+      :label="setSwitchLabel"
       v-model="enabled">
     </v-switch>
 
@@ -39,8 +39,12 @@
   export default {
     computed: {
       setStep() {
-        return this.$props.step == "" ? 1 : this.$props.step;
-      }
+        return this.$props.step === undefined ? 1 : this.$props.step;
+      },
+
+      setSwitchLabel() {
+        return this.$props.switchLabel === undefined ? "Haku päällä" : this.$props.switchLabel;
+      },
     },
     
     data() {
@@ -67,7 +71,7 @@
     props: {
       defaultRange: { type: Array, required: true },
       step: { type: Number, required: false },
-      switchLabel: { type: String, required: true }
+      switchLabel: { type: String, required: false }
     },
 
 };
