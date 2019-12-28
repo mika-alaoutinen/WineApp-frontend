@@ -7,9 +7,9 @@
       <!-- Review quick search: -->  
       <v-subheader class="subheader">Pikahaut</v-subheader>
       <v-btn-toggle class="quick-search" group>
-        <v-btn @click="doQuickSearch('best')" small>Parhaat</v-btn>
-        <v-btn @click="doQuickSearch('worst')" small>Huonoimmat</v-btn>
-        <v-btn @click="doQuickSearch('newest')" small>Uusimmat</v-btn>
+        <v-btn @click="quickSearch('best')" small>Parhaat</v-btn>
+        <v-btn @click="quickSearch('worst')" small>Huonoimmat</v-btn>
+        <v-btn @click="quickSearch('newest')" small>Uusimmat</v-btn>
       </v-btn-toggle>
 
       <!-- TODO: Maybe change to a select-component..? -->
@@ -72,11 +72,6 @@
     },
 
     methods: {
-      doQuickSearch(searchType) {
-        reviewService.quickSearch(searchType, 10)
-                     .then(reviews => this.$emit("get:reviews", reviews));
-      },
-
       getDateRange(range) { this.date.range = range },
 
       getRatingRange(range) { this.rating.range = range },
@@ -87,6 +82,11 @@
               .map(key => Array.isArray(this.searchParams[key])
                 ? this.searchParams[key] = []
                 : this.searchParams[key] = "");
+      },
+
+      quickSearch(searchType) {
+        reviewService.quickSearch(searchType, 10)
+                     .then(reviews => this.$emit("get:reviews", reviews));
       },
 
       submitForm() {

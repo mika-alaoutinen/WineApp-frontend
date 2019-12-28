@@ -35,7 +35,6 @@
       <RangeSlider
         @get:range="getRange"
         :defaultRange="price.defaultRange"
-        :step="1"
         :switchLabel="'Hintahaku päällä'">
       </RangeSlider>
 
