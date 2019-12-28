@@ -30,19 +30,19 @@
 
       <v-row>
         <v-col>
-          <MonthPicker
+          <MonthPickerComponent
             @get:date="getStartDate"
             :enabled="date.enabled"
             :labelText="'Aloituspäivämäärä'">
-          </MonthPicker>
+          </MonthPickerComponent>
         </v-col>
 
         <v-col>
-          <MonthPicker
+          <MonthPickerComponent
             @get:date="getEndDate"
             :enabled="date.enabled"
             :labelText="'Lopetuspäivämäärä'">
-          </MonthPicker>
+          </MonthPickerComponent>
         </v-col>
       </v-row>
 
@@ -50,18 +50,18 @@
       <v-subheader class="subheader">Hae arvosanan perusteella</v-subheader>
       <RangeSlider
         @get:range="getRange"
-        @get:switch="getSwitchState"
         :defaultRange="rating.defaultRange"
         :step="0.25"
         :switchLabel="'Arvosanahaku päällä'">
       </RangeSlider>
 
+      <button class="button-save">Hae arvosteluja</button>
     </v-form>
   </v-card>
 </template>
 
 <script>
-  import MonthPicker from "@/components/vuetify/MonthPicker.vue";
+  import MonthPickerComponent from "@/components/vuetify/MonthPickerComponent.vue";
   import RangeSlider from "@/components/vuetify/RangeSlider.vue";
   import ReviewService from "@/services/ReviewService.js";
 
@@ -69,7 +69,7 @@
 
   export default {
     components: {
-      MonthPicker,
+      MonthPickerComponent,
       RangeSlider,
     },
 
@@ -85,7 +85,6 @@
         
         // Placeholders for rating search:
         rating: {
-          enabled: false,
           defaultRange: [ 0.0, 5.0 ],
           range: [],
         },
@@ -118,10 +117,6 @@
         this.rating.range = range;
       },
 
-      getSwitchState(state) {
-        this.rating.enabled = state;
-      },
-
       // TODO: move to a generic utility module:
       resetSearchParams() {
         Object.keys(this.searchParams)
@@ -138,9 +133,8 @@
         if (this.date.enabled) {
           this.searchParams.dateRange = this.date.range;
         }
-        if (this.rating.enabled) {
-          this.searchParams.ratingRange = this.rating.range;
-        }
+        
+        this.searchParams.ratingRange = this.rating.range;
       },
 
       submitForm() {
@@ -157,11 +151,16 @@
 </script>
 
 <style scoped>
-  .subheader { padding-left: 0 }
+  .button-save {
+    color: green;
+    font-weight: bold;
+    padding: 1em;
+  }
   .card-title {
     font-weight: bold;
     padding-left: 0;
   }
   .slider-value-field { width: 60px }
   .slider-value-field >>> input { text-align: center }
+  .subheader { padding-left: 0 }
 </style>

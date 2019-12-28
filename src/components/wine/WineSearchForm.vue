@@ -70,7 +70,6 @@
 
         // Placeholders for price search:
         price: {
-          enabled: false,
           defaultRange: [ 0, 50 ],
           range: [],
         },
@@ -105,7 +104,6 @@
         // Send retrieved wines to parent component:
         wineService.search(this.searchParams)
                    .then(wines => this.$emit("get:wines", wines))
-                   .catch(error => console.log(error));
 
         this.resetSearchParams();
       },
