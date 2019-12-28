@@ -38,6 +38,10 @@ export default {
     },
 
     translate(object, word) {
-        return this.data[object][word.toLowerCase()];
+        const translation = this.data[object][word.toLowerCase()];
+
+        return translation === undefined
+            ? console.error("Could not find translation for '" + object + "." + word + "'.")
+            : translation;
     }
 };
