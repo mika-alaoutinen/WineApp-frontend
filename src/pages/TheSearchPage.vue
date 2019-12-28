@@ -1,9 +1,19 @@
 <template>
   <div>
-    <WineSearchForm @get:wines="getWines" />
-    <br>
-    <ReviewSearchForm @get:reviews="getReviews" />
-    <br>
+    <v-tabs centered>
+      
+      <v-tab>Hae viinejä</v-tab>
+      <v-tab-item>
+        <WineSearchForm @get:wines="getWines" />
+      </v-tab-item>
+      
+      <v-tab>Hae arvosteluja</v-tab>
+      <v-tab-item>
+        <ReviewSearchForm @get:reviews="getReviews" />
+      </v-tab-item>
+
+    </v-tabs>
+
     <WineSearchResults :searchResults="wines" :showResults="showResults" />
   </div>
 </template>
