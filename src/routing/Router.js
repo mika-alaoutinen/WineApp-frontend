@@ -1,54 +1,55 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import TheHomePage from "@/components/common/TheHomePage.vue";
+import TheHomePage from "@/pages/TheHomePage.vue";
+import TheSearchPage from "@/pages/TheSearchPage.vue";
+import TheWinesPage from "@/pages/TheWinesPage.vue";
 
 import NewestReviewsTable from "@/components/review/NewestReviewsTable.vue";
 
+import AddWineForm from "@/components/wine/AddWineForm.vue";
 import WineDetails from "@/components/wine/WineDetails.vue";
-import WineForm from "@/components/wine/WineForm.vue";
-import WineSearch from "@/components/wine/WineSearch.vue";
-import WineTable from "@/components/wine/WineTable.vue";
 
 Vue.use(Router);
 
 export default new Router({
     mode: "history",
     routes: [
-        // Common:
+        // Pages:
         {
             path: "/home",
-            name: "Home page",
+            name: "Home",
             component: TheHomePage,
+        },
+        {
+            path: "/search",
+            name: "Search",
+            component: TheSearchPage,
+        },
+        {
+            path: "/wines",
+            name: "Wines",
+            component: TheWinesPage,
         },
         
         // Reviews:
         {
             path: "/new-reviews",
-            name: "Show newest reviews",
+            name: "Reviews",
             component: NewestReviewsTable,
         },
+
         // Wines:
         {
-            path: "/wines",
-            name: "Show wines",
-            component: WineTable,
+            path: "/add-wine",
+            name: "Add-wine",
+            component: AddWineForm,
         },
         {
             path: "/wines/:wineId",
-            name: "Show a wine",
+            name: "Wine",
             component: WineDetails,
             props: true,
-        },
-        {
-            path: "/add-wine",
-            name: "Add wine",
-            component: WineForm,
-        },
-        {
-            path: "/search-wines",
-            name: "Search for wines",
-            component: WineSearch,
         },
     ]
 });

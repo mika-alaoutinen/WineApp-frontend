@@ -12,9 +12,8 @@
       <template v-slot:item.type="{ item }">
         {{ dictionary.translate(item.type) }}
       </template>
-      
     </v-data-table>
-
+    
   </v-card>
 </template>
 
@@ -37,7 +36,7 @@
 
     methods: {
       openWineInfo(wine) {
-        this.$router.push("/wines/" + wine.id);
+        this.$router.push({ name: "Wine", params: { wineId: "" + wine.id } });
       }
     },
 

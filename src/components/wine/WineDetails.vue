@@ -79,7 +79,7 @@
 
       deleteWine(id) {
         wineService.deleteWine(id);
-        this.$router.push("/wines/");
+        this.$router.push({ name: "Wines" });
       },
 
       editMode(wine) {
