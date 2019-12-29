@@ -1,13 +1,13 @@
 <template>
-  <v-card class="full-page-card" max-width="85%">
+  <v-card class="full-page-card" max-width="75%">
     <v-card-title class="card-title">Uusimmat arvostelut</v-card-title>
 
     <v-data-table
       :headers="translateHeaders"
       :items="reviews"
-      class="align-left"
       disable-sort
-      loading-text="Ladataan arvosteluja...">
+      loading-text="Ladataan arvosteluja..."
+      no-data-text="Yhtään arvostelua ei löytynyt.">
 
       <!-- Clicking on wine name redirects to wine details page: -->
       <template v-slot:item.wine="{ item }">
@@ -29,6 +29,7 @@ const reviewService = new ReviewService();
 /*
 TODO:
   - Add functionality to load more reviews. => I.e. page two has reviews 11-20, etc.
+  - Only show an excerpt of review text with the option to expand the text.
 */
 
   export default {
@@ -54,7 +55,6 @@ TODO:
 </script>
 
 <style scoped>
-  .align-left { text-align: left }
   .card-title {
     font-weight: bold;
     padding-left: 0;

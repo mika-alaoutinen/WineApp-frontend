@@ -6,8 +6,8 @@
       @click:row="openWineInfo"
       :headers="translateHeaders"
       :items="this.$props.searchResults"
-      class="align-left"
-      loading-text="Haetaan viinejä...">
+      loading-text="Haetaan viinejä..."
+      no-data-text="Haulla ei löytynyt yhtään tulosta.">
 
       <template v-slot:item.type="{ item }">
         {{ dictionary.translate('wine', item.type) }}

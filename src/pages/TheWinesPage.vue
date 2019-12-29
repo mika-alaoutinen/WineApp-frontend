@@ -1,5 +1,5 @@
 <template>
-  <v-card class="full-page-card" max-width="85%">
+  <v-card class="full-page-card" max-width="75%">
     <v-card-title class="card-title">Viinilistaus<v-spacer/>
       <v-text-field
         class="search-bar"
@@ -16,8 +16,8 @@
       :items="wineStore.wines"
       :items-per-page="15"
       :search="search"
-      class="align-left"
-      loading-text="Ladataan viinejä...">
+      loading-text="Ladataan viinejä..."
+      no-results-text="Haulla ei löytynyt yhtään tulosta.">
 
       <template v-slot:item.type="{ item }">
         {{ dictionary.translate("wine", item.type) }}
@@ -71,7 +71,6 @@
 </script>
 
 <style scoped>
-  .align-left { text-align: left }
   .card-title { font-weight: bold }
   .search-bar { font-weight: normal }
 </style>
