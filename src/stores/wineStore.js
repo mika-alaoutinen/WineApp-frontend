@@ -1,10 +1,15 @@
 const WineStore = {
     data: {
-        wines: []
+        wines: [],
+        searchedWines: [],
     },
 
     addAll(wineArray) {
         this.data.wines = wineArray;
+    },
+
+    addAllSearchedWines(wineArray) {
+        this.data.searchedWines = wineArray;
     },
 
     addWine(newWine) {

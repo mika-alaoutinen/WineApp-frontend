@@ -14,6 +14,12 @@ class WineService {
         return this.wineStore.data;
     }
 
+    getFromWineStore(id) {
+        return Array
+            .from(this.wineStore.data.wines)
+            .find(wine => wine.id == id);
+    }
+
     async getWineCount() {
         return axios
             .get(UrlBuilder.wine.paths.count)
@@ -21,12 +27,11 @@ class WineService {
             .catch(error => console.error(error));
     }
 
-    getFromWineStore(id) {
-        return Array
-            .from(this.wineStore.data.wines)
-            .find(wine => wine.id == id);
-    }
-
+    /**
+     * Does a search on backend for wines.
+     * @param {Object} searchParams describing the types of wines to search for.
+     * @returns {Array} found wines.
+     */
     async search(searchParams) {
         return axios
             .get(UrlBuilder.wine.getSearchUrl(searchParams))
@@ -34,6 +39,7 @@ class WineService {
             .catch(error => console.error(error));
     }
 
+// CRUD operations:
     /**
      * Add all wines received from the backend to wineStore.
      */
