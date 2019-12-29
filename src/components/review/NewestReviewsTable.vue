@@ -18,9 +18,9 @@
 
       <!-- Review text column: -->
       <template v-slot:item.reviewText="{ item }">
-        <v-expansion-panels>
+        <v-expansion-panels accordion>
           <v-expansion-panel>
-            <v-expansion-panel-header> {{ getExcerpt(item.reviewText) }} </v-expansion-panel-header>
+            <v-expansion-panel-header>{{ getExcerpt(item.reviewText) }}</v-expansion-panel-header>
             <v-expansion-panel-content>{{ item.reviewText }}</v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
@@ -39,7 +39,6 @@ const reviewService = new ReviewService();
 /*
 TODO:
   - Add functionality to load more reviews. => I.e. page two has reviews 11-20, etc.
-  - Only show an excerpt of review text with the option to expand the text.
 */
 
   export default {
@@ -53,7 +52,6 @@ TODO:
     data() {
       return {
         dictionary: Dictionary,
-        expanded: [],
         reviews: [],
       }
     },
@@ -77,4 +75,7 @@ TODO:
     font-weight: bold;
     padding-left: 0;
   }
+
+  /* Hides the borders around epansion panels. */
+  .v-expansion-panel:before { box-shadow: none !important }
 </style>
