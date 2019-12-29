@@ -6,11 +6,11 @@
       @click:row="openWineInfo"
       :headers="translateHeaders"
       :items="this.$props.searchResults"
-      class="align-left"
-      loading-text="Haetaan viinejä...">
+      loading-text="Haetaan viinejä..."
+      no-data-text="Haulla ei löytynyt yhtään tulosta.">
 
       <template v-slot:item.type="{ item }">
-        {{ dictionary.translate(item.type) }}
+        {{ dictionary.translate('wine', item.type) }}
       </template>
     </v-data-table>
     
@@ -30,13 +30,13 @@
     computed: {
       translateHeaders() {
         const headers = [ "name", "type", "country", "price", "volume" ];
-        return headers.map(header => ({ text: this.dictionary.translate(header), value: header }));
+        return headers.map(header => ({ text: this.dictionary.translate("wine", header), value: header }));
       }
     },
 
     methods: {
       openWineInfo(wine) {
-        this.$router.push({ name: "Wine", params: { wineId: "" + wine.id } });
+        this.$router.push({ name: "Wine", params: { wineId: "" + wine.id }});
       }
     },
 

@@ -1,12 +1,23 @@
 <template>
   <div class="navigation">
-    <router-link :to="{ name: 'Home' }">Aloitus</router-link>
-    <router-link :to="{ name: 'Reviews' }">Arvostelut</router-link>
-    <router-link :to="{ name: 'Wines' }">Viinit</router-link>
-    <router-link :to="{ name: 'Add-wine' }">Lisää viini</router-link>
-    <router-link :to="{ name: 'Search' }">Haku</router-link>
+    <router-link v-for="page in pages" :key="page" :to="{ name: page }">
+      {{ dictionary.translate("common", page) }}
+    </router-link>
   </div>
 </template>
+
+<script>
+  import Dictionary from "@/utilities/Dictionary.js";
+
+  export default {
+    data() {
+      return {
+        dictionary: Dictionary,
+        pages: [ "Home", "Reviews", "Wines", "Add-wine", "Search" ],
+      }
+    }
+  }
+</script>
 
 <style scoped>
   .navigation a {

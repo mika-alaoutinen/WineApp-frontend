@@ -13,7 +13,7 @@
       <v-subheader class="subheader">Hae viinin tyypin perusteella</v-subheader>
       <v-radio-group row v-model="searchParams.type">
         <v-radio v-for="type in wineTypes" :key="type"
-          :label="dictionary.translate(type)"
+          :label="dictionary.translate('wine', type)"
           :value="type.toUpperCase()">
         </v-radio>
       </v-radio-group>

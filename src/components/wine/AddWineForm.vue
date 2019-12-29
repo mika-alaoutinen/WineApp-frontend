@@ -15,8 +15,7 @@
       <div v-for="(value, attribute) in wine" :key="attribute">
 
         <!-- Add chips for description and food pairing keywords: -->
-        <div v-if="attribute === 'description' || attribute === 'foodPairings'"
-          class="align-left">
+        <div v-if="attribute === 'description' || attribute === 'foodPairings'" class="align-left">
           <v-chip v-for="keyword in wine[attribute]" :key="keyword"
             @click:close="deleteKeyword(attribute, keyword)"
             class="keyword-chip"
@@ -25,7 +24,7 @@
           </v-chip>
           <v-text-field
             @keyup.space="checkForKeyword(attribute)"
-            :label="dictionary.translate(attribute)"
+            :label="dictionary.translate('wine', attribute)"
             v-model=" placeholder[attribute]">
           </v-text-field>
         </div>
@@ -35,14 +34,14 @@
           row
           v-model="wine.type">
           <v-radio v-for="type in wineTypes" :key="type"
-            :label="dictionary.translate(type)"
+            :label="dictionary.translate('wine', type)"
             :value="type.toUpperCase()">
           </v-radio>
         </v-radio-group>
 
         <!-- Generate text fields for other attributes: -->
         <v-text-field v-else
-          :label="dictionary.translate(attribute)"
+          :label="dictionary.translate('wine', attribute)"
           v-model="wine[attribute]">
         </v-text-field>
       </div>

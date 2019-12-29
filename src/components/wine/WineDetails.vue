@@ -6,7 +6,7 @@
       
       <!-- Left column for attribute names. -->
       <v-col align="start" class="attribute-text" sm="3">
-          {{ dictionary.translate(attribute) }}
+          {{ dictionary.translate("wine", attribute) }}
       </v-col>
 
       <!-- Right column for values. -->
