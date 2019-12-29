@@ -12,9 +12,11 @@ class WineService {
      * Add all wines received from the backend to wineStore.
      */
     async getWines() {
-        axios.get(UrlBuilder.wine.paths.base)
-             .then(response => this.wineStore.addAll(response.data))
-             .catch(error => console.error(error));
+        return axios
+            .get(UrlBuilder.wine.paths.base)
+            .then(response => response.data)
+            .then(wines => this.wineStore.addAll(wines))
+            .catch(error => console.error(error));
     }
 
     /**
@@ -35,7 +37,7 @@ class WineService {
      */
     async putWine(id, editedWine) {
         axios.put(UrlBuilder.wine.paths.base + id, editedWine)
-             .then(response => this.wineStore.editWine(id, response))
+             .then(response => this.wineStore.editWine(id, response.data))
              .catch(error => console.error(error));
     }
 
@@ -84,18 +86,11 @@ class WineService {
     }
 
     /**
-     * Saves wines into wine store.
-     * @param {String} storeName should be "wines" or "searchedWines".
-     * @param {Array} wines to save to the store.
+     * Saves wine search results into the wine store.
+     * @param {Array} wines.
      */
-    saveToWineStore(storeName, wines) {
-        if (storeName === "wines") {
-            this.wineStore.addAll(wines)
-        } else if (storeName === "searchedWines") {
-            this.wineStore.addAllSearchedWines(wines)
-        } else {
-            console.error("Could not find data store '" + storeName + "'.");
-        }
+    saveSearchResults(wines) {
+        this.wineStore.addAllSearchedWines(wines);
     }
 }
 
