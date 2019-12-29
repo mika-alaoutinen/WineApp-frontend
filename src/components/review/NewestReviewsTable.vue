@@ -20,7 +20,7 @@
       <template v-slot:item.reviewText="{ item }">
         <v-expansion-panels accordion>
           <v-expansion-panel>
-            <v-expansion-panel-header>{{ getExcerpt(item.reviewText) }}</v-expansion-panel-header>
+            <v-expansion-panel-header expand-icon>{{ getExcerpt(item.reviewText) }}</v-expansion-panel-header>
             <v-expansion-panel-content>{{ item.reviewText }}</v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
@@ -77,5 +77,5 @@ TODO:
   }
 
   /* Hides the borders around epansion panels. */
-  .v-expansion-panel:before { box-shadow: none !important }
+  .v-expansion-panel:before { box-shadow: none }
 </style>
