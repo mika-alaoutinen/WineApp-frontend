@@ -2,40 +2,14 @@
   <v-card class="full-page-card" max-width="75%">
     <v-card-title class="card-title">Uusimmat arvostelut</v-card-title>
 
-    <v-data-table
-      :headers="translateHeaders"
-      :items="reviews"
-      disable-sort
-      hide-default-footer
-      loading-text="Ladataan arvosteluja..."
-      no-data-text="Yhtään arvostelua ei löytynyt.">
+    <ReviewTable :reviews="reviews"/>
 
-      <!-- Clicking on wine name redirects to wine details page: -->
-      <template v-slot:item.wine="{ item }">
-        <router-link tag="tr" :to="{ name: 'Wine', params: { wineId: '' + item.wine.id }}">
-          {{ item.wine.name }}
-        </router-link>
-      </template>
-
-      <!-- Review text column: -->
-      <template v-slot:item.reviewText="{ item }">
-        <v-expansion-panels accordion>
-          <v-expansion-panel>
-            <v-expansion-panel-header expand-icon>{{ getExcerpt(item.reviewText) }}</v-expansion-panel-header>
-            <v-expansion-panel-content>{{ item.reviewText }}</v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </template>
-
-    </v-data-table>
   </v-card>
 </template>
 
 <script>
-import Dictionary from "@/utilities/Dictionary.js";
-import ReviewService from "@/services/ReviewService.js";
-
-const reviewService = new ReviewService();
+  import ReviewService from "@/services/ReviewService.js";
+  import ReviewTable from "@/components/review/ReviewTable.vue";
 
 /*
 TODO:
@@ -43,16 +17,10 @@ TODO:
 */
 
   export default {
-    computed: {
-      translateHeaders() {
-        const headers = [ "author", "date", "reviewText", "rating", "wine" ];
-        return headers.map(header => ({ text: this.dictionary.translate("review", header), value: header}));
-      },
-    },
+    components: { ReviewTable },
 
     data() {
       return {
-        dictionary: Dictionary,
         reviews: [],
       }
     },
@@ -65,13 +33,10 @@ TODO:
     },
 
     mounted() {
-      reviewService.quickSearch("newest")
-                   .then(newestReviews => this.reviews = newestReviews);
+      new ReviewService()
+        .quickSearch("newest")
+        .then(newestReviews => this.reviews = newestReviews);
     },
+
   };
 </script>
-
-<style scoped>
-  /* Hides the borders around epansion panels. */
-  .v-expansion-panel:before { box-shadow: none }
-</style>
