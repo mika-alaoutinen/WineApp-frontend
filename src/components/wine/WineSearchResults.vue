@@ -1,11 +1,11 @@
 <template>
-  <v-card class="full-page-card" max-width="60%" v-show="wineStore.searched.searchDone">
+  <v-card class="full-page-card" max-width="60%" v-show="wineStore.searchDone">
     <v-card-title class="card-title">Haun tulokset</v-card-title>
 
     <v-data-table
       @click:row="openWineInfo"
       :headers="translateHeaders"
-      :items="wineStore.searched.wines"
+      :items="wineStore.wines"
       loading-text="Haetaan viinejä..."
       no-data-text="Haulla ei löytynyt yhtään tulosta.">
 
@@ -34,7 +34,7 @@
     data() {
       return {
         dictionary: Dictionary,
-        wineStore: wineService.getWineStore(),
+        wineStore: wineService.getWineStore().searched,
       }
     },
 
