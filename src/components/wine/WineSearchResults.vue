@@ -25,10 +25,6 @@
 
   export default {
     computed: {
-      showResults() {
-        return this.wineStore.searchedWines.length > 0;
-      },
-      
       translateHeaders() {
         const headers = [ "name", "type", "country", "price", "volume" ];
         return headers.map(header => ({ text: this.dictionary.translate("wine", header), value: header }));
