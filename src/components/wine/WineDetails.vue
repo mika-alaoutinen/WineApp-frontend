@@ -61,7 +61,7 @@
         delete wineCopy.id;
         return wineCopy;
       },
-    },    
+    },
 
     data() {
       return {

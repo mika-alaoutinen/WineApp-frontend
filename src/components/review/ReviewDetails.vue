@@ -2,7 +2,7 @@
   <v-card class="details-card" max-width="60em">
     <v-card-title class="card-title">Viinin tiedot</v-card-title>
 
-    <v-row v-for="(value, attribute) in review" :key="attribute">
+    <v-row v-for="(value, attribute) in displayReview" :key="attribute">
 
       <!-- Left column for attribute names. -->
       <v-col align="start" class="attribute-text" sm="3">
@@ -20,7 +20,10 @@
 
       <!-- View mode: -->
       <!-- Don't allow editing wine here -->
-      <v-col v-else align="start">{{ value }}</v-col>
+      <v-col v-else align="start">
+        <div v-if="attribute === 'wine'">{{ value.name }}</div>
+        <div v-else>{{ value }}</div>
+      </v-col>
     </v-row>
 
     <!-- Edit and delete buttons -->
@@ -37,12 +40,26 @@
 </template>
 
 <script>
+
+  /* TODO:
+    - Add option to click on wine name to go to wine details page.
+    - Explore nicer options for displaying the data.
+  */
+
   import ReviewService from "@/services/ReviewService.js";
   import Dictionary from "@/utilities/Dictionary.js";
 
   const reviewService = new ReviewService();
 
   export default {
+    computed: {
+      displayReview() {
+        const reviewCopy = Object.assign({}, this.review);
+        delete reviewCopy.id;
+        return reviewCopy;
+      },
+    },
+
     data() {
       return {
         dictionary: Dictionary,
@@ -86,7 +103,7 @@
     },
 
   };
-
+  
   // Utility functions:
   function inputIsInvalid(review) {
     return Array.from(Object.values(review))
