@@ -78,7 +78,7 @@
 
       quickSearch(searchType) {
         reviewService.quickSearch(searchType, 10)
-                     .then(reviews => this.$emit("get:reviews", reviews));
+                     .then(reviews => reviewService.saveSearchResults(reviews));
       },
 
       submitForm() {
@@ -86,7 +86,7 @@
         this.searchParams.ratingRange = this.rating.range;
 
         reviewService.search(this.searchParams)
-                     .then(reviews => this.$emit("get:reviews", reviews));
+                     .then(reviews => reviewService.saveSearchResults(reviews));
 
          reviewService.resetObject(this.searchParams);
       },
@@ -101,10 +101,7 @@
     font-weight: bold;
     padding: 1em;
   }
-  .card-title {
-    font-weight: bold;
-    padding-left: 0;
-  }
+  .card-title { padding-left: 0 }
   .slider-value-field { width: 60px }
   .slider-value-field >>> input { text-align: center }
   .subheader { padding-left: 0 }

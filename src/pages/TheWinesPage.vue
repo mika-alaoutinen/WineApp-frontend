@@ -47,7 +47,7 @@
       return {
         dictionary: Dictionary,
         search: "",
-        wineStore: wineService.getWineStore(),
+        wineStore: wineService.getStore().data,
       }
     },
 
@@ -69,8 +69,3 @@
     },
   };
 </script>
-
-<style scoped>
-  .card-title { font-weight: bold }
-  .search-bar { font-weight: normal }
-</style>

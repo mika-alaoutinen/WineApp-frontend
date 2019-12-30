@@ -20,8 +20,7 @@ export default {
             base: reviewPath,
             count: reviewPath + "count",
             quicksearch: reviewPath + "search/",
-            // search: reviewPath + "search?",
-            search: reviewPath + "rating?",
+            search: reviewPath + "search?",
         },
         
         getQuickSearchUrl(searchParam, count) {

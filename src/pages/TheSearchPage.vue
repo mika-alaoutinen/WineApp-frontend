@@ -5,49 +5,33 @@
       <v-tab>Hae viinejä</v-tab>
       <v-tab-item>
         <WineSearchForm/>
+        <br/>
+        <WineSearchResults/>
       </v-tab-item>
       
       <v-tab>Hae arvosteluja</v-tab>
       <v-tab-item>
-        <ReviewSearchForm @get:reviews="getReviews" />
+        <ReviewSearchForm/>
+        <br/>
+        <ReviewSearchResults/>
       </v-tab-item>
 
     </v-tabs>
-
-    <br/>
-    <WineSearchResults/>
   </div>
 </template>
 
 <script>
   import ReviewSearchForm from "@/components/review/ReviewSearchForm.vue";
+  import ReviewSearchResults from "@/components/review/ReviewSearchResults.vue";
   import WineSearchForm from "@/components/wine/WineSearchForm.vue";
   import WineSearchResults from "@/components/wine/WineSearchResults.vue";
-  
-  /*
-  TODO:
-    - What to do with review results? Add ReviewSearchResults component?
-  */
 
   export default {
     components: {
       ReviewSearchForm,
+      ReviewSearchResults,
       WineSearchForm,
       WineSearchResults,
     },
-
-    data() {
-      return {
-        reviews: [],
-      }
-    },
-
-    methods: {
-      getReviews(reviews) {
-        this.reviews = reviews;
-        this.showResults = true;
-        console.log(this.reviews);
-      },
-    }
   };
 </script>

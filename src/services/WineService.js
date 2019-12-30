@@ -5,18 +5,17 @@ import WineStore from "@/stores/WineStore.js";
 
 class WineService extends Service {
     constructor() {
-        super();
-        this.wineStore = WineStore;
+        super(WineStore);
     }
 
 // CRUD operations:
     /**
-     * Add all wines received from the backend to wineStore.
+     * Add all wines received from the backend to store.
      */
     async getWines() {
         return axios
             .get(UrlBuilder.wine.paths.base)
-            .then(response => this.wineStore.addAll(response.data))
+            .then(response => super.getStore().addAll(response.data))
             .catch(error => console.error(error));
     }
 
@@ -27,7 +26,7 @@ class WineService extends Service {
     async postWine(wine) {
         return axios
             .post(UrlBuilder.wine.paths.base, wine)
-            .then(response => this.wineStore.addWine(response.data))
+            .then(response => super.getStore().addWine(response.data))
             .catch(error => console.error(error));
     }
 
@@ -38,7 +37,7 @@ class WineService extends Service {
      */
     async putWine(id, editedWine) {
         axios.put(UrlBuilder.wine.paths.base + id, editedWine)
-             .then(response => this.wineStore.editWine(id, response.data))
+             .then(response => super.getStore().editWine(id, response.data))
              .catch(error => console.error(error));
     }
 
@@ -48,7 +47,7 @@ class WineService extends Service {
      */
     async deleteWine(id) {
         axios.delete(UrlBuilder.wine.paths.base + id)
-             .then(() => this.wineStore.deleteWine(id))
+             .then(() => super.getStore().deleteWine(id))
              .catch(error => console.error(error));
     }
 
@@ -73,25 +72,18 @@ class WineService extends Service {
     }
 
 // Winestore related functions:
-    /**
-     * @returns WineStore data, i.e. an array of wines.
-     */
-    getWineStore() {
-        return this.wineStore.data;
-    }
-
     getFromWineStore(id) {
         return Array
-            .from(this.wineStore.data.wines)
+            .from(super.getStore().data.wines)
             .find(wine => wine.id == id);
     }
 
     /**
-     * Saves wine search results into the wine store.
+     * Saves wine search results into the store.
      * @param {Array} wines.
      */
     saveSearchResults(wines) {
-        this.wineStore.addAllSearchedWines(wines);
+        super.getStore().addAllSearchedWines(wines);
     }
 }
 

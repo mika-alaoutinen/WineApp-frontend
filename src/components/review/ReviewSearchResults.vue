@@ -1,14 +1,12 @@
 <template>
-  <v-card class="full-page-card" max-width="75%">
-    <v-card-title class="card-title">Uusimmat arvostelut</v-card-title>
+  <v-card class="full-page-card" max-width="60%" v-show="reviewStore.searchDone">
+    <v-card-title class="card-title">Haun tulokset</v-card-title>
 
     <v-data-table
       :headers="translateHeaders"
-      :items="reviews"
-      disable-sort
-      hide-default-footer
-      loading-text="Ladataan arvosteluja..."
-      no-data-text="Yhtään arvostelua ei löytynyt.">
+      :items="reviewStore.reviews"
+      loading-text="Haetaan arvosteluja..."
+      no-data-text="Haulla ei löytynyt yhtään tulosta.">
 
       <!-- Clicking on wine name redirects to wine details page: -->
       <template v-slot:item.wine="{ item }">
@@ -32,28 +30,23 @@
 </template>
 
 <script>
-import Dictionary from "@/utilities/Dictionary.js";
-import ReviewService from "@/services/ReviewService.js";
+  import Dictionary from "@/utilities/Dictionary.js";
+  import ReviewService from "@/services/ReviewService.js";
 
-const reviewService = new ReviewService();
-
-/*
-TODO:
-  - Add functionality to load more reviews. => I.e. page two has reviews 11-20, etc.
-*/
+  const reviewService = new ReviewService();
 
   export default {
     computed: {
       translateHeaders() {
         const headers = [ "author", "date", "reviewText", "rating", "wine" ];
-        return headers.map(header => ({ text: this.dictionary.translate("review", header), value: header}));
-      },
+        return headers.map(header => ({ text: this.dictionary.translate("review", header), value: header }));
+      }
     },
 
     data() {
       return {
         dictionary: Dictionary,
-        reviews: [],
+        reviewStore: reviewService.getStore().data.searched,
       }
     },
 
@@ -64,10 +57,6 @@ TODO:
       },
     },
 
-    mounted() {
-      reviewService.quickSearch("newest")
-                   .then(newestReviews => this.reviews = newestReviews);
-    },
   };
 </script>
 

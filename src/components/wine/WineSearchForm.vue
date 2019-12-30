@@ -106,10 +106,7 @@
     font-weight: bold;
     padding: 1em;
   }
-  .card-title {
-    font-weight: bold;
-    padding-left: 0;
-  }
+  .card-title { padding-left: 0 }
   .slider-value-field { width: 60px }
   .slider-value-field >>> input { text-align: center }
   .subheader { padding-left: 0 }
