@@ -1,46 +1,23 @@
 import axios from "axios";
+import Service from "./Service.js";
 import UrlBuilder from "@/utilities/UrlBuilder.js";
 import WineStore from "@/stores/WineStore.js";
 
-class WineService {
+class WineService extends Service {
     constructor() {
+        super();
         this.wineStore = WineStore;
     }
 
-    /**
-     * @returns WineStore data, i.e. an array of wines.
-     */
-    getWineStore() {
-        return this.wineStore.data;
-    }
-
-    async getWineCount() {
-        return axios
-            .get(UrlBuilder.wine.paths.count)
-            .then(response => response.data)
-            .catch(error => console.error(error));
-    }
-
-    getFromWineStore(id) {
-        return Array
-            .from(this.wineStore.data.wines)
-            .find(wine => wine.id == id);
-    }
-
-    async search(searchParams) {
-        return axios
-            .get(UrlBuilder.wine.getSearchUrl(searchParams))
-            .then(response => response.data)
-            .catch(error => console.error(error));
-    }
-
+// CRUD operations:
     /**
      * Add all wines received from the backend to wineStore.
      */
     async getWines() {
-        axios.get(UrlBuilder.wine.paths.base)
-             .then(response => this.wineStore.addAll(response.data))
-             .catch(error => console.error(error));
+        return axios
+            .get(UrlBuilder.wine.paths.base)
+            .then(response => this.wineStore.addAll(response.data))
+            .catch(error => console.error(error));
     }
 
     /**
@@ -61,7 +38,7 @@ class WineService {
      */
     async putWine(id, editedWine) {
         axios.put(UrlBuilder.wine.paths.base + id, editedWine)
-             .then(response => this.wineStore.editWine(id, response))
+             .then(response => this.wineStore.editWine(id, response.data))
              .catch(error => console.error(error));
     }
 
@@ -73,6 +50,48 @@ class WineService {
         axios.delete(UrlBuilder.wine.paths.base + id)
              .then(() => this.wineStore.deleteWine(id))
              .catch(error => console.error(error));
+    }
+
+// Other operations:
+    async getWineCount() {
+        return axios
+            .get(UrlBuilder.wine.paths.count)
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+
+    /**
+     * Does a search on backend for wines.
+     * @param {Object} searchParams describing the types of wines to search for.
+     * @returns {Array} found wines.
+     */
+    async search(searchParams) {
+        return axios
+            .get(UrlBuilder.wine.getSearchUrl(searchParams))
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+
+// Winestore related functions:
+    /**
+     * @returns WineStore data, i.e. an array of wines.
+     */
+    getWineStore() {
+        return this.wineStore.data;
+    }
+
+    getFromWineStore(id) {
+        return Array
+            .from(this.wineStore.data.wines)
+            .find(wine => wine.id == id);
+    }
+
+    /**
+     * Saves wine search results into the wine store.
+     * @param {Array} wines.
+     */
+    saveSearchResults(wines) {
+        this.wineStore.addAllSearchedWines(wines);
     }
 }
 

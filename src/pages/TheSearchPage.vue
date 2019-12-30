@@ -4,7 +4,7 @@
       
       <v-tab>Hae viinejä</v-tab>
       <v-tab-item>
-        <WineSearchForm @get:wines="getWines" />
+        <WineSearchForm/>
       </v-tab-item>
       
       <v-tab>Hae arvosteluja</v-tab>
@@ -15,7 +15,7 @@
     </v-tabs>
 
     <br/>
-    <WineSearchResults :searchResults="wines" :showResults="showResults" />
+    <WineSearchResults/>
   </div>
 </template>
 
@@ -39,8 +39,6 @@
     data() {
       return {
         reviews: [],
-        wines: [],
-        showResults: false,
       }
     },
 
@@ -50,11 +48,6 @@
         this.showResults = true;
         console.log(this.reviews);
       },
-
-      getWines(wines) {
-        this.wines = wines;
-        this.showResults = true;
-      }
     }
   };
 </script>

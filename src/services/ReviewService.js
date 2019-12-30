@@ -1,9 +1,11 @@
 import axios from "axios";
 import ReviewStore from "@/stores/ReviewStore.js";
+import Service from "./Service.js";
 import UrlBuilder from "@/utilities/UrlBuilder.js";
 
-class ReviewService {
+class ReviewService extends Service {
     constructor() {
+        super();
         this.reviewStore = ReviewStore;
     }
 

@@ -1,11 +1,11 @@
 <template>
-  <v-card class="full-page-card" max-width="60%" v-show="this.$props.showResults">
+  <v-card class="full-page-card" max-width="60%" v-show="wineStore.searchDone">
     <v-card-title class="card-title">Haun tulokset</v-card-title>
 
     <v-data-table
       @click:row="openWineInfo"
       :headers="translateHeaders"
-      :items="this.$props.searchResults"
+      :items="wineStore.wines"
       loading-text="Haetaan viinejä..."
       no-data-text="Haulla ei löytynyt yhtään tulosta.">
 
@@ -19,18 +19,22 @@
 
 <script>
   import Dictionary from "@/utilities/Dictionary.js";
+  import WineService from "@/services/WineService.js";
+  
+  const wineService = new WineService();
 
   export default {
-    data() {
-      return {
-        dictionary: Dictionary,
-      }
-    },
-
     computed: {
       translateHeaders() {
         const headers = [ "name", "type", "country", "price", "volume" ];
         return headers.map(header => ({ text: this.dictionary.translate("wine", header), value: header }));
+      }
+    },
+
+    data() {
+      return {
+        dictionary: Dictionary,
+        wineStore: wineService.getWineStore().searched,
       }
     },
 
@@ -40,9 +44,5 @@
       }
     },
 
-    props: {
-      searchResults: { type: Array, required: true },
-      showResults: { type: Boolean, required: true },
-    }    
   };
 </script>
