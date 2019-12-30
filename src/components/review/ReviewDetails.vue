@@ -1,12 +1,109 @@
 <template>
-  <div id="review-details"></div>
+  <v-card class="details-card" max-width="60em">
+    <v-card-title class="card-title">Viinin tiedot</v-card-title>
+
+    <v-row v-for="(value, attribute) in review" :key="attribute">
+
+      <!-- Left column for attribute names. -->
+      <v-col align="start" class="attribute-text" sm="3">
+        {{ dictionary.translate("review", attribute) }}
+      </v-col>
+
+      <!-- Right column for values. -->
+      <!-- Editing mode: -->
+      <v-text-field v-if="editing === review.id"
+        @keyup.enter="saveEdit(review)"
+        align="start"
+        class="text-field"
+        v-model="review[attribute]">
+      </v-text-field>
+
+      <!-- View mode: -->
+      <!-- Don't allow editing wine here -->
+      <v-col v-else align="start">{{ value }}</v-col>
+    </v-row>
+
+    <!-- Edit and delete buttons -->
+    <div v-if="editing === this.review.id">
+      <button @click="saveEdit(review)" class="button-save">Tallenna</button>
+      <button @click="cancelEdit(review)" class="button-delete">Peruuta</button>
+    </div>
+    <div v-else>
+      <button @click="editMode(review)" class="button-edit">Muokkaa</button>
+      <button @click="deleteWine(review.id)" class="button-delete">Poista</button>
+    </div>
+    
+  </v-card>
 </template>
 
 <script>
-export default {
+  import ReviewService from "@/services/ReviewService.js";
+  import Dictionary from "@/utilities/Dictionary.js";
 
-}
+  const reviewService = new ReviewService();
+
+  export default {
+    data() {
+      return {
+        dictionary: Dictionary,
+        editing: null,
+        review: "",
+      }
+    },
+
+    methods: {
+      cancelEdit(review) {
+        Object.assign(review, this.cachedReview);
+        this.editing = null;
+      },
+
+      deleteWine(id) {
+        reviewService.deleteReview(id);
+        this.$router.push({ name: "Reviews" });
+      },
+
+      editMode(review) {
+        this.cachedReview = Object.assign({}, review);
+        this.editing = review.id;
+      },
+
+      saveEdit(review) {
+        if (inputIsInvalid(review)) {
+          return;
+        }
+        reviewService.putReview(review.id, review);
+        this.editing = null;
+      },
+    },
+
+    mounted() {
+      reviewService.getReview(this.$props.reviewId)
+                   .then(review => this.review = review);
+    },
+
+    props: {
+      reviewId: { type: String, required: true }
+    },
+
+  };
+
+  // Utility functions:
+  function inputIsInvalid(review) {
+    return Array.from(Object.values(review))
+                .some(value => value === "" || value === []);
+  }
+
 </script>
 
 <style scoped>
+  button {
+    font-weight: bold;
+    padding: 1em;
+  }
+  .attribute-text { font-weight: bold }
+  .button-delete { color: red }
+  .button-edit { color: mediumblue }
+  .button-save { color: green }
+  .card-title { padding-left: 0 }
+  .text-field { padding-top: 0 }
 </style>
