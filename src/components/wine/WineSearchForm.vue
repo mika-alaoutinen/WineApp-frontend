@@ -85,9 +85,7 @@
     },
 
     methods: {
-      getRange(range) {
-        this.price.range = range;
-      },
+      getRange(range) { this.price.range = range },
 
       // TODO: move to a generic utility module:
       resetSearchParams() {
@@ -100,9 +98,8 @@
       submitForm() {
         this.searchParams.priceRange = this.price.range;
 
-        // Send retrieved wines to parent component:
         wineService.search(this.searchParams)
-                   .then(wines => this.$emit("get:wines", wines))
+                   .then(wines => wineService.saveSearchResults(wines))
 
         this.resetSearchParams();
       },

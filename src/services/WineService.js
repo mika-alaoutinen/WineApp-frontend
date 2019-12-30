@@ -14,8 +14,7 @@ class WineService {
     async getWines() {
         return axios
             .get(UrlBuilder.wine.paths.base)
-            .then(response => response.data)
-            .then(wines => this.wineStore.addAll(wines))
+            .then(response => this.wineStore.addAll(response.data))
             .catch(error => console.error(error));
     }
 

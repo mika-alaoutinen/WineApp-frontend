@@ -1,7 +1,11 @@
 const WineStore = {
     data: {
         wines: [],
-        searchedWines: [],
+
+        searched: {
+            searchDone: false,
+            wines: [],
+        },
     },
 
     addAll(wineArray) {
@@ -9,7 +13,8 @@ const WineStore = {
     },
 
     addAllSearchedWines(wineArray) {
-        this.data.searchedWines = wineArray;
+        this.data.searched.wines = wineArray;
+        this.data.searched.searchDone = true;
     },
 
     addWine(newWine) {
