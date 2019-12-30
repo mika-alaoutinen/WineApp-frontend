@@ -8,8 +8,6 @@
   import AddWineForm from "@/components/wine/AddWineForm.vue";
 
   export default {
-    components: {
-      AddWineForm,
-    }
+    components: { AddWineForm }
   };
 </script>

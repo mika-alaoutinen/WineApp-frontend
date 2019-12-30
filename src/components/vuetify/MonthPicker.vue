@@ -34,9 +34,7 @@
 import MonthPickerComponent from "@/components/vuetify/MonthPickerComponent.vue";
 
   export default {
-    components: {
-      MonthPickerComponent,
-    },
+    components: { MonthPickerComponent },
 
     data() {
       return {

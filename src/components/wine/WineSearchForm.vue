@@ -57,9 +57,7 @@
   */
 
   export default {
-    components: {
-      RangeSlider,
-    },
+    components: { RangeSlider },
 
     data() {
       return {
