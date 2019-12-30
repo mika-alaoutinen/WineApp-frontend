@@ -34,7 +34,7 @@
     data() {
       return {
         dictionary: Dictionary,
-        wineStore: wineService.getWineStore().searched,
+        wineStore: wineService.getStore().data.searched,
       }
     },
 

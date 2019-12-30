@@ -1,4 +1,9 @@
 class Service {
+    constructor(store) {
+        this.store = store;
+    }
+
+    getStore() { return this.store }
 
     /**
      * Clears all values in a object.
