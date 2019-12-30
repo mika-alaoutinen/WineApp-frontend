@@ -10,7 +10,7 @@ class WineService extends Service {
 
 // CRUD operations:
     /**
-     * Add all wines received from the backend to wineStore.
+     * Add all wines received from the backend to store.
      */
     async getWines() {
         return axios
