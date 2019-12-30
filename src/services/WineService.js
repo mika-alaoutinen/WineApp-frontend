@@ -10,6 +10,18 @@ class WineService extends Service {
 
 // CRUD operations:
     /**
+     * Retrieves a single wine from the back-end based on ID.
+     * @param {Number} id to retrieve from back-end.
+     * @returns {Object} wine.
+     */
+    async getWine(id) {
+        return axios
+            .get(UrlBuilder.wine.paths.base + id)
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+
+    /**
      * Add all wines received from the backend to store.
      */
     async getWines() {
@@ -69,13 +81,6 @@ class WineService extends Service {
             .get(UrlBuilder.wine.getSearchUrl(searchParams))
             .then(response => response.data)
             .catch(error => console.error(error));
-    }
-
-// Winestore related functions:
-    getFromWineStore(id) {
-        return Array
-            .from(super.getStore().data.wines)
-            .find(wine => wine.id == id);
     }
 
     /**
