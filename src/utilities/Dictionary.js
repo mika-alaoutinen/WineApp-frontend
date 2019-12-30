@@ -7,7 +7,7 @@ export default {
             home: "Aloitus",
             reviews: "Arvostelut",
             wines: "Viinit",
-            'add-wine': "Lisää viini",
+            new: "Lisää uusi",
             search: "Haku",
         },
 

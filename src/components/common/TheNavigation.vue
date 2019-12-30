@@ -13,7 +13,7 @@
     data() {
       return {
         dictionary: Dictionary,
-        pages: [ "Home", "Reviews", "Wines", "Add-wine", "Search" ],
+        pages: [ "Home", "Reviews", "Wines", "New", "Search" ],
       }
     }
   }
