@@ -78,7 +78,7 @@
 
       quickSearch(searchType) {
         reviewService.quickSearch(searchType, 10)
-                     .then(reviews => this.$emit("get:reviews", reviews));
+                     .then(reviews => reviewService.saveSearchResults(reviews));
       },
 
       submitForm() {
