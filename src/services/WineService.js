@@ -1,9 +1,11 @@
 import axios from "axios";
+import Service from "./Service.js";
 import UrlBuilder from "@/utilities/UrlBuilder.js";
 import WineStore from "@/stores/WineStore.js";
 
-class WineService {
+class WineService extends Service {
     constructor() {
+        super();
         this.wineStore = WineStore;
     }
 

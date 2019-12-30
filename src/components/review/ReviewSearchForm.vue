@@ -76,14 +76,6 @@
 
       getRatingRange(range) { this.rating.range = range },
 
-      // TODO: move to a generic utility module:
-      resetSearchParams() {
-        Object.keys(this.searchParams)
-              .map(key => Array.isArray(this.searchParams[key])
-                ? this.searchParams[key] = []
-                : this.searchParams[key] = "");
-      },
-
       quickSearch(searchType) {
         reviewService.quickSearch(searchType, 10)
                      .then(reviews => this.$emit("get:reviews", reviews));
@@ -96,7 +88,7 @@
         reviewService.search(this.searchParams)
                      .then(reviews => this.$emit("get:reviews", reviews));
 
-        this.resetSearchParams();
+         reviewService.resetObject(this.searchParams);
       },
       
     }

@@ -87,21 +87,13 @@
     methods: {
       getRange(range) { this.price.range = range },
 
-      // TODO: move to a generic utility module:
-      resetSearchParams() {
-        Object.keys(this.searchParams)
-              .map(key => Array.isArray(this.searchParams[key])
-                ? this.searchParams[key] = []
-                : this.searchParams[key] = "");
-      },
-
       submitForm() {
         this.searchParams.priceRange = this.price.range;
 
         wineService.search(this.searchParams)
                    .then(wines => wineService.saveSearchResults(wines))
 
-        this.resetSearchParams();
+        wineService.resetObject(this.searchParams);
       },
 
     },

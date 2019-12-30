@@ -105,8 +105,7 @@
       },
 
       successfulPost() {
-        Object.keys(this.wine)
-              .map(key => Array.isArray(this.wine[key]) ? this.wine[key] = [] : this.wine[key] = "");
+        wineService.resetObject(this.wine);
         this.showSuccessAlert = true;
       },
 
