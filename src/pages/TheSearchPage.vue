@@ -5,19 +5,18 @@
       <v-tab>Hae viinejä</v-tab>
       <v-tab-item>
         <WineSearchForm/>
+        <br/>
+        <WineSearchResults/>
       </v-tab-item>
       
       <v-tab>Hae arvosteluja</v-tab>
       <v-tab-item>
         <ReviewSearchForm/>
+        <br/>
+        <ReviewSearchResults/>
       </v-tab-item>
 
     </v-tabs>
-
-    <br/>
-    <WineSearchResults/>
-    <br/>
-    <ReviewSearchResults/>
   </div>
 </template>
 
