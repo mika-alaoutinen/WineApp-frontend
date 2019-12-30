@@ -123,8 +123,5 @@
     font-weight: bold;
     padding: 1em;
   }
-  .card-title {
-    font-weight: bold;
-    padding-left: 0;
-  }
+  .card-title { padding-left: 0 }
 </style>

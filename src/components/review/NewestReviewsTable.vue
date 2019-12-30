@@ -72,8 +72,6 @@ TODO:
 </script>
 
 <style scoped>
-  .card-title { font-weight: bold }
-
   /* Hides the borders around epansion panels. */
   .v-expansion-panel:before { box-shadow: none }
 </style>

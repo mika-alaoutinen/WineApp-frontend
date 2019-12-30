@@ -69,8 +69,3 @@
     },
   };
 </script>
-
-<style scoped>
-  .card-title { font-weight: bold }
-  .search-bar { font-weight: normal }
-</style>
