@@ -6,6 +6,7 @@
       :headers="translateHeaders"
       :items="reviews"
       disable-sort
+      hide-default-footer
       loading-text="Ladataan arvosteluja..."
       no-data-text="Yhtään arvostelua ei löytynyt.">
 
@@ -71,10 +72,7 @@ TODO:
 </script>
 
 <style scoped>
-  .card-title {
-    font-weight: bold;
-    padding-left: 0;
-  }
+  .card-title { font-weight: bold }
 
   /* Hides the borders around epansion panels. */
   .v-expansion-panel:before { box-shadow: none }

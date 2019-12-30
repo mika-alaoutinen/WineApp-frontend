@@ -77,6 +77,14 @@ class ReviewService extends Service {
             .then(response => response.data)
             .catch(error => console.error(error));
     }
+
+    /**
+     * Saves review search results into the store.
+     * @param {Array} reviews.
+     */
+    saveSearchResults(reviews) {
+        super.getStore().addAllSearchedReviews(reviews);
+    }
 }
 
 /**

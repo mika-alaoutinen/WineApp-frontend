@@ -86,7 +86,7 @@
         this.searchParams.ratingRange = this.rating.range;
 
         reviewService.search(this.searchParams)
-                     .then(reviews => this.$emit("get:reviews", reviews));
+                     .then(reviews => reviewService.saveSearchResults(reviews));
 
          reviewService.resetObject(this.searchParams);
       },

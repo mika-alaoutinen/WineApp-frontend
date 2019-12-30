@@ -79,7 +79,7 @@ class WineService extends Service {
     }
 
     /**
-     * Saves wine search results into the wine store.
+     * Saves wine search results into the store.
      * @param {Array} wines.
      */
     saveSearchResults(wines) {
