@@ -10,6 +10,18 @@ class ReviewService extends Service {
 
 // CRUD operations:
     /**
+     * Retrieves a single review from the back-end based on ID.
+     * @param {Number} id to retrieve from back-end.
+     * @returns {Object} review.
+     */
+    async getReview(id) {
+        return axios
+            .get(UrlBuilder.review.paths.base + id)
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+
+    /**
      * Add all reviews received from the backend to store.
      */
     async getReviews() {
@@ -77,7 +89,7 @@ class ReviewService extends Service {
             .then(response => response.data)
             .catch(error => console.error(error));
     }
-
+    
     /**
      * Saves review search results into the store.
      * @param {Array} reviews.
