@@ -65,6 +65,11 @@ class Service {
     }
 
 // Search operations:
+    /**
+     * Sends a search request to back-end.
+     * @param {Object} searchParams
+     * @returns {Array} results.
+     */
     async search(searchParams) {
         return axios
             .get(UrlBuilder[this.storeType].getSearchUrl(searchParams))
