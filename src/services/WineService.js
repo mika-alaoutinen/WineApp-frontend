@@ -25,7 +25,7 @@ class WineService extends Service {
      * @param {Array} wines.
      */
     saveSearchResults(wines) {
-        super.getStore().addAllSearchedWines(wines);
+        super.getStore().addAllSearched(wines);
     }
 }
 

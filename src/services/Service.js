@@ -48,7 +48,7 @@ class Service {
      * @param {Number} id 
      * @param {Object} edited item. 
      */
-    async putWine(id, editedItem) {
+    async put(id, editedItem) {
         axios.put(UrlBuilder[this.storeType].paths.base + id, editedItem)
              .then(response => this.store.edit(id, response.data))
              .catch(error => console.error(error));
