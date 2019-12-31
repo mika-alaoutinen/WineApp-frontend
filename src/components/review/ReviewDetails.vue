@@ -75,7 +75,7 @@
       },
 
       deleteWine(id) {
-        reviewService.deleteReview(id);
+        reviewService.delete(id);
         this.$router.push({ name: "Reviews" });
       },
 
@@ -88,13 +88,13 @@
         if (inputIsInvalid(review)) {
           return;
         }
-        reviewService.putReview(review.id, review);
+        reviewService.put(review.id, review);
         this.editing = null;
       },
     },
 
     mounted() {
-      reviewService.getReview(this.$props.reviewId)
+      reviewService.get(this.$props.reviewId)
                    .then(review => this.review = review);
     },
 
