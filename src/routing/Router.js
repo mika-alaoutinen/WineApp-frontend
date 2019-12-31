@@ -7,6 +7,7 @@ import TheSearchPage from "@/pages/TheSearchPage.vue";
 import TheReviewsPage from "@/pages/TheReviewsPage.vue";
 import TheWinesPage from "@/pages/TheWinesPage.vue";
 
+import ReviewDetails from "@/components/review/ReviewDetails.vue";
 import WineDetails from "@/components/wine/WineDetails.vue";
 
 Vue.use(Router);
@@ -38,6 +39,14 @@ export default new Router({
             path: "/search",
             name: "Search",
             component: TheSearchPage,
+        },
+
+        // Review details:
+        {
+            path: "/reviews/:reviewId",
+            name: "Review",
+            component: ReviewDetails,
+            props: true,
         },
 
         // Wine details:

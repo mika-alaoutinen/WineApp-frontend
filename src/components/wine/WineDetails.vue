@@ -1,12 +1,12 @@
 <template>
-  <v-card class="card-wine-detail" max-width="60em">
+  <v-card class="details-card" max-width="60%">
     <v-card-title class="card-title">Viinin tiedot</v-card-title>
 
     <v-row v-for="(value, attribute) in displayWine" :key="attribute">
       
       <!-- Left column for attribute names. -->
       <v-col align="start" class="attribute-text" sm="3">
-          {{ dictionary.translate("wine", attribute) }}
+        {{ dictionary.translate("wine", attribute) }}
       </v-col>
 
       <!-- Right column for values. -->
@@ -55,20 +55,20 @@
   const wineService = new WineService();
 
   export default {
-    data() {
-      return {
-        dictionary: Dictionary,
-        editing: null,
-        wine: wineService.getFromWineStore(this.$props.wineId),
-      };
-    },
-
     computed: {
       displayWine() {
         const wineCopy = Object.assign({}, this.wine);
         delete wineCopy.id;
         return wineCopy;
       },
+    },
+
+    data() {
+      return {
+        dictionary: Dictionary,
+        editing: null,
+        wine: "",
+      };
     },
 
     methods: {
@@ -78,7 +78,7 @@
       },
 
       deleteWine(id) {
-        wineService.deleteWine(id);
+        wineService.delete(id);
         this.$router.push({ name: "Wines" });
       },
 
@@ -91,13 +91,18 @@
         if (inputIsInvalid(wine)) {
           return;
         }
-        wineService.putWine(wine.id, wine);
+        wineService.put(wine.id, wine);
         this.editing = null;
       },
 
       validateUrl(url) {
         return url.includes("http") || url.includes("https") ? url : "";
       },
+    },
+
+    mounted() {
+      wineService.get(this.$props.wineId)
+                 .then(wine => this.wine = wine);
     },
 
     props: {
@@ -122,16 +127,6 @@
   .button-delete { color: red }
   .button-edit { color: mediumblue }
   .button-save { color: green }
-  .card-title {
-    font-weight: bold;
-    padding-left: 0;
-  }
-  .card-wine-detail {
-    margin: auto;
-    padding-bottom: 1em;
-    padding-top: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
-  }
+  .card-title { padding-left: 0 }
   .text-field { padding-top: 0 }
 </style>

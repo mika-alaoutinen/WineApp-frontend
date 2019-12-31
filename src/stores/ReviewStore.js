@@ -5,19 +5,22 @@ const ReviewStore = {
         searched: {
             searchDone: false,
             reviews: [],
-        }
+        },
+
+        // Used in Service.js to determine the store type.
+        storeType: "review",
     },
 
     addAll(reviewArray) {
         this.data.reviews = reviewArray;
     },
 
-    addAllSearchedReviews(reviewArray) {
+    addAllSearched(reviewArray) {
         this.data.searched.reviews = reviewArray;
         this.data.searched.searchDone = true;
     },
 
-    addReview(newReview) {
+    add(newReview) {
         if (!this.data.reviews.some(review => review.id === newReview.id)) {
             this.data.reviews.push(newReview);
             return true;
@@ -25,11 +28,11 @@ const ReviewStore = {
         return false; // Review was not added
     },
 
-    editReview(id, editedReview) {
+    edit(id, editedReview) {
         this.data.reviews.map(review => review.id === id ? editedReview : review)
     },
     
-    deleteReview(id) {
+    delete(id) {
         this.data.reviews = this.data.reviews.filter(review => review.id !== id);
     },
 };

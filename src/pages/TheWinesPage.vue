@@ -45,7 +45,7 @@
     },
 
     mounted() {
-      wineService.getWines()
+      wineService.getAll()
     },
 
   };
