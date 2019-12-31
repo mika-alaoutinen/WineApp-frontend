@@ -8,13 +8,6 @@ class ReviewService extends Service {
         super(ReviewStore);
     }
 
-    async search(searchParams) {
-        return axios
-            .get(UrlBuilder.review.getSearchUrl(searchParams))
-            .then(response => response.data)
-            .catch(error => console.error(error));
-    }
-
     async quickSearch(searchParam, count) {
         if (!isSearchParamValid) {
             console.error("Invalid search param: " + searchParam);
@@ -25,14 +18,6 @@ class ReviewService extends Service {
             .get(UrlBuilder.review.getQuickSearchUrl(searchParam, count))
             .then(response => response.data)
             .catch(error => console.error(error));
-    }
-    
-    /**
-     * Saves review search results into the store.
-     * @param {Array} reviews.
-     */
-    saveSearchResults(reviews) {
-        super.getStore().addAllSearchedReviews(reviews);
     }
 }
 
