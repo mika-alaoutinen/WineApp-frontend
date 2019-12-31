@@ -64,7 +64,26 @@ class Service {
              .catch(error => console.error(error));
     }
 
+// Search operations:
+    async search(searchParams) {
+        return axios
+            .get(UrlBuilder[this.storeType].getSearchUrl(searchParams))
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+
+    /**
+     * Saves search results into the store.
+     * @param {Array} search results.
+     */
+    saveSearchResults(results) {
+        this.store.addAllSearched(results);
+    }
+
 // Other operations:
+    /**
+     * Gets a count of items in the database.
+     */
     async getCount() {
         return axios
             .get(UrlBuilder[this.storeType].paths.count)
