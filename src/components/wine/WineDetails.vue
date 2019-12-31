@@ -78,7 +78,7 @@
       },
 
       deleteWine(id) {
-        wineService.deleteWine(id);
+        wineService.delete(id);
         this.$router.push({ name: "Wines" });
       },
 
@@ -91,7 +91,7 @@
         if (inputIsInvalid(wine)) {
           return;
         }
-        wineService.putWine(wine.id, wine);
+        wineService.put(wine.id, wine);
         this.editing = null;
       },
 
@@ -101,7 +101,7 @@
     },
 
     mounted() {
-      wineService.getWine(this.$props.wineId)
+      wineService.get(this.$props.wineId)
                  .then(wine => this.wine = wine);
     },
 
