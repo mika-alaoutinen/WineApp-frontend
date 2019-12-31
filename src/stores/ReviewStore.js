@@ -15,7 +15,7 @@ const ReviewStore = {
         this.data.reviews = reviewArray;
     },
 
-    addAllSearchedReviews(reviewArray) {
+    addAllSearched(reviewArray) {
         this.data.searched.reviews = reviewArray;
         this.data.searched.searchDone = true;
     },
