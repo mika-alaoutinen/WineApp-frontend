@@ -82,7 +82,7 @@ class Service {
      * @param {Array} search results.
      */
     saveSearchResults(results) {
-        this.store.addAllSearched(results);
+        this.store.addAllFound(results);
     }
 
 // Other operations:
