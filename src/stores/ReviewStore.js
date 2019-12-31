@@ -5,7 +5,10 @@ const ReviewStore = {
         searched: {
             searchDone: false,
             reviews: [],
-        }
+        },
+
+        // Used in Service.js to determine the store type.
+        storeType: "review",
     },
 
     addAll(reviewArray) {
