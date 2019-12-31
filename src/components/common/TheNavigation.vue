@@ -7,6 +7,11 @@
 </template>
 
 <script>
+
+  /* TODO:
+    - Try out <v-navigation-drawer> for side panel navigation.
+  */
+
   import Dictionary from "@/utilities/Dictionary.js";
 
   export default {
