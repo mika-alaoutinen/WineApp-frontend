@@ -15,7 +15,7 @@ const WineStore = {
         this.data.wines = wineArray;
     },
 
-    addAllSearched(wineArray) {
+    addAllFound(wineArray) {
         this.data.searched.wines = wineArray;
         this.data.searched.searchDone = true;
     },
