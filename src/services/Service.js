@@ -8,6 +8,7 @@ class Service {
     }
 
     getStore() { return this.store }
+    getStoreType() { return this.storeType }
 
 // CRUD operations:
     /**

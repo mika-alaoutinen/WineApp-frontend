@@ -36,25 +36,28 @@
     </v-row>
 
     <!-- Edit and delete buttons -->
-    <div v-if="editing === this.wine.id">
+    <DetailsButtons @get:editing="assignEdit" :item="this.wine" :service="this.wineService" />
+
+    <!-- <div v-if="editing === this.wine.id">
       <button @click="saveEdit(wine)" class="button-save">Tallenna</button>
       <button @click="cancelEdit(wine)" class="button-delete">Peruuta</button>
     </div>
     <div v-else>
       <button @click="editMode(wine)" class="button-edit">Muokkaa</button>
       <button @click="deleteWine(wine.id)" class="button-delete">Poista</button>
-    </div>
+    </div> -->
     
   </v-card>
 </template>
 
 <script>
-  import WineService from "@/services/WineService.js";
+  import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
   import Dictionary from "@/utilities/Dictionary.js";
+  import WineService from "@/services/WineService.js";
   
-  const wineService = new WineService();
-
   export default {
+    components: { DetailsButtons },
+
     computed: {
       displayWine() {
         const wineCopy = Object.assign({}, this.wine);
@@ -67,32 +70,16 @@
       return {
         dictionary: Dictionary,
         editing: null,
-        wine: "",
+        wine: {},
+        wineService: new WineService(),
       };
     },
 
     methods: {
-      cancelEdit(wine) {
-        Object.assign(wine, this.cachedWine);
-        this.editing = null;
-      },
-
-      deleteWine(id) {
-        wineService.delete(id);
-        this.$router.push({ name: "Wines" });
-      },
-
-      editMode(wine) {
-        this.cachedWine = Object.assign({}, wine);
-        this.editing = wine.id;
-      },
-
-      saveEdit(wine) {
-        if (inputIsInvalid(wine)) {
-          return;
-        }
-        wineService.put(wine.id, wine);
-        this.editing = null;
+      assignEdit(editedWine) {
+        console.log("edited: " + editedWine);
+        console.log("this.wine.id: " + this.wine.id);
+        this.editing = editedWine;
       },
 
       validateUrl(url) {
@@ -100,8 +87,31 @@
       },
     },
 
+      // cancelEdit(wine) {
+      //   Object.assign(wine, this.cachedWine);
+      //   this.editing = null;
+      // },
+
+      // deleteWine(id) {
+      //   this.wineService.delete(id);
+      //   this.$router.push({ name: "wines" });
+      // },
+
+      // editMode(wine) {
+      //   this.cachedWine = Object.assign({}, wine);
+      //   this.editing = wine.id;
+      // },
+
+      // saveEdit(wine) {
+      //   if (inputIsInvalid(wine)) {
+      //     return;
+      //   }
+      //   this.wineService.put(wine.id, wine);
+      //   this.editing = null;
+      // },
+
     mounted() {
-      wineService.get(this.$props.wineId)
+      this.wineService.get(this.$props.wineId)
                  .then(wine => this.wine = wine);
     },
 
@@ -111,10 +121,10 @@
   };
 
   // Utility functions:
-  function inputIsInvalid(wine) {
-    return Array.from(Object.values(wine))
-                .some(value => value === "" || value === []);
-  }
+  // function inputIsInvalid(wine) {
+  //   return Array.from(Object.values(wine))
+  //               .some(value => value === "" || value === []);
+  // }
 
 </script>
 

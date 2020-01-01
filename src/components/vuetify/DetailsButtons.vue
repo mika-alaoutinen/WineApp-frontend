@@ -30,11 +30,13 @@
       editMode(item) {
         this.cachedItem = Object.assign({}, item);
         this.editing = item.id;
+        this.$emit("get:editing", this.item.id);
       },
 
       cancelEdit(item) {
         Object.assign(item, this.cachedItem);
         this.editing = null;
+        this.$emit("get:editing", null);
       },
 
       saveEdit(item) {
@@ -43,12 +45,14 @@
         }
 
         this.$props.service.put(item.id, item);
+        this.$emit("get:editing", null);
         this.editing = null;
       },
 
       deleteItem(id) {
         this.$props.service.delete(id);
-        this.$router.push({ name: "Reviews" });
+        const redirectPage = this.$props.service.getStoreType() + "s";
+        this.$router.push({ name: redirectPage });
       },
 
       inputIsInvalid(item) {
@@ -60,7 +64,7 @@
 
     props: {
       item: { type: Object, required: true }, // item is either wine or review
-      service: { type: class{Service}, required: true },
+      service: { type: Object, required: true },
     },
 
   };
