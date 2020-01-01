@@ -11,8 +11,8 @@
 
       <!-- Right column for values. -->
       <!-- Editing mode: -->
-      <v-text-field v-if="editing === review.id"
-        @keyup.enter="saveEdit(review)"
+      <v-text-field v-if="editing"
+        @keyup.enter="saveEditedReview(review)"
         align="start"
         class="text-field"
         v-model="review[attribute]">
@@ -27,14 +27,13 @@
     </v-row>
 
     <!-- Edit and delete buttons -->
-    <div v-if="editing === this.review.id">
-      <button @click="saveEdit(review)" class="button-save">Tallenna</button>
-      <button @click="cancelEdit(review)" class="button-delete">Peruuta</button>
-    </div>
-    <div v-else>
-      <button @click="editMode(review)" class="button-edit">Muokkaa</button>
-      <button @click="deleteWine(review.id)" class="button-delete">Poista</button>
-    </div>
+    <DetailsButtons
+      @delete:item="deleteReview"
+      @get:editing="getEditing"
+      @save:item="saveEditedReview"
+      :editing="editing"
+      :item="review">
+    </DetailsButtons>
     
   </v-card>
 </template>
@@ -46,12 +45,15 @@
     - Explore nicer options for displaying the data.
   */
 
+  import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
   import ReviewService from "@/services/ReviewService.js";
   import Dictionary from "@/utilities/Dictionary.js";
 
   const reviewService = new ReviewService();
 
   export default {
+    components: { DetailsButtons },
+
     computed: {
       displayReview() {
         const reviewCopy = Object.assign({}, this.review);
@@ -63,33 +65,22 @@
     data() {
       return {
         dictionary: Dictionary,
-        editing: null,
-        review: "",
+        editing: false,
+        review: {},
       }
     },
 
     methods: {
-      cancelEdit(review) {
-        Object.assign(review, this.cachedReview);
-        this.editing = null;
-      },
-
-      deleteWine(id) {
-        reviewService.delete(id);
+      getEditing(boolean) { this.editing = boolean },
+      
+      deleteReview(review) {
+        reviewService.delete(review.id);
         this.$router.push({ name: "reviews" });
       },
-
-      editMode(review) {
-        this.cachedReview = Object.assign({}, review);
-        this.editing = review.id;
-      },
-
-      saveEdit(review) {
-        if (inputIsInvalid(review)) {
-          return;
-        }
+      
+      saveEditedReview(review) {
         reviewService.put(review.id, review);
-        this.editing = null;
+        this.editing = false;
       },
     },
 
@@ -103,24 +94,9 @@
     },
 
   };
-  
-  // Utility functions:
-  function inputIsInvalid(review) {
-    return Array.from(Object.values(review))
-                .some(value => value === "" || value === []);
-  }
-
 </script>
 
 <style scoped>
-  button {
-    font-weight: bold;
-    padding: 1em;
-  }
-  .attribute-text { font-weight: bold }
-  .button-delete { color: red }
-  .button-edit { color: mediumblue }
-  .button-save { color: green }
   .card-title { padding-left: 0 }
   .text-field { padding-top: 0 }
 </style>
