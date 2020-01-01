@@ -36,7 +36,7 @@
       cancelEdit(item) {
         Object.assign(item, this.cachedItem);
         this.editing = null;
-        this.$emit("get:editing", null);
+        this.$emit("get:editing", this.editing);
       },
 
       saveEdit(item) {
@@ -45,8 +45,9 @@
         }
 
         this.$props.service.put(item.id, item);
-        this.$emit("get:editing", null);
         this.editing = null;
+        this.$emit("get:editing", this.editing);
+        
       },
 
       deleteItem(id) {

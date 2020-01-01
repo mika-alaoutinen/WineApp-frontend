@@ -37,15 +37,6 @@
 
     <!-- Edit and delete buttons -->
     <DetailsButtons @get:editing="assignEdit" :item="this.wine" :service="this.wineService" />
-
-    <!-- <div v-if="editing === this.wine.id">
-      <button @click="saveEdit(wine)" class="button-save">Tallenna</button>
-      <button @click="cancelEdit(wine)" class="button-delete">Peruuta</button>
-    </div>
-    <div v-else>
-      <button @click="editMode(wine)" class="button-edit">Muokkaa</button>
-      <button @click="deleteWine(wine.id)" class="button-delete">Poista</button>
-    </div> -->
     
   </v-card>
 </template>
@@ -77,8 +68,6 @@
 
     methods: {
       assignEdit(editedWine) {
-        console.log("edited: " + editedWine);
-        console.log("this.wine.id: " + this.wine.id);
         this.editing = editedWine;
       },
 
@@ -87,32 +76,10 @@
       },
     },
 
-      // cancelEdit(wine) {
-      //   Object.assign(wine, this.cachedWine);
-      //   this.editing = null;
-      // },
-
-      // deleteWine(id) {
-      //   this.wineService.delete(id);
-      //   this.$router.push({ name: "wines" });
-      // },
-
-      // editMode(wine) {
-      //   this.cachedWine = Object.assign({}, wine);
-      //   this.editing = wine.id;
-      // },
-
-      // saveEdit(wine) {
-      //   if (inputIsInvalid(wine)) {
-      //     return;
-      //   }
-      //   this.wineService.put(wine.id, wine);
-      //   this.editing = null;
-      // },
-
     mounted() {
-      this.wineService.get(this.$props.wineId)
-                 .then(wine => this.wine = wine);
+      this.wineService
+        .get(this.$props.wineId)
+        .then(wine => this.wine = wine);
     },
 
     props: {
@@ -120,23 +87,9 @@
     }
   };
 
-  // Utility functions:
-  // function inputIsInvalid(wine) {
-  //   return Array.from(Object.values(wine))
-  //               .some(value => value === "" || value === []);
-  // }
-
 </script>
 
 <style scoped>
-  button {
-    font-weight: bold;
-    padding: 1em;
-  }
-  .attribute-text { font-weight: bold }
-  .button-delete { color: red }
-  .button-edit { color: mediumblue }
-  .button-save { color: green }
   .card-title { padding-left: 0 }
   .text-field { padding-top: 0 }
 </style>
