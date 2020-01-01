@@ -76,7 +76,7 @@
 
       deleteWine(id) {
         reviewService.delete(id);
-        this.$router.push({ name: "Reviews" });
+        this.$router.push({ name: "reviews" });
       },
 
       editMode(review) {

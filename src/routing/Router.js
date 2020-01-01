@@ -17,34 +17,34 @@ export default new Router({
     routes: [
         {
             path: "/home",
-            name: "Home",
+            name: "home",
             component: TheHomePage,
         },
         {
             path: "/new-reviews",
-            name: "Reviews",
+            name: "reviews",
             component: TheReviewsPage,
         },
         {
             path: "/wines",
-            name: "Wines",
+            name: "wines",
             component: TheWinesPage,
         },
         {
             path: "/add-new",
-            name: "New",
+            name: "add",
             component: TheAddNewPage,
         },
         {
             path: "/search",
-            name: "Search",
+            name: "search",
             component: TheSearchPage,
         },
 
         // Review details:
         {
             path: "/reviews/:reviewId",
-            name: "Review",
+            name: "review",
             component: ReviewDetails,
             props: true,
         },
@@ -52,7 +52,7 @@ export default new Router({
         // Wine details:
         {
             path: "/wines/:wineId",
-            name: "Wine",
+            name: "wine",
             component: WineDetails,
             props: true,
         },

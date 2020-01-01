@@ -18,7 +18,7 @@
     data() {
       return {
         dictionary: Dictionary,
-        pages: [ "Home", "Reviews", "Wines", "New", "Search" ],
+        pages: [ "home", "reviews", "wines", "add", "search" ],
       }
     }
   }
