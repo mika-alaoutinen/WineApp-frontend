@@ -1,6 +1,6 @@
 <template>
   <v-data-table
-    @click:row="openWineInfo"
+    @click:row="openWineDetails"
     :headers="translateHeaders"
     :items="$props.wines"
     :items-per-page="getItemsPerPage"
@@ -41,7 +41,7 @@
     },
 
     methods: {
-      openWineInfo(wine) {
+      openWineDetails(wine) {
         this.$router.push({ name: "wine", params: { wineId: "" + wine.id } });
       }
     },

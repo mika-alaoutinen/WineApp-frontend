@@ -74,7 +74,6 @@
         dictionary: Dictionary,
         editing: false,
         wine: {},
-        wineService: new WineService(),
       };
     },
 
@@ -97,9 +96,8 @@
     },
 
     mounted() {
-      this.wineService
-        .get(this.$props.wineId)
-        .then(wine => this.wine = wine);
+      wineService.get(this.$props.wineId)
+                 .then(wine => this.wine = wine);
     },
 
     props: {
