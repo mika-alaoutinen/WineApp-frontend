@@ -7,6 +7,7 @@ import TheSearchPage from "@/pages/TheSearchPage.vue";
 import TheReviewsPage from "@/pages/TheReviewsPage.vue";
 import TheWinesPage from "@/pages/TheWinesPage.vue";
 
+import ReviewDetails from "@/components/review/ReviewDetails.vue";
 import WineDetails from "@/components/wine/WineDetails.vue";
 
 Vue.use(Router);
@@ -16,34 +17,42 @@ export default new Router({
     routes: [
         {
             path: "/home",
-            name: "Home",
+            name: "home",
             component: TheHomePage,
         },
         {
             path: "/new-reviews",
-            name: "Reviews",
+            name: "reviews",
             component: TheReviewsPage,
         },
         {
             path: "/wines",
-            name: "Wines",
+            name: "wines",
             component: TheWinesPage,
         },
         {
             path: "/add-new",
-            name: "New",
+            name: "add",
             component: TheAddNewPage,
         },
         {
             path: "/search",
-            name: "Search",
+            name: "search",
             component: TheSearchPage,
+        },
+
+        // Review details:
+        {
+            path: "/reviews/:reviewId",
+            name: "review",
+            component: ReviewDetails,
+            props: true,
         },
 
         // Wine details:
         {
             path: "/wines/:wineId",
-            name: "Wine",
+            name: "wine",
             component: WineDetails,
             props: true,
         },

@@ -100,7 +100,7 @@
       },
 
       submitForm() {
-        wineService.postWine(this.wine)
+        wineService.post(this.wine)
                    .then(isWineAdded => isWineAdded ? this.successfulPost() : this.failedPost());
       },
 

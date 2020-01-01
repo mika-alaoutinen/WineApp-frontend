@@ -8,13 +8,6 @@
     no-data-text="Haulla ei löytynyt yhtään tulosta."
     no-results-text="Haulla ei löytynyt yhtään tulosta.">
 
-    <!-- Clicking on wine name redirects to wine details page: -->
-    <template v-slot:item.wine="{ item }">
-      <router-link tag="tr" :to="{ name: 'Wine', params: { wineId: '' + item.wine.id }}">
-        {{ item.wine.name }}
-      </router-link>
-    </template>
-
     <!-- Review text column: -->
     <template v-slot:item.reviewText="{ item }">
       <v-expansion-panels accordion>
@@ -23,6 +16,13 @@
           <v-expansion-panel-content>{{ item.reviewText }}</v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
+    </template>
+
+    <!-- Clicking on wine name redirects to wine details page: -->
+    <template v-slot:item.wine="{ item }">
+      <router-link tag="tr" :to="{ name: 'wine', params: { wineId: '' + item.wine.id }}">
+        {{ item.wine.name }}
+      </router-link>
     </template>
 
   </v-data-table>
