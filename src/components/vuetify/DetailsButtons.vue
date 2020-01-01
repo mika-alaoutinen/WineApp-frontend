@@ -1,25 +1,17 @@
 <template>
   <!-- Edit and delete buttons -->
   <div v-if="editing === $props.item.id">
-    <button @click="saveEdit(item)" class="button-save">Tallenna</button>
-    <button @click="cancelEdit(item)" class="button-delete">Peruuta</button>
+    <button @click="saveItem()" class="button-save">Tallenna</button>
+    <button @click="cancelEdit()" class="button-delete">Peruuta</button>
   </div>
   <div v-else>
-    <button @click="editMode(item)" class="button-edit">Muokkaa</button>
-    <button @click="deleteItem(item.id)" class="button-delete">Poista</button>
+    <button @click="editMode()" class="button-edit">Muokkaa</button>
+    <button @click="deleteItem()" class="button-delete">Poista</button>
   </div>
 </template>
 
 <script>
   export default {
-    computed: {
-      displayItem() {
-        const copy = Object.assign({}, this.$props.item);
-        delete copy.id;
-        return copy;
-      },
-    },
-
     data() {
       return {
         editing: null,
@@ -27,36 +19,31 @@
     },
 
     methods: {
-      editMode(item) {
-        this.cachedItem = Object.assign({}, item);
-        this.editing = item.id;
-        this.$emit("get:editing", this.item.id);
+      editMode() {
+        this.cachedItem = Object.assign({}, this.$props.item);
+        this.editing = this.$props.item.id;
+        this.$emit("get:editing", this.editing);
       },
 
-      cancelEdit(item) {
-        Object.assign(item, this.cachedItem);
+      cancelEdit() {
+        Object.assign(this.$props.item, this.cachedItem);
         this.editing = null;
         this.$emit("get:editing", this.editing);
       },
 
-      saveEdit(item) {
-        if (this.inputIsInvalid(item)) {
+      saveItem() {
+        if (this.invalidInput(this.$props.item)) {
           return;
         }
-
-        this.$props.service.put(item.id, item);
         this.editing = null;
-        this.$emit("get:editing", this.editing);
-        
+        this.$emit("save:item", this.$props.item);
       },
 
-      deleteItem(id) {
-        this.$props.service.delete(id);
-        const redirectPage = this.$props.service.getStoreType() + "s";
-        this.$router.push({ name: redirectPage });
+      deleteItem() {
+        this.$emit("delete:item", this.$props.item);
       },
 
-      inputIsInvalid(item) {
+      invalidInput(item) {
         return Array
           .from(Object.values(item))
           .some(value => value === "" || value === []);
@@ -65,7 +52,6 @@
 
     props: {
       item: { type: Object, required: true }, // item is either wine or review
-      service: { type: Object, required: true },
     },
 
   };

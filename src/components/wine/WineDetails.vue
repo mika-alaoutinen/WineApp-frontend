@@ -12,7 +12,7 @@
       <!-- Right column for values. -->
       <!-- Editing mode: -->
       <v-text-field v-if="editing === wine.id"
-        @keyup.enter="saveEdit(wine)"
+        @keyup.enter="saveEditedWine(wine)"
         align="start"
         class="text-field"
         v-model="wine[attribute]">
@@ -36,7 +36,12 @@
     </v-row>
 
     <!-- Edit and delete buttons -->
-    <DetailsButtons @get:editing="assignEdit" :item="this.wine" :service="this.wineService" />
+    <DetailsButtons
+      @delete:item="deleteWine"
+      @get:editing="getEditing"
+      @save:item="saveEditedWine"
+      :item="wine">
+    </DetailsButtons>
     
   </v-card>
 </template>
@@ -46,6 +51,8 @@
   import Dictionary from "@/utilities/Dictionary.js";
   import WineService from "@/services/WineService.js";
   
+  const wineService = new WineService()
+
   export default {
     components: { DetailsButtons },
 
@@ -67,8 +74,16 @@
     },
 
     methods: {
-      assignEdit(editedWine) {
-        this.editing = editedWine;
+      getEditing(wineId) { this.editing = wineId },
+
+      deleteWine(wine) {
+        wineService.delete(wine.id);
+        this.$router.push({ name: "wines" });
+      },
+
+      saveEditedWine(wine) {
+        wineService.put(wine.id, wine);
+        this.editing = null;
       },
 
       validateUrl(url) {
