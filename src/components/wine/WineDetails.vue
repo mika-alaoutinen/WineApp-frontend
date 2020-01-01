@@ -11,7 +11,7 @@
 
       <!-- Right column for values. -->
       <!-- Editing mode: -->
-      <v-text-field v-if="editing === wine.id"
+      <v-text-field v-if="editing === true"
         @keyup.enter="saveEditedWine(wine)"
         align="start"
         class="text-field"
@@ -40,6 +40,7 @@
       @delete:item="deleteWine"
       @get:editing="getEditing"
       @save:item="saveEditedWine"
+      :editing="editing"
       :item="wine">
     </DetailsButtons>
     
@@ -67,14 +68,14 @@
     data() {
       return {
         dictionary: Dictionary,
-        editing: null,
+        editing: false,
         wine: {},
         wineService: new WineService(),
       };
     },
 
     methods: {
-      getEditing(wineId) { this.editing = wineId },
+      getEditing(boolean) { this.editing = boolean },
 
       deleteWine(wine) {
         wineService.delete(wine.id);
@@ -83,7 +84,7 @@
 
       saveEditedWine(wine) {
         wineService.put(wine.id, wine);
-        this.editing = null;
+        this.editing = false;
       },
 
       validateUrl(url) {
