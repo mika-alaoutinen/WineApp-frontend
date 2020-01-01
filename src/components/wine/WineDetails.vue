@@ -11,7 +11,7 @@
 
       <!-- Right column for values. -->
       <!-- Editing mode: -->
-      <v-text-field v-if="editing === true"
+      <v-text-field v-if="editing"
         @keyup.enter="saveEditedWine(wine)"
         align="start"
         class="text-field"

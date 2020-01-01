@@ -1,6 +1,6 @@
 <template>
   <!-- Edit and delete buttons -->
-  <div v-if="this.$props.editing === true">
+  <div v-if="$props.editing">
     <button @click="saveItem()" class="button-save">Tallenna</button>
     <button @click="cancelEdit()" class="button-delete">Peruuta</button>
   </div>
@@ -12,22 +12,14 @@
 
 <script>
   export default {
-    // data() {
-    //   return {
-    //     editing: null,
-    //   }
-    // },
-
     methods: {
       editMode() {
         this.cachedItem = Object.assign({}, this.$props.item);
-        // this.$props.editing = true;
         this.$emit("get:editing", true);
       },
 
       cancelEdit() {
         Object.assign(this.$props.item, this.cachedItem);
-        // this.$props.editing = false;
         this.$emit("get:editing", false);
       },
 
@@ -35,8 +27,9 @@
         if (this.invalidInput(this.$props.item)) {
           return;
         }
-        this.$props.editing = false;
+        this.$emit("get:editing", false);
         this.$emit("save:item", this.$props.item);
+        
       },
 
       deleteItem() {
