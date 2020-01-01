@@ -8,6 +8,11 @@
     no-data-text="Haulla ei löytynyt yhtään tulosta."
     no-results-text="Haulla ei löytynyt yhtään tulosta.">
 
+    <!-- Go to review details page by clicking the author's name. -->
+    <template v-slot:item.author="{ item }">
+      <button @click="openReviewDetails(item)">{{ item.author }}</button>
+    </template>
+
     <!-- Review text column: -->
     <template v-slot:item.reviewText="{ item }">
       <v-expansion-panels accordion>
@@ -56,6 +61,10 @@ import Dictionary from "@/utilities/Dictionary.js";
       getExcerpt(text) {
         const firstSentence = Array.from(text.split(".")).shift();
         return firstSentence + "...";
+      },
+
+      openReviewDetails(review) {
+        this.$router.push({ name: "review", params: { reviewId: "" + review.id } });
       },
     },
 
