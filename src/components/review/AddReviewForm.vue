@@ -43,10 +43,8 @@
   import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
   import Dictionary from "@/utilities/Dictionary.js";
   import ReviewService from "@/services/ReviewService.js";
-  import WineService from "@/services/WineService.js";
   
   const reviewService = new ReviewService();
-  const wineService = new WineService();
 
   export default {
     components: { AutocompleteComponent, DatePickerComponent },
@@ -70,10 +68,7 @@
     methods: {
       getDate(date) { this.review.date = date },
 
-      getWine(wine) {
-        wineService.getStore();
-        console.log("wine name: " + JSON.stringify(wine));
-      },
+      getWine(wine) { this.review.wine = wine },
 
       submitForm() {
         reviewService.post()

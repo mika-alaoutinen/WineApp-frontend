@@ -2,7 +2,7 @@
   <v-autocomplete
     :items="getWines"
     :label="getLabel"
-    v-model="wine">
+    v-model="selectedWine">
   </v-autocomplete>
 </template>
 
@@ -24,7 +24,7 @@
 
     data() {
       return {
-        wine: null,
+        selectedWine: null,
       }
     },
 
@@ -33,8 +33,8 @@
     },
 
     watch: {
-      wine() {
-        this.$emit("search:wine", this.wine);
+      selectedWine() {
+        this.$emit("search:wine", this.selectedWine);
       }
     },
 
