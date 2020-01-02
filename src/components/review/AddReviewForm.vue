@@ -23,6 +23,24 @@
           :labelText="'Päivämäärä'">
         </DatePickerComponent>
 
+        <v-textarea v-else-if="attribute === 'reviewText'"
+          :label="dictionary.translate('review', attribute)"
+          auto-grow
+          class="ma-0 pa-0"
+          v-model="review[attribute]">
+        </v-textarea>
+
+        <v-slider v-else-if="attribute === 'rating'"
+          :label="dictionary.translate('review', 'rating')"
+          max="5.0"
+          min="0.0"
+          step="0.25"
+          ticks
+          thumb-label
+          v-model="review.rating">
+
+        </v-slider>
+
         <span v-else-if="attribute === 'wine'"></span>
 
         <v-text-field v-else
@@ -71,7 +89,8 @@
       getWine(wine) { this.review.wine = wine },
 
       submitForm() {
-        reviewService.post()
+        // reviewService.post();
+        console.log(this.review);
       },
 
       successfulPost() {
