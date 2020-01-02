@@ -1,5 +1,9 @@
 <template>
   <v-card class="details-card" max-width="60%">
+    <v-img
+      height="25em"
+      src="https://cdn.pixabay.com/photo/2016/07/26/16/16/wine-1543170_960_720.jpg">
+    </v-img>
     <v-card-title class="card-title">Viinin tiedot</v-card-title>
 
     <v-row v-for="(value, attribute) in displayWine" :key="attribute">
@@ -13,28 +17,25 @@
       <!-- Editing mode: -->
       <v-text-field v-if="editing"
         @keyup.enter="saveEditedWine(wine)"
-        align="start"
-        class="text-field"
+        class="ma-0 pa-0"
         v-model="wine[attribute]">
       </v-text-field>
 
       <!-- View mode: -->
       <v-col v-else align="start">
-        <!-- Translate wine type: -->
+
         <div v-if="attribute === 'type'">
           {{ dictionary.translate("wine", value.toLowerCase()) }}
         </div>
-        <!-- Description and food pairings are shown as chips: -->
+
         <div v-else-if="attribute === 'description' || attribute === 'foodPairings'">
-          <v-chip v-for="keyword in value" :key="keyword">
-            {{ keyword }}
-          </v-chip>
+          <v-chip v-for="keyword in value" :key="keyword">{{ keyword }}</v-chip>
         </div>
-        <!-- Valid URLs are shown as hyperlinks, invalid URLs are hidden: -->
+
         <div v-else-if="attribute === 'url'">
           <a :href="value">{{ validateUrl(value) }}</a>
         </div>
-        <!-- Regular text: -->
+
         <div v-else>{{ value }}</div>
       </v-col>
     </v-row>
@@ -52,6 +53,11 @@
 </template>
 
 <script>
+
+  /* TODO:
+    - Make editing wine description and food pairings better.
+  */
+ 
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
   import Dictionary from "@/utilities/Dictionary.js";
   import WineService from "@/services/WineService.js";
@@ -74,7 +80,6 @@
         dictionary: Dictionary,
         editing: false,
         wine: {},
-        wineService: new WineService(),
       };
     },
 
@@ -97,9 +102,8 @@
     },
 
     mounted() {
-      this.wineService
-        .get(this.$props.wineId)
-        .then(wine => this.wine = wine);
+      wineService.get(this.$props.wineId)
+                 .then(wine => this.wine = wine);
     },
 
     props: {
@@ -111,5 +115,8 @@
 
 <style scoped>
   .card-title { padding-left: 0 }
-  .text-field { padding-top: 0 }
+  .col {
+    padding-bottom: 6px;
+    padding-top: 6px;
+  }
 </style>
