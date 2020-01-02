@@ -9,22 +9,29 @@
     <v-row v-for="(value, attribute) in displayReview" :key="attribute">
 
       <!-- Left column for attribute names. -->
-      <v-col align="start" class="attribute-text" sm="3">
+      <v-col align="start" class="column" sm="3">
         {{ dictionary.translate("review", attribute) }}
       </v-col>
 
       <!-- Right column for values. -->
       <!-- Editing mode: -->
-      <v-text-field v-if="editing"
-        @keyup.enter="saveEditedReview(review)"
-        align="start"
-        class="text-field"
-        v-model="review[attribute]">
-      </v-text-field>
+      <v-col v-if="editing" class="column">
+        <v-text-field v-if="attribute === 'wine'"
+          :value="value.name"
+          class="text-field"
+          disabled>
+        </v-text-field>
+        
+        <v-text-field v-else
+          @keyup.enter="saveEditedReview(review)"
+          class="text-field"
+          v-model="review[attribute]">
+        </v-text-field>
+      </v-col>
 
       <!-- View mode: -->
       <!-- Don't allow editing wine here -->
-      <v-col v-else align="start">
+      <v-col v-else align="start" class="column">
         <div v-if="attribute === 'wine'">{{ value.name }}</div>
         <div v-else>{{ value }}</div>
       </v-col>
@@ -101,5 +108,12 @@
 
 <style scoped>
   .card-title { padding-left: 0 }
-  .text-field { padding-top: 0 }
+  .column {
+    padding-bottom: 6px;
+    padding-top: 6px;
+  }
+  .text-field {
+    margin-top: 0;
+    padding-top: 0;
+  }
 </style>
