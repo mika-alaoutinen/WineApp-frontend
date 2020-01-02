@@ -14,12 +14,12 @@
     <v-form @submit.prevent="submitForm">
       <div v-for="(value, attribute) in review" :key="attribute">
 
-        <MonthPickerComponent v-if="attribute === 'date'"
+        <DatePickerComponent v-if="attribute === 'date'"
           @get:date="getDate"
           :enabled="true"
           :labelText="'Päivämäärä'"
           :calendarType="'date'">
-        </MonthPickerComponent>
+        </DatePickerComponent>
 
         <v-text-field v-else
           :label="dictionary.translate('review', attribute)"
@@ -36,13 +36,13 @@
 
 <script>
   import Dictionary from "@/utilities/Dictionary.js";
-  import MonthPickerComponent from "@/components/vuetify/MonthPickerComponent.vue";
+  import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
   import ReviewService from "@/services/ReviewService.js";
   
   const reviewService = new ReviewService();
 
   export default {
-    components: { MonthPickerComponent },
+    components: { DatePickerComponent },
 
     data() {
       return {
