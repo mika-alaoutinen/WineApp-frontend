@@ -2,7 +2,7 @@
   <v-card class="details-card" max-width="60em">
     <v-img
       height="25em"
-      src="https://cdn.pixabay.com/photo/2016/07/26/16/16/wine-1543170_960_720.jpg">
+      src="https://cdn.pixabay.com/photo/2016/10/22/20/34/wine-1761613_960_720.jpg">
     </v-img>
     <v-card-title class="card-title">Viinin tiedot</v-card-title>
 
