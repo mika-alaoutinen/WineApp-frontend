@@ -46,9 +46,9 @@
     },
 
     props: {
+      calendarType: { type: String, required: false },
       enabled: { type: Boolean, required: true },
       labelText: { type: String, required: true },
-      calendarType: { type: String, required: false },
     }
   };
 </script>

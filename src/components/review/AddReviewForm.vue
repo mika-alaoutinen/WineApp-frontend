@@ -16,9 +16,9 @@
 
         <DatePickerComponent v-if="attribute === 'date'"
           @get:date="getDate"
+          :calendarType="'date'"
           :enabled="true"
-          :labelText="'Päivämäärä'"
-          :calendarType="'date'">
+          :labelText="'Päivämäärä'">
         </DatePickerComponent>
 
         <v-text-field v-else
@@ -62,11 +62,6 @@
 
     methods: {
       getDate(date) { this.review.date = date },
-
-      getToday() {
-        const today = new Date();
-        return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-      },
 
       getWine() {
         return "TODO: implement";
