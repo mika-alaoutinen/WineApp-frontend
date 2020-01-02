@@ -13,8 +13,7 @@
     <!-- Form begins -->
     <v-form @submit.prevent="submitForm">
 
-      <!-- Wine search field: -->
-      <AutocompleteComponent @search:wineName="getWineName" :label="'Arvosteltava viini'" />
+      <AutocompleteComponent @search:wine="getWine" :label="'Arvosteltava viini'" />
 
       <div v-for="(value, attribute) in review" :key="attribute">
         <DatePickerComponent v-if="attribute === 'date'"
@@ -52,12 +51,6 @@
   export default {
     components: { AutocompleteComponent, DatePickerComponent },
 
-    computed: {
-      wineNames() {
-        return this.wines.map(wine => wine.name);
-      }
-    },
-
     data() {
       return {
         dictionary: Dictionary,
@@ -71,16 +64,15 @@
           rating: 0,
           wine: {},
         },
-
-        wines: wineService.getStore().data.wines,
       }
     },
 
     methods: {
       getDate(date) { this.review.date = date },
 
-      getWineName(name) {
-        console.log("wine name: " + name);
+      getWine(wine) {
+        wineService.getStore();
+        console.log("wine name: " + JSON.stringify(wine));
       },
 
       submitForm() {

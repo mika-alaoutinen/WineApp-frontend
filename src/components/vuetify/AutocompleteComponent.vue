@@ -1,8 +1,7 @@
 <template>
   <v-autocomplete
-    :items="wineNames"
+    :items="getWines"
     :label="getLabel"
-    :search-input.sync="search"
     v-model="wine">
   </v-autocomplete>
 </template>
@@ -17,16 +16,15 @@
         return this.$props.label === undefined ? "Haettava" : this.$props.label;
       },
 
-      wineNames() {
-        return this.wines.map(wine => wine.name);
-      }
+      getWines() {
+        const wines = wineService.getStore().data.wines;
+        return wines.map(wine => ({ text: wine.name, value: wine }));
+      },
     },
 
     data() {
       return {
-        search: null,
         wine: null,
-        wines: wineService.getStore().data.wines,
       }
     },
 
@@ -36,7 +34,7 @@
 
     watch: {
       wine() {
-        this.$emit("search:wineName", this.wine);
+        this.$emit("search:wine", this.wine);
       }
     },
 
