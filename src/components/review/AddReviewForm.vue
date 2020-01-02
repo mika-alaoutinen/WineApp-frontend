@@ -14,11 +14,12 @@
     <v-form @submit.prevent="submitForm">
       <div v-for="(value, attribute) in review" :key="attribute">
 
-        <!-- :label="dictionary.translate('review', attribute)" -->
-        <v-text-field v-if="attribute === 'date'"
-          :label="dictionary.translate('review', attribute)"
-          v-model="review[attribute]">
-        </v-text-field>
+        <MonthPickerComponent v-if="attribute === 'date'"
+          @get:date="getDate"
+          :enabled="true"
+          :labelText="'Päivämäärä'"
+          :calendarType="'date'">
+        </MonthPickerComponent>
 
         <v-text-field v-else
           :label="dictionary.translate('review', attribute)"
@@ -34,17 +35,15 @@
 </template>
 
 <script>
-
-  /* TODO:
-    - Choose date with calendar.
-  */
-
   import Dictionary from "@/utilities/Dictionary.js";
+  import MonthPickerComponent from "@/components/vuetify/MonthPickerComponent.vue";
   import ReviewService from "@/services/ReviewService.js";
   
   const reviewService = new ReviewService();
 
   export default {
+    components: { MonthPickerComponent },
+
     data() {
       return {
         dictionary: Dictionary,
@@ -53,7 +52,7 @@
 
         review: {
           author: "",
-          date: this.getToday(),
+          date: "",
           reviewText: "",
           rating: 0,
           wine: this.getWine(),
@@ -62,6 +61,8 @@
     },
 
     methods: {
+      getDate(date) { this.review.date = date },
+
       getToday() {
         const today = new Date();
         return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
