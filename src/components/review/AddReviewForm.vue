@@ -12,14 +12,23 @@
 
     <!-- Form begins -->
     <v-form @submit.prevent="submitForm">
-      <div v-for="(value, attribute) in review" :key="attribute">
 
+      <!-- Wine search field: -->
+      <v-autocomplete
+        :items="wineNames"
+        label="Arvosteltava viini"
+        v-model="review.wine">
+      </v-autocomplete>
+
+      <div v-for="(value, attribute) in review" :key="attribute">
         <DatePickerComponent v-if="attribute === 'date'"
           @get:date="getDate"
           :calendarType="'date'"
           :enabled="true"
           :labelText="'Päivämäärä'">
         </DatePickerComponent>
+
+        <span v-else-if="attribute === 'wine'"></span>
 
         <v-text-field v-else
           :label="dictionary.translate('review', attribute)"
@@ -35,14 +44,22 @@
 </template>
 
 <script>
-  import Dictionary from "@/utilities/Dictionary.js";
   import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
+  import Dictionary from "@/utilities/Dictionary.js";
   import ReviewService from "@/services/ReviewService.js";
+  import WineService from "@/services/WineService.js";
   
   const reviewService = new ReviewService();
+  const wineService = new WineService();
 
   export default {
     components: { DatePickerComponent },
+
+    computed: {
+      wineNames() {
+        return this.wines.map(wine => wine.name);
+      }
+    },
 
     data() {
       return {
@@ -55,24 +72,22 @@
           date: "",
           reviewText: "",
           rating: 0,
-          wine: this.getWine(),
-        }
+          wine: {},
+        },
+
+        wines: wineService.getStore().data.wines,
       }
     },
 
     methods: {
       getDate(date) { this.review.date = date },
 
-      getWine() {
-        return "TODO: implement";
-      },
-
       submitForm() {
         reviewService.post()
       },
 
       successfulPost() {
-        reviewService.resetObject(this.wine);
+        reviewService.resetObject(this.review);
         this.showSuccessAlert = true;
       },
 
