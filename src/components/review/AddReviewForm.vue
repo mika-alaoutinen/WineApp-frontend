@@ -14,37 +14,37 @@
     <v-form @submit.prevent="submitForm">
       <div v-for="(value, attribute) in review" :key="attribute">
 
-        <v-text-field
+        <!-- :label="dictionary.translate('review', attribute)" -->
+        <v-text-field v-if="attribute === 'date'"
+          :label="dictionary.translate('review', attribute)"
+          v-model="review[attribute]">
+        </v-text-field>
+
+        <v-text-field v-else
           :label="dictionary.translate('review', attribute)"
           v-model="review[attribute]">
         </v-text-field>
       </div>
 
       <!-- Form submit button to save the new review: -->
-      <button class="button-save">Lisää Arvostelu</button>
+      <button class="button-save">Lisää arvostelu</button>
     </v-form>
 
   </v-card>
 </template>
 
 <script>
+
+  /* TODO:
+    - Choose date with calendar.
+  */
+
   import Dictionary from "@/utilities/Dictionary.js";
   import ReviewService from "@/services/ReviewService.js";
   
   const reviewService = new ReviewService();
 
   export default {
-    computed: {
-      getWine() {
-        return "TODO: implement";
-      },
-
-      today() {
-        const today = new Date();
-        return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-      }
-    },
-
     data() {
       return {
         dictionary: Dictionary,
@@ -53,15 +53,24 @@
 
         review: {
           author: "",
-          date: this.today,
+          date: this.getToday(),
           reviewText: "",
           rating: 0,
-          wine: this.getWine,
+          wine: this.getWine(),
         }
       }
     },
 
     methods: {
+      getToday() {
+        const today = new Date();
+        return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      },
+
+      getWine() {
+        return "TODO: implement";
+      },
+
       submitForm() {
         reviewService.post()
       },

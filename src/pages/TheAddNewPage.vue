@@ -1,7 +1,16 @@
 <template>
   <div>
-    <AddWineForm/>
-    <AddReviewForm/>
+    <v-tabs centered>
+      <v-tab>Lisää uusi viini</v-tab>
+      <v-tab-item>
+        <AddWineForm/>
+      </v-tab-item>
+      
+      <v-tab>Lisää uusi arvostelu</v-tab>
+      <v-tab-item>
+        <AddReviewForm/>
+      </v-tab-item>
+    </v-tabs>
   </div>
 </template>
 
