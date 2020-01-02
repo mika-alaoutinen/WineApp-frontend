@@ -14,11 +14,7 @@
     <v-form @submit.prevent="submitForm">
 
       <!-- Wine search field: -->
-      <v-autocomplete
-        :items="wineNames"
-        label="Arvosteltava viini"
-        v-model="review.wine">
-      </v-autocomplete>
+      <AutocompleteComponent @search:wineName="getWineName" :label="'Arvosteltava viini'" />
 
       <div v-for="(value, attribute) in review" :key="attribute">
         <DatePickerComponent v-if="attribute === 'date'"
@@ -44,6 +40,7 @@
 </template>
 
 <script>
+  import AutocompleteComponent from "@/components/vuetify/AutocompleteComponent.vue";
   import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
   import Dictionary from "@/utilities/Dictionary.js";
   import ReviewService from "@/services/ReviewService.js";
@@ -53,7 +50,7 @@
   const wineService = new WineService();
 
   export default {
-    components: { DatePickerComponent },
+    components: { AutocompleteComponent, DatePickerComponent },
 
     computed: {
       wineNames() {
@@ -81,6 +78,10 @@
 
     methods: {
       getDate(date) { this.review.date = date },
+
+      getWineName(name) {
+        console.log("wine name: " + name);
+      },
 
       submitForm() {
         reviewService.post()
