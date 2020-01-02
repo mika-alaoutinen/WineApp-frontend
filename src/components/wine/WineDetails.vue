@@ -17,8 +17,7 @@
       <!-- Editing mode: -->
       <v-text-field v-if="editing"
         @keyup.enter="saveEditedWine(wine)"
-        align="start"
-        class="text-field"
+        class="ma-0 pa-0"
         v-model="wine[attribute]">
       </v-text-field>
 
@@ -30,9 +29,7 @@
         </div>
 
         <div v-else-if="attribute === 'description' || attribute === 'foodPairings'">
-          <v-chip v-for="keyword in value" :key="keyword">
-            {{ keyword }}
-          </v-chip>
+          <v-chip v-for="keyword in value" :key="keyword">{{ keyword }}</v-chip>
         </div>
 
         <div v-else-if="attribute === 'url'">
@@ -56,6 +53,11 @@
 </template>
 
 <script>
+
+  /* TODO:
+    - Make editing wine description and food pairings better.
+  */
+ 
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
   import Dictionary from "@/utilities/Dictionary.js";
   import WineService from "@/services/WineService.js";
@@ -113,5 +115,8 @@
 
 <style scoped>
   .card-title { padding-left: 0 }
-  .text-field { padding-top: 0 }
+  .col {
+    padding-bottom: 6px;
+    padding-top: 6px;
+  }
 </style>
