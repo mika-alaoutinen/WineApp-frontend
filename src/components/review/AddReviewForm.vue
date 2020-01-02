@@ -63,11 +63,6 @@
     methods: {
       getDate(date) { this.review.date = date },
 
-      getToday() {
-        const today = new Date();
-        return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-      },
-
       getWine() {
         return "TODO: implement";
       },
