@@ -33,7 +33,6 @@
       </v-col>
 
       <!-- View mode: -->
-      <!-- Don't allow editing wine here -->
       <v-col v-else align="start" class="column">
         <div v-if="attribute === 'wine'">{{ value.name }}</div>
         <div v-else>{{ value }}</div>
@@ -119,5 +118,4 @@
     margin-top: 0;
     padding-top: 0;
   }
-
 </style>

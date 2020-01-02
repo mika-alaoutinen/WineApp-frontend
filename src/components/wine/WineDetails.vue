@@ -24,21 +24,21 @@
 
       <!-- View mode: -->
       <v-col v-else align="start">
-        <!-- Translate wine type: -->
+
         <div v-if="attribute === 'type'">
           {{ dictionary.translate("wine", value.toLowerCase()) }}
         </div>
-        <!-- Description and food pairings are shown as chips: -->
+
         <div v-else-if="attribute === 'description' || attribute === 'foodPairings'">
           <v-chip v-for="keyword in value" :key="keyword">
             {{ keyword }}
           </v-chip>
         </div>
-        <!-- Valid URLs are shown as hyperlinks, invalid URLs are hidden: -->
+
         <div v-else-if="attribute === 'url'">
           <a :href="value">{{ validateUrl(value) }}</a>
         </div>
-        <!-- Regular text: -->
+
         <div v-else>{{ value }}</div>
       </v-col>
     </v-row>
