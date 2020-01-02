@@ -12,42 +12,36 @@
 
     <!-- Form begins -->
     <v-form @submit.prevent="submitForm">
-
       <AutocompleteComponent @search:wine="getWine" :label="'Arvosteltava viini'" />
 
-      <div v-for="(value, attribute) in review" :key="attribute">
-        <DatePickerComponent v-if="attribute === 'date'"
-          @get:date="getDate"
-          :calendarType="'date'"
-          :enabled="true"
-          :labelText="'Päivämäärä'">
-        </DatePickerComponent>
+      <v-text-field
+        :label="dictionary.translate('review', 'author')"
+        v-model="review.author">
+      </v-text-field>
 
-        <v-textarea v-else-if="attribute === 'reviewText'"
-          :label="dictionary.translate('review', attribute)"
-          auto-grow
-          class="ma-0 pa-0"
-          v-model="review[attribute]">
-        </v-textarea>
+      <DatePickerComponent
+        @get:date="getDate"
+        :calendarType="'date'"
+        :enabled="true"
+        :labelText="'Päivämäärä'">
+      </DatePickerComponent>
 
-        <v-slider v-else-if="attribute === 'rating'"
-          :label="dictionary.translate('review', 'rating')"
-          max="5.0"
-          min="0.0"
-          step="0.25"
-          ticks
-          thumb-label
-          v-model="review.rating">
+      <v-textarea
+        :label="dictionary.translate('review', 'reviewText')"
+        auto-grow
+        class="ma-0 pa-0"
+        v-model="review.reviewText">
+      </v-textarea>
 
-        </v-slider>
-
-        <span v-else-if="attribute === 'wine'"></span>
-
-        <v-text-field v-else
-          :label="dictionary.translate('review', attribute)"
-          v-model="review[attribute]">
-        </v-text-field>
-      </div>
+      <v-slider
+        :label="dictionary.translate('review', 'rating')"
+        max="5.0"
+        min="0.0"
+        step="0.25"
+        ticks
+        thumb-label
+        v-model="review.rating">
+      </v-slider>
 
       <!-- Form submit button to save the new review: -->
       <button class="button-save">Lisää arvostelu</button>
@@ -77,7 +71,7 @@
           author: "",
           date: "",
           reviewText: "",
-          rating: 0,
+          rating: 2.5,
           wine: {},
         },
       }
@@ -89,8 +83,8 @@
       getWine(wine) { this.review.wine = wine },
 
       submitForm() {
-        // reviewService.post();
-        console.log(this.review);
+        reviewService.post(this.review)
+                     .then(wasOk => wasOk ? this.successfulPost() : this.failedPost());
       },
 
       successfulPost() {
