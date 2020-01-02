@@ -23,8 +23,6 @@
   import WineService from "@/services/WineService.js";
   import WineTable from "@/components/wine/WineTable.vue";
 
-  const wineService = new WineService();
-
   /*
   TODO:
     - Bug fix: when wine is deleted in WineDetails, it still shows up in wine table.
@@ -40,12 +38,8 @@
     data() {
       return {
         search: "",
-        wineStore: wineService.getStore().data,
+        wineStore: new WineService().getStore().data,
       }
-    },
-
-    mounted() {
-      wineService.getAll()
     },
 
   };

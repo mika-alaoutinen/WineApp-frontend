@@ -8,6 +8,19 @@ class ReviewService extends Service {
         super(ReviewStore);
     }
 
+    /**
+     * Sends a new review to backend for persisting.
+     * @param {Object} review.
+     */
+    async post(item) {
+        const wineId = item.wine.id;
+
+        return axios
+            .post(UrlBuilder.review.paths.base + wineId, item)
+            .then(response => this.store.add(response.data))
+            .catch(error => console.error(error));
+    }
+
     async quickSearch(searchParam, count) {
         if (!isSearchParamValid) {
             console.error("Invalid search param: " + searchParam);

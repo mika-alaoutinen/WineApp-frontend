@@ -101,7 +101,7 @@
 
       submitForm() {
         wineService.post(this.wine)
-                   .then(isWineAdded => isWineAdded ? this.successfulPost() : this.failedPost());
+                   .then(wasOk => wasOk ? this.successfulPost() : this.failedPost());
       },
 
       successfulPost() {

@@ -17,9 +17,9 @@
     <v-date-picker
       @change="emitDate"
       :disabled=!enabled
+      :type="type"
       no-title
       scrollable
-      type="month"
       v-model="date">
     </v-date-picker>
   </v-menu>
@@ -29,7 +29,8 @@
   export default {
     data() {
       return {
-        date: new Date().toISOString().substr(0, 7),
+        date: new Date(),
+        type: "month",
       }
     },
 
@@ -39,9 +40,22 @@
       }
     },
 
+    mounted() {
+      // Set the calendar type, default option is "month":
+      this.type = this.$props.calendarType === undefined
+        ? "month"
+        : this.$props.calendarType;
+      
+      // Set date string format based on calendar type:
+      this.date = this.type === "month"
+        ? this.date.toISOString().substr(0, 7)
+        : this.date.getFullYear()+'-'+(this.date.getMonth()+1)+'-'+this.date.getDate();
+    },
+
     props: {
-      labelText: { type: String, required: true },
+      calendarType: { type: String, required: false },
       enabled: { type: Boolean, required: true },
+      labelText: { type: String, required: true },
     }
   };
 </script>
