@@ -16,15 +16,18 @@
       <!-- Right column for values. -->
       <!-- Editing mode: -->
       <v-col v-if="editing" class="column">
-        <v-text-field v-if="attribute === 'wine'"
+        <v-textarea v-if="attribute === 'reviewText'"
+          auto-grow
+          v-model="review[attribute]">
+        </v-textarea>
+
+        <v-text-field v-else-if="attribute === 'wine'"
           :value="value.name"
-          class="text-field"
           disabled>
         </v-text-field>
         
         <v-text-field v-else
           @keyup.enter="saveEditedReview(review)"
-          class="text-field"
           v-model="review[attribute]">
         </v-text-field>
       </v-col>
@@ -112,8 +115,9 @@
     padding-bottom: 6px;
     padding-top: 6px;
   }
-  .text-field {
+  .v-text-field {
     margin-top: 0;
     padding-top: 0;
   }
+
 </style>
