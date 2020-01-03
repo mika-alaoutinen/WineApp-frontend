@@ -55,11 +55,6 @@
 </template>
 
 <script>
-
-  /* TODO:
-    - Explore nicer options for displaying the data.
-  */
-
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
   import ReviewService from "@/services/ReviewService.js";
   import Dictionary from "@/utilities/Dictionary.js";
@@ -105,7 +100,7 @@
     },
 
     props: {
-      reviewId: { type: Number, required: true }
+      reviewId: { required: true }
     },
 
   };

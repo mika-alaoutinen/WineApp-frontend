@@ -1,7 +1,7 @@
 <template>
   <div>
     
-  <v-card class="details-card" max-width="60%">
+  <v-card class="details-card" max-width="60em">
     <v-img
       height="25em"
       src="https://cdn.pixabay.com/photo/2016/07/26/16/16/wine-1543170_960_720.jpg">
@@ -53,41 +53,38 @@
     
   </v-card>
 
-  <!-- <v-card class="details-card" max-width="60%">
+  <v-card class="details-card" max-width="60em">
     <v-card-title class="card-title">Arvostelut</v-card-title>
 
     <div v-for="review in reviews" :key="review.id">
-      <div v-for="(value, attribute) in review" :key="attribute">
-        <div v-if="attribute==='wine'"></div>
-        <div v-else>{{ value }}</div>
-        
-      </div>
-    </div>
-  </v-card> -->
+      <v-row v-for="(value, attribute) in review" :key="attribute">
 
-  <ReviewDetails v-for="review in reviews" :key="review.id" :reviewId = review.id />
+        <v-col v-if="attribute !== 'wine'" align="start" sm="3">
+          {{ dictionary.translate("review", attribute) }}
+        </v-col>
+
+        <v-col v-if="attribute !== 'wine'" align="start">
+          {{ value }}
+        </v-col>
+      </v-row>
+
+    </div>
+  </v-card>
 
   </div>
 </template>
 
 <script>
-
-  /* TODO:
-    - Make editing wine description and food pairings better.
-  */
- 
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
   import Dictionary from "@/utilities/Dictionary.js";
   import ReviewService from "@/services/ReviewService.js";
   import WineService from "@/services/WineService.js";
 
-  import ReviewDetails from "@/components/review/ReviewDetails.vue";
-  
   const reviewService = new ReviewService();
   const wineService = new WineService()
 
   export default {
-    components: { DetailsButtons, ReviewDetails },
+    components: { DetailsButtons },
 
     computed: {
       displayWine() {
@@ -133,7 +130,7 @@
     },
 
     props: {
-      wineId: { type: Number, required: true }
+      wineId: { required: true }
     }
   };
 
