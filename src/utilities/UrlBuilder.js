@@ -21,6 +21,8 @@ export default {
             count: reviewPath + "count",
             quicksearch: reviewPath + "search/",
             search: reviewPath + "search?",
+            wineId: reviewPath + "wine/id/",
+            wineName: reviewPath + "wine/name/",
         },
         
         getQuickSearchUrl(searchParam, count) {
