@@ -1,12 +1,12 @@
 <template>
-  <v-card class="details-card" max-width="60%">
+  <v-card class="details-card" max-width="60em">
     <v-img
       height="25em"
       src="https://cdn.pixabay.com/photo/2016/07/26/16/16/wine-1543170_960_720.jpg">
     </v-img>
     <v-card-title class="card-title">Viinin tiedot</v-card-title>
 
-    <v-row v-for="(value, attribute) in displayWine" :key="attribute">
+    <v-row v-for="(value, attribute) in wineWithoutId" :key="attribute">
       
       <!-- Left column for attribute names. -->
       <v-col align="start" class="attribute-text" sm="3">
@@ -48,30 +48,33 @@
       :editing="editing"
       :item="wine">
     </DetailsButtons>
-    
+
+  <!-- Show reviews of the wine: -->
+  <ReviewDetailsCard :reviews="reviews"/>  
+
   </v-card>
 </template>
 
 <script>
-
-  /* TODO:
-    - Make editing wine description and food pairings better.
-  */
- 
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
   import Dictionary from "@/utilities/Dictionary.js";
+  import ReviewDetailsCard from "@/components/review/ReviewDetailsCard.vue";
+  import ReviewService from "@/services/ReviewService.js";
   import WineService from "@/services/WineService.js";
-  
+
+  const reviewService = new ReviewService();
   const wineService = new WineService()
 
   export default {
-    components: { DetailsButtons },
+    components: { DetailsButtons, ReviewDetailsCard },
 
     computed: {
-      displayWine() {
-        const wineCopy = Object.assign({}, this.wine);
-        delete wineCopy.id;
-        return wineCopy;
+      reviewsWithoutId() {
+        return this.reviews.map(review => reviewService.removeObjectId(review));
+      },
+
+      wineWithoutId() {
+        return wineService.removeObjectId(this.wine);
       },
     },
 
@@ -79,8 +82,9 @@
       return {
         dictionary: Dictionary,
         editing: false,
+        reviews: [], // Reviews of the wine
         wine: {},
-      };
+      }
     },
 
     methods: {
@@ -104,10 +108,13 @@
     mounted() {
       wineService.get(this.$props.wineId)
                  .then(wine => this.wine = wine);
+      
+      reviewService.getByWineId(this.$props.wineId)
+                   .then(reviews => this.reviews = reviews);
     },
 
     props: {
-      wineId: { type: String, required: true }
+      wineId: { required: true },
     }
   };
 

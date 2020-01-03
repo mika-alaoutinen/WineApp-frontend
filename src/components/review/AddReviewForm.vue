@@ -66,13 +66,13 @@
         dictionary: Dictionary,
         showErrorAlert: false,
         showSuccessAlert: false,
+        wineId: 0,
 
         review: {
           author: "",
           date: "",
           reviewText: "",
           rating: 2.5,
-          wine: {},
         },
       }
     },
@@ -80,10 +80,10 @@
     methods: {
       getDate(date) { this.review.date = date },
 
-      getWine(wine) { this.review.wine = wine },
+      getWine(wine) { this.wineId = wine.id },
 
       submitForm() {
-        reviewService.post(this.review)
+        reviewService.post(this.wineId, this.review)
                      .then(wasOk => wasOk ? this.successfulPost() : this.failedPost());
       },
 

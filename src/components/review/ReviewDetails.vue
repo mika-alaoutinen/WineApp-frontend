@@ -6,7 +6,7 @@
     </v-img>
     <v-card-title class="card-title">Arvostelun tiedot</v-card-title>
 
-    <v-row v-for="(value, attribute) in displayReview" :key="attribute">
+    <v-row v-for="(value, attribute) in reviewWithoutId" :key="attribute">
 
       <!-- Left column for attribute names. -->
       <v-col align="start" sm="3">
@@ -39,7 +39,8 @@
       <v-col v-else align="start">
         <div v-if="attribute === 'wine'">{{ value.name }}</div>
         <div v-else>{{ value }}</div>
-      </v-col>
+      </v-col>     
+
     </v-row>
 
     <!-- Edit and delete buttons -->
@@ -55,14 +56,9 @@
 </template>
 
 <script>
-
-  /* TODO:
-    - Explore nicer options for displaying the data.
-  */
-
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
-  import ReviewService from "@/services/ReviewService.js";
   import Dictionary from "@/utilities/Dictionary.js";
+  import ReviewService from "@/services/ReviewService.js";
 
   const reviewService = new ReviewService();
 
@@ -70,10 +66,8 @@
     components: { DetailsButtons },
 
     computed: {
-      displayReview() {
-        const reviewCopy = Object.assign({}, this.review);
-        delete reviewCopy.id;
-        return reviewCopy;
+      reviewWithoutId() {
+        return reviewService.removeObjectId(this.review);
       },
     },
 
@@ -105,7 +99,7 @@
     },
 
     props: {
-      reviewId: { type: String, required: true }
+      reviewId: { required: true }
     },
 
   };

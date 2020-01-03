@@ -9,12 +9,22 @@ class ReviewService extends Service {
     }
 
     /**
+     * Gets all reviews of a wine by wine ID.
+     * @param {Number} wineId 
+     * @returns {Array} reviews.
+     */
+    async getByWineId(wineId) {
+        return axios
+            .get(UrlBuilder.review.paths.wineId + wineId)
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+
+    /**
      * Sends a new review to backend for persisting.
      * @param {Object} review.
      */
-    async post(item) {
-        const wineId = item.wine.id;
-
+    async post(wineId, item) {
         return axios
             .post(UrlBuilder.review.paths.base + wineId, item)
             .then(response => this.store.add(response.data))
