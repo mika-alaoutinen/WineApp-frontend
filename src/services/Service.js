@@ -9,6 +9,16 @@ class Service {
 
     getStore() { return this.store }
 
+    /**
+     * Gets a count of items in the database.
+     */
+    async getCount() {
+        return axios
+            .get(UrlBuilder[this.storeType].paths.count)
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+
 // CRUD operations:
     /**
      * Retrieves a single wine from the back-end based on ID.
@@ -85,17 +95,17 @@ class Service {
         this.store.addAllFound(results);
     }
 
-// Other operations:
+// Modifying objects:
     /**
-     * Gets a count of items in the database.
+     * Removes the ID property of an item so that it is not displayed in views.
+     * @param {Object} item, either wine or review. 
+     * @returns {Object} item with ID removed.
      */
-    async getCount() {
-        return axios
-            .get(UrlBuilder[this.storeType].paths.count)
-            .then(response => response.data)
-            .catch(error => console.error(error));
+    removeObjectId(object) {
+        const copy = Object.assign({}, object);
+        delete copy.id;
+        return copy;
     }
-
     /**
      * Clears all values in a object.
      * @param {Object} searchParams

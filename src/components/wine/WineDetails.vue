@@ -8,7 +8,7 @@
     </v-img>
     <v-card-title class="card-title">Viinin tiedot</v-card-title>
 
-    <v-row v-for="(value, attribute) in displayWine" :key="attribute">
+    <v-row v-for="(value, attribute) in wineWithoutId" :key="attribute">
       
       <!-- Left column for attribute names. -->
       <v-col align="start" class="attribute-text" sm="3">
@@ -53,10 +53,11 @@
     
   </v-card>
 
+  <!-- Show reviews of the wine: -->
   <v-card class="details-card" max-width="60em">
     <v-card-title class="card-title">Arvostelut</v-card-title>
 
-    <div v-for="review in reviews" :key="review.id">
+    <div v-for="review in reviewsWithoutId" :key="review.id">
       <v-row v-for="(value, attribute) in review" :key="attribute">
 
         <v-col v-if="attribute !== 'wine'" align="start" sm="3">
@@ -87,10 +88,12 @@
     components: { DetailsButtons },
 
     computed: {
-      displayWine() {
-        const wineCopy = Object.assign({}, this.wine);
-        delete wineCopy.id;
-        return wineCopy;
+      reviewsWithoutId() {
+        return this.reviews.map(review => reviewService.removeObjectId(review));
+      },
+
+      wineWithoutId() {
+        return wineService.removeObjectId(this.wine);
       },
     },
 
@@ -130,7 +133,7 @@
     },
 
     props: {
-      wineId: { required: true }
+      wineId: { required: true },
     }
   };
 
