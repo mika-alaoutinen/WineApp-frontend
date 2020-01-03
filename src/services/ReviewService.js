@@ -12,9 +12,7 @@ class ReviewService extends Service {
      * Sends a new review to backend for persisting.
      * @param {Object} review.
      */
-    async post(item) {
-        const wineId = item.wine.id;
-
+    async post(wineId, item) {
         return axios
             .post(UrlBuilder.review.paths.base + wineId, item)
             .then(response => this.store.add(response.data))

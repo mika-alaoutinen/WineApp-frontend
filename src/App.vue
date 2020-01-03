@@ -11,8 +11,9 @@
   import TheFooter from "@/components/common/TheFooter.vue";
   import TheHeader from "@/components/common/TheHeader.vue";
   import TheNavigation from "@/components/common/TheNavigation.vue";
+  import ReviewService from "@/services/ReviewService.js";
   import WineService from "@/services/WineService.js";
-
+  
   export default {
     name: "app",
     components: {
@@ -22,7 +23,8 @@
     },
 
     mounted() {
-      new WineService().getAll()
+      new ReviewService().getAll();
+      new WineService().getAll();
     },
   }
 </script>
