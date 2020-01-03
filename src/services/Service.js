@@ -106,6 +106,7 @@ class Service {
         delete copy.id;
         return copy;
     }
+
     /**
      * Clears all values in a object.
      * @param {Object} searchParams
