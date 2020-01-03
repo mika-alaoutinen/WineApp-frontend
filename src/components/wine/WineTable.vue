@@ -18,6 +18,11 @@
 
 <script>
   import Dictionary from "@/utilities/Dictionary.js";
+  import ReviewService from "@/services/ReviewService.js";
+  import WineService from "@/services/WineService.js";
+
+  const reviewService = new ReviewService();
+  const wineService = new WineService();
 
   export default {
     computed: {
@@ -37,6 +42,7 @@
     data() {
       return {
         dictionary: Dictionary,
+        winesWithRatings: [],
       };
     },
 
@@ -44,6 +50,14 @@
       openWineDetails(wine) {
         this.$router.push({ name: "wine", params: { wineId: + wine.id }});
       }
+    },
+
+    mounted() {
+      // Calculate average ratings for all wines:
+      const reviews = reviewService.getStore().data.reviews;
+      const wines = wineService.getStore().data.wines;
+
+      this.winesWithRatings = reviewService.calculateAvgRatings(wines, reviews);
     },
 
     props: {

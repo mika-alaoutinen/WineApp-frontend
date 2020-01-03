@@ -43,14 +43,19 @@ class ReviewService extends Service {
             .catch(error => console.error(error));
     }
 
-    calculateAvgRating(reviews) {
-        // Map wines and reviews to Map<wineId, Review>:
-        const map = new Map(
-            reviews.map(review => [review.wine.id, new Array() ]));
-        
-        reviews.forEach(review => map.get(review.wine.id).push(review));
+    calculateAvgRatings(wines, reviews) {
+        const winesCopy = [...wines]
 
-        console.log(map);
+        for (const wine of winesCopy) {
+            const ratings = reviews
+                .filter(review => review.wine.id == wine.id)
+                .map(review => review.rating);
+            
+            wine.avgRating = ratings.reduce(
+                (prev, current) => prev + current, 0) / ratings.length;
+        }
+
+        return winesCopy;
     }
 }
 
