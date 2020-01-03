@@ -20,7 +20,7 @@
             </v-col>
           </v-row>
 
-          <!-- Add link to review: -->
+          <!-- Add link to the reviews: -->
           <v-row>
             <v-col align="start" sm="3">Linkki</v-col>
             <v-col align="start">
@@ -29,7 +29,6 @@
               </router-link>
             </v-col>
           </v-row>
-
         </v-expansion-panel-content>
 
       </v-expansion-panel>
@@ -60,4 +59,5 @@
     font-weight: bold;
     text-align: left;
   }
+  .v-expansion-panel:before { box-shadow: none }
 </style>
