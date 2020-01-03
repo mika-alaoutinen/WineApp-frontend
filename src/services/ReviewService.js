@@ -58,8 +58,10 @@ class ReviewService extends Service {
                 .filter(review => review.wine.id == wine.id)
                 .map(review => review.rating);
             
-            wine.avgrating = ratings.reduce(
+            const avgRating = ratings.reduce(
                 (prev, current) => prev + current, 0) / ratings.length;
+            
+            wine.avgrating = Number.isNaN(avgRating) ? "-" : avgRating;
         });
 
         return winesCopy;
