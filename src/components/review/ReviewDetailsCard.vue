@@ -2,7 +2,7 @@
   <div>
     <div class="subheading">Arvostelut</div>
 
-    <v-expansion-panels accordion>
+    <v-expansion-panels accordion multiple>
       <v-expansion-panel v-for="review in $props.reviews" :key="review.id">
         <v-expansion-panel-header>
           {{ review.author + " " + review.rating + "/5" }}
@@ -20,7 +20,6 @@
             </v-col>
           </v-row>
 
-          <!-- Add link to the reviews: -->
           <v-row>
             <v-col align="start" sm="3">Linkki</v-col>
             <v-col align="start">
@@ -34,6 +33,27 @@
       </v-expansion-panel>
     </v-expansion-panels>
 
+
+    <v-toolbar flat>
+      <v-toolbar-title>Arvostelut</v-toolbar-title>
+      <v-spacer/>
+      <v-toolbar-items>
+
+        <v-dialog v-for="review in $props.reviews" :key="review.id" max-width="500">
+          <template v-slot:activator="{ on }">
+            <v-btn text v-on="on">{{ review.author + " " + review.rating + "/5" }}</v-btn>
+          </template>
+
+          <v-card class="modal-card">
+            <v-card-title>{{ review.author + " " + review.date }}</v-card-title>
+            <v-card-text v-html="createCardText(review)" />
+          </v-card>
+        </v-dialog>
+
+      </v-toolbar-items>
+    </v-toolbar>
+
+
   </div>
 </template>
 
@@ -43,8 +63,19 @@
   export default {
     data() {
       return {
+        dialogs: [],
         dictionary: Dictionary,
       }
+    },
+
+    methods: {
+      createCardText(review) {
+        let text =
+          review.reviewText + "<br/><br/>" +
+          "<b> Arvosana: " + review.rating + "</b>";
+        
+        return text;
+      },
     },
 
     props: {
@@ -54,7 +85,10 @@
 </script>
 
 <style scoped>
+  .align-left { text-align: left }
+  .align-right { text-align: right }
   .card-title { padding-left: 0 }
+  .modal-card { text-align: left }
   .subheading {
     font-weight: bold;
     text-align: left;
