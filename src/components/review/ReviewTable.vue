@@ -25,7 +25,7 @@
 
     <!-- Clicking on wine name redirects to wine details page: -->
     <template v-slot:item.wine="{ item }">
-      <router-link tag="tr" :to="{ name: 'wine', params: { wineId: '' + item.wine.id }}">
+      <router-link tag="tr" :to="{ name: 'wine', params: { wineId: + item.wine.id }}">
         {{ item.wine.name }}
       </router-link>
     </template>
@@ -64,7 +64,7 @@ import Dictionary from "@/utilities/Dictionary.js";
       },
 
       openReviewDetails(review) {
-        this.$router.push({ name: "review", params: { reviewId: "" + review.id } });
+        this.$router.push({ name: "review", params: { reviewId: + review.id } });
       },
     },
 

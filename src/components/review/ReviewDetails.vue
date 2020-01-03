@@ -105,7 +105,7 @@
     },
 
     props: {
-      reviewId: { type: String, required: true }
+      reviewId: { type: Number, required: true }
     },
 
   };

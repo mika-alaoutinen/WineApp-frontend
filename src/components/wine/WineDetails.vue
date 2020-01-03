@@ -1,4 +1,6 @@
 <template>
+  <div>
+    
   <v-card class="details-card" max-width="60%">
     <v-img
       height="25em"
@@ -50,6 +52,22 @@
     </DetailsButtons>
     
   </v-card>
+
+  <!-- <v-card class="details-card" max-width="60%">
+    <v-card-title class="card-title">Arvostelut</v-card-title>
+
+    <div v-for="review in reviews" :key="review.id">
+      <div v-for="(value, attribute) in review" :key="attribute">
+        <div v-if="attribute==='wine'"></div>
+        <div v-else>{{ value }}</div>
+        
+      </div>
+    </div>
+  </v-card> -->
+
+  <ReviewDetails v-for="review in reviews" :key="review.id" :reviewId = review.id />
+
+  </div>
 </template>
 
 <script>
@@ -60,12 +78,16 @@
  
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
   import Dictionary from "@/utilities/Dictionary.js";
+  import ReviewService from "@/services/ReviewService.js";
   import WineService from "@/services/WineService.js";
+
+  import ReviewDetails from "@/components/review/ReviewDetails.vue";
   
+  const reviewService = new ReviewService();
   const wineService = new WineService()
 
   export default {
-    components: { DetailsButtons },
+    components: { DetailsButtons, ReviewDetails },
 
     computed: {
       displayWine() {
@@ -79,6 +101,7 @@
       return {
         dictionary: Dictionary,
         editing: false,
+        reviews: [], // Reviews of the wine
         wine: {},
       };
     },
@@ -104,10 +127,13 @@
     mounted() {
       wineService.get(this.$props.wineId)
                  .then(wine => this.wine = wine);
+      
+      reviewService.getByWineId(this.$props.wineId)
+                   .then(reviews => this.reviews = reviews);
     },
 
     props: {
-      wineId: { type: String, required: true }
+      wineId: { type: Number, required: true }
     }
   };
 
