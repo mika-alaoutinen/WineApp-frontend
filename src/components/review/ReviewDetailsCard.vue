@@ -1,10 +1,9 @@
 <template>
   <div>
     <div class="subheading">Arvostelut</div>
-    <div v-for="review in reviewsWithoutId" :key="review.id">
 
       <v-expansion-panels accordion>
-        <v-expansion-panel>
+        <v-expansion-panel v-for="review in $props.reviews" :key="review.id">
           <v-expansion-panel-header>
             {{ review.author + " " + review.rating + "/5" }}
           </v-expansion-panel-header>
@@ -12,36 +11,37 @@
           <v-expansion-panel-content>
             <v-row v-for="(value, attribute) in review" :key="attribute">
 
-              <v-col v-if="attribute !== 'wine'" align="start" sm="3">
+              <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start" sm="3">
                 {{ dictionary.translate("review", attribute) }}
               </v-col>
 
-              <v-col v-if="attribute !== 'wine'" align="start">
+              <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start">
                 {{ value }}
               </v-col>
             </v-row>
+
+            <!-- Add link to review: -->
+            <v-row>
+              <v-col align="start" sm="3">Linkki</v-col>
+              <v-col align="start">
+                <router-link :to="{ name: 'review', params: { reviewId: review.id }}">
+                  Linkki arvosteluun
+                </router-link>
+              </v-col>
+            </v-row>
+
           </v-expansion-panel-content>
 
         </v-expansion-panel>
       </v-expansion-panels>
-    </div>
 
   </div>
 </template>
 
 <script>
   import Dictionary from "@/utilities/Dictionary.js";
-  import ReviewService from "@/services/ReviewService.js";
-
-  const reviewService = new ReviewService();
 
   export default {
-    computed: {
-      reviewsWithoutId() {
-        return this.$props.reviews.map(review => reviewService.removeObjectId(review));
-      },
-    },
-
     data() {
       return {
         dictionary: Dictionary,
