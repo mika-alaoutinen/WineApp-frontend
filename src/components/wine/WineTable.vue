@@ -2,7 +2,7 @@
   <v-data-table
     @click:row="openWineDetails"
     :headers="translateHeaders"
-    :items="$props.wines"
+    :items="winesWithRatings"
     :items-per-page="getItemsPerPage"
     :search="$props.search"
     loading-text="Haetaan viinejä..."
@@ -31,7 +31,8 @@
       },
 
       translateHeaders() {
-        const headers = ["name", "type", "country", "price", "volume"];
+        const headers = ["name", "type", "country", "price", "volume", "avgrating"];
+
         return headers.map(header => ({ 
           text: this.dictionary.translate("wine", header),
           value: header
@@ -58,12 +59,12 @@
       const wines = wineService.getStore().data.wines;
 
       this.winesWithRatings = reviewService.calculateAverageRatings(wines, reviews);
+      console.log(this.winesWithRatings);
     },
 
     props: {
       itemsPerPage: { type: Number, required: false },
       search: { type: String, required: false },
-      wines: { type: Array, required: true }
     }
 
 };

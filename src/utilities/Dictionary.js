@@ -34,6 +34,8 @@ export default {
             rose: "Roseeviini",
             white: "Valkoviini",
             other: "Muu viini",
+
+            avgrating: "Arvosana"
         },
     },
 

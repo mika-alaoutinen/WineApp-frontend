@@ -58,7 +58,7 @@ class ReviewService extends Service {
                 .filter(review => review.wine.id == wine.id)
                 .map(review => review.rating);
             
-            wine.avgRating = ratings.reduce(
+            wine.avgrating = ratings.reduce(
                 (prev, current) => prev + current, 0) / ratings.length;
         });
 
