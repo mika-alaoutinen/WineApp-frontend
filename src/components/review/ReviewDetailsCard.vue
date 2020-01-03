@@ -2,38 +2,38 @@
   <div>
     <div class="subheading">Arvostelut</div>
 
-      <v-expansion-panels accordion>
-        <v-expansion-panel v-for="review in $props.reviews" :key="review.id">
-          <v-expansion-panel-header>
-            {{ review.author + " " + review.rating + "/5" }}
-          </v-expansion-panel-header>
+    <v-expansion-panels accordion>
+      <v-expansion-panel v-for="review in $props.reviews" :key="review.id">
+        <v-expansion-panel-header>
+          {{ review.author + " " + review.rating + "/5" }}
+        </v-expansion-panel-header>
 
-          <v-expansion-panel-content>
-            <v-row v-for="(value, attribute) in review" :key="attribute">
+        <v-expansion-panel-content>
+          <v-row v-for="(value, attribute) in review" :key="attribute">
 
-              <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start" sm="3">
-                {{ dictionary.translate("review", attribute) }}
-              </v-col>
+            <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start" sm="3">
+              {{ dictionary.translate("review", attribute) }}
+            </v-col>
 
-              <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start">
-                {{ value }}
-              </v-col>
-            </v-row>
+            <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start">
+              {{ value }}
+            </v-col>
+          </v-row>
 
-            <!-- Add link to review: -->
-            <v-row>
-              <v-col align="start" sm="3">Linkki</v-col>
-              <v-col align="start">
-                <router-link :to="{ name: 'review', params: { reviewId: review.id }}">
-                  Linkki arvosteluun
-                </router-link>
-              </v-col>
-            </v-row>
+          <!-- Add link to review: -->
+          <v-row>
+            <v-col align="start" sm="3">Linkki</v-col>
+            <v-col align="start">
+              <router-link :to="{ name: 'review', params: { reviewId: review.id }}">
+                Linkki arvosteluun
+              </router-link>
+            </v-col>
+          </v-row>
 
-          </v-expansion-panel-content>
+        </v-expansion-panel-content>
 
-        </v-expansion-panel>
-      </v-expansion-panels>
+      </v-expansion-panel>
+    </v-expansion-panels>
 
   </div>
 </template>
