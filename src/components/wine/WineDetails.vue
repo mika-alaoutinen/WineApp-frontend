@@ -1,6 +1,4 @@
 <template>
-  <div>
-    
   <v-card class="details-card" max-width="60em">
     <v-img
       height="25em"
@@ -50,34 +48,17 @@
       :editing="editing"
       :item="wine">
     </DetailsButtons>
-    
-  </v-card>
 
   <!-- Show reviews of the wine: -->
-  <v-card class="details-card" max-width="60em">
-    <v-card-title class="card-title">Arvostelut</v-card-title>
+  <ReviewDetailsCard :reviews="reviews"/>  
 
-    <div v-for="review in reviewsWithoutId" :key="review.id">
-      <v-row v-for="(value, attribute) in review" :key="attribute">
-
-        <v-col v-if="attribute !== 'wine'" align="start" sm="3">
-          {{ dictionary.translate("review", attribute) }}
-        </v-col>
-
-        <v-col v-if="attribute !== 'wine'" align="start">
-          {{ value }}
-        </v-col>
-      </v-row>
-
-    </div>
   </v-card>
-
-  </div>
 </template>
 
 <script>
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
   import Dictionary from "@/utilities/Dictionary.js";
+  import ReviewDetailsCard from "@/components/review/ReviewDetailsCard.vue";
   import ReviewService from "@/services/ReviewService.js";
   import WineService from "@/services/WineService.js";
 
@@ -85,7 +66,7 @@
   const wineService = new WineService()
 
   export default {
-    components: { DetailsButtons },
+    components: { DetailsButtons, ReviewDetailsCard },
 
     computed: {
       reviewsWithoutId() {
@@ -103,7 +84,7 @@
         editing: false,
         reviews: [], // Reviews of the wine
         wine: {},
-      };
+      }
     },
 
     methods: {
