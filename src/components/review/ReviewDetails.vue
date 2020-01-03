@@ -6,6 +6,8 @@
     </v-img>
     <v-card-title class="card-title">Arvostelun tiedot</v-card-title>
 
+    <ReviewDetailsComponent :review="review" :showWine="true"/>
+    
     <v-row v-for="(value, attribute) in displayReview" :key="attribute">
 
       <!-- Left column for attribute names. -->
@@ -40,6 +42,8 @@
         <div v-if="attribute === 'wine'">{{ value.name }}</div>
         <div v-else>{{ value }}</div>
       </v-col>
+      
+
     </v-row>
 
     <!-- Edit and delete buttons -->
@@ -56,13 +60,14 @@
 
 <script>
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
-  import ReviewService from "@/services/ReviewService.js";
   import Dictionary from "@/utilities/Dictionary.js";
+  import ReviewDetailsComponent from "@/components/review/ReviewDetailsComponent.vue";
+  import ReviewService from "@/services/ReviewService.js";
 
   const reviewService = new ReviewService();
 
   export default {
-    components: { DetailsButtons },
+    components: { DetailsButtons, ReviewDetailsComponent },
 
     computed: {
       displayReview() {
