@@ -42,6 +42,30 @@ class ReviewService extends Service {
             .then(response => response.data)
             .catch(error => console.error(error));
     }
+
+    /**
+     * Calculates all wines' average ratings and adds the rating as
+     * a property to the wine objects.
+     * @param {Array} wines 
+     * @param {Array} reviews 
+     * @returns {Array} wines with property wine.avgRating added.
+     */
+    calculateAverageRatings(wines, reviews) {
+        const winesCopy = wines.map(wine => ({...wine}));
+
+        winesCopy.map(wine => {
+            const ratings = reviews
+                .filter(review => review.wine.id == wine.id)
+                .map(review => review.rating);
+            
+            const avgRating = ratings.reduce(
+                (prev, current) => prev + current, 0) / ratings.length;
+            
+            wine.avgrating = Number.isNaN(avgRating) ? "-" : avgRating;
+        });
+
+        return winesCopy;
+    }
 }
 
 /**

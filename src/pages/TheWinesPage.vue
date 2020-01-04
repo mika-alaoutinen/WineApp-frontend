@@ -12,15 +12,13 @@
 
     <WineTable
       :itemsPerPage=15
-      :search="search"
-      :wines="wineStore.wines">
+      :search="search">
     </WineTable>
     
   </v-card>
 </template>
 
 <script>
-  import WineService from "@/services/WineService.js";
   import WineTable from "@/components/wine/WineTable.vue";
 
   /*
@@ -38,7 +36,6 @@
     data() {
       return {
         search: "",
-        wineStore: new WineService().getStore().data,
       }
     },
 
