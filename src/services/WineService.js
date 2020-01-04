@@ -6,11 +6,19 @@ class WineService extends Service {
         super(WineStore);
     }
 
+    getCountries() {
+        const countries = Array
+            .from(super.getStore().data.wines)
+            .map(wine => wine.country);
+        
+        return [...new Set(countries)];
+    }
+
     /**
      * Gets all unique wine descriptions as Array.
      * @returns {Array} of unique descriptions.
      */
-    getWineDescriptions() {
+    getDescriptions() {
         const descriptions = Array
             .from(super.getStore().data.wines)
             .map(wine => wine.description);

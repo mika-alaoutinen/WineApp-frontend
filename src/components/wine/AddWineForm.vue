@@ -14,8 +14,16 @@
     <v-form @submit.prevent="submitForm">
       <div v-for="(value, attribute) in wine" :key="attribute">
 
+        <!-- Country: -->
+        <v-combobox v-if="attribute === 'country'"
+          :items="allValues[attribute]"
+          :label="dictionary.translate('wine', attribute)"
+          chips
+          v-model="wine[attribute]">
+        </v-combobox>
+
         <!-- Description and food pairings: -->
-        <v-combobox v-if="attribute === 'description' || attribute === 'foodPairings'"
+        <v-combobox v-else-if="attribute === 'description' || attribute === 'foodPairings'"
           :items="allValues[attribute]"
           :label="dictionary.translate('wine', attribute)"
           chips
@@ -83,6 +91,7 @@
 
         // All unique descriptions and food pairings:
         allValues: {
+          country: [],
           description: [],
           foodPairings: [],
         },
@@ -119,7 +128,8 @@
     },
 
     mounted() {
-      this.allValues.description = wineService.getWineDescriptions();
+      this.allValues.country = wineService.getCountries();
+      this.allValues.description = wineService.getDescriptions();
       this.allValues.foodPairings = wineService.getFoodPairings();
     },
 
