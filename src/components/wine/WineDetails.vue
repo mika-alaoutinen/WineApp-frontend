@@ -1,13 +1,11 @@
 <template>
   <v-card class="details-card" max-width="60em">
-    <v-img
-      height="25em"
-      src="https://cdn.pixabay.com/photo/2016/07/26/16/16/wine-1543170_960_720.jpg">
-    </v-img>
+
+    <v-img height="25em" :src="getImage" />
     <v-card-title class="card-title">Viinin tiedot</v-card-title>
 
     <v-row v-for="(value, attribute) in wineWithoutId" :key="attribute">
-      
+
       <!-- Left column for attribute names. -->
       <v-col align="start" class="attribute-text" sm="3">
         {{ dictionary.translate("wine", attribute) }}
@@ -25,7 +23,7 @@
       <v-col v-else align="start">
 
         <div v-if="attribute === 'type'">
-          {{ dictionary.translate("wine", value.toLowerCase()) }}
+          {{ dictionary.translate("wine", value) }}
         </div>
 
         <div v-else-if="attribute === 'description' || attribute === 'foodPairings'">
@@ -50,7 +48,7 @@
     </DetailsButtons>
 
   <!-- Show reviews of the wine: -->
-  <ReviewDetailsCard :reviews="reviews"/>  
+  <ReviewDetailsCard :reviews="reviews"/>
 
   </v-card>
 </template>
@@ -69,12 +67,12 @@
     components: { DetailsButtons, ReviewDetailsCard },
 
     computed: {
-      reviewsWithoutId() {
-        return this.reviews.map(review => reviewService.removeObjectId(review));
-      },
+      getImage() {
+        const invalid = ["", undefined, null];
 
-      wineWithoutId() {
-        return wineService.removeObjectId(this.wine);
+        return invalid.includes(this.wine.type)
+          ? require("@/assets/wine-images/wines.jpg")
+          : require("@/assets/wine-images/" + this.wine.type.toLowerCase() + ".jpg");
       },
     },
 
@@ -83,7 +81,19 @@
         dictionary: Dictionary,
         editing: false,
         reviews: [], // Reviews of the wine
-        wine: {},
+        
+        wine: {
+          name: "",
+          type: "",
+          country: "",
+          price: null,
+          volume: null,
+          description: [],
+          foodPairings: [],
+          url: "",
+        },
+
+        wineWithoutId: {},
       }
     },
 
@@ -100,6 +110,10 @@
         this.editing = false;
       },
 
+      setWineWithoutId() {
+        this.wineWithoutId = wineService.removeObjectId(this.wine);
+      },
+
       validateUrl(url) {
         return url.includes("http") || url.includes("https") ? url : "";
       },
@@ -107,7 +121,8 @@
 
     mounted() {
       wineService.get(this.$props.wineId)
-                 .then(wine => this.wine = wine);
+                 .then(wine => this.wine = wine)
+                 .then(() => this.setWineWithoutId());
       
       reviewService.getByWineId(this.$props.wineId)
                    .then(reviews => this.reviews = reviews);

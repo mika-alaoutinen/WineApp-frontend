@@ -11,14 +11,22 @@
     </v-alert>
 
     <!-- Form begins -->
-    <v-form @submit.prevent="submitForm">
-      <AutocompleteComponent @search:wine="getWine" :label="'Arvosteltava viini'" />
+    <v-form @submit.prevent>
 
+      <!-- Reviewed wine -->
+      <v-autocomplete
+        :items="allWines"
+        label="Arvosteltava viini"
+        v-model="wine">
+      </v-autocomplete>
+
+      <!-- Author -->
       <v-text-field
         :label="dictionary.translate('review', 'author')"
         v-model="review.author">
       </v-text-field>
 
+      <!-- Date -->
       <DatePickerComponent
         @get:date="getDate"
         :calendarType="'date'"
@@ -26,6 +34,7 @@
         :labelText="'Päivämäärä'">
       </DatePickerComponent>
 
+      <!-- Review text -->
       <v-textarea
         :label="dictionary.translate('review', 'reviewText')"
         auto-grow
@@ -33,6 +42,7 @@
         v-model="review.reviewText">
       </v-textarea>
 
+      <!-- Rating -->
       <v-slider
         :label="dictionary.translate('review', 'rating')"
         max="5.0"
@@ -44,29 +54,37 @@
       </v-slider>
 
       <!-- Form submit button to save the new review: -->
-      <button class="button-save">Lisää arvostelu</button>
+      <v-btn @click="submitForm" class="button-save" large text>Lisää arvostelu</v-btn>
     </v-form>
 
   </v-card>
 </template>
 
 <script>
-  import AutocompleteComponent from "@/components/vuetify/AutocompleteComponent.vue";
   import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
   import Dictionary from "@/utilities/Dictionary.js";
   import ReviewService from "@/services/ReviewService.js";
+  import WineService from "@/services/WineService.js";
   
   const reviewService = new ReviewService();
+  const wineService = new WineService();
 
   export default {
-    components: { AutocompleteComponent, DatePickerComponent },
+    components: { DatePickerComponent },
+
+    computed: {
+      allWines() {
+        const wines = wineService.getStore().data.wines;
+        return wines.map(wine => ({ text: wine.name, value: wine }));
+      },
+    },
 
     data() {
       return {
         dictionary: Dictionary,
         showErrorAlert: false,
         showSuccessAlert: false,
-        wineId: 0,
+        wine: {},
 
         review: {
           author: "",
@@ -80,10 +98,8 @@
     methods: {
       getDate(date) { this.review.date = date },
 
-      getWine(wine) { this.wineId = wine.id },
-
       submitForm() {
-        reviewService.post(this.wineId, this.review)
+        reviewService.post(this.wine.id, this.review)
                      .then(wasOk => wasOk ? this.successfulPost() : this.failedPost());
       },
 
@@ -95,13 +111,12 @@
       failedPost() {
         this.showErrorAlert = true;
       },
-    }
+    },
 
   };
 </script>
 
 <style scoped>
-  .align-left { text-align: left }
   .button-save {
     color: green;
     font-weight: bold;

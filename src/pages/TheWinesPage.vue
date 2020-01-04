@@ -12,22 +12,20 @@
 
     <WineTable
       :itemsPerPage=15
-      :search="search">
+      :search="search"
+      :wines="wineStore.wines">
     </WineTable>
     
   </v-card>
 </template>
 
 <script>
+  import WineService from "@/services/WineService.js";
   import WineTable from "@/components/wine/WineTable.vue";
 
-  /*
-  TODO:
+  /* TODO:
     - Bug fix: when wine is deleted in WineDetails, it still shows up in wine table.
       Deleted wine disappears once a different page is loaded.
-    - Show wine type with the background color of the row?
-    - Implement filters: only show red wines, wines with volume = 0.75, etc.
-    - Use v-chip to present active filters?
   */
 
   export default {
@@ -36,6 +34,7 @@
     data() {
       return {
         search: "",
+        wineStore: new WineService().getStore().data,
       }
     },
 

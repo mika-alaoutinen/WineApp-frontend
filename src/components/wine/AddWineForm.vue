@@ -11,25 +11,48 @@
     </v-alert>
     
     <!-- Form begins -->
-    <v-form @submit.prevent="submitForm">
+    <v-form @submit.prevent>
       <div v-for="(value, attribute) in wine" :key="attribute">
 
-        <!-- Add chips for description and food pairing keywords: -->
-        <div v-if="attribute === 'description' || attribute === 'foodPairings'" class="align-left">
-          <v-chip v-for="keyword in wine[attribute]" :key="keyword"
-            @click:close="deleteKeyword(attribute, keyword)"
-            class="keyword-chip"
-            close>
-            {{ keyword }}
-          </v-chip>
-          <v-text-field
-            @keyup.space="checkForKeyword(attribute)"
-            :label="dictionary.translate('wine', attribute)"
-            v-model=" placeholder[attribute]">
-          </v-text-field>
+        <!-- Country: -->
+        <v-combobox v-if="attribute === 'country'"
+          :items="allValues[attribute]"
+          :label="dictionary.translate('wine', attribute)"
+          chips
+          v-model="wine[attribute]">
+        </v-combobox>
+
+        <!-- Description and food pairings: -->
+        <v-combobox v-else-if="attribute === 'description' || attribute === 'foodPairings'"
+          :items="allValues[attribute]"
+          :label="dictionary.translate('wine', attribute)"
+          chips
+          deletable-chips
+          hide-selected
+          multiple
+          v-model="wine[attribute]">
+        </v-combobox>
+
+        <!-- Volume -->
+        <div v-else-if="attribute === 'volume'">
+          <v-row>
+            <v-col>
+              <v-text-field
+                :label="dictionary.translate('wine', attribute)"
+                v-model="wine[attribute]">
+              </v-text-field>
+            </v-col>
+            <v-col>
+              <v-btn-toggle group>
+                <v-btn @click="setVolume(0.75)" text>{{ dictionary.translate("wine", "bottle") }}</v-btn>
+                <v-btn @click="setVolume(1.5)" text>{{ dictionary.translate("wine", "bag") }}</v-btn>
+                <v-btn @click="setVolume(3.0)" text>{{ dictionary.translate("wine", "box") }}</v-btn>
+              </v-btn-toggle>
+            </v-col>
+          </v-row>
         </div>
 
-        <!-- Generate radio buttons for wine types: -->
+        <!-- Radio buttons for wine types: -->
         <v-radio-group v-else-if="attribute === 'type'"
           row
           v-model="wine.type">
@@ -39,15 +62,15 @@
           </v-radio>
         </v-radio-group>
 
-        <!-- Generate text fields for other attributes: -->
+        <!-- Name, country, price and URL: -->
         <v-text-field v-else
           :label="dictionary.translate('wine', attribute)"
+          :type="getTextFieldType(attribute)"
           v-model="wine[attribute]">
         </v-text-field>
       </div>
 
-      <!-- Form submit button to save the new wine: -->
-      <button class="button-save">Lisää viini</button>
+      <v-btn @click="submitForm" class="button-save" large text>Lisää viini</v-btn>
     </v-form>
   </v-card>
 </template>
@@ -64,39 +87,37 @@
         dictionary: Dictionary,
         showErrorAlert: false,
         showSuccessAlert: false,
+        wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
 
-        // Placeholders for inputs that are being entered:
-        placeholder: {
-          description: "",
-          foodPairings: "",
+        // All unique countries, descriptions and food pairings:
+        allValues: {
+          country: [],
+          description: [],
+          foodPairings: [],
         },
         
         wine: {
           name: "",
           type: "",
           country: "",
-          price: "",
+          price: null,
           volume: "",
           description: [],
           foodPairings: [],
           url: ""
         },
-        wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
       }
-    },  
+    },
 
     methods: {
-      checkForKeyword(attribute) {
-        let keyword = this.placeholder[attribute];
-
-        if (keyword.includes(",") || keyword.includes(";")) {
-          this.wine[attribute].push(keyword.trim().replace(",", ""));
-          this.placeholder[attribute] = "";
-        }
+      getTextFieldType(attribute) {
+        return attribute === "price" ? "number" : "string";
       },
 
-      deleteKeyword(attribute, keyword) {
-        this.wine[attribute] = this.wine[attribute].filter(item => item !== keyword);
+      setVolume(volume) { this.wine.volume = volume },
+
+      submit() {
+        console.log(this.wine);
       },
 
       submitForm() {
@@ -112,12 +133,18 @@
       failedPost() {
         this.showErrorAlert = true;
       },
-    }
+    },
+
+    mounted() {
+      this.allValues.country = wineService.getCountries();
+      this.allValues.description = wineService.getDescriptions();
+      this.allValues.foodPairings = wineService.getFoodPairings();
+    },
+
   };
 </script>
 
 <style scoped>
-  .align-left { text-align: left }
   .button-save {
     color: green;
     font-weight: bold;
