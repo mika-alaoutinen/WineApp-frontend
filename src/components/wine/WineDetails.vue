@@ -74,10 +74,6 @@
         const filePath = "@/assets/" + this.wine.type.toLowerCase() + ".jpg";
         return filePath;
       },
-
-      reviewsWithoutId() {
-        return this.reviews.map(review => reviewService.removeObjectId(review));
-      },
     },
 
     data() {
@@ -96,7 +92,7 @@
           foodPairings: [],
           url: "",
         },
-        
+
         wineWithoutId: {},
       }
     },
