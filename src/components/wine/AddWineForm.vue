@@ -11,7 +11,7 @@
     </v-alert>
     
     <!-- Form begins -->
-    <v-form @submit.prevent="submitForm">
+    <v-form @submit.prevent>
       <div v-for="(value, attribute) in wine" :key="attribute">
 
         <!-- Country: -->
@@ -70,8 +70,7 @@
         </v-text-field>
       </div>
 
-      <!-- Form submit button to save the new wine: -->
-      <button class="button-save">Lisää viini</button>
+      <v-btn @click="submitForm" class="button-save" large text>Lisää viini</v-btn>
     </v-form>
   </v-card>
 </template>
@@ -116,6 +115,10 @@
       },
 
       setVolume(volume) { this.wine.volume = volume },
+
+      submit() {
+        console.log(this.wine);
+      },
 
       submitForm() {
         wineService.post(this.wine)

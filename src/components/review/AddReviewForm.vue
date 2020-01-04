@@ -11,7 +11,7 @@
     </v-alert>
 
     <!-- Form begins -->
-    <v-form @submit.prevent="submitForm">
+    <v-form @submit.prevent>
 
       <!-- Reviewed wine -->
       <v-autocomplete
@@ -54,7 +54,7 @@
       </v-slider>
 
       <!-- Form submit button to save the new review: -->
-      <button class="button-save">Lisää arvostelu</button>
+      <v-btn @click="submitForm" class="button-save" large text>Lisää arvostelu</v-btn>
     </v-form>
 
   </v-card>
