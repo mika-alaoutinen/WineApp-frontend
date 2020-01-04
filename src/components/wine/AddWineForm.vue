@@ -18,28 +18,28 @@
         <v-combobox v-if="attribute === 'description' || attribute === 'foodPairings'"
           :items="allValues[attribute]"
           :label="dictionary.translate('wine', attribute)"
-          deletable-chips
           chips
+          deletable-chips
           hide-selected
           multiple
           v-model="wine[attribute]">
         </v-combobox>
 
         <!-- Volume -->
-        <div v-else-if="attribute === 'volume'" class="align-left">
-          {{ dictionary.translate('wine', attribute) }}
+        <div v-else-if="attribute === 'volume'">
           <v-row>
-            <v-col>
-              <v-btn-toggle group>
-                <v-btn text>Pullo</v-btn>
-                <v-btn text>Tonkka</v-btn>
-              </v-btn-toggle>
-            </v-col>
             <v-col>
               <v-text-field
                 :label="dictionary.translate('wine', attribute)"
                 v-model="wine[attribute]">
               </v-text-field>
+            </v-col>
+            <v-col>
+              <v-btn-toggle group>
+                <v-btn @click="setVolume(0.75)" text>{{ dictionary.translate("wine", "bottle") }}</v-btn>
+                <v-btn @click="setVolume(1.5)" text>{{ dictionary.translate("wine", "bag") }}</v-btn>
+                <v-btn @click="setVolume(3.0)" text>{{ dictionary.translate("wine", "box") }}</v-btn>
+              </v-btn-toggle>
             </v-col>
           </v-row>
         </div>
@@ -101,9 +101,7 @@
     },  
 
     methods: {
-      deleteKeyword(attribute, keyword) {
-        this.wine[attribute] = this.wine[attribute].filter(item => item !== keyword);
-      },
+      setVolume(volume) { this.wine.volume = volume },
 
       submitForm() {
         wineService.post(this.wine)
@@ -129,7 +127,6 @@
 </script>
 
 <style scoped>
-  .align-left { text-align: left }
   .button-save {
     color: green;
     font-weight: bold;

@@ -35,7 +35,10 @@ export default {
             white: "Valkoviini",
             other: "Muu viini",
 
-            avgrating: "Arvosana"
+            avgrating: "Arvosana",
+            bag: "Pussi",
+            bottle: "Pullo",
+            box: "Tonkka",
         },
     },
 
