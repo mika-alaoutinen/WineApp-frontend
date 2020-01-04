@@ -1,9 +1,8 @@
 <template>
   <v-card class="details-card" max-width="60em">
 
-    <v-img height="25em" src="@/assets/red.jpg"></v-img>
-    <!-- <v-img height="25em" :src="getImage"></v-img> -->
-
+    <!-- Hack to get image to load from local file system: -->
+    <v-img height="25em" :src="getImage" />
     <v-card-title class="card-title">Viinin tiedot</v-card-title>
 
     <v-row v-for="(value, attribute) in wineWithoutId" :key="attribute">
@@ -26,7 +25,6 @@
 
         <div v-if="attribute === 'type'">
           {{ dictionary.translate("wine", value) }}
-          <!-- {{ value.toLowerCase() }} -->
         </div>
 
         <div v-else-if="attribute === 'description' || attribute === 'foodPairings'">
@@ -51,7 +49,7 @@
     </DetailsButtons>
 
   <!-- Show reviews of the wine: -->
-  <ReviewDetailsCard :reviews="reviews"/>  
+  <ReviewDetailsCard :reviews="reviews"/>
 
   </v-card>
 </template>
@@ -71,8 +69,9 @@
 
     computed: {
       getImage() {
-        const filePath = "@/assets/" + this.wine.type.toLowerCase() + ".jpg";
-        return filePath;
+        return this.wine.type === ""
+          ? require("@/assets/white.jpg")
+          : require("@/assets/" + this.wine.type.toLowerCase() + ".jpg");
       },
     },
 
@@ -122,7 +121,7 @@
     mounted() {
       wineService.get(this.$props.wineId)
                  .then(wine => this.wine = wine)
-                 .finally(() => this.setWineWithoutId());
+                 .then(() => this.setWineWithoutId());
       
       reviewService.getByWineId(this.$props.wineId)
                    .then(reviews => this.reviews = reviews);
