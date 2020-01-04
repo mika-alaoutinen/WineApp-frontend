@@ -15,7 +15,6 @@
     </template>
 
     <v-date-picker
-      @change="emitDate"
       :disabled=!enabled
       :type="type"
       no-title
@@ -34,12 +33,6 @@
       }
     },
 
-    methods: {
-      emitDate() {
-        this.$emit("get:date", this.date);
-      }
-    },
-
     mounted() {
       // Set the calendar type, default option is "month":
       this.type = this.$props.calendarType === undefined
@@ -49,13 +42,19 @@
       // Set date string format based on calendar type:
       this.date = this.type === "month"
         ? this.date.toISOString().substr(0, 7)
-        : this.date.getFullYear()+'-'+(this.date.getMonth()+1)+'-'+this.date.getDate();
+        : this.date.toISOString().split('T')[0]
     },
 
     props: {
       calendarType: { type: String, required: false },
       enabled: { type: Boolean, required: true },
       labelText: { type: String, required: true },
-    }
+    },
+
+    watch: {
+      date() {
+        this.$emit("get:date", this.date);
+      }
+    },
   };
 </script>
