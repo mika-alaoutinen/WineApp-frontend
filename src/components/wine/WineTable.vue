@@ -2,7 +2,7 @@
   <v-data-table
     @click:row="openWineDetails"
     :headers="translateHeaders"
-    :items="winesWithRatings"
+    :items="getWines"
     :items-per-page="getItemsPerPage"
     :search="$props.search"
     loading-text="Haetaan viinejä..."
@@ -19,15 +19,18 @@
 <script>
   import Dictionary from "@/utilities/Dictionary.js";
   import ReviewService from "@/services/ReviewService.js";
-  import WineService from "@/services/WineService.js";
 
   const reviewService = new ReviewService();
-  const wineService = new WineService();
 
   export default {
     computed: {
       getItemsPerPage() {
         return this.$props.itemsPerPage === undefined ? 10 : this.$props.itemsPerPage;
+      },
+
+      getWines() {
+        const reviews = reviewService.getStore().data.reviews;
+        return reviewService.calculateAverageRatings(this.$props.wines, reviews);
       },
 
       translateHeaders() {
@@ -43,7 +46,6 @@
     data() {
       return {
         dictionary: Dictionary,
-        winesWithRatings: [],
       };
     },
 
@@ -53,17 +55,10 @@
       }
     },
 
-    mounted() {
-      // Calculate average ratings for all wines:
-      const reviews = reviewService.getStore().data.reviews;
-      const wines = wineService.getStore().data.wines;
-
-      this.winesWithRatings = reviewService.calculateAverageRatings(wines, reviews);
-    },
-
     props: {
       itemsPerPage: { type: Number, required: false },
       search: { type: String, required: false },
+      wines: { type: Array, required: true },
     }
 
 };
