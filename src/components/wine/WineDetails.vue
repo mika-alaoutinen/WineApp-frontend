@@ -1,7 +1,6 @@
 <template>
   <v-card class="details-card" max-width="60em">
 
-    <!-- Hack to get image to load from local file system: -->
     <v-img height="25em" :src="getImage" />
     <v-card-title class="card-title">Viinin tiedot</v-card-title>
 
@@ -69,9 +68,11 @@
 
     computed: {
       getImage() {
-        return this.wine.type === ""
-          ? require("@/assets/white.jpg")
-          : require("@/assets/" + this.wine.type.toLowerCase() + ".jpg");
+        const invalid = ["", undefined, null];
+
+        return invalid.includes(this.wine.type)
+          ? require("@/assets/wine-images/white.jpg")
+          : require("@/assets/wine-images/" + this.wine.type.toLowerCase() + ".jpg");
       },
     },
 
