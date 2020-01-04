@@ -59,7 +59,6 @@
       const wines = wineService.getStore().data.wines;
 
       this.winesWithRatings = reviewService.calculateAverageRatings(wines, reviews);
-      console.log(this.winesWithRatings);
     },
 
     props: {

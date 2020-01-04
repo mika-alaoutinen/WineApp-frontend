@@ -101,7 +101,6 @@
 </script>
 
 <style scoped>
-  .align-left { text-align: left }
   .button-save {
     color: green;
     font-weight: bold;
