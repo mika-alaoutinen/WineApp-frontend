@@ -90,7 +90,7 @@
         showSuccessAlert: false,
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
 
-        // All unique descriptions and food pairings:
+        // All unique countries, descriptions and food pairings:
         allValues: {
           country: [],
           description: [],
@@ -101,14 +101,14 @@
           name: "",
           type: "",
           country: "",
-          price: "",
+          price: null,
           volume: "",
           description: [],
           foodPairings: [],
           url: ""
         },
       }
-    },  
+    },
 
     methods: {
       getTextFieldType(attribute) {

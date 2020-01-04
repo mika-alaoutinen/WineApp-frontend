@@ -22,11 +22,12 @@ class ReviewService extends Service {
 
     /**
      * Sends a new review to backend for persisting.
+     * @param {Number} wineId.
      * @param {Object} review.
      */
-    async post(wineId, item) {
+    async post(wineId, review) {
         return axios
-            .post(UrlBuilder.review.paths.base + wineId, item)
+            .post(UrlBuilder.review.paths.base + wineId, review)
             .then(response => this.store.add(response.data))
             .catch(error => console.error(error));
     }
