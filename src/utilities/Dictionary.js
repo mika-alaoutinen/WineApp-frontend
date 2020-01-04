@@ -49,10 +49,18 @@ export default {
      * @returns {String} translated word or blank if translation is not found.
      */
     translate(object, word) {
-        const translation = this.data[object][word.toLowerCase()];
+        const faultyInputs = [null, undefined, ""];
 
-        return translation === undefined
-            ? console.error("Could not find translation for '" + object + "." + word + "'.")
-            : translation;
+        if (faultyInputs.includes(object)) {
+            console.error("Faulty object given to Dictionary.translate: " + object);
+        } else if (faultyInputs.includes(word)) {
+            console.error("Faulty word given to Dictionary.translate: " + word);
+        } else {
+            const translation = this.data[object][word.toLowerCase()];
+
+            return translation === undefined
+                ? console.error("Could not find translation for '" + object + "." + word + "'.")
+                : translation;
+        }
     }
 };
