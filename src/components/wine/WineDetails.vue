@@ -71,7 +71,7 @@
         const invalid = ["", undefined, null];
 
         return invalid.includes(this.wine.type)
-          ? require("@/assets/wine-images/white.jpg")
+          ? require("@/assets/wine-images/wines.jpg")
           : require("@/assets/wine-images/" + this.wine.type.toLowerCase() + ".jpg");
       },
     },
