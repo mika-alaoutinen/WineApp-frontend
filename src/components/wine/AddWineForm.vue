@@ -14,22 +14,37 @@
     <v-form @submit.prevent="submitForm">
       <div v-for="(value, attribute) in wine" :key="attribute">
 
-        <!-- Add chips for description and food pairing keywords: -->
-        <div v-if="attribute === 'description' || attribute === 'foodPairings'" class="align-left">
-          <v-chip v-for="keyword in wine[attribute]" :key="keyword"
-            @click:close="deleteKeyword(attribute, keyword)"
-            class="keyword-chip"
-            close>
-            {{ keyword }}
-          </v-chip>
-          <v-text-field
-            @keyup.space="checkForKeyword(attribute)"
-            :label="dictionary.translate('wine', attribute)"
-            v-model=" placeholder[attribute]">
-          </v-text-field>
+        <!-- Description and food pairings: -->
+        <v-combobox v-if="attribute === 'description' || attribute === 'foodPairings'"
+          :items="allValues[attribute]"
+          :label="dictionary.translate('wine', attribute)"
+          deletable-chips
+          chips
+          hide-selected
+          multiple
+          v-model="wine[attribute]">
+        </v-combobox>
+
+        <!-- Volume -->
+        <div v-else-if="attribute === 'volume'" class="align-left">
+          {{ dictionary.translate('wine', attribute) }}
+          <v-row>
+            <v-col>
+              <v-btn-toggle group>
+                <v-btn text>Pullo</v-btn>
+                <v-btn text>Tonkka</v-btn>
+              </v-btn-toggle>
+            </v-col>
+            <v-col>
+              <v-text-field
+                :label="dictionary.translate('wine', attribute)"
+                v-model="wine[attribute]">
+              </v-text-field>
+            </v-col>
+          </v-row>
         </div>
 
-        <!-- Generate radio buttons for wine types: -->
+        <!-- Radio buttons for wine types: -->
         <v-radio-group v-else-if="attribute === 'type'"
           row
           v-model="wine.type">
@@ -39,7 +54,7 @@
           </v-radio>
         </v-radio-group>
 
-        <!-- Generate text fields for other attributes: -->
+        <!-- Name, country, price and URL: -->
         <v-text-field v-else
           :label="dictionary.translate('wine', attribute)"
           v-model="wine[attribute]">
@@ -64,11 +79,12 @@
         dictionary: Dictionary,
         showErrorAlert: false,
         showSuccessAlert: false,
+        wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
 
-        // Placeholders for inputs that are being entered:
-        placeholder: {
-          description: "",
-          foodPairings: "",
+        // All unique descriptions and food pairings:
+        allValues: {
+          description: [],
+          foodPairings: [],
         },
         
         wine: {
@@ -81,20 +97,10 @@
           foodPairings: [],
           url: ""
         },
-        wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
       }
     },  
 
     methods: {
-      checkForKeyword(attribute) {
-        let keyword = this.placeholder[attribute];
-
-        if (keyword.includes(",") || keyword.includes(";")) {
-          this.wine[attribute].push(keyword.trim().replace(",", ""));
-          this.placeholder[attribute] = "";
-        }
-      },
-
       deleteKeyword(attribute, keyword) {
         this.wine[attribute] = this.wine[attribute].filter(item => item !== keyword);
       },
@@ -112,7 +118,13 @@
       failedPost() {
         this.showErrorAlert = true;
       },
-    }
+    },
+
+    mounted() {
+      this.allValues.description = wineService.getWineDescriptions();
+      this.allValues.foodPairings = wineService.getFoodPairings();
+    },
+
   };
 </script>
 
