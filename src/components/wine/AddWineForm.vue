@@ -65,6 +65,7 @@
         <!-- Name, country, price and URL: -->
         <v-text-field v-else
           :label="dictionary.translate('wine', attribute)"
+          :type="getTextFieldType(attribute)"
           v-model="wine[attribute]">
         </v-text-field>
       </div>
@@ -110,6 +111,10 @@
     },  
 
     methods: {
+      getTextFieldType(attribute) {
+        return attribute === "price" ? "number" : "string";
+      },
+
       setVolume(volume) { this.wine.volume = volume },
 
       submitForm() {
