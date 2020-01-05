@@ -9,7 +9,7 @@
       
       <v-tab>Hae arvosteluja</v-tab>
       <v-tab-item>
-        <ReviewSearchForm/>
+        <ReviewSearch/>
       </v-tab-item>
 
     </v-tabs>
@@ -17,10 +17,10 @@
 </template>
 
 <script>
-  import ReviewSearchForm from "@/components/review/ReviewSearchForm.vue";
+  import ReviewSearch from "@/components/review/ReviewSearch.vue";
   import WineSearch from "@/components/wine/WineSearch.vue";
 
   export default {
-    components: { ReviewSearchForm, WineSearch },
+    components: { ReviewSearch, WineSearch },
   };
 </script>
