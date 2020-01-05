@@ -15,10 +15,13 @@
           <v-btn @click="quickSearch('newest')" small>Uusimmat</v-btn>
         </v-btn-toggle>
 
-        <!-- TODO: Change to autocomplete -->
         <!-- Search by author: -->
         <v-subheader class="subheader">Hae arvostelijan nimen perusteella</v-subheader>
-        <v-text-field label="Arvostelijan nimi" v-model="searchParams.author"/>
+        <v-autocomplete
+          :items="allAuthors"
+          label="Arvostelijan nimi"
+          v-model="searchParams.author">
+        </v-autocomplete>
 
         <!-- Search by date range: -->
         <v-subheader class="subheader">Hae arvostelun päivämäärän perusteella</v-subheader>
@@ -59,6 +62,13 @@
 
   export default {
     components: { MonthPicker, RangeSlider, ReviewTable, },
+
+    computed: {
+      allAuthors() {
+        const reviews = reviewService.getStore().data.reviews;
+        return reviews.map(review => review.author);
+      }
+    },
 
     data() {
       return {

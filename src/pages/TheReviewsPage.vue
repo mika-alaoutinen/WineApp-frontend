@@ -3,7 +3,6 @@
     <v-card-title class="card-title">Uusimmat arvostelut</v-card-title>
 
     <ReviewTable :reviews="reviewStore.reviews"/>
-
   </v-card>
 </template>
 
