@@ -109,7 +109,6 @@
 
         wineService.search(this.searchParams)
                    .then(wines => this.foundWines = wines)
-                  //  .then(wines => wineService.saveSearchResults(wines))
 
         this.searchDone = true;
         wineService.resetObject(this.searchParams);
