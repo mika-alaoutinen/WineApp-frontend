@@ -24,8 +24,10 @@
 
         <!-- Description and food pairings: -->
         <v-combobox v-else-if="attribute === 'description' || attribute === 'foodPairings'"
+          @change="searchInput[attribute]=''"
           :items="allValues[attribute]"
           :label="dictionary.translate('wine', attribute)"
+          :search-input.sync="searchInput[attribute]"
           chips
           deletable-chips
           hide-selected
@@ -94,6 +96,12 @@
           country: [],
           description: [],
           foodPairings: [],
+        },
+
+        // Contains the inputs for combobox:
+        searchInput: {
+          description: "",
+          foodPairings: "",
         },
         
         wine: {
