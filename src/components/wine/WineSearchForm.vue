@@ -1,52 +1,67 @@
 <template>
-  <v-card class="full-page-card" max-width="60%">
-    <v-card-title class="card-title">Hae viinejä</v-card-title>
+  <div>
 
-    <v-form @submit.prevent="submitForm">
+    <!-- Wine search form -->    
+    <v-card class="full-page-card" id="search-form" max-width="60%">
+      <v-card-title class="card-title">Hae viinejä</v-card-title>
 
-      <!-- Search wines by name or country -->
-      <v-subheader class="subheader">Hae nimen tai maan perusteella</v-subheader>
-      <v-text-field label="Nimi" v-model="searchParams.name"/>
-      <v-text-field label="Maa" v-model="searchParams.country"/>
+      <v-form @submit.prevent="submitForm">
 
-      <!-- Search wines by type. -->
-      <v-subheader class="subheader">Hae viinin tyypin perusteella</v-subheader>
-      <v-radio-group row v-model="searchParams.type">
-        <v-radio v-for="type in wineTypes" :key="type"
-          :label="dictionary.translate('wine', type)"
-          :value="type.toUpperCase()">
-        </v-radio>
-      </v-radio-group>
+        <!-- Search wines by name or country -->
+        <v-subheader class="subheader">Hae nimen tai maan perusteella</v-subheader>
+        <v-text-field label="Nimi" v-model="searchParams.name"/>
+        <v-text-field label="Maa" v-model="searchParams.country"/>
 
-      <!-- Search wines by volumes -->
-      <v-subheader class="subheader">Hae määrän perusteella (litraa)</v-subheader>
-      <v-row>
-        <v-col v-for="volume in wineVolumes" :key="volume">
-        <v-checkbox
-          :label="volume.toString()"
-          :value="volume"
-          v-model="searchParams.volumes">
-        </v-checkbox>
-        </v-col>
-      </v-row>
+        <!-- Search wines by type. -->
+        <v-subheader class="subheader">Hae viinin tyypin perusteella</v-subheader>
+        <v-radio-group row v-model="searchParams.type">
+          <v-radio v-for="type in wineTypes" :key="type"
+            :label="dictionary.translate('wine', type)"
+            :value="type.toUpperCase()">
+          </v-radio>
+        </v-radio-group>
 
-      <!-- Search wines by price range -->
-      <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
-      <RangeSlider
-        @get:range="getRange"
-        :defaultRange="price.defaultRange"
-        :switchLabel="'Hintahaku päällä'">
-      </RangeSlider>
+        <!-- Search wines by volumes -->
+        <v-subheader class="subheader">Hae määrän perusteella (litraa)</v-subheader>
+        <v-row>
+          <v-col v-for="volume in wineVolumes" :key="volume">
+          <v-checkbox
+            :label="volume.toString()"
+            :value="volume"
+            v-model="searchParams.volumes">
+          </v-checkbox>
+          </v-col>
+        </v-row>
 
-      <button class="button-save">Hae viinejä</button>
-    </v-form>
-  </v-card>
+        <!-- Search wines by price range -->
+        <v-subheader class="subheader">Hae hinnan perusteella (€)</v-subheader>
+        <RangeSlider
+          @get:range="getRange"
+          :defaultRange="price.defaultRange"
+          :switchLabel="'Hintahaku päällä'">
+        </RangeSlider>
+
+        <button class="button-save">Hae viinejä</button>
+      </v-form>
+    </v-card>
+
+    <br/>
+
+    <!-- Search results table -->
+    <v-card class="full-page-card" max-width="60%" v-show="searchDone">
+      <v-card-title class="card-title">Haun tulokset</v-card-title>
+
+      <WineTable :wines="foundWines"/>
+    </v-card>
+
+  </div>
 </template>
 
 <script>
   import Dictionary from "@/utilities/Dictionary.js";
   import RangeSlider from "@/components/vuetify/RangeSlider.vue";
   import WineService from "@/services/WineService.js";
+  import WineTable from "@/components/wine/WineTable.vue";
   
   const wineService = new WineService();
 
@@ -57,7 +72,7 @@
   */
 
   export default {
-    components: { RangeSlider },
+    components: { RangeSlider, WineTable },
 
     data() {
       return {
@@ -79,6 +94,10 @@
           priceRange: [],
           volumes: [],
         },
+
+        // Search results:
+        foundWines: [],
+        searchDone: false,
       }
     },
 
@@ -89,8 +108,10 @@
         this.searchParams.priceRange = this.price.range;
 
         wineService.search(this.searchParams)
-                   .then(wines => wineService.saveSearchResults(wines))
+                   .then(wines => this.foundWines = wines)
+                  //  .then(wines => wineService.saveSearchResults(wines))
 
+        this.searchDone = true;
         wineService.resetObject(this.searchParams);
       },
 
@@ -105,7 +126,5 @@
     padding: 1em;
   }
   .card-title { padding-left: 0 }
-  .slider-value-field { width: 60px }
-  .slider-value-field >>> input { text-align: center }
   .subheader { padding-left: 0 }
 </style>
