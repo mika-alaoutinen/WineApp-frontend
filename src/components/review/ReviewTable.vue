@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="translateHeaders"
-    :items="reviews"
+    :items="$props.reviews"
     :items-per-page="getItemsPerPage"
     :search="$props.search"
     loading-text="Haetaan arvosteluja..."
@@ -35,9 +35,6 @@
 
 <script>
   import Dictionary from "@/utilities/Dictionary.js";
-  import ReviewService from "@/services/ReviewService.js";
-
-  const reviewService = new ReviewService();
 
   export default {
     computed: {
@@ -57,7 +54,6 @@
     data() {
       return {
         dictionary: Dictionary,
-        reviews: [],
       }
     },
 
@@ -72,13 +68,9 @@
       },
     },
 
-    mounted() {
-      reviewService.quickSearch("newest")
-                   .then(newestReviews => this.reviews = newestReviews);
-    },
-
     props: {
       itemsPerPage: { type: Number, required: false },
+      reviews: { type: Array, required: true },
       search: { type: String, required: false },
     },
 

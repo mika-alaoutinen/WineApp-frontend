@@ -9,16 +9,6 @@ class Service {
 
     getStore() { return this.store }
 
-    /**
-     * Gets a count of items in the database.
-     */
-    async getCount() {
-        return axios
-            .get(UrlBuilder[this.storeType].paths.count)
-            .then(response => response.data)
-            .catch(error => console.error(error));
-    }
-
 // CRUD operations:
     /**
      * Retrieves a single wine from the back-end based on ID.
@@ -74,7 +64,17 @@ class Service {
              .catch(error => console.error(error));
     }
 
-// Search operations:
+// Other operations:
+    /**
+     * Gets a count of items in the database.
+     */
+    async getCount() {
+        return axios
+            .get(UrlBuilder[this.storeType].paths.count)
+            .then(response => response.data)
+            .catch(error => console.error(error));
+    }
+
     /**
      * Sends a search request to back-end.
      * @param {Object} searchParams
@@ -85,14 +85,6 @@ class Service {
             .get(UrlBuilder[this.storeType].getSearchUrl(searchParams))
             .then(response => response.data)
             .catch(error => console.error(error));
-    }
-
-    /**
-     * Saves search results into the store.
-     * @param {Array} search results.
-     */
-    saveSearchResults(results) {
-        this.store.addAllFound(results);
     }
 
 // Modifying objects:

@@ -4,16 +4,12 @@
       
       <v-tab>Hae viinejä</v-tab>
       <v-tab-item>
-        <WineSearchForm/>
-        <br/>
-        <WineSearchResults/>
+        <WineSearch/>
       </v-tab-item>
       
       <v-tab>Hae arvosteluja</v-tab>
       <v-tab-item>
-        <ReviewSearchForm/>
-        <br/>
-        <ReviewSearchResults/>
+        <ReviewSearch/>
       </v-tab-item>
 
     </v-tabs>
@@ -21,17 +17,10 @@
 </template>
 
 <script>
-  import ReviewSearchForm from "@/components/review/ReviewSearchForm.vue";
-  import ReviewSearchResults from "@/components/review/ReviewSearchResults.vue";
-  import WineSearchForm from "@/components/wine/WineSearchForm.vue";
-  import WineSearchResults from "@/components/wine/WineSearchResults.vue";
+  import ReviewSearch from "@/components/review/ReviewSearch.vue";
+  import WineSearch from "@/components/wine/WineSearch.vue";
 
   export default {
-    components: {
-      ReviewSearchForm,
-      ReviewSearchResults,
-      WineSearchForm,
-      WineSearchResults,
-    },
+    components: { ReviewSearch, WineSearch },
   };
 </script>

@@ -2,22 +2,12 @@ const ReviewStore = {
     data: {
         reviews: [],
 
-        searched: {
-            searchDone: false,
-            reviews: [],
-        },
-
         // Used in Service.js to determine the store type.
         storeType: "review",
     },
 
     addAll(reviewArray) {
         this.data.reviews = reviewArray;
-    },
-
-    addAllFound(reviewArray) {
-        this.data.searched.reviews = reviewArray;
-        this.data.searched.searchDone = true;
     },
 
     add(newReview) {
