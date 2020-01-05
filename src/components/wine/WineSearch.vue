@@ -109,8 +109,11 @@
 
         wineService.search(this.searchParams)
                    .then(wines => this.foundWines = wines)
+                   .finally(() => this.setSearchDone(true));
+      },
 
-        this.searchDone = true;
+      setSearchDone(boolean) {
+        this.searchDone = boolean;
         wineService.resetObject(this.searchParams);
       },
 
