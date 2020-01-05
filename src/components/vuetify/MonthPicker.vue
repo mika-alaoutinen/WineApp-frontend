@@ -38,8 +38,8 @@ import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
 
     data() {
       return {
-        range: [],
         enabled: false,
+        range: [],
       }
     },
 
@@ -47,7 +47,7 @@ import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
       flipSwitch() {
         this.enabled
           ? this.$emit("get:range", this.range)
-          : this.$emit("get:range", this.defaultRange);
+          : this.$emit("get:range","");
       },
 
       getStartDate(date) { this.range[0] = date },
