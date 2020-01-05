@@ -5,12 +5,23 @@
     <v-card class="full-page-card" id="search-form" max-width="60%">
       <v-card-title class="card-title">Hae viinejä</v-card-title>
 
-      <v-form @submit.prevent="submitForm">
+      <v-form @submit.prevent>
 
         <!-- Search wines by name or country -->
         <v-subheader class="subheader">Hae nimen tai maan perusteella</v-subheader>
         <v-text-field label="Nimi" v-model="searchParams.name"/>
-        <v-text-field label="Maa" v-model="searchParams.country"/>
+        <!-- <v-text-field label="Maa" v-model="searchParams.country"/> -->
+        <v-autocomplete
+          @change="searchInput=''"
+          :items="allCountries"
+          :search-input.sync="searchInput"
+          chips
+          deletable-chips
+          hide-selected
+          label="Maa (yksi tai useampi)"
+          multiple
+          v-model="searchParams.countries">
+        </v-autocomplete>
 
         <!-- Search wines by type. -->
         <v-subheader class="subheader">Hae viinin tyypin perusteella</v-subheader>
@@ -41,7 +52,7 @@
           :switchLabel="'Hintahaku päällä'">
         </RangeSlider>
 
-        <button class="button-save">Hae viinejä</button>
+        <v-btn @click="submitForm" class="button-save" large text>Hae viinejä</v-btn>
       </v-form>
     </v-card>
 
@@ -74,11 +85,21 @@
   export default {
     components: { RangeSlider, WineTable },
 
+    computed: {
+      allCountries() {
+        const wines = wineService.getStore().data.wines;
+        return wines.map(wine => wine.country);
+      }
+    },
+    
     data() {
       return {
         dictionary: Dictionary,
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
         wineVolumes: [ 0.75, 1, 1.5, 2, 3 ],
+        
+        // Contains the input for autocomplete:
+        searchInput: "",
 
         // Placeholders for price search:
         price: {
@@ -90,7 +111,8 @@
         searchParams: {
           name: "",
           type: "",
-          country: "",
+          country: "", // delete
+          countries: [],
           priceRange: [],
           volumes: [],
         },
@@ -125,7 +147,6 @@
   .button-save {
     color: green;
     font-weight: bold;
-    padding: 1em;
   }
   .card-title { padding-left: 0 }
   .subheader { padding-left: 0 }
