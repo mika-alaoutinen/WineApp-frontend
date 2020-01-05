@@ -5,7 +5,7 @@
     <v-card class="full-page-card" max-width="60%">
       <v-card-title class="card-title">Hae arvosteluja</v-card-title>
 
-      <v-form @submit.prevent="submitForm">
+      <v-form @submit.prevent>
 
         <!-- Review quick search: -->  
         <v-subheader class="subheader">Pikahaut</v-subheader>
@@ -36,7 +36,7 @@
           :switchLabel="'Arvosanahaku päällä'">
         </RangeSlider>
 
-        <button class="button-save">Hae arvosteluja</button>
+        <v-btn @click="submitForm" class="button-save" large text>Hae arvosteluja</v-btn>
       </v-form>
     </v-card>
 
@@ -130,7 +130,6 @@
   .button-save {
     color: green;
     font-weight: bold;
-    padding: 1em;
   }
   .card-title { padding-left: 0 }
   .subheader { padding-left: 0 }
