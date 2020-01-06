@@ -6,7 +6,6 @@ import WineStore from "@/stores/WineStore.js";
 class WineService extends Service {
     constructor() {
         super(WineStore);
-        this.storeType = "wine"
     }
 
     /**
