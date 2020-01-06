@@ -7,6 +7,9 @@ export default {
         paths: {
             base: winePath,
             count: winePath + "count",
+            countries: winePath + "countries",
+            descriptions: winePath + "descriptions",
+            foodPairings: winePath + "food-pairings",
             search: winePath + "search?",
         },
 
