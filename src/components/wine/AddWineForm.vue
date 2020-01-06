@@ -15,13 +15,18 @@
       <div v-for="(value, attribute) in wine" :key="attribute">
 
         <!-- Country: -->
-        <v-combobox v-if="attribute === 'country'"
-          :items="allValues[attribute]"
-          :label="dictionary.translate('wine', attribute)"
-          chips
-          deletable-chips
-          v-model="wine[attribute]">
-        </v-combobox>
+        <div v-if="attribute === 'country'">
+          <validation-provider rules="required" v-slot="{ errors }">
+            <v-combobox 
+              :items="allValues[attribute]"
+              :label="dictionary.translate('wine', attribute)"
+              chips
+              deletable-chips
+              v-model="wine[attribute]">
+              <span>{{ errors[0] }}</span>
+            </v-combobox>
+          </validation-provider>
+        </div>
 
         <!-- Description and food pairings: -->
         <v-combobox v-else-if="attribute === 'description' || attribute === 'foodPairings'"
@@ -81,10 +86,13 @@
 <script>
   import Dictionary from "@/utilities/Dictionary.js";
   import WineService from "@/services/WineService.js";
+  import { ValidationProvider } from 'vee-validate';
 
   const wineService = new WineService();
 
   export default {
+    components: { ValidationProvider },
+
     data() {
       return {
         dictionary: Dictionary,
@@ -125,22 +133,14 @@
 
       setVolume(volume) { this.wine.volume = volume },
 
-      submit() {
-        console.log(this.wine);
-      },
-
       submitForm() {
         wineService.post(this.wine)
-                   .then(wasOk => wasOk ? this.successfulPost() : this.failedPost());
+                   .then(wasOk => wasOk ? this.successfulPost() : this.showErrorAlert = true);
       },
 
       successfulPost() {
         wineService.resetObject(this.wine);
         this.showSuccessAlert = true;
-      },
-
-      failedPost() {
-        this.showErrorAlert = true;
       },
     },
 
