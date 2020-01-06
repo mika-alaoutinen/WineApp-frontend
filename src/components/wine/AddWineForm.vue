@@ -16,15 +16,15 @@
 
         <!-- Country: -->
         <div v-if="attribute === 'country'">
-          <validation-provider rules="required" v-slot="{ errors }">
+          <validation-provider name="wine.country" rules="required" v-slot="{ errors }">
             <v-combobox 
               :items="allValues[attribute]"
               :label="dictionary.translate('wine', attribute)"
               chips
               deletable-chips
               v-model="wine[attribute]">
-              <span>{{ errors[0] }}</span>
-            </v-combobox>
+              </v-combobox>
+            <span>{{ errors[0] }}</span>
           </validation-provider>
         </div>
 
@@ -84,6 +84,7 @@
 </template>
 
 <script>
+  import "@/utilities/Validation.js";
   import Dictionary from "@/utilities/Dictionary.js";
   import WineService from "@/services/WineService.js";
   import { ValidationProvider } from 'vee-validate';
@@ -92,7 +93,7 @@
 
   export default {
     components: { ValidationProvider },
-
+    
     data() {
       return {
         dictionary: Dictionary,
@@ -134,8 +135,9 @@
       setVolume(volume) { this.wine.volume = volume },
 
       submitForm() {
-        wineService.post(this.wine)
-                   .then(wasOk => wasOk ? this.successfulPost() : this.showErrorAlert = true);
+        console.log("lähetä");
+        // wineService.post(this.wine)
+        //            .then(wasOk => wasOk ? this.successfulPost() : this.showErrorAlert = true);
       },
 
       successfulPost() {
