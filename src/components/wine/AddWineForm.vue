@@ -144,9 +144,14 @@
     },
 
     mounted() {
-      this.allValues.country = wineService.getCountries();
-      this.allValues.description = wineService.getDescriptions();
-      this.allValues.foodPairings = wineService.getFoodPairings();
+      wineService.getCountries()
+        .then(countries => this.allValues.country = countries);
+
+      wineService.getDescriptions()
+        .then(descriptions => this.allValues.description = descriptions);
+
+      wineService.getFoodPairings()
+        .then(foodPairings => this.allValues.foodPairings = foodPairings);
     },
 
   };

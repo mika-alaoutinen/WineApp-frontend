@@ -1,54 +1,48 @@
+import axios from "axios";
 import Service from "./Service.js";
+import UrlBuilder from "@/utilities/UrlBuilder.js";
 import WineStore from "@/stores/WineStore.js";
 
 class WineService extends Service {
     constructor() {
         super(WineStore);
+        this.storeType = "wine"
     }
 
+    /**
+     * Gets all unique countries as Array.
+     * @returns {Promise} containing array of unique countries.
+     */
     getCountries() {
-        const countries = Array
-            .from(super.getStore().data.wines)
-            .map(wine => wine.country);
-        
-        return [...new Set(countries)];
+        return getDistinctItems("countries");
     }
 
     /**
      * Gets all unique wine descriptions as Array.
-     * @returns {Array} of unique descriptions.
+     * @returns {Promise} containing array of unique descriptions.
      */
     getDescriptions() {
-        const descriptions = Array
-            .from(super.getStore().data.wines)
-            .map(wine => wine.description);
-        
-        return flattenAndGetUnique(descriptions);
+        return getDistinctItems("descriptions");
     }
 
     /**
      * Gets all unique food pairings as Array.
-     * @returns {Array} of unique food pairings.
+     * @returns {Promise} containing array of unique food pairings.
      */
     getFoodPairings() {
-        const foodPairings = Array
-            .from(super.getStore().data.wines)
-            .map(wine => wine.foodPairings);
-        
-        return flattenAndGetUnique(foodPairings);
+        return getDistinctItems("foodPairings");
     }
 }
 
 /**
- * Filters original nested array for unique values.
- * Returns the unique values in a flattened array.
- * @param {Array} nestedArray.
- * @returns {Array} uniqueItems.
+ * Requests a list of unique items from the back-end.
+ * @param {String} item to request.
  */
-function flattenAndGetUnique(nestedArray) {
-    const merged = [].concat.apply([], nestedArray);
-    const unique = [...new Set(merged)];
-    return unique;
+async function getDistinctItems (item) {
+    return axios
+        .get(UrlBuilder.wine.paths[item])
+        .then(response => response.data)
+        .catch(error => console.error(error));
 }
 
 export default WineService;
