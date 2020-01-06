@@ -10,7 +10,6 @@
         <!-- Search wines by name or country -->
         <v-subheader class="subheader">Hae nimen tai maan perusteella</v-subheader>
         <v-text-field label="Nimi" v-model="searchParams.name"/>
-        <!-- <v-text-field label="Maa" v-model="searchParams.country"/> -->
         <v-autocomplete
           @change="searchInput=''"
           :items="allCountries"
@@ -23,7 +22,7 @@
           v-model="searchParams.countries">
         </v-autocomplete>
 
-        <!-- Search wines by type. -->
+        <!-- Search wines by type -->
         <v-subheader class="subheader">Hae viinin tyypin perusteella</v-subheader>
         <v-radio-group row v-model="searchParams.type">
           <v-radio v-for="type in wineTypes" :key="type"
@@ -75,12 +74,6 @@
   import WineTable from "@/components/wine/WineTable.vue";
   
   const wineService = new WineService();
-
-  /*
-  TODO:
-    - Validate form so that at least one search criteria is given.
-    - Disable search button if no search criteria is given.
-  */
 
   export default {
     components: { RangeSlider, WineTable },

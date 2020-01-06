@@ -161,7 +161,6 @@
   .button-save {
     color: green;
     font-weight: bold;
-    padding: 1em;
   }
   .card-title { padding-left: 0 }
 </style>
