@@ -11,7 +11,7 @@ class WineService extends Service {
 
     /**
      * Gets all unique countries as Array.
-     * @returns {Promise} containing array of unique countries.
+     * @returns {Promise} containing Array of unique countries.
      */
     getCountries() {
         return getDistinctItems("countries");
@@ -19,7 +19,7 @@ class WineService extends Service {
 
     /**
      * Gets all unique wine descriptions as Array.
-     * @returns {Promise} containing array of unique descriptions.
+     * @returns {Promise} containing Array of unique descriptions.
      */
     getDescriptions() {
         return getDistinctItems("descriptions");
@@ -27,7 +27,7 @@ class WineService extends Service {
 
     /**
      * Gets all unique food pairings as Array.
-     * @returns {Promise} containing array of unique food pairings.
+     * @returns {Promise} containing Array of unique food pairings.
      */
     getFoodPairings() {
         return getDistinctItems("foodPairings");
@@ -37,6 +37,7 @@ class WineService extends Service {
 /**
  * Requests a list of unique items from the back-end.
  * @param {String} item to request.
+ * @returns {Promise} containing Array of Strings.
  */
 async function getDistinctItems (item) {
     return axios
