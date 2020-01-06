@@ -19,6 +19,7 @@
           :items="allValues[attribute]"
           :label="dictionary.translate('wine', attribute)"
           chips
+          deletable-chips
           v-model="wine[attribute]">
         </v-combobox>
 
