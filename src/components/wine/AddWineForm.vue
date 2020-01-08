@@ -16,7 +16,10 @@
 
         <!-- Name text field, required -->
         <validation-provider name="Nimi" rules="required" v-slot="{ errors }">
-          <v-text-field label="Nimi" v-model="wine.name" />
+          <v-text-field
+            :label="dictionary.translate('wine', 'name')"
+            v-model="wine.name">
+          </v-text-field>
           <span>{{ errors[0] }}</span>
         </validation-provider>
 
@@ -27,7 +30,7 @@
             :items="allValues.country" 
             :search-input.sync="searchInput.country"
             chips deletable-chips hide-selected
-            label="Maa"
+            :label="dictionary.translate('wine', 'country')"
             v-model="wine.country">
           </v-combobox>
           <span>{{ errors[0] }}</span>
@@ -46,7 +49,11 @@
 
         <!-- Price, required, >= 0 -->
         <validation-provider rules="price" v-slot="{ errors }">
-          <v-text-field label="Hinta (€)" type="number" v-model="wine.price"></v-text-field>
+          <v-text-field
+            :label="dictionary.translate('wine', 'price')"
+            type="number"
+            v-model="wine.price">
+          </v-text-field>
           <span>{{ errors[0] }}</span>
         </validation-provider>
 
@@ -54,13 +61,16 @@
         <validation-provider rules="volume" v-slot="{ errors }">
           <v-row>
             <v-col>
-              <v-text-field label="Määrä (l)" v-model="wine.volume" />
+              <v-text-field
+                :label="dictionary.translate('wine', 'volume')"
+                v-model="wine.volume">
+              </v-text-field>
             </v-col>
             <v-col>
               <v-btn-toggle group>
-                <v-btn @click="setVolume(0.75)" text>Pullo</v-btn>
-                <v-btn @click="setVolume(1.5)" text>Pussi</v-btn>
-                <v-btn @click="setVolume(3.0)" text>Tonkka</v-btn>
+                <v-btn @click="setVolume(0.75)" text>{{ dictionary.translate('wine', 'bottle') }}</v-btn>
+                <v-btn @click="setVolume(1.5)" text>{{ dictionary.translate('wine', 'bag') }}</v-btn>
+                <v-btn @click="setVolume(3.0)" text>{{ dictionary.translate('wine', 'box') }}</v-btn>
               </v-btn-toggle>
             </v-col>
           </v-row>
@@ -71,10 +81,10 @@
         <v-combobox
           @change="searchInput.description=''"
           :items="allValues.description" 
+          :label="dictionary.translate('wine', 'description')"
           :search-input.sync="searchInput.description"
           chips deletable-chips
           hide-selected
-          label="Kuvaus"
           multiple
           v-model="wine.description">
         </v-combobox>
@@ -83,16 +93,19 @@
         <v-combobox
           @change="searchInput.foodPairings=''"
           :items="allValues.foodPairings" 
+          :label="dictionary.translate('wine', 'foodPairings')"
           :search-input.sync="searchInput.foodPairings"
           chips deletable-chips
           hide-selected
-          label="Sopii nautittavaksi"
           multiple
           v-model="wine.foodPairings">
         </v-combobox>
 
         <!-- URL, optional: -->
-        <v-text-field label="URL" v-model="wine.url" />
+        <v-text-field
+          :label="dictionary.translate('wine', 'url')"
+          v-model="wine.url">
+        </v-text-field>
 
         <v-btn type="submit" class="button-save" large text>Lisää viini</v-btn>
       </v-form>
