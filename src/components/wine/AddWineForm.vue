@@ -16,11 +16,24 @@
         <div v-for="(value, attribute) in wine" :key="attribute">
 
           <!-- Name and country text fields, required -->
-          <div v-if="attribute === 'name' || attribute === 'country'">
+          <div v-if="attribute === 'name'">
             <validation-provider rules="required" v-slot="{ errors }">  
               <v-text-field :label="dictionary.translate('wine', attribute)" v-model="wine[attribute]" />
               <span>{{ errors[0] }}</span>
             </validation-provider>
+          </div>
+
+          <!-- Country, required -->
+          <div v-else-if="attribute === 'country'">
+            <v-combobox
+              @change="searchInput[attribute]=''"
+              :items="allValues[attribute]" 
+              :label="dictionary.translate('wine', attribute)"
+              :search-input.sync="searchInput[attribute]"
+              chips deletable-chips
+              hide-selected
+              v-model="wine[attribute]">
+            </v-combobox>
           </div>
 
           <!-- Radio buttons for wine types, required: -->
@@ -88,7 +101,7 @@
           </v-text-field>
         </div>
 
-        <v-btn @click="handleSubmit" class="button-save" large text>Lisää viini</v-btn>
+        <v-btn type="submit" class="button-save" large text>Lisää viini</v-btn>
       </v-form>
     </ValidationObserver>
 
