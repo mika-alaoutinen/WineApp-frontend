@@ -11,106 +11,100 @@
     </v-alert>
     
     <!-- Form begins -->
-    <v-form @submit.prevent>
-      <div v-for="(value, attribute) in wine" :key="attribute">
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <v-form @submit.prevent="handleSubmit(submitForm)">
+        <div v-for="(value, attribute) in wine" :key="attribute">
 
-        <!-- Name and country text fields, required -->
-        <div v-if="attribute === 'name' || attribute === 'country'">
-          <validation-provider :name="attribute" rules="required" v-slot="{ errors }">  
-            <v-text-field
+          <!-- Name and country text fields, required -->
+          <div v-if="attribute === 'name' || attribute === 'country'">
+            <validation-provider rules="required" v-slot="{ errors }">  
+              <v-text-field :label="dictionary.translate('wine', attribute)" v-model="wine[attribute]" />
+              <span>{{ errors[0] }}</span>
+            </validation-provider>
+          </div>
+
+          <!-- Radio buttons for wine types, required: -->
+          <div v-else-if="attribute === 'type'">
+            <validation-provider rules="required" v-slot="{ errors }">
+              <v-radio-group row v-model="wine.type">
+                <v-radio v-for="type in wineTypes" :key="type"
+                  :label="dictionary.translate('wine', type)"
+                  :value="type.toUpperCase()">
+                </v-radio>
+              </v-radio-group>
+              <span>{{ errors[0] }}</span>
+            </validation-provider>
+          </div>
+
+          <!-- Price, required, >= 0 -->
+          <div v-else-if="attribute === 'price'">
+            <validation-provider rules="price" v-slot="{ errors }">
+              <v-text-field
+                :label="dictionary.translate('wine', attribute)"
+                type="number"
+                v-model="wine[attribute]">
+              </v-text-field>
+              <span>{{ errors[0] }}</span>
+            </validation-provider>
+          </div>
+
+          <!-- Volume, required, > 0 -->
+          <div v-else-if="attribute === 'volume'">
+            <validation-provider rules="volume" v-slot="{ errors }">
+              <v-row>
+                <v-col>
+                  <v-text-field :label="dictionary.translate('wine', attribute)" v-model="wine[attribute]" />
+                </v-col>
+                <v-col>
+                  <v-btn-toggle group>
+                    <v-btn @click="setVolume(0.75)" text>{{ dictionary.translate("wine", "bottle") }}</v-btn>
+                    <v-btn @click="setVolume(1.5)" text>{{ dictionary.translate("wine", "bag") }}</v-btn>
+                    <v-btn @click="setVolume(3.0)" text>{{ dictionary.translate("wine", "box") }}</v-btn>
+                  </v-btn-toggle>
+                </v-col>
+              </v-row>
+              <span>{{ errors[0] }}</span>
+            </validation-provider>
+          </div>
+
+          <!-- Description and food pairings, optional: -->
+          <div v-else-if="attribute === 'description' || attribute === 'foodPairings'">
+            <v-combobox
+              @change="searchInput[attribute]=''"
+              :items="allValues[attribute]" 
               :label="dictionary.translate('wine', attribute)"
+              :search-input.sync="searchInput[attribute]"
+              chips deletable-chips
+              hide-selected
+              multiple
               v-model="wine[attribute]">
-            </v-text-field>
-            <span>{{ errors[0] }}</span>
-          </validation-provider>
-        </div>
+            </v-combobox>
+          </div>
 
-        <!-- Radio buttons for wine types, required: -->
-        <div v-else-if="attribute === 'type'">
-          <validation-provider rules="required" v-slot="{ errors }">
-            <v-radio-group
-              row
-              v-model="wine.type">
-              <v-radio v-for="type in wineTypes" :key="type"
-                :label="dictionary.translate('wine', type)"
-                :value="type.toUpperCase()">
-              </v-radio>
-            </v-radio-group>
-            <span>{{ errors[0] }}</span>
-          </validation-provider>
-        </div>
-
-        <!-- Price, required, >= 0 -->
-        <div v-else-if="attribute === 'price'">
-          <validation-provider rules="price" v-slot="{ errors }">
-            <v-text-field
-              :label="dictionary.translate('wine', attribute)"
-              type="number"
-              v-model="wine[attribute]">
-            </v-text-field>
-            <span>{{ errors[0] }}</span>
-          </validation-provider>
-        </div>
-
-        <!-- Volume, required, > 0 -->
-        <div v-else-if="attribute === 'volume'">
-          <validation-provider rules="volume" v-slot="{ errors }">
-            <v-row>
-              <v-col>
-                <v-text-field
-                  :label="dictionary.translate('wine', attribute)"
-                  v-model="wine[attribute]">
-                </v-text-field>
-              </v-col>
-              <v-col>
-                <v-btn-toggle group>
-                  <v-btn @click="setVolume(0.75)" text>{{ dictionary.translate("wine", "bottle") }}</v-btn>
-                  <v-btn @click="setVolume(1.5)" text>{{ dictionary.translate("wine", "bag") }}</v-btn>
-                  <v-btn @click="setVolume(3.0)" text>{{ dictionary.translate("wine", "box") }}</v-btn>
-                </v-btn-toggle>
-              </v-col>
-            </v-row>
-            <span>{{ errors[0] }}</span>
-          </validation-provider>
-        </div>
-
-        <!-- Description and food pairings, optional: -->
-        <div v-else-if="attribute === 'description' || attribute === 'foodPairings'">
-          <v-combobox 
-            @change="searchInput[attribute]=''"
-            :items="allValues[attribute]"
+          <!-- URL, optional: -->
+          <v-text-field v-else
             :label="dictionary.translate('wine', attribute)"
-            :search-input.sync="searchInput[attribute]"
-            chips
-            deletable-chips
-            hide-selected
-            multiple
             v-model="wine[attribute]">
-          </v-combobox>
+          </v-text-field>
         </div>
 
-        <!-- URL, optional: -->
-        <v-text-field v-else
-          :label="dictionary.translate('wine', attribute)"
-          v-model="wine[attribute]">
-        </v-text-field>
-      </div>
+        <v-btn @click="submitForm" class="button-save" large text>Lisää viini</v-btn>
+      </v-form>
+    </ValidationObserver>
 
-      <v-btn @click="submitForm" class="button-save" large text>Lisää viini</v-btn>
-    </v-form>
   </v-card>
 </template>
 
 <script>
   import Dictionary from "@/utilities/Dictionary.js";
   import WineService from "@/services/WineService.js";
-  import { ValidationProvider } from 'vee-validate';
+  import { ValidationObserver, ValidationProvider } from 'vee-validate';
   import "@/utilities/Validation.js";
 
   const wineService = new WineService();
 
   export default {
-    components: { ValidationProvider },
+    components: { ValidationObserver, ValidationProvider },
     
     data() {
       return {
