@@ -3,7 +3,7 @@ import { required } from 'vee-validate/dist/rules';
 
 extend("required", {
     ...required,
-    message: "Tämä kenttä on pakollinen",
+    message: "{_field_} on pakollinen",
 });
 
 extend("price", {
@@ -11,7 +11,7 @@ extend("price", {
         required: true,
         valid: number >= 0,
     }),
-    message: "Luku ei voi olla negatiivinen!",
+    message: "Hinta ei voi olla negatiivinen!",
     computesRequired: true,
 });
 

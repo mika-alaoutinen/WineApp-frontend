@@ -15,13 +15,13 @@
       <v-form @submit.prevent="handleSubmit(submitForm)">
 
         <!-- Name text field, required -->
-        <validation-provider rules="required" v-slot="{ errors }">
+        <validation-provider name="Nimi" rules="required" v-slot="{ errors }">
           <v-text-field label="Nimi" v-model="wine.name" />
           <span>{{ errors[0] }}</span>
         </validation-provider>
 
         <!-- Country text field, required -->
-        <validation-provider rules="required" v-slot="{ errors }">
+        <validation-provider name="Maa" rules="required" v-slot="{ errors }">
           <v-combobox
             @change="searchInput.country=''"
             :items="allValues.country" 
@@ -34,7 +34,7 @@
         </validation-provider>
 
         <!-- Radio buttons for wine types, required: -->
-        <validation-provider rules="required" v-slot="{ errors }">
+        <validation-provider name="Tyyppi" rules="required" v-slot="{ errors }">
           <v-radio-group row v-model="wine.type">
             <v-radio v-for="type in wineTypes" :key="type"
               :label="dictionary.translate('wine', type)"
@@ -149,9 +149,8 @@
       setVolume(volume) { this.wine.volume = volume },
 
       submitForm() {
-        console.log("lähetä");
-        // wineService.post(this.wine)
-        //            .then(wasOk => wasOk ? this.successfulPost() : this.showErrorAlert = true);
+        wineService.post(this.wine)
+                   .then(wasOk => wasOk ? this.successfulPost() : this.showErrorAlert = true);
       },
 
       successfulPost() {
