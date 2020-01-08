@@ -88,7 +88,7 @@
           </v-text-field>
         </div>
 
-        <v-btn @click="submitForm" class="button-save" large text>Lisää viini</v-btn>
+        <v-btn @click="handleSubmit" class="button-save" large text>Lisää viini</v-btn>
       </v-form>
     </ValidationObserver>
 
