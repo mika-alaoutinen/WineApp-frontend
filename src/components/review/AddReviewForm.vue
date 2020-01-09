@@ -27,7 +27,7 @@
         <!-- Author, required -->
         <validation-provider name="Arvostelija" rules="required" v-slot="{ errors }">
           <v-text-field
-            :label="dictionary.translate('review', 'author')"
+            :label="translate('review', 'author')"
             v-model="review.author">
           </v-text-field>
           <span class="validationErrorMessage">{{ errors[0] }}</span>
@@ -43,7 +43,7 @@
 
         <!-- Review text, optional -->
         <v-textarea
-          :label="dictionary.translate('review', 'reviewText')"
+          :label="translate('review', 'reviewText')"
           auto-grow
           class="ma-0 pa-0"
           v-model="review.reviewText">
@@ -51,7 +51,7 @@
 
         <!-- Rating, required but cannot be entered incorrectly -->
         <v-slider
-          :label="dictionary.translate('review', 'rating')"
+          :label="translate('review', 'rating')"
           min="0.0"
           max="5.0"
           step="0.25"
@@ -69,8 +69,8 @@
 </template>
 
 <script>
+  import translate from "@/utilities/Dictionary.js";
   import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
-  import Dictionary from "@/utilities/Dictionary.js";
   import ReviewService from "@/services/ReviewService.js";
   import WineService from "@/services/WineService.js";
   import { ValidationObserver, ValidationProvider } from 'vee-validate';
@@ -91,7 +91,6 @@
 
     data() {
       return {
-        dictionary: Dictionary,
         showErrorAlert: false,
         showSuccessAlert: false,
         wine: null,
@@ -102,6 +101,8 @@
           reviewText: "",
           rating: 2.5,
         },
+
+        translate: translate,
       }
     },
 

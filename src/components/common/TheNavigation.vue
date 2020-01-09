@@ -1,19 +1,19 @@
 <template>
   <div class="navigation">
     <router-link v-for="page in pages" :key="page" :to="{ name: page }">
-      {{ dictionary.translate("common", page) }}
+      {{ translate("common", page) }}
     </router-link>
   </div>
 </template>
 
 <script>
-  import Dictionary from "@/utilities/Dictionary.js";
+  import translate from "@/utilities/Dictionary.js";
 
   export default {
     data() {
       return {
-        dictionary: Dictionary,
         pages: [ "home", "reviews", "wines", "add", "search" ],
+        translate: translate,
       }
     }
   }

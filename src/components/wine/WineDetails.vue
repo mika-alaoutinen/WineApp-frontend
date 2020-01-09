@@ -8,7 +8,7 @@
 
       <!-- Left column for attribute names. -->
       <v-col align="start" class="attribute-text" sm="3">
-        {{ dictionary.translate("wine", attribute) }}
+        {{ translate("wine", attribute) }}
       </v-col>
 
       <!-- Right column for values. -->
@@ -23,7 +23,7 @@
       <v-col v-else align="start">
 
         <div v-if="attribute === 'type'">
-          {{ dictionary.translate("wine", value) }}
+          {{ translate("wine", value) }}
         </div>
 
         <div v-else-if="attribute === 'description' || attribute === 'foodPairings'">
@@ -54,8 +54,8 @@
 </template>
 
 <script>
+  import translate from "@/utilities/Dictionary.js";
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
-  import Dictionary from "@/utilities/Dictionary.js";
   import ReviewDetailsCard from "@/components/review/ReviewDetailsCard.vue";
   import ReviewService from "@/services/ReviewService.js";
   import WineService from "@/services/WineService.js";
@@ -78,9 +78,9 @@
 
     data() {
       return {
-        dictionary: Dictionary,
         editing: false,
         reviews: [], // Reviews of the wine
+        translate: translate,
         
         wine: {
           name: "",

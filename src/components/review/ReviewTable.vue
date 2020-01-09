@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import Dictionary from "@/utilities/Dictionary.js";
+  import translate from "@/utilities/Dictionary.js";
 
   export default {
     computed: {
@@ -45,7 +45,7 @@
       translateHeaders() {
         const headers = [ "author", "date", "reviewText", "rating", "wine" ];
         return headers.map(header => ({ 
-          text: this.dictionary.translate("review", header),
+          text: this.translate("review", header),
           value: header
         }));
       },
@@ -53,7 +53,7 @@
     
     data() {
       return {
-        dictionary: Dictionary,
+        translate: translate,
       }
     },
 

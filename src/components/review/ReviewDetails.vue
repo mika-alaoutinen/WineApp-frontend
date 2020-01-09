@@ -10,7 +10,7 @@
 
       <!-- Left column for attribute names. -->
       <v-col align="start" sm="3">
-        {{ dictionary.translate("review", attribute) }}
+        {{ translate("review", attribute) }}
       </v-col>
 
       <!-- Right column for values. -->
@@ -56,8 +56,8 @@
 </template>
 
 <script>
+  import translate from "@/utilities/Dictionary.js";
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
-  import Dictionary from "@/utilities/Dictionary.js";
   import ReviewService from "@/services/ReviewService.js";
 
   const reviewService = new ReviewService();
@@ -73,9 +73,9 @@
 
     data() {
       return {
-        dictionary: Dictionary,
         editing: false,
         review: {},
+        translate: translate
       }
     },
 
