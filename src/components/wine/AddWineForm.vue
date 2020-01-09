@@ -20,7 +20,7 @@
             :label="dictionary.translate('wine', 'name')"
             v-model="wine.name">
           </v-text-field>
-          <span>{{ errors[0] }}</span>
+          <span class="validationErrorMessage">{{ errors[0] }}</span>
         </validation-provider>
 
         <!-- Country text field, required -->
@@ -33,7 +33,7 @@
             :label="dictionary.translate('wine', 'country')"
             v-model="wine.country">
           </v-combobox>
-          <span>{{ errors[0] }}</span>
+          <span class="validationErrorMessage">{{ errors[0] }}</span>
         </validation-provider>
 
         <!-- Radio buttons for wine types, required: -->
@@ -44,20 +44,20 @@
               :value="type.toUpperCase()">
             </v-radio>
           </v-radio-group>
-          <span>{{ errors[0] }}</span>
+          <span class="validationErrorMessage">{{ errors[0] }}</span>
         </validation-provider>
 
-        <!-- Price, required, >= 0 -->
+        <!-- Price, required, value >= 0 -->
         <validation-provider rules="price" v-slot="{ errors }">
           <v-text-field
             :label="dictionary.translate('wine', 'price')"
             type="number"
             v-model="wine.price">
           </v-text-field>
-          <span>{{ errors[0] }}</span>
+          <span class="validationErrorMessage">{{ errors[0] }}</span>
         </validation-provider>
 
-        <!-- Volume, required, > 0 -->
+        <!-- Volume, required, value > 0 -->
         <validation-provider rules="volume" v-slot="{ errors }">
           <v-row>
             <v-col>
@@ -74,7 +74,7 @@
               </v-btn-toggle>
             </v-col>
           </v-row>
-          <span>{{ errors[0] }}</span>
+          <span class="validationErrorMessage">{{ errors[0] }}</span>
         </validation-provider>
 
         <!-- Description, optional: -->
@@ -174,13 +174,13 @@
 
     mounted() {
       wineService.getCountries()
-        .then(countries => this.allValues.country = countries);
+                 .then(countries => this.allValues.country = countries);
 
       wineService.getDescriptions()
-        .then(descriptions => this.allValues.description = descriptions);
+                 .then(descriptions => this.allValues.description = descriptions);
 
       wineService.getFoodPairings()
-        .then(foodPairings => this.allValues.foodPairings = foodPairings);
+                 .then(foodPairings => this.allValues.foodPairings = foodPairings);
     },
 
   };
@@ -192,4 +192,5 @@
     font-weight: bold;
   }
   .card-title { padding-left: 0 }
+  .validationErrorMessage { color: red }
 </style>
