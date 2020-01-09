@@ -3,7 +3,7 @@ import { required } from 'vee-validate/dist/rules';
 
 extend("required", {
     ...required,
-    message: "{_field_} on pakollinen",
+    message: "{_field_} on pakollinen!",
 });
 
 extend("price", {
