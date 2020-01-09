@@ -1,8 +1,19 @@
 <template>
   <v-card class="full-page-card" max-width="75%">
-    <v-card-title class="card-title">Arvostelut</v-card-title>
+    <v-card-title class="card-title">Arvostelut<v-spacer/>
+      <v-text-field
+        class="search-bar"
+        hide-details
+        label="Hae arvosteluja"
+        single-line
+        v-model="search">
+      </v-text-field>   
+    </v-card-title>
 
-    <ReviewTable :reviews="reviewStore.reviews"/>
+    <ReviewTable
+      :itemsPerPage="15"
+      :reviews="reviewStore.reviews"
+      :search="search"/>
   </v-card>
 </template>
 
@@ -16,6 +27,7 @@
     data() {
       return {
         reviewStore: new ReviewService().getStore().data,
+        search: "",
       }
     },
 

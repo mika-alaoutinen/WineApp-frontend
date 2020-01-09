@@ -11,7 +11,7 @@
     </v-card-title>
 
     <WineTable
-      :itemsPerPage=15
+      :itemsPerPage="15"
       :search="search"
       :wines="wineStore.wines">
     </WineTable>
