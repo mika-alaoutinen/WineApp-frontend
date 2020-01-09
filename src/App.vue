@@ -39,9 +39,10 @@
   }
 
   .full-page-card {
-    margin: auto;
-    padding-bottom: 1em;
-    padding-top: 1em;
+    margin-bottom: 4em;
+    margin-top: 0em;
+    margin-left: auto;
+    margin-right: auto;
     padding-left: 2em;
     padding-right: 2em;
   }

@@ -20,6 +20,7 @@
 </script>
 
 <style scoped>
+  .navigation { padding-bottom: 1em }
   .navigation a {
     padding-left: 0.5em;
     padding-right: 0.5em;
