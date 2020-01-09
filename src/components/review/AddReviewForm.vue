@@ -11,7 +11,7 @@
     </v-alert>
 
     <!-- Form begins -->
-    <ValidationObserver v-slot="{ handleSubmit }">
+    <ValidationObserver ref="form" v-slot="{ handleSubmit }">
       <v-form @submit.prevent="handleSubmit(submitForm)">
 
         <!-- Reviewed wine, required -->
@@ -114,11 +114,11 @@
       },
 
       successfulPost() {
-        reviewService.resetObject(this.review);
         this.showSuccessAlert = true;
+        reviewService.resetObject(this.review);
+        this.$refs.form.reset();
       },
     },
-    
 
   };
 </script>

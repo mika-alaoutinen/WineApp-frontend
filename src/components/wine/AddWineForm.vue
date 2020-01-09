@@ -11,7 +11,7 @@
     </v-alert>
     
     <!-- Form begins -->
-    <ValidationObserver v-slot="{ handleSubmit }">
+    <ValidationObserver ref="form" v-slot="{ handleSubmit }">
       <v-form @submit.prevent="handleSubmit(submitForm)">
 
         <!-- Name text field, required -->
@@ -167,8 +167,9 @@
       },
 
       successfulPost() {
-        wineService.resetObject(this.wine);
         this.showSuccessAlert = true;
+        wineService.resetObject(this.wine);
+        this.$refs.form.reset();
       },
     },
 
