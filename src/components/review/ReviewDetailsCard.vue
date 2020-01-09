@@ -11,12 +11,15 @@
         <v-expansion-panel-content>
           <v-row v-for="(value, attribute) in review" :key="attribute">
 
+            <!-- Left column for attributes -->
             <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start" sm="3">
               {{ util.translate("review", attribute) }}
             </v-col>
 
+            <!-- Right column for values -->
             <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start">
-              {{ value }}
+              <div v-if="attribute === 'date'">{{ util.formatDate(value) }}</div>
+              <div v-else>{{ value }}</div>
             </v-col>
           </v-row>
 

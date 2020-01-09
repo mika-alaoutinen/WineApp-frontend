@@ -38,6 +38,7 @@
       <!-- View mode: -->
       <v-col v-else align="start">
         <div v-if="attribute === 'wine'">{{ value.name }}</div>
+        <div v-else-if="attribute === 'date'">{{ util.formatDate(value) }}</div>
         <div v-else>{{ value }}</div>
       </v-col>     
 
