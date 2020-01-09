@@ -11,51 +11,59 @@
     </v-alert>
 
     <!-- Form begins -->
-    <v-form @submit.prevent>
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <v-form @submit.prevent="handleSubmit(submitForm)">
 
-      <!-- Reviewed wine -->
-      <v-autocomplete
-        :items="allWines"
-        label="Arvosteltava viini"
-        v-model="wine">
-      </v-autocomplete>
+        <!-- Reviewed wine, required -->
+        <validation-provider name="Viini" rules="required" v-slot="{ errors }">
+          <v-autocomplete
+            :items="allWines"
+            label="Arvosteltava viini"
+            v-model="wine">
+          </v-autocomplete>
+          <span class="validationErrorMessage">{{ errors[0] }}</span>
+        </validation-provider>
 
-      <!-- Author -->
-      <v-text-field
-        :label="dictionary.translate('review', 'author')"
-        v-model="review.author">
-      </v-text-field>
+        <!-- Author, required -->
+        <validation-provider name="Arvostelija" rules="required" v-slot="{ errors }">
+          <v-text-field
+            :label="dictionary.translate('review', 'author')"
+            v-model="review.author">
+          </v-text-field>
+          <span class="validationErrorMessage">{{ errors[0] }}</span>
+        </validation-provider>
 
-      <!-- Date -->
-      <DatePickerComponent
-        @get:date="getDate"
-        :calendarType="'date'"
-        :enabled="true"
-        :labelText="'Päivämäärä'">
-      </DatePickerComponent>
+        <!-- Date, required but cannot be entered incorrectly -->
+        <DatePickerComponent
+          @get:date="getDate"
+          :calendarType="'date'"
+          :enabled="true"
+          :labelText="'Päivämäärä'">
+        </DatePickerComponent>
 
-      <!-- Review text -->
-      <v-textarea
-        :label="dictionary.translate('review', 'reviewText')"
-        auto-grow
-        class="ma-0 pa-0"
-        v-model="review.reviewText">
-      </v-textarea>
+        <!-- Review text, optional -->
+        <v-textarea
+          :label="dictionary.translate('review', 'reviewText')"
+          auto-grow
+          class="ma-0 pa-0"
+          v-model="review.reviewText">
+        </v-textarea>
 
-      <!-- Rating -->
-      <v-slider
-        :label="dictionary.translate('review', 'rating')"
-        max="5.0"
-        min="0.0"
-        step="0.25"
-        ticks
-        thumb-label
-        v-model="review.rating">
-      </v-slider>
+        <!-- Rating, required but cannot be entered incorrectly -->
+        <v-slider
+          :label="dictionary.translate('review', 'rating')"
+          min="0.0"
+          max="5.0"
+          step="0.25"
+          ticks
+          thumb-label
+          v-model="review.rating">
+        </v-slider>
 
-      <!-- Form submit button to save the new review: -->
-      <v-btn @click="submitForm" class="button-save" large text>Lisää arvostelu</v-btn>
-    </v-form>
+        <!-- Form submit button to save the new review: -->
+        <v-btn class="button-save" large text type="submit">Lisää arvostelu</v-btn>
+      </v-form>
+    </ValidationObserver>
 
   </v-card>
 </template>
@@ -65,12 +73,14 @@
   import Dictionary from "@/utilities/Dictionary.js";
   import ReviewService from "@/services/ReviewService.js";
   import WineService from "@/services/WineService.js";
+  import { ValidationObserver, ValidationProvider } from 'vee-validate';
+  import "@/utilities/Validation.js";
   
   const reviewService = new ReviewService();
   const wineService = new WineService();
 
   export default {
-    components: { DatePickerComponent },
+    components: { DatePickerComponent, ValidationObserver, ValidationProvider },
 
     computed: {
       allWines() {
@@ -84,7 +94,7 @@
         dictionary: Dictionary,
         showErrorAlert: false,
         showSuccessAlert: false,
-        wine: {},
+        wine: null,
 
         review: {
           author: "",
@@ -100,18 +110,15 @@
 
       submitForm() {
         reviewService.post(this.wine.id, this.review)
-                     .then(wasOk => wasOk ? this.successfulPost() : this.failedPost());
+                     .then(wasOk => wasOk ? this.successfulPost() : this.showErrorAlert = true);
       },
 
       successfulPost() {
         reviewService.resetObject(this.review);
         this.showSuccessAlert = true;
       },
-
-      failedPost() {
-        this.showErrorAlert = true;
-      },
     },
+    
 
   };
 </script>
@@ -123,4 +130,5 @@
     padding: 1em;
   }
   .card-title { padding-left: 0 }
+  .validationErrorMessage { color: red }
 </style>

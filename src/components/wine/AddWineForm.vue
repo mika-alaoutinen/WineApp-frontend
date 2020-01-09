@@ -107,7 +107,7 @@
           v-model="wine.url">
         </v-text-field>
 
-        <v-btn type="submit" class="button-save" large text>Lisää viini</v-btn>
+        <v-btn class="button-save" large text type="submit">Lisää viini</v-btn>
       </v-form>
     </ValidationObserver>
 
