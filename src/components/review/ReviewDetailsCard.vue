@@ -12,7 +12,7 @@
           <v-row v-for="(value, attribute) in review" :key="attribute">
 
             <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start" sm="3">
-              {{ translate("review", attribute) }}
+              {{ util.translate("review", attribute) }}
             </v-col>
 
             <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start">
@@ -36,12 +36,12 @@
 </template>
 
 <script>
-  import translate from "@/utilities/Dictionary.js";
+  import Utilities from "@/utilities/Utilities.js";
 
   export default {
     data() {
       return {
-        translate: translate
+        util: Utilities
       }
     },
 

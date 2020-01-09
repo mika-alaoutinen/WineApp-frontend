@@ -10,14 +10,14 @@
     no-results-text="Haulla ei löytynyt yhtään tulosta.">
 
     <template v-slot:item.type="{ item }">
-      {{ translate('wine', item.type) }}
+      {{ util.translate('wine', item.type) }}
     </template>
 
   </v-data-table>
 </template>
 
 <script>
-  import translate from "@/utilities/Dictionary.js";
+  import Utilities from "@/utilities/Utilities.js";
   import ReviewService from "@/services/ReviewService.js";
 
   const reviewService = new ReviewService();
@@ -37,7 +37,7 @@
         const headers = ["name", "type", "country", "price", "volume", "avgrating"];
 
         return headers.map(header => ({ 
-          text: this.translate("wine", header),
+          text: this.util.translate("wine", header),
           value: header
         }));
       }
@@ -45,7 +45,7 @@
 
     data() {
       return {
-        translate: translate,
+        util: Utilities,
       };
     },
 

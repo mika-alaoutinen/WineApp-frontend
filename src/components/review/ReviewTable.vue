@@ -23,6 +23,11 @@
       </v-expansion-panels>
     </template>
 
+    <!-- Date columns -->
+    <template v-slot:item.date="{ item }">
+      {{ util.formatDate(item.date) }}
+    </template>
+
     <!-- Clicking on wine name redirects to wine details page: -->
     <template v-slot:item.wine="{ item }">
       <router-link tag="tr" :to="{ name: 'wine', params: { wineId: + item.wine.id }}">
@@ -34,7 +39,7 @@
 </template>
 
 <script>
-  import translate from "@/utilities/Dictionary.js";
+  import Utilities from "@/utilities/Utilities.js";
 
   export default {
     computed: {
@@ -45,7 +50,7 @@
       translateHeaders() {
         const headers = [ "author", "date", "reviewText", "rating", "wine" ];
         return headers.map(header => ({ 
-          text: this.translate("review", header),
+          text: this.util.translate("review", header),
           value: header
         }));
       },
@@ -53,7 +58,7 @@
     
     data() {
       return {
-        translate: translate,
+        util: Utilities,
       }
     },
 
