@@ -12,20 +12,20 @@
           <v-row v-for="(value, attribute) in review" :key="attribute">
 
             <!-- Left column for attributes -->
-            <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start" sm="3">
+            <v-col v-if="attribute !== 'id' && attribute !== 'wine'" sm="3">
               {{ util.translate("review", attribute) }}
             </v-col>
 
             <!-- Right column for values -->
-            <v-col v-if="attribute !== 'id' && attribute !== 'wine'" align="start">
+            <v-col v-if="attribute !== 'id' && attribute !== 'wine'">
               <div v-if="attribute === 'date'">{{ util.formatDate(value) }}</div>
               <div v-else>{{ value }}</div>
             </v-col>
           </v-row>
 
           <v-row>
-            <v-col align="start" sm="3">Linkki</v-col>
-            <v-col align="start">
+            <v-col sm="3">Linkki</v-col>
+            <v-col>
               <router-link :to="{ name: 'review', params: { reviewId: review.id }}">
                 Linkki arvosteluun
               </router-link>
@@ -55,6 +55,7 @@
 </script>
 
 <style scoped>
+  .col { text-align: start }
   .subheading {
     font-weight: bold;
     text-align: left;

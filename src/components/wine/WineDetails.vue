@@ -7,7 +7,7 @@
     <v-row v-for="(value, attribute) in wineWithoutId" :key="attribute">
 
       <!-- Left column for attribute names. -->
-      <v-col align="start" class="attribute-text" sm="3">
+      <v-col class="attribute-text" sm="3">
         {{ util.translate("wine", attribute) }}
       </v-col>
 
@@ -20,8 +20,7 @@
       </v-text-field>
 
       <!-- View mode: -->
-      <v-col v-else align="start">
-
+      <v-col v-else>
         <div v-if="attribute === 'type'">
           {{ util.translate("wine", value) }}
         </div>
@@ -61,7 +60,7 @@
   import WineService from "@/services/WineService.js";
 
   const reviewService = new ReviewService();
-  const wineService = new WineService()
+  const wineService = new WineService();
 
   export default {
     components: { DetailsButtons, ReviewDetailsCard },
@@ -140,5 +139,6 @@
   .col {
     padding-bottom: 6px;
     padding-top: 6px;
+    text-align: start;
   }
 </style>

@@ -9,9 +9,7 @@
     <v-row v-for="(value, attribute) in reviewWithoutId" :key="attribute">
 
       <!-- Left column for attribute names. -->
-      <v-col align="start" sm="3">
-        {{ util.translate("review", attribute) }}
-      </v-col>
+      <v-col sm="3">{{ util.translate("review", attribute) }}</v-col>
 
       <!-- Right column for values. -->
       <!-- Editing mode: -->
@@ -36,7 +34,7 @@
       </v-col>
 
       <!-- View mode: -->
-      <v-col v-else align="start">
+      <v-col v-else>
         <div v-if="attribute === 'wine'">{{ value.name }}</div>
         <div v-else-if="attribute === 'date'">{{ util.formatDate(value) }}</div>
         <div v-else>{{ value }}</div>
@@ -111,5 +109,6 @@
   .col {
     padding-bottom: 6px;
     padding-top: 6px;
+    text-align: start;
   }
 </style>

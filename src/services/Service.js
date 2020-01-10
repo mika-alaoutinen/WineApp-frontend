@@ -46,7 +46,7 @@ class Service {
     /**
      * Send an edited item to backend for persisting.
      * @param {Number} id 
-     * @param {Object} edited item. 
+     * @param {Object} editedItem.
      */
     async put(id, editedItem) {
         axios.put(UrlBuilder[this.storeType].paths.base + id, editedItem)
@@ -90,7 +90,7 @@ class Service {
 // Modifying objects:
     /**
      * Removes the ID property of an item so that it is not displayed in views.
-     * @param {Object} item, either wine or review. 
+     * @param {Object} object, either wine or review.
      * @returns {Object} item with ID removed.
      */
     removeObjectId(object) {

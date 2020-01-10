@@ -32,17 +32,11 @@
 <style>
   .details-card {
     margin: auto;
-    padding-bottom: 1em;
-    padding-top: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding: 1em 2em;
   }
 
   .full-page-card {
-    margin-bottom: 4em;
-    margin-top: 0em;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 4em;
     padding-left: 2em;
     padding-right: 2em;
   }
