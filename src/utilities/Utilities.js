@@ -43,6 +43,22 @@ const dictionary = {
 
 export default  {
     /**
+     * Takes a date string in yyyy-mm-dd format and converts it into dd.mm.yyyy.
+     * @param {String} date.
+     * @returns {String} formatted date.
+     */
+    formatDate(date) {
+        const dateArray = Array.from(date.split("-"));
+
+        if (dateArray.length !== 3) {
+            console.error("Could not format date: " + date);
+            return undefined;
+        }
+        
+        return dateArray[2] + "." + dateArray[1] + "." + dateArray[0];
+    },
+
+    /**
      * Translates a given word from English to Finnish.
      * @param {String} object the word belongs to. Options are 'common', 'review' and 'wine'.
      * @param {String} word the word to be translated.
@@ -63,16 +79,4 @@ export default  {
                 : translation;
         }
     },
-
-    /**
-     * Takes a date string in yyyy-mm-dd format and converts it into dd.mm.yyyy.
-     * @param {String} date.
-     * @returns {String} formatted date.
-     */
-    formatDate(date) {
-        const dateArray = Array.from(date.split("-"));
-        const formatted = dateArray[2] + "." + dateArray[1] + "." + dateArray[0];
-        return formatted;
-    }
 }
-
