@@ -78,7 +78,7 @@
     data() {
       return {
         editing: false,
-        reviews: [], // Reviews of the wine
+        reviews: [],
         util: Utilities,
         
         wine: {

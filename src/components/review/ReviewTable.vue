@@ -69,7 +69,7 @@
       },
 
       openReviewDetails(review) {
-        this.$router.push({ name: "review", params: { reviewId: + review.id } });
+        this.$router.push({ name: "review", params: { reviewId: + "" + review.id } });
       },
     },
 

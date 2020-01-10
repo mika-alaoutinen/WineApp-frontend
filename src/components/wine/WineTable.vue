@@ -51,7 +51,7 @@
 
     methods: {
       openWineDetails(wine) {
-        this.$router.push({ name: "wine", params: { wineId: + wine.id }});
+        this.$router.push({ name: "wine", params: { wineId: + "" + wine.id }});
       }
     },
 
