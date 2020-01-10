@@ -1,46 +1,44 @@
 <template>
   <v-card class="details-card" max-width="60em">
-    <v-img
-      height="25em"
-      src="https://cdn.pixabay.com/photo/2016/10/22/20/34/wine-1761613_960_720.jpg">
-    </v-img>
+    <v-img height="25em" src="https://cdn.pixabay.com/photo/2016/10/22/20/34/wine-1761613_960_720.jpg" />
     <v-card-title class="card-title">Arvostelun tiedot</v-card-title>
 
-    <v-row v-for="(value, attribute) in reviewWithoutId" :key="attribute">
+    <div class="card-contents">
+      <v-row v-for="(value, attribute) in reviewWithoutId" :key="attribute">
 
-      <!-- Left column for attribute names. -->
-      <v-col sm="3">{{ util.translate("review", attribute) }}</v-col>
+        <!-- Left column for attribute names. -->
+        <v-col sm="3">{{ util.translate("review", attribute) }}</v-col>
 
-      <!-- Right column for values. -->
-      <!-- Editing mode: -->
-      <v-col v-if="editing">
-        <v-textarea v-if="attribute === 'reviewText'"
-          auto-grow
-          class="ma-0 pa-0"
-          v-model="review[attribute]">
-        </v-textarea>
+        <!-- Right column for values. -->
+        <!-- Editing mode: -->
+        <v-col v-if="editing">
+          <v-textarea v-if="attribute === 'reviewText'"
+            auto-grow
+            class="ma-0 pa-0"
+            v-model="review[attribute]">
+          </v-textarea>
 
-        <v-text-field v-else-if="attribute === 'wine'"
-          :value="value.name"
-          class="ma-0 pa-0"
-          disabled>
-        </v-text-field>
-        
-        <v-text-field v-else
-          @keyup.enter="saveEditedReview(review)"
-          class="ma-0 pa-0"
-          v-model="review[attribute]">
-        </v-text-field>
-      </v-col>
+          <v-text-field v-else-if="attribute === 'wine'"
+            :value="value.name"
+            class="ma-0 pa-0"
+            disabled>
+          </v-text-field>
 
-      <!-- View mode: -->
-      <v-col v-else>
-        <div v-if="attribute === 'wine'">{{ value.name }}</div>
-        <div v-else-if="attribute === 'date'">{{ util.formatDate(value) }}</div>
-        <div v-else>{{ value }}</div>
-      </v-col>     
+          <v-text-field v-else
+            @keyup.enter="saveEditedReview(review)"
+            class="ma-0 pa-0"
+            v-model="review[attribute]">
+          </v-text-field>
+        </v-col>
 
-    </v-row>
+        <!-- View mode: -->
+        <v-col v-else>
+          <div v-if="attribute === 'wine'">{{ value.name }}</div>
+          <div v-else-if="attribute === 'date'">{{ util.formatDate(value) }}</div>
+          <div v-else>{{ value }}</div>
+        </v-col>
+      </v-row>
+    </div>
 
     <!-- Edit and delete buttons -->
     <DetailsButtons
@@ -105,10 +103,12 @@
 </script>
 
 <style scoped>
-  .card-title { padding-left: 0 }
+  .card-contents { margin: 0 2em }
+  .card-title { padding-left: 1.5em }
   .col {
     padding-bottom: 6px;
     padding-top: 6px;
     text-align: start;
   }
+  .details-card { margin: 0 auto 4em }
 </style>

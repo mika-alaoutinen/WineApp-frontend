@@ -30,11 +30,6 @@
 </script>
 
 <style>
-  .details-card {
-    margin: auto;
-    padding: 1em 2em;
-  }
-
   .full-page-card {
     margin: 0 auto 4em;
     padding-left: 2em;

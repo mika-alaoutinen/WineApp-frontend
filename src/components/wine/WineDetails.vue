@@ -1,53 +1,54 @@
 <template>
   <v-card class="details-card" max-width="60em">
-
     <v-img height="25em" :src="getImage" />
     <v-card-title class="card-title">Viinin tiedot</v-card-title>
 
-    <v-row v-for="(value, attribute) in wineWithoutId" :key="attribute">
+    <div class="card-contents">
+      <v-row v-for="(value, attribute) in wineWithoutId" :key="attribute">
 
-      <!-- Left column for attribute names. -->
-      <v-col class="attribute-text" sm="3">
-        {{ util.translate("wine", attribute) }}
-      </v-col>
+        <!-- Left column for attribute names. -->
+          <v-col class="attribute-text" sm="3">
+            {{ util.translate("wine", attribute) }}
+          </v-col>
 
-      <!-- Right column for values. -->
-      <!-- Editing mode: -->
-      <v-text-field v-if="editing"
-        @keyup.enter="saveEditedWine(wine)"
-        class="ma-0 pa-0"
-        v-model="wine[attribute]">
-      </v-text-field>
+          <!-- Right column for values. -->
+          <!-- Editing mode: -->
+          <v-text-field v-if="editing"
+            @keyup.enter="saveEditedWine(wine)"
+            class="ma-0 pa-0"
+            v-model="wine[attribute]">
+        </v-text-field>
 
-      <!-- View mode: -->
-      <v-col v-else>
-        <div v-if="attribute === 'type'">
-          {{ util.translate("wine", value) }}
-        </div>
+        <!-- View mode: -->
+        <v-col v-else>
+          <div v-if="attribute === 'type'">
+            {{ util.translate("wine", value) }}
+          </div>
 
-        <div v-else-if="attribute === 'description' || attribute === 'foodPairings'">
-          <v-chip v-for="keyword in value" :key="keyword">{{ keyword }}</v-chip>
-        </div>
+          <div v-else-if="attribute === 'description' || attribute === 'foodPairings'">
+            <v-chip v-for="keyword in value" :key="keyword">{{ keyword }}</v-chip>
+          </div>
 
-        <div v-else-if="attribute === 'url'">
-          <a :href="value">{{ validateUrl(value) }}</a>
-        </div>
+          <div v-else-if="attribute === 'url'">
+            <a :href="value">{{ validateUrl(value) }}</a>
+          </div>
 
-        <div v-else>{{ value }}</div>
-      </v-col>
-    </v-row>
+          <div v-else>{{ value }}</div>
+        </v-col>
+      </v-row>
 
-    <!-- Edit and delete buttons -->
-    <DetailsButtons
-      @delete:item="deleteWine"
-      @get:editing="getEditing"
-      @save:item="saveEditedWine"
-      :editing="editing"
-      :item="wine">
-    </DetailsButtons>
+      <!-- Edit and delete buttons -->
+      <DetailsButtons
+        @delete:item="deleteWine"
+        @get:editing="getEditing"
+        @save:item="saveEditedWine"
+        :editing="editing"
+        :item="wine">
+      </DetailsButtons>
 
-  <!-- Show reviews of the wine: -->
-  <ReviewDetailsCard :reviews="reviews"/>
+    <!-- Show reviews of the wine: -->
+    <ReviewDetailsCard :reviews="reviews" />
+  </div>
 
   </v-card>
 </template>
@@ -135,10 +136,12 @@
 </script>
 
 <style scoped>
-  .card-title { padding-left: 0 }
+  .card-contents { margin: 0 2em }
+  .card-title { padding-left: 1.5em }
   .col {
     padding-bottom: 6px;
     padding-top: 6px;
     text-align: start;
   }
+  .details-card { margin: 0 auto 4em }
 </style>
