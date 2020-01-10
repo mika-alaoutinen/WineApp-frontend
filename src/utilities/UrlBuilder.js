@@ -42,7 +42,7 @@ export default {
  * Builds a query parameter with optional limit on wanted results.
  * For example "url/endpoint?limit=10" or "url/endpoint".
  * @param {Number} count of wanted results
- * @returns query parameter.
+ * @returns {String} query parameter.
  */
 function buildQueryLimit(count) {
     return count !== 0 && count !== null && count !== undefined

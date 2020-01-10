@@ -26,7 +26,7 @@
         <v-subheader class="subheader">Hae viinin tyypin perusteella</v-subheader>
         <v-radio-group row v-model="searchParams.type">
           <v-radio v-for="type in wineTypes" :key="type"
-            :label="dictionary.translate('wine', type)"
+            :label="util.translate('wine', type)"
             :value="type.toUpperCase()">
           </v-radio>
         </v-radio-group>
@@ -68,8 +68,8 @@
 </template>
 
 <script>
-  import Dictionary from "@/utilities/Dictionary.js";
   import RangeSlider from "@/components/vuetify/RangeSlider.vue";
+  import Utilities from "@/utilities/Utilities.js";
   import WineService from "@/services/WineService.js";
   import WineTable from "@/components/wine/WineTable.vue";
   
@@ -87,7 +87,7 @@
     
     data() {
       return {
-        dictionary: Dictionary,
+        util: Utilities,
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
         wineVolumes: [ 0.75, 1, 1.5, 2, 3 ],
         

@@ -1,30 +1,26 @@
 <template>
   <div class="navigation">
     <router-link v-for="page in pages" :key="page" :to="{ name: page }">
-      {{ dictionary.translate("common", page) }}
+      {{ util.translate("common", page) }}
     </router-link>
   </div>
 </template>
 
 <script>
-
-  /* TODO:
-    - Try out <v-navigation-drawer> for side panel navigation.
-  */
-
-  import Dictionary from "@/utilities/Dictionary.js";
+  import Utilities from "@/utilities/Utilities.js";
 
   export default {
     data() {
       return {
-        dictionary: Dictionary,
         pages: [ "home", "reviews", "wines", "add", "search" ],
+        util: Utilities,
       }
     }
   }
 </script>
 
 <style scoped>
+  .navigation { padding-bottom: 1em }
   .navigation a {
     padding-left: 0.5em;
     padding-right: 0.5em;

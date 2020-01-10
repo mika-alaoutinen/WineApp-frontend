@@ -1,5 +1,5 @@
 <template>
-  <v-footer fixed>
+  <v-footer absolute padless>
     <v-spacer class="footer">
       Lähdekoodi <a href="https://github.com/mika-alaoutinen/WineApp-frontend">GitHubissa</a>
     </v-spacer>

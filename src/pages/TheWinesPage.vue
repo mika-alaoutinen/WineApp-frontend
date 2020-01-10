@@ -11,7 +11,7 @@
     </v-card-title>
 
     <WineTable
-      :itemsPerPage=15
+      :itemsPerPage="15"
       :search="search"
       :wines="wineStore.wines">
     </WineTable>
@@ -22,11 +22,6 @@
 <script>
   import WineService from "@/services/WineService.js";
   import WineTable from "@/components/wine/WineTable.vue";
-
-  /* TODO:
-    - Bug fix: when wine is deleted in WineDetails, it still shows up in wine table.
-      Deleted wine disappears once a different page is loaded.
-  */
 
   export default {
     components: { WineTable },

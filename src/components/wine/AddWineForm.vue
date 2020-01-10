@@ -17,7 +17,7 @@
         <!-- Name text field, required -->
         <validation-provider name="Nimi" rules="required" v-slot="{ errors }">
           <v-text-field
-            :label="dictionary.translate('wine', 'name')"
+            :label="util.translate('wine', 'name')"
             v-model="wine.name">
           </v-text-field>
           <span class="validationErrorMessage">{{ errors[0] }}</span>
@@ -30,7 +30,7 @@
             :items="allValues.country" 
             :search-input.sync="searchInput.country"
             chips deletable-chips hide-selected
-            :label="dictionary.translate('wine', 'country')"
+            :label="util.translate('wine', 'country')"
             v-model="wine.country">
           </v-combobox>
           <span class="validationErrorMessage">{{ errors[0] }}</span>
@@ -40,7 +40,7 @@
         <validation-provider name="Tyyppi" rules="required" v-slot="{ errors }">
           <v-radio-group row v-model="wine.type">
             <v-radio v-for="type in wineTypes" :key="type"
-              :label="dictionary.translate('wine', type)"
+              :label="util.translate('wine', type)"
               :value="type.toUpperCase()">
             </v-radio>
           </v-radio-group>
@@ -50,7 +50,7 @@
         <!-- Price, required, value >= 0 -->
         <validation-provider rules="price" v-slot="{ errors }">
           <v-text-field
-            :label="dictionary.translate('wine', 'price')"
+            :label="util.translate('wine', 'price')"
             type="number"
             v-model="wine.price">
           </v-text-field>
@@ -62,15 +62,15 @@
           <v-row>
             <v-col>
               <v-text-field
-                :label="dictionary.translate('wine', 'volume')"
+                :label="util.translate('wine', 'volume')"
                 v-model="wine.volume">
               </v-text-field>
             </v-col>
             <v-col>
               <v-btn-toggle group>
-                <v-btn @click="setVolume(0.75)" text>{{ dictionary.translate('wine', 'bottle') }}</v-btn>
-                <v-btn @click="setVolume(1.5)" text>{{ dictionary.translate('wine', 'bag') }}</v-btn>
-                <v-btn @click="setVolume(3.0)" text>{{ dictionary.translate('wine', 'box') }}</v-btn>
+                <v-btn @click="setVolume(0.75)" text>{{ util.translate('wine', 'bottle') }}</v-btn>
+                <v-btn @click="setVolume(1.5)" text>{{ util.translate('wine', 'bag') }}</v-btn>
+                <v-btn @click="setVolume(3.0)" text>{{ util.translate('wine', 'box') }}</v-btn>
               </v-btn-toggle>
             </v-col>
           </v-row>
@@ -81,7 +81,7 @@
         <v-combobox
           @change="searchInput.description=''"
           :items="allValues.description" 
-          :label="dictionary.translate('wine', 'description')"
+          :label="util.translate('wine', 'description')"
           :search-input.sync="searchInput.description"
           chips deletable-chips
           hide-selected
@@ -93,7 +93,7 @@
         <v-combobox
           @change="searchInput.foodPairings=''"
           :items="allValues.foodPairings" 
-          :label="dictionary.translate('wine', 'foodPairings')"
+          :label="util.translate('wine', 'foodPairings')"
           :search-input.sync="searchInput.foodPairings"
           chips deletable-chips
           hide-selected
@@ -103,7 +103,7 @@
 
         <!-- URL, optional: -->
         <v-text-field
-          :label="dictionary.translate('wine', 'url')"
+          :label="util.translate('wine', 'url')"
           v-model="wine.url">
         </v-text-field>
 
@@ -115,7 +115,7 @@
 </template>
 
 <script>
-  import Dictionary from "@/utilities/Dictionary.js";
+  import Utilities from "@/utilities/Utilities.js";
   import WineService from "@/services/WineService.js";
   import { ValidationObserver, ValidationProvider } from 'vee-validate';
   import "@/utilities/Validation.js";
@@ -127,9 +127,9 @@
     
     data() {
       return {
-        dictionary: Dictionary,
         showErrorAlert: false,
         showSuccessAlert: false,
+        util: Utilities,
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
 
         // All unique countries, descriptions and food pairings:

@@ -56,7 +56,7 @@ class ReviewService extends Service {
 
         winesCopy.map(wine => {
             const ratings = reviews
-                .filter(review => review.wine.id == wine.id)
+                .filter(review => review.wine.id === wine.id)
                 .map(review => review.rating);
             
             const avgRating = ratings.reduce(
