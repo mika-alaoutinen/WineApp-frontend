@@ -1,6 +1,4 @@
 const properties = require("@/app.properties.json");
-
-// const basePath = "https://maistissa-backend.herokuapp.com/";
 const basePath = properties["backend-url"];
 const winePath = basePath + "wines/";
 const reviewPath = basePath + "reviews/";
