@@ -27,7 +27,7 @@
 
     computed: {
       getImage() {
-        return require("@/assets/wine-images/background.png");
+        return require("@/assets/background.png");
       }
     },
 
