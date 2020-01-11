@@ -1,5 +1,9 @@
 <template>
-  <v-app id="vuetify-app">
+  <v-app
+    class="background"
+    id="vuetify-app"
+    :style="{'background-image': 'url(' + getImage + ')'}">
+
     <TheHeader/>
     <TheNavigation/>
     <TheFooter/>
@@ -22,6 +26,12 @@
       TheNavigation,
     },
 
+    computed: {
+      getImage() {
+        return require("@/assets/wine-images/background.jpg");
+      }
+    },
+
     mounted() {
       new ReviewService().getAll();
       new WineService().getAll();
@@ -30,6 +40,22 @@
 </script>
 
 <style>
+  .background {
+    /*opacity: 0.5;*/
+  }
+
+  /*.image-box {*/
+  /*  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)) , var(--image-url) center center;*/
+  /*  background-size: cover;*/
+
+  /*  !* Here's the same styles we applied to our content-div earlier *!*/
+  /*  color: white;*/
+  /*  min-height: 50vh;*/
+  /*  display: flex;*/
+  /*  align-items: center;*/
+  /*  justify-content: center;*/
+  /*}*/
+
   .full-page-card {
     margin: 0 auto 4em;
     padding-left: 2em;
