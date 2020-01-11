@@ -1,4 +1,5 @@
-const basePath = "http://localhost:8080/api/";
+const properties = require("@/app.properties.json");
+const basePath = properties["backend-url"];
 const winePath = basePath + "wines/";
 const reviewPath = basePath + "reviews/";
 
