@@ -71,8 +71,12 @@
         const invalid = ["", undefined, null];
 
         return invalid.includes(this.wine.type)
-          ? require("@/assets/wine-images/wines.jpg")
-          : require("@/assets/wine-images/" + this.wine.type.toLowerCase() + ".jpg");
+          ? require("@/assets/wine-images/wines.png")
+          : require("@/assets/wine-images/" + this.wine.type.toLowerCase() + ".png");
+      },
+
+      wineWithoutId() {
+        return wineService.removeObjectId(this.wine);
       },
     },
 
@@ -84,7 +88,7 @@
         
         wine: {
           name: "",
-          type: "",
+          type: "other",
           country: "",
           price: null,
           volume: null,
@@ -92,8 +96,6 @@
           foodPairings: [],
           url: "",
         },
-
-        wineWithoutId: {},
       }
     },
 
@@ -110,10 +112,6 @@
         this.editing = false;
       },
 
-      setWineWithoutId() {
-        this.wineWithoutId = wineService.removeObjectId(this.wine);
-      },
-
       validateUrl(url) {
         return url.includes("http") || url.includes("https") ? url : "";
       },
@@ -121,9 +119,8 @@
 
     mounted() {
       wineService.get(this.$props.wineId)
-                 .then(wine => this.wine = wine)
-                 .then(() => this.setWineWithoutId());
-      
+                 .then(wine => this.wine = wine);
+
       reviewService.getByWineId(this.$props.wineId)
                    .then(reviews => this.reviews = reviews);
     },

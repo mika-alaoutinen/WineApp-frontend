@@ -1,8 +1,8 @@
 <template>
-  <div id="home-page">
-    <p>Maisteltuja viinejä {{ wineCount }} kappaletta.</p>
-    <p>Kirjoitettuja arvosteluja {{ reviewCount }} kappaletta.</p>
-  </div>
+  <v-card class="full-page-card" max-width="60%">
+    <p>{{ wineCount }} maisteltua viiniä.</p>
+    <p>{{ reviewCount }} Kirjoitettua arvostelua.</p>
+  </v-card>
 </template>
 
 <script>

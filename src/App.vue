@@ -1,5 +1,8 @@
 <template>
-  <v-app id="vuetify-app">
+  <v-app
+    :style="{'background-image': 'url(' + getImage + ')'}"
+    id="vuetify-app">
+
     <TheHeader/>
     <TheNavigation/>
     <TheFooter/>
@@ -20,6 +23,12 @@
       TheFooter,
       TheHeader,
       TheNavigation,
+    },
+
+    computed: {
+      getImage() {
+        return require("@/assets/background.png");
+      }
     },
 
     mounted() {

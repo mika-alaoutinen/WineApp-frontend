@@ -2,7 +2,7 @@
   <div>
 
     <!-- Wine search form -->    
-    <v-card class="full-page-card" id="search-form" max-width="60%">
+    <v-card class="full-page-card" max-width="60%">
       <v-card-title class="card-title">Hae viinejä</v-card-title>
 
       <v-form @submit.prevent>
