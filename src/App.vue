@@ -1,5 +1,8 @@
 <template>
-  <v-app :style="{'background-image': 'url(' + getImage + ')'}" id="vuetify-app">
+  <v-app
+    :style="{'background-image': 'url(' + getImage + ')'}"
+    id="vuetify-app">
+
     <TheHeader/>
     <TheNavigation/>
     <TheFooter/>
