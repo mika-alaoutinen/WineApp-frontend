@@ -39,7 +39,6 @@
 </script>
 
 <style>
-  a { color: #2196F3 !important; }
   .full-page-card {
     margin-left: auto;
     margin-right: auto;
@@ -54,7 +53,7 @@
   }
   /* Global styles for the entire application */
   #vuetify-app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;

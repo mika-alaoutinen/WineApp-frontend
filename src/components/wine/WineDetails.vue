@@ -133,6 +133,7 @@
 </script>
 
 <style scoped>
+  a { color: #0D47A1 !important } /* blue.darken4 */
   .card-contents { margin: 0 2em }
   .card-title { padding-left: 1.5em }
   .col {
