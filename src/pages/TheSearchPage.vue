@@ -26,5 +26,5 @@
 
 <style scoped>
   /* The space between the search card and the results card. */
-  .v-window-item--active { background-color: lightpink }
+  .v-window-item--active { background-color: rgba(255, 228, 236, 0.7) } /* pink.lighten5 */
 </style>

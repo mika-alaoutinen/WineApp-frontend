@@ -9,9 +9,9 @@
         <!-- Review quick search: -->  
         <v-subheader class="subheader">Pikahaut</v-subheader>
         <v-btn-toggle class="quick-search" group>
-          <v-btn @click="quickSearch('best')" small>Parhaat</v-btn>
-          <v-btn @click="quickSearch('worst')" small>Huonoimmat</v-btn>
-          <v-btn @click="quickSearch('newest')" small>Uusimmat</v-btn>
+          <v-btn @click="quickSearch('best')" class="primary--text" small>Parhaat</v-btn>
+          <v-btn @click="quickSearch('worst')" class="primary--text" small>Huonoimmat</v-btn>
+          <v-btn @click="quickSearch('newest')" class="primary--text" small>Uusimmat</v-btn>
         </v-btn-toggle>
 
         <!-- Search by author: -->
