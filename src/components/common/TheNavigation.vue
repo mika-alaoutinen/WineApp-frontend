@@ -1,8 +1,15 @@
 <template>
   <div class="navigation">
-    <router-link v-for="page in pages" :key="page" :to="{ name: page }">
-      {{ util.translate("common", page) }}
-    </router-link>
+    <v-toolbar color="transparent" dense flat floating>
+      <v-toolbar-items>
+        <v-btn v-for="page in pages" :key="page"
+          :to="{ name: page }"
+          class="primary--text"
+          text>
+          {{ util.translate("common", page) }}
+        </v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
   </div>
 </template>
 
@@ -20,13 +27,5 @@
 </script>
 
 <style scoped>
-  .navigation {
-    background-color: white;
-    padding: 1em 0;
-    opacity: 0.70;
-  }
-  .navigation a {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-  }
+  .navigation { padding-bottom: 1em }
 </style>
