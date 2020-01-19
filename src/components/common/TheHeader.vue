@@ -1,14 +1,10 @@
 <template>
   <div class="header">
     <h1>Maistissa</h1>
-    <p> - Viininmaistelusovellus - </p>
   </div>
 </template>
 
 <style scoped>
-  p {
-    color: maroon;
-    font-size: large;
-  }
+  h1 { margin-bottom: 1em }
   .header { padding-top: 1em }
 </style>

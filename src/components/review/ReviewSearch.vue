@@ -1,18 +1,17 @@
 <template>
   <div>
-
     <!-- Review search form -->
-    <v-card class="full-page-card" max-width="60%">
-      <v-card-title class="card-title">Hae arvosteluja</v-card-title>
+    <v-card class="full-page-card">
+      <v-card-title class="card-title secondary--text">Hae arvosteluja</v-card-title>
 
       <v-form @submit.prevent>
 
         <!-- Review quick search: -->  
         <v-subheader class="subheader">Pikahaut</v-subheader>
         <v-btn-toggle class="quick-search" group>
-          <v-btn @click="quickSearch('best')" small>Parhaat</v-btn>
-          <v-btn @click="quickSearch('worst')" small>Huonoimmat</v-btn>
-          <v-btn @click="quickSearch('newest')" small>Uusimmat</v-btn>
+          <v-btn @click="quickSearch('best')" class="primary--text" small>Parhaat</v-btn>
+          <v-btn @click="quickSearch('worst')" class="primary--text" small>Huonoimmat</v-btn>
+          <v-btn @click="quickSearch('newest')" class="primary--text" small>Uusimmat</v-btn>
         </v-btn-toggle>
 
         <!-- Search by author: -->
@@ -36,18 +35,16 @@
           :switchLabel="'Arvosanahaku päällä'">
         </RangeSlider>
 
-        <v-btn @click="submitForm" class="button-save" large text>Hae arvosteluja</v-btn>
+        <v-btn @click="submitForm" class="button-save secondary--text" large text>Hae arvosteluja</v-btn>
       </v-form>
     </v-card>
 
-    <br/>
-
-    <!-- Search results table -->
-    <v-card class="full-page-card" max-width="60%" v-show="searchDone">
-      <v-card-title class="card-title">Haun tulokset</v-card-title>
-
-      <ReviewTable :reviews="foundReviews"/>
-    </v-card>
+    <div class="search-results-table" v-show="searchDone">
+      <v-card class="full-page-card">
+        <v-card-title class="card-title secondary--text">Haun tulokset</v-card-title>
+        <ReviewTable :reviews="foundReviews"/>
+      </v-card>
+    </div>
 
   </div>
 </template>
@@ -127,10 +124,11 @@
 </script>
 
 <style scoped>
-  .button-save {
-    color: green;
-    font-weight: bold;
+  .button-save { font-weight: bold }
+  .full-page-card { margin-bottom: 0 }
+  .search-results-table {
+    margin-bottom: 4em;
+    margin-top: 2em;
   }
-  .card-title { padding-left: 0 }
   .subheader { padding-left: 0 }
 </style>

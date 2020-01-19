@@ -1,6 +1,6 @@
 <template>
   <v-card class="full-page-card" max-width="75%">
-    <v-card-title class="card-title">Arvostelut<v-spacer/>
+    <v-card-title class="card-title secondary--text">Arvostelut<v-spacer/>
       <v-text-field
         class="search-bar"
         hide-details
@@ -33,3 +33,7 @@
 
   };
 </script>
+
+<style scoped>
+  .full-page-card { margin-bottom: 4em }
+</style>

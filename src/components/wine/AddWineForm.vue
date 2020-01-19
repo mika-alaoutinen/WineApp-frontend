@@ -1,6 +1,6 @@
 <template>
-  <v-card class="full-page-card" max-width="60%">
-    <v-card-title class="card-title">Lisää uusi viini</v-card-title>
+  <v-card class="full-page-card">
+    <v-card-title class="card-title secondary--text">Lisää uusi viini</v-card-title>
     
     <!-- Alerts that inform user if adding new wine was successful or not: -->
     <v-alert dismissible type="success" :value=showSuccessAlert>
@@ -107,7 +107,7 @@
           v-model="wine.url">
         </v-text-field>
 
-        <v-btn class="button-save" large text type="submit">Lisää viini</v-btn>
+        <v-btn class="button-save secondary--text" large text type="submit">Lisää viini</v-btn>
       </v-form>
     </ValidationObserver>
 
@@ -188,10 +188,6 @@
 </script>
 
 <style scoped>
-  .button-save {
-    color: green;
-    font-weight: bold;
-  }
-  .card-title { padding-left: 0 }
-  .validationErrorMessage { color: red }
+  .button-save { font-weight: bold }
+  .validationErrorMessage { color: #880E4F } /* indigo.darken4 */
 </style>

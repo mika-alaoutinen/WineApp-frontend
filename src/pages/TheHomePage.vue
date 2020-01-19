@@ -1,5 +1,6 @@
 <template>
   <v-card class="full-page-card" max-width="60%">
+    <v-card-title class="card-title secondary--text">Aloitus</v-card-title>
     <p>{{ wineCount }} maisteltua viiniä.</p>
     <p>{{ reviewCount }} Kirjoitettua arvostelua.</p>
   </v-card>
@@ -26,3 +27,6 @@
     }
   };
 </script>
+<style scoped>
+  p { text-align: left }
+</style>

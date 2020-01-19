@@ -1,7 +1,7 @@
 <template>
   <v-card class="details-card" max-width="60em">
     <v-img height="25em" src="https://cdn.pixabay.com/photo/2016/10/22/20/34/wine-1761613_960_720.jpg" />
-    <v-card-title class="card-title">Arvostelun tiedot</v-card-title>
+    <v-card-title class="card-title secondary--text">Arvostelun tiedot</v-card-title>
 
     <div class="card-contents">
       <v-row v-for="(value, attribute) in reviewWithoutId" :key="attribute">

@@ -39,15 +39,22 @@
 </script>
 
 <style>
+  a { color: #0D47A1 !important }
   .full-page-card {
-    margin: 0 auto 4em;
+    margin-left: auto;
+    margin-right: auto;
     padding-left: 2em;
     padding-right: 2em;
   }
-  
+  .full-page-card > .card-title { padding-left: 0 }
+  .tabs-container {
+    min-width: 60%;
+    max-width: 80%;
+    margin: 0 auto 0;
+  }
   /* Global styles for the entire application */
   #vuetify-app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
