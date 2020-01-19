@@ -11,4 +11,5 @@
     color: whitesmoke;
     padding: 1em;
   }
+  .v-footer { opacity: 0.9 }
 </style>
