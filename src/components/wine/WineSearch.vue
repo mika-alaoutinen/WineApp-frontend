@@ -2,7 +2,7 @@
   <div>
     <!-- Wine search form -->
     <v-card class="full-page-card">
-      <v-card-title class="card-title">Hae viinejä</v-card-title>
+      <v-card-title class="card-title secondary--text">Hae viinejä</v-card-title>
 
       <v-form @submit.prevent>
 
@@ -50,7 +50,7 @@
           :switchLabel="'Hintahaku päällä'">
         </RangeSlider>
 
-        <v-btn @click="submitForm" class="button-save" large text>Hae viinejä</v-btn>
+        <v-btn @click="submitForm" class="button-save secondary--text" large text>Hae viinejä</v-btn>
       </v-form>
     </v-card>
 
@@ -134,10 +134,7 @@
 </script>
 
 <style scoped>
-  .button-save {
-    color: green;
-    font-weight: bold;
-  }
+  .button-save { font-weight: bold }
   .card-title { padding-left: 0 }
   .full-page-card { margin-bottom: 0 }
   .search-results-table {

@@ -1,6 +1,6 @@
 <template>
   <v-card class="full-page-card">
-    <v-card-title class="card-title">Lisää uusi arvostelu</v-card-title>
+    <v-card-title class="card-title secondary--text">Lisää uusi arvostelu</v-card-title>
 
     <!-- Alerts that inform user if adding new wine was successful or not: -->
     <v-alert dismissible type="success" :value=showSuccessAlert>
@@ -61,7 +61,7 @@
         </v-slider>
 
         <!-- Form submit button to save the new review: -->
-        <v-btn class="button-save" large text type="submit">Lisää arvostelu</v-btn>
+        <v-btn class="button-save secondary--text" large text type="submit">Lisää arvostelu</v-btn>
       </v-form>
     </ValidationObserver>
 
@@ -125,11 +125,7 @@
 </script>
 
 <style scoped>
-  .button-save {
-    color: green;
-    font-weight: bold;
-    padding: 1em;
-  }
+  .button-save { font-weight: bold }
   .card-title { padding-left: 0 }
   .validationErrorMessage { color: red }
 </style>

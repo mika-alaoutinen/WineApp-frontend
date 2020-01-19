@@ -2,7 +2,7 @@
   <div>
     <!-- Review search form -->
     <v-card class="full-page-card">
-      <v-card-title class="card-title">Hae arvosteluja</v-card-title>
+      <v-card-title class="card-title secondary--text">Hae arvosteluja</v-card-title>
 
       <v-form @submit.prevent>
 
@@ -35,7 +35,7 @@
           :switchLabel="'Arvosanahaku päällä'">
         </RangeSlider>
 
-        <v-btn @click="submitForm" class="button-save" large text>Hae arvosteluja</v-btn>
+        <v-btn @click="submitForm" class="button-save secondary--text" large text>Hae arvosteluja</v-btn>
       </v-form>
     </v-card>
 
@@ -124,10 +124,7 @@
 </script>
 
 <style scoped>
-  .button-save {
-    color: green;
-    font-weight: bold;
-  }
+  .button-save { font-weight: bold }
   .card-title { padding-left: 0 }
   .full-page-card { margin-bottom: 0 }
   .search-results-table {
