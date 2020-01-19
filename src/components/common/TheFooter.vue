@@ -8,6 +8,6 @@
 
 <style scoped>
   .footer { padding: 1em }
-  .footer, .url { color: whitesmoke }
+  .footer, .url { color: whitesmoke !important; }
   .v-footer { opacity: 0.9 }
 </style>
