@@ -28,6 +28,5 @@
   };
 </script>
 <style scoped>
-  .card-title { padding-left: 0 }
   p { text-align: left }
 </style>

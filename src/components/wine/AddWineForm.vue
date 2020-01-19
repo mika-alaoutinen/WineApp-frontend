@@ -189,6 +189,5 @@
 
 <style scoped>
   .button-save { font-weight: bold }
-  .card-title { padding-left: 0 }
   .validationErrorMessage { color: red }
 </style>

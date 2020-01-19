@@ -46,6 +46,7 @@
     padding-left: 2em;
     padding-right: 2em;
   }
+  .full-page-card > .card-title { padding-left: 0 }
   .tabs-container {
     min-width: 60%;
     max-width: 80%;

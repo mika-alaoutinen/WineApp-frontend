@@ -125,7 +125,6 @@
 
 <style scoped>
   .button-save { font-weight: bold }
-  .card-title { padding-left: 0 }
   .full-page-card { margin-bottom: 0 }
   .search-results-table {
     margin-bottom: 4em;
