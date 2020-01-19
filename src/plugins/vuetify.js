@@ -10,7 +10,7 @@ export default new Vuetify({
             light: {
                 primary: colors.pink.darken4, /* Vuetify component highlights. */
                 secondary: colors.indigo.darken4, /* Heading text, footer, etc. */
-                accent: colors.blueGrey.darken1 /* Selected form elements */
+                accent: colors.pink.lighten3 /* Selected form elements */
             }
         }
     }
