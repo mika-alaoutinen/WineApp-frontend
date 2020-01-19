@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <h1>Maistissa</h1>
-    <p> - Viininmaistelusovellus - </p>
+    <p class="secondary--text"> - Viininmaistelusovellus - </p>
   </div>
 </template>
 
