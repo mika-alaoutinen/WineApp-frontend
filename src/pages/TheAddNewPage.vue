@@ -1,6 +1,6 @@
 <template>
   <div class="tabs-container">
-    <v-tabs centered>
+    <v-tabs centered hide-slider>
       <v-tab>Lisää uusi viini</v-tab>
       <v-tab-item>
         <AddWineForm/>

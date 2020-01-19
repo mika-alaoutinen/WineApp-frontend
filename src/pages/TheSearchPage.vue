@@ -1,6 +1,6 @@
 <template>
   <div class="tabs-container">
-    <v-tabs centered>
+    <v-tabs centered hide-slider>
       <v-tab>Hae viinejä</v-tab>
       <v-tab-item>
         <WineSearch/>
@@ -23,3 +23,8 @@
     components: { ReviewSearch, WineSearch },
   };
 </script>
+
+<style>
+  /* The space between the search card and the results card. */
+  .v-window-item--active { background-color: lightpink }
+</style>
