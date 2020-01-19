@@ -2,7 +2,7 @@
   <div>
 
     <!-- Wine search form -->    
-    <v-card class="full-page-card" max-width="60%">
+    <v-card class="full-page-card">
       <v-card-title class="card-title">Hae viinejä</v-card-title>
 
       <v-form @submit.prevent>
@@ -55,14 +55,14 @@
       </v-form>
     </v-card>
 
-    <br/>
-
-    <!-- Search results table -->
-    <v-card class="full-page-card" max-width="60%" v-show="searchDone">
-      <v-card-title class="card-title">Haun tulokset</v-card-title>
-
-      <WineTable :wines="foundWines"/>
-    </v-card>
+    <div class="search-results-table" v-show="searchDone">
+      <br class="hide"/>
+      <!-- Search results table -->
+      <v-card class="full-page-card">
+        <v-card-title class="card-title">Haun tulokset</v-card-title>
+        <WineTable :wines="foundWines"/>
+      </v-card>
+    </div>
 
   </div>
 </template>
@@ -142,5 +142,9 @@
     font-weight: bold;
   }
   .card-title { padding-left: 0 }
+  .full-page-card { margin-bottom: 0 }
+  .search-results-table { margin-bottom: 4em }
   .subheader { padding-left: 0 }
+
+  .hide { opacity: 0 }
 </style>

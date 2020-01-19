@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tabs-container">
     <v-tabs centered>
       <v-tab>Lisää uusi viini</v-tab>
       <v-tab-item>

@@ -33,3 +33,7 @@
 
   };
 </script>
+
+<style>
+  .full-page-card { margin-bottom: 4em }
+</style>

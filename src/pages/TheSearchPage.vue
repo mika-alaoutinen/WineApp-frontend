@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="tabs-container">
     <v-tabs centered>
-      
       <v-tab>Hae viinejä</v-tab>
       <v-tab-item>
         <WineSearch/>

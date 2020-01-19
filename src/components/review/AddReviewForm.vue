@@ -1,5 +1,5 @@
 <template>
-  <v-card class="full-page-card" max-width="60%">
+  <v-card class="full-page-card">
     <v-card-title class="card-title">Lisää uusi arvostelu</v-card-title>
 
     <!-- Alerts that inform user if adding new wine was successful or not: -->

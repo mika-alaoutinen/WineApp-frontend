@@ -40,11 +40,16 @@
 
 <style>
   .full-page-card {
-    margin: 0 auto 4em;
+    margin-left: auto;
+    margin-right: auto;
     padding-left: 2em;
     padding-right: 2em;
   }
-  
+  .tabs-container {
+    min-width: 60%;
+    max-width: 80%;
+    margin: 0 auto 0;
+  }
   /* Global styles for the entire application */
   #vuetify-app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
