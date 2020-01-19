@@ -24,7 +24,7 @@
   };
 </script>
 
-<style>
+<style scoped>
   /* The space between the search card and the results card. */
   .v-window-item--active { background-color: lightpink }
 </style>

@@ -1,17 +1,17 @@
 <template>
   <!-- Save and cancel edits: -->
   <div v-if="$props.editing">
-    <v-btn @click="saveItem" class="button-save" large text>Tallenna</v-btn>
-    <v-btn @click="cancelEdit" class="button-delete" large text>Peruuta</v-btn>
+    <v-btn @click="saveItem" class="secondary--text" large text>Tallenna</v-btn>
+    <v-btn @click="cancelEdit" class="primary--text" large text>Peruuta</v-btn>
   </div>
   
   <!-- Edit or delete: -->
   <div v-else>
-    <v-btn @click="editMode" class="button-edit" large text>Muokkaa</v-btn>
+    <v-btn @click="editMode" class="secondary--text" large text>Muokkaa</v-btn>
 
     <v-dialog persistent v-model="dialogActive" width="500">
       <template v-slot:activator="{ on }">
-        <v-btn class="button-delete" large text v-on="on">Poista</v-btn>
+        <v-btn class="primary--text" large text v-on="on">Poista</v-btn>
       </template>
 
       <v-card>
@@ -92,7 +92,4 @@
 
 <style scoped>
   button { font-weight: bold }
-  .button-delete { color: red }
-  .button-edit { color: mediumblue }
-  .button-save { color: green }
 </style>

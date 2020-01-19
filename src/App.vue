@@ -39,6 +39,7 @@
 </script>
 
 <style>
+  a { color: #2196F3 !important; }
   .full-page-card {
     margin-left: auto;
     margin-right: auto;

@@ -56,7 +56,7 @@
 
     <div class="search-results-table" v-show="searchDone">
       <v-card class="full-page-card">
-        <v-card-title class="card-title">Haun tulokset</v-card-title>
+        <v-card-title class="card-title secondary--text">Haun tulokset</v-card-title>
         <WineTable :wines="foundWines"/>
       </v-card>
     </div>

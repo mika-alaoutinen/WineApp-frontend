@@ -1,6 +1,6 @@
 <template>
   <v-card class="full-page-card" max-width="75%">
-    <v-card-title class="card-title">Viinilistaus<v-spacer/>
+    <v-card-title class="card-title secondary--text">Viinilistaus<v-spacer/>
       <v-text-field
         class="search-bar"
         hide-details
@@ -36,6 +36,6 @@
   };
 </script>
 
-<style>
+<style scoped>
   .full-page-card { margin-bottom: 4em }
 </style>

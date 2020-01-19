@@ -1,7 +1,7 @@
 <template>
   <v-card class="details-card" max-width="60em">
     <v-img height="25em" :src="getImage" />
-    <v-card-title class="card-title">Viinin tiedot</v-card-title>
+    <v-card-title class="card-title secondary--text">Viinin tiedot</v-card-title>
 
     <div class="card-contents">
       <v-row v-for="(value, attribute) in wineWithoutId" :key="attribute">
