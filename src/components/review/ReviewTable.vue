@@ -8,9 +8,9 @@
     no-data-text="Haulla ei löytynyt yhtään tulosta."
     no-results-text="Haulla ei löytynyt yhtään tulosta.">
 
-    <!-- Go to review details page by clicking the author's name. -->
-    <template v-slot:item.author="{ item }">
-      <button @click="openReviewDetails(item)">{{ item.author }}</button>
+    <!-- Date columns: -->
+    <template v-slot:item.date="{ item }">
+      {{ util.formatDate(item.date) }}
     </template>
 
     <!-- Review text column: -->
@@ -23,14 +23,23 @@
       </v-expansion-panels>
     </template>
 
-    <!-- Date columns -->
-    <template v-slot:item.date="{ item }">
-      {{ util.formatDate(item.date) }}
+    <!-- Go to review details page by clicking the rating: -->
+    <template v-slot:item.rating="{ item }">
+      <router-link
+        :to="{ name: 'review', params: { reviewId: '' + item.id } }"
+        class="primary--text"
+        tag="tr"
+        text>
+        {{ item.rating }}
+      </router-link>
     </template>
 
     <!-- Clicking on wine name redirects to wine details page: -->
     <template v-slot:item.wine="{ item }">
-      <router-link tag="tr" :to="{ name: 'wine', params: { wineId: '' + item.wine.id }}">
+      <router-link
+        :to="{ name: 'wine', params: { wineId: '' + item.wine.id }}"
+        class="secondary--text"
+        tag="tr">
         {{ item.wine.name }}
       </router-link>
     </template>
@@ -66,10 +75,6 @@
       getExcerpt(text) {
         const firstSentence = Array.from(text.split(".")).shift();
         return firstSentence + "...";
-      },
-
-      openReviewDetails(review) {
-        this.$router.push({ name: "review", params: { reviewId: + "" + review.id } });
       },
     },
 

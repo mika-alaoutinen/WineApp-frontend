@@ -21,7 +21,7 @@ export default new Router({
             component: TheHomePage,
         },
         {
-            path: "/new-reviews",
+            path: "/reviews",
             name: "reviews",
             component: TheReviewsPage,
         },
