@@ -2,6 +2,7 @@
   <v-card class="full-page-card" max-width="75%">
     <v-card-title class="card-title secondary--text">Viinilistaus<v-spacer/>
       <v-text-field
+        :append-icon="searchIcon"
         class="search-bar"
         hide-details
         label="Hae viinejä"
@@ -22,12 +23,15 @@
 <script>
   import WineService from "@/services/WineService.js";
   import WineTable from "@/components/wine/WineTable.vue";
+  import { mdiMagnify } from '@mdi/js';
 
   export default {
     components: { WineTable },
 
     data() {
       return {
+        searchIcon: mdiMagnify,
+
         search: "",
         wineStore: new WineService().getStore().data,
       }

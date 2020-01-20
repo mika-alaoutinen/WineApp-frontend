@@ -35,7 +35,9 @@
           :switchLabel="'Arvosanahaku päällä'">
         </RangeSlider>
 
-        <v-btn @click="submitForm" class="button-save secondary--text" large text>Hae arvosteluja</v-btn>
+        <v-btn @click="submitForm" class="button-save secondary--text" large text>
+          <v-icon>{{ searchIcon }}</v-icon>
+          Hae arvosteluja</v-btn>
       </v-form>
     </v-card>
 
@@ -54,6 +56,7 @@
   import RangeSlider from "@/components/vuetify/RangeSlider.vue";
   import ReviewService from "@/services/ReviewService.js";
   import ReviewTable from "@/components/review/ReviewTable.vue";
+  import { mdiMagnify } from '@mdi/js';
 
   const reviewService = new ReviewService();
 
@@ -69,6 +72,8 @@
 
     data() {
       return {
+        searchIcon: mdiMagnify,
+
         // Placeholders for date search:
         date: {
           range: [],

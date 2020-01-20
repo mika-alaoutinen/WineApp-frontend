@@ -39,20 +39,32 @@
 </script>
 
 <style>
-  a { color: #0D47A1 !important }
+  /* Global styles for the entire application */
+  a {
+    color: #0D47A1 !important
+  }
+
   .full-page-card {
     margin-left: auto;
     margin-right: auto;
     padding-left: 2em;
     padding-right: 2em;
   }
-  .full-page-card > .card-title { padding-left: 0 }
+
+  .full-page-card > .card-title {
+    padding-left: 0;
+  }
+
   .tabs-container {
     min-width: 60%;
     max-width: 80%;
     margin: 0 auto 0;
   }
-  /* Global styles for the entire application */
+
+  .v-icon {
+    margin-right: 0.5em;
+  }
+
   #vuetify-app {
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;

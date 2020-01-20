@@ -1,28 +1,50 @@
 <template>
   <!-- Save and cancel edits: -->
   <div v-if="$props.editing">
-    <v-btn @click="saveItem" class="secondary--text" large text>Tallenna</v-btn>
-    <v-btn @click="cancelEdit" class="primary--text" large text>Peruuta</v-btn>
+    <v-btn @click="saveItem" class="secondary--text" large text>
+      <v-icon>{{ okIcon }}</v-icon>
+      Tallenna
+    </v-btn>
+
+    <v-btn @click="cancelEdit" class="primary--text" large text>
+      <v-icon>{{ cancelIcon }}</v-icon>
+      Peruuta
+    </v-btn>
   </div>
   
   <!-- Edit or delete: -->
   <div v-else>
-    <v-btn @click="editMode" class="secondary--text" large text>Muokkaa</v-btn>
+    <v-btn @click="editMode" class="secondary--text" large text>
+      <v-icon>{{ editIcon }}</v-icon>
+      Muokkaa
+    </v-btn>
 
     <v-dialog persistent v-model="dialogActive" width="500">
       <template v-slot:activator="{ on }">
-        <v-btn class="primary--text" large text v-on="on">Poista</v-btn>
+        <v-btn class="primary--text" large text v-on="on">
+          <v-icon>{{ deleteIcon }}</v-icon>
+          Poista
+        </v-btn>
       </template>
 
+      <!-- Confirm delete dialog -->
       <v-card>
         <v-card-title>Vahvista poisto</v-card-title>
         <v-card-text>Haluatko varmasti poistaa {{ getItem }}?</v-card-text>
         <v-divider/>
         
         <v-card-actions>
-          <v-spacer/>
-          <v-btn @click="deleteItem" class="button-save" large text>Vahvista</v-btn>
-          <v-btn @click="dialogActive = false" class="button-delete" text>Peruuta</v-btn>
+          <v-spacer>
+          <v-btn @click="deleteItem" class="secondary--text" large text>
+            <v-icon>{{ deleteIcon }}</v-icon>
+            Poista
+          </v-btn>
+
+          <v-btn @click="dialogActive = false" class="primary--text" text>
+            <v-icon>{{ cancelIcon }}</v-icon>
+            Peruuta
+          </v-btn>
+          </v-spacer>
         </v-card-actions>
 
       </v-card>
@@ -31,6 +53,8 @@
 </template>
 
 <script>
+  import { mdiCancel, mdiCheck, mdiDelete, mdiPencil } from '@mdi/js';
+
   export default {
     computed: {
       getItem() {
@@ -46,6 +70,11 @@
 
     data() {
       return {
+        cancelIcon: mdiCancel,
+        deleteIcon: mdiDelete,
+        editIcon: mdiPencil,
+        okIcon: mdiCheck,
+
         dialogActive: false,
       }
     },

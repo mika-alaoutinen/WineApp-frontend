@@ -107,7 +107,10 @@
           v-model="wine.url">
         </v-text-field>
 
-        <v-btn class="button-save secondary--text" large text type="submit">Lisää viini</v-btn>
+        <v-btn class="button-save secondary--text" large text type="submit">
+          <v-icon>{{ addIcon }}</v-icon>
+          Lisää viini
+        </v-btn>
       </v-form>
     </ValidationObserver>
 
@@ -117,6 +120,7 @@
 <script>
   import Utilities from "@/utilities/Utilities.js";
   import WineService from "@/services/WineService.js";
+  import { mdiPlus } from '@mdi/js';
   import { ValidationObserver, ValidationProvider } from 'vee-validate';
   import "@/utilities/Validation.js";
 
@@ -127,6 +131,8 @@
     
     data() {
       return {
+        addIcon: mdiPlus,
+
         showErrorAlert: false,
         showSuccessAlert: false,
         util: Utilities,
