@@ -1,12 +1,19 @@
 <template>
   <div class="tabs-container">
-    <v-tabs centered hide-slider>
-      <v-tab>Hae viinejä</v-tab>
+    <v-tabs centered grow hide-slider>
+
+      <v-tab>
+        <v-icon>{{ wineIcon }}</v-icon>
+        Hae viinejä
+      </v-tab>
       <v-tab-item>
         <WineSearch/>
       </v-tab-item>
       
-      <v-tab>Hae arvosteluja</v-tab>
+      <v-tab>
+        <v-icon>{{ reviewIcon }}</v-icon>
+        Hae arvosteluja
+      </v-tab>
       <v-tab-item>
         <ReviewSearch/>
       </v-tab-item>
@@ -18,9 +25,17 @@
 <script>
   import ReviewSearch from "@/components/review/ReviewSearch.vue";
   import WineSearch from "@/components/wine/WineSearch.vue";
+  import { mdiGlassWine, mdiFileDocumentEditOutline } from '@mdi/js';
 
   export default {
     components: { ReviewSearch, WineSearch },
+
+    data() {
+      return {
+        reviewIcon: mdiFileDocumentEditOutline,
+        wineIcon: mdiGlassWine,
+      }
+    },
   };
 </script>
 
