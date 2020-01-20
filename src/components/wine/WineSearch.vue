@@ -50,7 +50,10 @@
           :switchLabel="'Hintahaku päällä'">
         </RangeSlider>
 
-        <v-btn @click="submitForm" class="button-save secondary--text" large text>Hae viinejä</v-btn>
+        <v-btn @click="submitForm" class="button-save secondary--text" large text>
+          <v-icon>{{ searchIcon }}</v-icon>
+          Hae viinejä
+        </v-btn>
       </v-form>
     </v-card>
 
@@ -69,6 +72,7 @@
   import Utilities from "@/utilities/Utilities.js";
   import WineService from "@/services/WineService.js";
   import WineTable from "@/components/wine/WineTable.vue";
+  import { mdiMagnify } from '@mdi/js';
   
   const wineService = new WineService();
 
@@ -84,6 +88,8 @@
     
     data() {
       return {
+        searchIcon: mdiMagnify,
+
         util: Utilities,
         wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
         wineVolumes: [ 0.75, 1, 1.5, 2, 3 ],
