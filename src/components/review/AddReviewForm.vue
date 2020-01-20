@@ -61,7 +61,10 @@
         </v-slider>
 
         <!-- Form submit button to save the new review: -->
-        <v-btn class="button-save secondary--text" large text type="submit">Lisää arvostelu</v-btn>
+        <v-btn class="button-save secondary--text" large text type="submit">
+          <v-icon>{{ addIcon }}</v-icon>
+          Lisää arvostelu
+        </v-btn>
       </v-form>
     </ValidationObserver>
 
@@ -73,6 +76,7 @@
   import ReviewService from "@/services/ReviewService.js";
   import Utilities from "@/utilities/Utilities.js";
   import WineService from "@/services/WineService.js";
+  import { mdiPlus } from '@mdi/js';
   import { ValidationObserver, ValidationProvider } from 'vee-validate';
   import "@/utilities/Validation.js";
   
@@ -91,6 +95,8 @@
 
     data() {
       return {
+        addIcon: mdiPlus,
+
         showErrorAlert: false,
         showSuccessAlert: false,
         wine: null,
