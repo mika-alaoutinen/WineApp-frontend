@@ -9,14 +9,18 @@
     <p>Uusin arvostelu:</p>
     <p>
       <v-icon>{{ wineIcon }}</v-icon>
-      {{ wine.name }}
+      <router-link :to="{ name: 'wine', params: { wineId: '' + wine.id }}">
+        {{ wine.name }}
+      </router-link>
     </p>
     <p>
       <v-icon>{{ reviewerIcon }}</v-icon>
       {{ newestReview.author }}
 
       <v-icon class="ratingIcon">{{ ratingIcon }}</v-icon>
-      {{ newestReview.rating }}
+      <router-link :to="{ name: 'review', params: { reviewId: '' + newestReview.id }}">
+        {{ newestReview.rating }}
+      </router-link>
     </p>
   </v-card>
 </template>
