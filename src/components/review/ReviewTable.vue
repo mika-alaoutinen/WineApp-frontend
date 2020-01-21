@@ -57,7 +57,7 @@
       },
 
       translateHeaders() {
-        const headers = [ "author", "date", "reviewText", "rating", "wine" ];
+        const headers = [ "date", "author", "reviewText", "rating", "wine" ];
         return headers.map(header => ({ 
           text: this.util.translate("review", header),
           value: header
