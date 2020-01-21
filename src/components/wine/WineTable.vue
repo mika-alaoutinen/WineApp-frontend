@@ -34,7 +34,7 @@
       },
 
       translateHeaders() {
-        const headers = ["name", "type", "country", "price", "volume", "avgrating"];
+        const headers = ["name", "type", "country", "volume", "price", "avgrating"];
 
         return headers.map(header => ({ 
           text: this.util.translate("wine", header),
