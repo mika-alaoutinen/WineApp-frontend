@@ -32,6 +32,11 @@ class ReviewService extends Service {
             .catch(error => console.error(error));
     }
 
+    /**
+     * Performs a quick search for newest, best or worst reviews.
+     * @param {String} searchParam for backend.
+     * @param {Number} count of results wanted.
+     */
     async quickSearch(searchParam, count) {
         if (!isSearchParamValid) {
             console.error("Invalid search param: " + searchParam);
