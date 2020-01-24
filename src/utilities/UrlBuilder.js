@@ -1,5 +1,5 @@
-const basePath = "http://localhost:8080/api/"
-// const basePath = "https://maistissa-backend.herokuapp.com/api/"
+// const basePath = "http://localhost:8080/api/"
+const basePath = "https://maistissa-backend.herokuapp.com/api/"
 const winePath = basePath + "wines/";
 const reviewPath = basePath + "reviews/";
 
