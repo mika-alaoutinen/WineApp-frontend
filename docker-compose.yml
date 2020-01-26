@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  maistissa:
+    container_name: maistissa
+    image: mikaalaoutinen/wineapp-frontend
+    ports:
+        - '8081:8081'
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
