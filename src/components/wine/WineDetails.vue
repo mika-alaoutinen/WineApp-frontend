@@ -13,11 +13,20 @@
 
           <!-- Right column for values. -->
           <!-- Editing mode: -->
-          <v-text-field v-if="editing"
-            @keyup.enter="saveEditedWine(wine)"
-            class="ma-0 pa-0"
-            v-model="wine[attribute]">
-        </v-text-field>
+          <v-col v-if="editing">
+            <div v-if="attribute === 'description' || attribute === 'foodPairings'">
+              <v-text-field v-for="i in wine[attribute].length - 1" :key="i"
+                class="denseTextField"
+                v-model="wine[attribute][i]">
+              </v-text-field>
+            </div>
+
+            <v-text-field v-else
+              @keyup.enter="saveEditedWine(wine)"
+              class="ma-0 pa-0"
+              v-model="wine[attribute]">
+            </v-text-field>
+          </v-col>
 
         <!-- View mode: -->
         <v-col v-else>
@@ -139,6 +148,10 @@
     padding-bottom: 6px;
     padding-top: 6px;
     text-align: start;
+  }
+  .denseTextField {
+    margin: 0;
+    padding: 0;
   }
   .details-card { margin: 0 auto 4em }
 </style>
