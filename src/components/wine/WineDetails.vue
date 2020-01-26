@@ -17,6 +17,7 @@
             <div v-if="attribute === 'description' || attribute === 'foodPairings'">
               <v-text-field v-for="i in wine[attribute].length - 1" :key="i"
                 class="denseTextField"
+                clearable
                 v-model="wine[attribute][i]">
               </v-text-field>
             </div>
