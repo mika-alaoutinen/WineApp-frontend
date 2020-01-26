@@ -21,7 +21,10 @@
                 v-model="wine[attribute][i]">
               </v-text-field>
 
-              <v-btn @click="addTextField(attribute)" class="secondary--text" text>
+              <v-btn @click="addTextField(attribute)"
+                :disabled="isButtonDisabled(attribute)"
+                class="secondary--text"
+                text>
                 <v-icon>{{ addIcon }}</v-icon>
                 Lisää kenttä
               </v-btn>
@@ -122,6 +125,14 @@
 
       addTextField(attribute) {
         this.wine[attribute].push("");
+      },
+
+      isButtonDisabled(attribute) {
+        const emptyTextFields = this.wine[attribute]
+          .filter (item => item === "" || item === undefined || item === null)
+          .length;
+        
+        return emptyTextFields > 0;
       },
 
       deleteWine(wine) {

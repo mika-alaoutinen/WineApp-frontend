@@ -106,7 +106,7 @@
         this.removeNullsFromArray(this.$props.item);
         this.showErrorAlert = false;
         this.$emit("get:editing", false);
-        // this.$emit("save:item", this.$props.item);
+        this.$emit("save:item", this.$props.item);
       },
 
       deleteItem() {
