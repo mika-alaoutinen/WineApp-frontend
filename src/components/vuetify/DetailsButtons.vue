@@ -103,22 +103,10 @@
           this.showErrorAlert = true;
           return;
         }
-
-        const item = this.$props.item;
-        Object
-          .keys(item)
-          .filter(key => Array.isArray(item[key]))
-          .forEach(key => item[key] = this.removeNull(item[key]));
-
-
+        this.removeNullsFromArray(this.$props.item);
         this.showErrorAlert = false;
         this.$emit("get:editing", false);
         // this.$emit("save:item", this.$props.item);
-        
-      },
-
-      removeNull(array) {
-        return array.filter(item => item);
       },
 
       deleteItem() {
@@ -127,14 +115,16 @@
       },
 
       invalidInput(item) {
-        // return Object
-        //   .values(item)
-        //   .map(value => Array.from(value))
-        //   .some(value => value.length === 0);
-
         return Object
           .values(item)
           .some(value => value === "" || value === []);
+      },
+
+      removeNullsFromArray(item) {
+        Object
+          .keys(item)
+          .filter(key => Array.isArray(item[key]))
+          .map(key => item[key] = item[key].filter(item => item));
       },
     },
 
