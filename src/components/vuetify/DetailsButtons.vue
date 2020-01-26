@@ -75,13 +75,15 @@
         editIcon: mdiPencil,
         okIcon: mdiCheck,
 
+        cachedItem: {},
         dialogActive: false,
       }
     },
 
     methods: {
       editMode() {
-        this.cachedItem = Object.assign({}, this.$props.item);
+        // Create a deep copy of the original object:
+        this.cachedItem = JSON.parse(JSON.stringify(this.$props.item));
         this.$emit("get:editing", true);
       },
 
