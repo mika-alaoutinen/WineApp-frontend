@@ -26,36 +26,30 @@
 
 <script>
   export default {
-    computed: {
-      setDate() {
-        return this.$props.selectedDate === undefined
-          ? new Date()
-          : this.$props.selectedDate;
-      }
-    },
-
     data() {
       return {
-        date: this.setDate,
-        type: "month",
+        date: new Date(),
+        type: "date",
       }
     },
 
     mounted() {
-      // Set the calendar type, default option is "month":
-      this.type = this.$props.calendarType === undefined
-        ? "month"
-        : this.$props.calendarType;
+      // If date is given in props, use it as is:
+      if (this.$props.selectedDate !== undefined) {
+        this.date = this.$props.selectedDate;
+        return;
+      }
       
-      // If no date is given, set value of date to today:
-      this.date = this.$props.selectedDate === undefined
-        ? new Date()
-        : this.$props.selectedDate;
+      // Set the calendar type, default option is "date":
+      if (this.$props.calendarType !== undefined) {
+        this.type = this.$props.calendarType;
+      }
 
-      // Set date string format based on calendar type:
-      this.date = this.type === "month"
-        ? this.date.toISOString().substr(0, 7)
-        : this.date.toISOString().split('T')[0]
+      // Format date string based on calendar type: 1) regular calendar 2) month calendar
+      this.date = this.type === "date"
+        ? this.date.toISOString().split('T')[0]
+        : this.date.toISOString().substr(0, 7)
+        
     },
 
     props: {

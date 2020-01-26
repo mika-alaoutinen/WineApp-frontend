@@ -36,7 +36,6 @@
         <!-- Date, required but cannot be entered incorrectly -->
         <DatePickerComponent
           @get:date="getDate"
-          :calendarType="'date'"
           :enabled="true"
           :labelText="'Päivämäärä'">
         </DatePickerComponent>

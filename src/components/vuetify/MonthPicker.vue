@@ -13,6 +13,7 @@
       <v-col>
         <DatePickerComponent
           @get:date="getStartDate"
+          :calendarType="'month'"
           :enabled="enabled"
           :labelText="'Aloituspäivämäärä'">
         </DatePickerComponent>
@@ -21,6 +22,7 @@
       <v-col>
         <DatePickerComponent
           @get:date="getEndDate"
+          :calendarType="'month'"
           :enabled="enabled"
           :labelText="'Lopetuspäivämäärä'">
         </DatePickerComponent>

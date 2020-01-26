@@ -14,7 +14,6 @@
         <v-col v-if="editing">
           <DatePickerComponent v-if="attribute === 'date'"
             @get:date="getDate"
-            :calendarType="'date'"
             :enabled="true"
             :labelText="'Päivämäärä'"
             :selectedDate="review.date">
