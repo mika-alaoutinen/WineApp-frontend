@@ -20,6 +20,11 @@
                 clearable
                 v-model="wine[attribute][i]">
               </v-text-field>
+
+              <v-btn @click="addTextField(attribute)" class="secondary--text" text>
+                <v-icon>{{ addIcon }}</v-icon>
+                Lisää kenttä
+              </v-btn>
             </div>
 
             <v-text-field v-else
@@ -69,6 +74,7 @@
   import ReviewService from "@/services/ReviewService.js";
   import Utilities from "@/utilities/Utilities.js";
   import WineService from "@/services/WineService.js";
+  import { mdiPlus } from '@mdi/js';
 
   const reviewService = new ReviewService();
   const wineService = new WineService();
@@ -92,6 +98,8 @@
 
     data() {
       return {
+        addIcon: mdiPlus,
+
         editing: false,
         reviews: [],
         util: Utilities,
@@ -111,6 +119,10 @@
 
     methods: {
       getEditing(boolean) { this.editing = boolean },
+
+      addTextField(attribute) {
+        this.wine[attribute].push("");
+      },
 
       deleteWine(wine) {
         wineService.delete(wine.id);

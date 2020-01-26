@@ -117,7 +117,7 @@
       invalidInput(item) {
         return Object
           .values(item)
-          .some(value => value === "" || value === []);
+          .some(value => value === "");
       },
 
       removeNullsFromArray(item) {
