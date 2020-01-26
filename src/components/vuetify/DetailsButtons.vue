@@ -1,6 +1,10 @@
 <template>
   <!-- Save and cancel edits: -->
   <div v-if="$props.editing">
+    <v-alert dismissible type="error" :value=showErrorAlert>
+      Kenttä ei voi olla tyhjä!
+    </v-alert>
+
     <v-btn @click="saveItem" class="secondary--text" large text>
       <v-icon>{{ okIcon }}</v-icon>
       Tallenna
@@ -77,6 +81,7 @@
 
         cachedItem: {},
         dialogActive: false,
+        showErrorAlert: false,
       }
     },
 
@@ -89,13 +94,16 @@
 
       cancelEdit() {
         Object.assign(this.$props.item, this.cachedItem);
+        this.showErrorAlert = false;
         this.$emit("get:editing", false);
       },
 
       saveItem() {
         if (this.invalidInput(this.$props.item)) {
+          this.showErrorAlert = true;
           return;
         }
+        this.showErrorAlert = false;
         this.$emit("get:editing", false);
         this.$emit("save:item", this.$props.item);
         
@@ -107,9 +115,10 @@
       },
 
       invalidInput(item) {
-        return Array
-          .from(Object.values(item))
-          .some(value => value === "" || value === []);
+        return Object
+          .values(item)
+          .map(value => Array.from(value))
+          .some(value => value.length === 0);
       },
     },
 
