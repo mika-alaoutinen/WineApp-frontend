@@ -12,7 +12,6 @@
         <!-- Right column for values. -->
         <!-- Editing mode: -->
         <v-col v-if="editing">
-          <!-- if attribute === date, show calender -->
           <v-textarea v-if="attribute === 'reviewText'"
             auto-grow
             class="ma-0 pa-0"

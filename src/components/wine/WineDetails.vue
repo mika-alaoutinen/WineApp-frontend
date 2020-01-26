@@ -30,6 +30,15 @@
               </v-btn>
             </div>
 
+            <v-radio-group v-else-if="attribute === 'type'"
+              row
+              v-model="wine.type">
+              <v-radio v-for="type in wineTypes" :key="type"
+                :label="util.translate('wine', type)"
+                :value="type.toUpperCase()">
+              </v-radio>
+            </v-radio-group>
+
             <v-text-field v-else
               @keyup.enter="saveEditedWine(wine)"
               class="ma-0 pa-0"
@@ -106,6 +115,7 @@
         editing: false,
         reviews: [],
         util: Utilities,
+        wineTypes: [ "sparkling", "red", "rose", "white", "other" ],
         
         wine: {
           name: "",
