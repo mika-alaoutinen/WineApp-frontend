@@ -26,9 +26,17 @@
 
 <script>
   export default {
+    computed: {
+      setDate() {
+        return this.$props.selectedDate === undefined
+          ? new Date()
+          : this.$props.selectedDate;
+      }
+    },
+
     data() {
       return {
-        date: new Date(),
+        date: this.setDate,
         type: "month",
       }
     },
@@ -39,6 +47,11 @@
         ? "month"
         : this.$props.calendarType;
       
+      // If no date is given, set value of date to today:
+      this.date = this.$props.selectedDate === undefined
+        ? new Date()
+        : this.$props.selectedDate;
+
       // Set date string format based on calendar type:
       this.date = this.type === "month"
         ? this.date.toISOString().substr(0, 7)
@@ -49,6 +62,7 @@
       calendarType: { type: String, required: false },
       enabled: { type: Boolean, required: true },
       labelText: { type: String, required: true },
+      selectedDate: { type: String, required: false },
     },
 
     watch: {

@@ -1,6 +1,10 @@
 <template>
   <!-- Save and cancel edits: -->
   <div v-if="$props.editing">
+    <v-alert dismissible type="error" :value=showErrorAlert>
+      Kenttä ei voi olla tyhjä!
+    </v-alert>
+
     <v-btn @click="saveItem" class="secondary--text" large text>
       <v-icon>{{ okIcon }}</v-icon>
       Tallenna
@@ -75,28 +79,34 @@
         editIcon: mdiPencil,
         okIcon: mdiCheck,
 
+        cachedItem: {},
         dialogActive: false,
+        showErrorAlert: false,
       }
     },
 
     methods: {
       editMode() {
-        this.cachedItem = Object.assign({}, this.$props.item);
+        // Create a deep copy of the original object:
+        this.cachedItem = JSON.parse(JSON.stringify(this.$props.item));
         this.$emit("get:editing", true);
       },
 
       cancelEdit() {
         Object.assign(this.$props.item, this.cachedItem);
+        this.showErrorAlert = false;
         this.$emit("get:editing", false);
       },
 
       saveItem() {
         if (this.invalidInput(this.$props.item)) {
+          this.showErrorAlert = true;
           return;
         }
+        this.removeNullsFromArray(this.$props.item);
+        this.showErrorAlert = false;
         this.$emit("get:editing", false);
         this.$emit("save:item", this.$props.item);
-        
       },
 
       deleteItem() {
@@ -105,9 +115,16 @@
       },
 
       invalidInput(item) {
-        return Array
-          .from(Object.values(item))
-          .some(value => value === "" || value === []);
+        return Object
+          .values(item)
+          .some(value => value === "");
+      },
+
+      removeNullsFromArray(item) {
+        Object
+          .keys(item)
+          .filter(key => Array.isArray(item[key]))
+          .map(key => item[key] = item[key].filter(item => item));
       },
     },
 
