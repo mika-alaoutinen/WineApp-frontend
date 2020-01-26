@@ -12,11 +12,29 @@
         <!-- Right column for values. -->
         <!-- Editing mode: -->
         <v-col v-if="editing">
-          <v-textarea v-if="attribute === 'reviewText'"
+          <DatePickerComponent v-if="attribute === 'date'"
+            @get:date="getDate"
+            :calendarType="'date'"
+            :enabled="true"
+            :labelText="'Päivämäärä'"
+            :selectedDate="review.date">
+          </DatePickerComponent>
+
+          <v-textarea v-else-if="attribute === 'reviewText'"
             auto-grow
             class="ma-0 pa-0"
             v-model="review[attribute]">
           </v-textarea>
+
+          <v-slider v-else-if="attribute === 'rating'"
+            :label="util.translate('review', 'rating')"
+            min="0.0"
+            max="5.0"
+            step="0.25"
+            ticks
+            thumb-label
+            v-model="review.rating">
+          </v-slider>
 
           <v-text-field v-else-if="attribute === 'wine'"
             :value="value.name"
@@ -53,6 +71,7 @@
 </template>
 
 <script>
+  import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
   import ReviewService from "@/services/ReviewService.js";
   import Utilities from "@/utilities/Utilities.js";
@@ -60,7 +79,7 @@
   const reviewService = new ReviewService();
 
   export default {
-    components: { DetailsButtons },
+    components: { DatePickerComponent, DetailsButtons },
 
     computed: {
       reviewWithoutId() {
@@ -77,6 +96,8 @@
     },
 
     methods: {
+      getDate(date) { this.review.date = date },
+
       getEditing(boolean) { this.editing = boolean },
       
       deleteReview(review) {
