@@ -1,5 +1,5 @@
-// const basePath = "http://localhost:8080/api/"
-const basePath = "https://maistissa-backend.herokuapp.com/api/"
+const basePath = "http://localhost:8080/api/"
+// const basePath = "https://maistissa-backend.herokuapp.com/api/"
 const winePath = basePath + "wines/";
 const reviewPath = basePath + "reviews/";
 
@@ -30,11 +30,15 @@ export default {
         },
         
         getQuickSearchUrl(searchParam, count) {
-            return this.paths.quicksearch + searchParam + buildQueryLimit(count);
+            const url = this.paths.quicksearch + searchParam + buildQueryLimit(count);
+            console.log(url);
+            return url;
         },
 
         getSearchUrl(searchParams) {
-            return this.paths.search + buildQueryParams(searchParams);
+            const url = this.paths.search + buildQueryParams(searchParams);
+            console.log(url);
+            return url;
         },
     },
 };
