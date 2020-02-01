@@ -5,12 +5,22 @@
       Kenttä ei voi olla tyhjä!
     </v-alert>
 
-    <v-btn @click="saveItem" class="secondary--text" large text>
+    <v-btn
+      @click="saveItem"
+      class="secondary--text"
+      id="save-edit"
+      large
+      text>
       <v-icon>{{ okIcon }}</v-icon>
       Tallenna
     </v-btn>
 
-    <v-btn @click="cancelEdit" class="primary--text" large text>
+    <v-btn
+      @click="cancelEdit"
+      class="primary--text"
+      id="cancel-edit"
+      large
+      text>
       <v-icon>{{ cancelIcon }}</v-icon>
       Peruuta
     </v-btn>
@@ -18,14 +28,24 @@
   
   <!-- Edit or delete: -->
   <div v-else>
-    <v-btn @click="editMode" class="secondary--text" large text>
+    <v-btn
+      @click="editMode"
+      class="secondary--text"
+      id="edit"
+      large
+      text>
       <v-icon>{{ editIcon }}</v-icon>
       Muokkaa
     </v-btn>
 
     <v-dialog persistent v-model="dialogActive" width="500">
       <template v-slot:activator="{ on }">
-        <v-btn class="primary--text" large text v-on="on">
+        <v-btn
+          class="primary--text"
+          id="delete"
+          large
+          text
+          v-on="on">
           <v-icon>{{ deleteIcon }}</v-icon>
           Poista
         </v-btn>
@@ -39,12 +59,19 @@
         
         <v-card-actions>
           <v-spacer>
-          <v-btn @click="deleteItem" class="secondary--text" large text>
+          <v-btn
+            @click="deleteItem"
+            class="secondary--text"
+            large
+            text>
             <v-icon>{{ deleteIcon }}</v-icon>
             Poista
           </v-btn>
 
-          <v-btn @click="dialogActive = false" class="primary--text" text>
+          <v-btn
+            @click="dialogActive = false"
+            class="primary--text"
+            text>
             <v-icon>{{ cancelIcon }}</v-icon>
             Peruuta
           </v-btn>
