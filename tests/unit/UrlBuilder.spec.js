@@ -2,6 +2,7 @@ import UrlBuilder from "@/utilities/UrlBuilder.js";
 
 const wineUrl = UrlBuilder.wine.paths.search;
 const reviewUrl = UrlBuilder.review.paths.search;
+const reviewQuickSearchUrl = UrlBuilder.review.paths.quicksearch;
 let review;
 let wine;
 
@@ -19,16 +20,66 @@ beforeEach(() => {
         author: "",
         dateRange: [],
         ratingRange: [],
-        wineId: "",
     }
 });
 
 // Testing review quicksearch:
+test("find best reviews with quick search", () => {
+    expect(UrlBuilder.review.getQuickSearchUrl("best")).toBe(reviewQuickSearchUrl + "best");
+});
 
+test("find 10 best reviews with quick search", () => {
+    expect(UrlBuilder.review.getQuickSearchUrl("best", 10)).toBe(reviewQuickSearchUrl + "best?limit=10");
+});
+
+test("find worst reviews with quick search", () => {
+    expect(UrlBuilder.review.getQuickSearchUrl("worst")).toBe(reviewQuickSearchUrl + "worst");
+});
+
+test("find 10 worst reviews with quick search", () => {
+    expect(UrlBuilder.review.getQuickSearchUrl("worst", 10)).toBe(reviewQuickSearchUrl + "worst?limit=10");
+});
+
+test("find newest reviews with quick search", () => {
+    expect(UrlBuilder.review.getQuickSearchUrl("newest")).toBe(reviewQuickSearchUrl + "newest");
+});
+
+test("find 10 newest reviews with quick search", () => {
+    expect(UrlBuilder.review.getQuickSearchUrl("newest", 10)).toBe(reviewQuickSearchUrl + "newest?limit=10");
+});
 
 // Testing review search:
 test("review search with empty search parameter", () => {
     expect(UrlBuilder.review.getSearchUrl(review)).toBe(reviewUrl);
+});
+
+test("review search by author", () => {
+    review.author = "Mika";
+    expect(UrlBuilder.review.getSearchUrl(review)).toBe(reviewUrl + "author=Mika");
+});
+
+test("review search by date range", () => {
+    review.dateRange = [ "2019-01", "2019-12" ];
+    expect(UrlBuilder.review.getSearchUrl(review)).toBe(reviewUrl + "dateRange=2019-01,2019-12");
+});
+
+test("review search by rating range", () => {
+    review.ratingRange = [ "3", "5" ];
+    expect(UrlBuilder.review.getSearchUrl(review)).toBe(reviewUrl + "ratingRange=3,5");
+});
+
+test("review search by author and date range", () => {
+    review.author = "Mika";
+    review.dateRange = [ "2019-01", "2019-05" ];
+    const expectedUrl = "author=Mika&dateRange=2019-01,2019-05";
+    expect(UrlBuilder.review.getSearchUrl(review)).toBe(reviewUrl + expectedUrl);
+});
+
+test("review search by date range and rating range", () => {
+    review.dateRange = [ "2019-01", "2019-05" ];
+    review.ratingRange = [ "1", "3" ];
+    const expectedUrl = "dateRange=2019-01,2019-05&ratingRange=1,3";
+    expect(UrlBuilder.review.getSearchUrl(review)).toBe(reviewUrl + expectedUrl);
 });
 
 // Testing wine search:
