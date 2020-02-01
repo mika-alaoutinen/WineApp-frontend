@@ -107,7 +107,6 @@
         searchParams: {
           name: "",
           type: "",
-          country: "", // delete
           countries: [],
           priceRange: [],
           volumes: [],
