@@ -5,10 +5,6 @@ test("test that date format is converted from yyyy-mm-dd to dd.mm.yyyy", () => {
     expect(Utilities.formatDate("2019-10-01")).toBe("01.10.2019");
 });
 
-test("test that invalid date format returns undefined", () => {
-    expect(Utilities.formatDate("2019-10")).toBe(undefined);
-});
-
 // Test translate:
 test("test that home is translated correctly", () => {
     expect(Utilities.translate("common", "home")).toBe("Aloitus");

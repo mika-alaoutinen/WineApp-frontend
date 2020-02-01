@@ -1,9 +1,7 @@
 const ReviewStore = {
     data: {
         reviews: [],
-
-        // Used in Service.js to determine the store type.
-        storeType: "review",
+        storeType: "review", // Used in Service.js to determine the store type.
     },
 
     addAll(reviewArray) {
