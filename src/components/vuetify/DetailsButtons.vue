@@ -62,6 +62,7 @@
           <v-btn
             @click="deleteItem"
             class="secondary--text"
+            id="confirm-delete"
             large
             text>
             <v-icon>{{ deleteIcon }}</v-icon>
@@ -71,6 +72,7 @@
           <v-btn
             @click="dialogActive = false"
             class="primary--text"
+            id="cancel-delete"
             text>
             <v-icon>{{ cancelIcon }}</v-icon>
             Peruuta
