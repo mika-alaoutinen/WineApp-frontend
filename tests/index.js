@@ -13,6 +13,13 @@ Vue.use(Vuetify);
  * @param {Object} propsData props that the component has.
  */
 export function mountVuetifyComponent(Component, propsData) {
+    // Used to get rid of the following warning:
+    // "[Vuetify] Missing v-app or a non-body wrapping element with the [data-app] attribute"
+    const app = document.createElement('div');
+    app.setAttribute('data-app', true);
+    document.body.appendChild(app);
+    
+    // Use localVue and Vuetify to get rid of vuetify error messages:
     const localVue = createLocalVue();
     const vuetify = new Vuetify();
 
