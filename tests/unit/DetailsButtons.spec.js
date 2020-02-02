@@ -1,6 +1,8 @@
-import { shallowMount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
+import Vuetify from 'vuetify';
 import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
 
+const localVue = createLocalVue();
 const wine = {
     name: "Viini",
     type: "RED",
@@ -33,7 +35,11 @@ test("cancel button sets editing state to false", async () => {
 });
 
 function mountComponent(isEditing) {
-    return shallowMount(DetailsButtons, {
+    const vuetify = new Vuetify();
+
+    return mount(DetailsButtons, {
+        localVue,
+        vuetify,
         propsData: {
             editing: isEditing,
             item: wine,
