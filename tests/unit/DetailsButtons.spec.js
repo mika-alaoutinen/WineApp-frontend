@@ -1,19 +1,5 @@
-import { createLocalVue, mount } from '@vue/test-utils'
-import Vuetify from 'vuetify';
 import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
-
-const localVue = createLocalVue();
-const wine = {
-    name: "Viini",
-    type: "RED",
-    country: "Italia",
-    price: 8,
-    volume: 0.75,
-    description: [ "keskitanniininen", "luumuinen" ],
-    foodPairings: [ "seurustelujuoma", "liharuuat" ],
-    url: "http://viini.fi",
-    reviews: [],
-}
+import { mountVuetifyComponent } from "../index.js";
 
 test("component loads correctly", () => {
     const wrapper = mountComponent(false);
@@ -35,14 +21,22 @@ test("cancel button sets editing state to false", async () => {
 });
 
 function mountComponent(isEditing) {
-    const vuetify = new Vuetify();
+    const wine = {
+        name: "Viini",
+        type: "RED",
+        country: "Italia",
+        price: 8,
+        volume: 0.75,
+        description: [ "keskitanniininen", "luumuinen" ],
+        foodPairings: [ "seurustelujuoma", "liharuuat" ],
+        url: "http://viini.fi",
+        reviews: [],
+    }
 
-    return mount(DetailsButtons, {
-        localVue,
-        vuetify,
-        propsData: {
-            editing: isEditing,
-            item: wine,
-        }
-    });
+    const propsData = {
+        editing: isEditing,
+        item: wine,
+    }
+
+    return mountVuetifyComponent(DetailsButtons, propsData);
 }
