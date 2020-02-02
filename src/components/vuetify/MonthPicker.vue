@@ -5,6 +5,7 @@
 
     <v-switch
       @change="flipSwitch"
+      id="calendarSwitch"
       label="Päivämäärähaku päällä"
       v-model="enabled">
     </v-switch>
@@ -49,7 +50,7 @@ import DatePicker from "@/components/vuetify/DatePicker.vue";
       flipSwitch() {
         this.enabled
           ? this.$emit("get:range", this.range)
-          : this.$emit("get:range","");
+          : this.$emit("get:range", "");
       },
 
       getStartDate(date) { this.range[0] = date },
