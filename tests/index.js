@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, mount, RouterLinkStub } from '@vue/test-utils';
 
 Vue.config.productionTip = false;
 Vue.use(Vuetify);
@@ -27,6 +27,7 @@ export function mountVuetifyComponent(Component, propsData) {
         localVue,
         vuetify,
         propsData,
+        stubs: { RouterLink: RouterLinkStub },
     });
 }
 
