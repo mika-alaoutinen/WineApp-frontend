@@ -34,11 +34,11 @@
         </validation-provider>
 
         <!-- Date, required but cannot be entered incorrectly -->
-        <DatePickerComponent
+        <DatePicker
           @get:date="getDate"
           :enabled="true"
           :labelText="'Päivämäärä'">
-        </DatePickerComponent>
+        </DatePicker>
 
         <!-- Review text, optional -->
         <v-textarea
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-  import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
+  import DatePicker from "@/components/vuetify/DatePicker.vue";
   import ReviewService from "@/services/ReviewService.js";
   import Utilities from "@/utilities/Utilities.js";
   import WineService from "@/services/WineService.js";
@@ -83,7 +83,7 @@
   const wineService = new WineService();
 
   export default {
-    components: { DatePickerComponent, ValidationObserver, ValidationProvider },
+    components: { DatePicker, ValidationObserver, ValidationProvider },
 
     computed: {
       allWines() {

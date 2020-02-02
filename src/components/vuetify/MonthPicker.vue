@@ -11,21 +11,21 @@
 
     <v-row>
       <v-col>
-        <DatePickerComponent
+        <DatePicker
           @get:date="getStartDate"
           :calendarType="'month'"
           :enabled="enabled"
           :labelText="'Aloituspäivämäärä'">
-        </DatePickerComponent>
+        </DatePicker>
       </v-col>
 
       <v-col>
-        <DatePickerComponent
+        <DatePicker
           @get:date="getEndDate"
           :calendarType="'month'"
           :enabled="enabled"
           :labelText="'Lopetuspäivämäärä'">
-        </DatePickerComponent>
+        </DatePicker>
       </v-col>
     </v-row>
 
@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
+import DatePicker from "@/components/vuetify/DatePicker.vue";
 
   export default {
-    components: { DatePickerComponent },
+    components: { DatePicker },
 
     data() {
       return {

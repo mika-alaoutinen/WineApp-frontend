@@ -12,12 +12,12 @@
         <!-- Right column for values. -->
         <!-- Editing mode: -->
         <v-col v-if="editing">
-          <DatePickerComponent v-if="attribute === 'date'"
+          <DatePicker v-if="attribute === 'date'"
             @get:date="getDate"
             :enabled="true"
             :labelText="'Päivämäärä'"
             :selectedDate="review.date">
-          </DatePickerComponent>
+          </DatePicker>
 
           <v-textarea v-else-if="attribute === 'reviewText'"
             auto-grow
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-  import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
+  import DatePicker from "@/components/vuetify/DatePicker.vue";
   import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
   import ReviewService from "@/services/ReviewService.js";
   import Utilities from "@/utilities/Utilities.js";
@@ -78,7 +78,7 @@
   const reviewService = new ReviewService();
 
   export default {
-    components: { DatePickerComponent, DetailsButtons },
+    components: { DatePicker, DetailsButtons },
 
     computed: {
       reviewWithoutId() {
