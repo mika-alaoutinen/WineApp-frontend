@@ -1,5 +1,5 @@
 import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
-import { mountVuetifyComponent } from "../index.js";
+import { clickButton, mountVuetifyComponent } from "../index.js";
 
 let wine;
 beforeEach(() => {
@@ -130,9 +130,4 @@ function mountComponent(isEditing) {
         item: wine,
     }
     return mountVuetifyComponent(DetailsButtons, propsData);
-}
-
-async function clickButton(wrapper, buttonId) {
-    wrapper.find(buttonId).trigger("click");
-    await wrapper.vm.$nextTick();
 }

@@ -22,3 +22,23 @@ export function mountVuetifyComponent(Component, propsData) {
         propsData,
     });
 }
+
+/**
+ * A helper function that clicks a button.
+ * @param {Object} wrapper 
+ * @param {string} buttonId 
+ */
+export async function clickButton(wrapper, buttonId) {
+    wrapper.find(buttonId).trigger("click");
+    await wrapper.vm.$nextTick();
+}
+
+/**
+ * A helper function that clicks a switch.
+ * @param {Object} wrapper 
+ * @param {string} switchId 
+ */
+export async function flipSwitch(wrapper, switchId) {
+    wrapper.find(switchId).trigger("click");
+    await wrapper.vm.$nextTick();
+}
