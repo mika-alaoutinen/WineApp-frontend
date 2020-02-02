@@ -1,20 +1,9 @@
 import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
 import { clickButton, mountVuetifyComponent } from "../index.js";
+import { wine1 } from "../testdata.js";
 
 let wine;
-beforeEach(() => {
-    wine = {
-        name: "Viini",
-        type: "RED",
-        country: "Italia",
-        price: 8,
-        volume: 0.75,
-        description: [ "keskitanniininen", "luumuinen" ],
-        foodPairings: [ "seurustelujuoma", "liharuuat" ],
-        url: "http://viini.fi",
-        reviews: [],
-    }
-})
+beforeEach(() => wine = wine1);
 
 test("component loads correctly", () => {
     const wrapper = mountComponent(false);
