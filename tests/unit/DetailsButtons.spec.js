@@ -1,13 +1,13 @@
 import DetailsButtons from "@/components/vuetify/DetailsButtons.vue";
 import { clickButton, mountVuetifyComponent } from "../index.js";
-import { wine1 } from "../testdata.js";
+import { wines } from "../testdata.js";
 
 let wine;
-beforeEach(() => wine = wine1);
+beforeEach(() => wine = wines[0]);
 
 test("component loads correctly", () => {
     const wrapper = mountComponent(false);
-    expect(wrapper.props().item.name).toBe("Viini");
+    expect(wrapper.props().item.name).toBe("Viini 1");
 });
 
 // Edit item functionality:
