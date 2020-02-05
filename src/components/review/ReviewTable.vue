@@ -79,8 +79,8 @@
     },
 
     props: {
-      itemsPerPage: { type: Number, required: false },
       reviews: { type: Array, required: true },
+      itemsPerPage: { type: Number, required: false },
       search: { type: String, required: false },
     },
 

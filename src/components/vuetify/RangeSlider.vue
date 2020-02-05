@@ -3,6 +3,7 @@
     <v-switch
       @change="flipSwitch"
       :label="setSwitchLabel"
+      id="ratingSwitch"
       v-model="enabled">
     </v-switch>
 

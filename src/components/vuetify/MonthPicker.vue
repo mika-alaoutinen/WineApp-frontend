@@ -5,27 +5,28 @@
 
     <v-switch
       @change="flipSwitch"
+      id="calendarSwitch"
       label="Päivämäärähaku päällä"
       v-model="enabled">
     </v-switch>
 
     <v-row>
       <v-col>
-        <DatePickerComponent
+        <DatePicker
           @get:date="getStartDate"
           :calendarType="'month'"
           :enabled="enabled"
           :labelText="'Aloituspäivämäärä'">
-        </DatePickerComponent>
+        </DatePicker>
       </v-col>
 
       <v-col>
-        <DatePickerComponent
+        <DatePicker
           @get:date="getEndDate"
           :calendarType="'month'"
           :enabled="enabled"
           :labelText="'Lopetuspäivämäärä'">
-        </DatePickerComponent>
+        </DatePicker>
       </v-col>
     </v-row>
 
@@ -33,10 +34,10 @@
 </template>
 
 <script>
-import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
+import DatePicker from "@/components/vuetify/DatePicker.vue";
 
   export default {
-    components: { DatePickerComponent },
+    components: { DatePicker },
 
     data() {
       return {
@@ -49,7 +50,7 @@ import DatePickerComponent from "@/components/vuetify/DatePickerComponent.vue";
       flipSwitch() {
         this.enabled
           ? this.$emit("get:range", this.range)
-          : this.$emit("get:range","");
+          : this.$emit("get:range", "");
       },
 
       getStartDate(date) { this.range[0] = date },

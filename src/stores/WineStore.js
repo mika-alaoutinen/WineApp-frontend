@@ -1,9 +1,7 @@
 const WineStore = {
     data: {
         wines: [],
-
-        // Used in Service.js to determine the store type.
-        storeType: "wine",
+        storeType: "wine", // Used in Service.js to determine the store type.
     },
 
     addAll(wineArray) {
