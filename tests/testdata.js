@@ -12,6 +12,7 @@ export let wine1 = {
 
 export let reviews = [
     {
+        id: 1,
         author: "Mika",
         date: "2020-01-05",
         reviewText: "Viinin 1 arvostelu. Viini on erittäin herkullinen.",
@@ -19,6 +20,7 @@ export let reviews = [
         wine: wine1,
     },
     {
+        id: 2,
         author: "Salla",
         date: "2020-01-05",
         reviewText: "Viinin 1 arvostelu. Viini on kohtuullisen herkullinen.",
