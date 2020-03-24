@@ -30,15 +30,11 @@ export default {
         },
         
         getQuickSearchUrl(searchParam, count) {
-            const url = this.paths.quicksearch + searchParam + buildQueryLimit(count);
-            console.log(url);
-            return url;
+            return this.paths.quicksearch + searchParam + buildQueryLimit(count);
         },
 
         getSearchUrl(searchParams) {
-            const url = this.paths.search + buildQueryParams(searchParams);
-            console.log(url);
-            return url;
+            return this.paths.search + buildQueryParams(searchParams);
         },
     },
 };
