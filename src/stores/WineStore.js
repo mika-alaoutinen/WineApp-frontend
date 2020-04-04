@@ -9,7 +9,7 @@ const WineStore = {
   },
 
   add(newWine) {
-    if (!this.data.wines.some((wine) => wine.id === newWine.id)) {
+    if (!this.data.wines.some(wine => wine.id === newWine.id)) {
       this.data.wines.push(newWine)
       return true
     }
@@ -17,11 +17,11 @@ const WineStore = {
   },
 
   edit(id, editedWine) {
-    this.data.wines.map((wine) => (wine.id === id ? editedWine : wine))
+    this.data.wines.map(wine => (wine.id === id ? editedWine : wine))
   },
 
   delete(id) {
-    this.data.wines = this.data.wines.filter((wine) => wine.id !== id)
+    this.data.wines = this.data.wines.filter(wine => wine.id !== id)
   },
 }
 

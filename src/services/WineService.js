@@ -1,11 +1,11 @@
-import axios from 'axios';
-import UrlBuilder from '@/utilities/UrlBuilder.js';
-import WineStore from '@/stores/WineStore.js';
-import Service from './Service.js';
+import axios from 'axios'
+import UrlBuilder from '@/utilities/UrlBuilder.js'
+import WineStore from '@/stores/WineStore.js'
+import Service from './Service.js'
 
 class WineService extends Service {
   constructor() {
-    super(WineStore);
+    super(WineStore)
   }
 
   /**
@@ -13,7 +13,7 @@ class WineService extends Service {
      * @returns {Promise} containing Array of unique countries.
      */
   getCountries() {
-    return getDistinctItems('countries');
+    return getDistinctItems('countries')
   }
 
   /**
@@ -21,7 +21,7 @@ class WineService extends Service {
      * @returns {Promise} containing Array of unique descriptions.
      */
   getDescriptions() {
-    return getDistinctItems('descriptions');
+    return getDistinctItems('descriptions')
   }
 
   /**
@@ -29,7 +29,7 @@ class WineService extends Service {
      * @returns {Promise} containing Array of unique food pairings.
      */
   getFoodPairings() {
-    return getDistinctItems('foodPairings');
+    return getDistinctItems('foodPairings')
   }
 }
 
@@ -41,8 +41,8 @@ class WineService extends Service {
 async function getDistinctItems(item) {
   return axios
     .get(UrlBuilder.wine.paths[item])
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
+    .then(response => response.data)
+    .catch(error => console.error(error))
 }
 
-export default WineService;
+export default WineService

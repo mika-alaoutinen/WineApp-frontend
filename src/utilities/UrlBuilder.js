@@ -1,4 +1,4 @@
-// const basePath = "http://localhost:8080/api/"
+// const basePath = 'http://localhost:8080/api/'
 const basePath = 'https://maistissa-backend.herokuapp.com/api/'
 const winePath = `${basePath}wines/`
 const reviewPath = `${basePath}reviews/`
@@ -58,7 +58,7 @@ function buildQueryLimit(count) {
  */
 function buildQueryParams(searchParams) {
   return Object.keys(searchParams)
-    .filter((key) => searchParams[key] != '')
-    .map((key) => `${key}=${searchParams[key]}`)
+    .filter(key => searchParams[key] != '')
+    .map(key => `${key}=${searchParams[key]}`)
     .join('&')
 }

@@ -1,11 +1,11 @@
-import axios from 'axios';
-import ReviewStore from '@/stores/ReviewStore.js';
-import UrlBuilder from '@/utilities/UrlBuilder.js';
-import Service from './Service.js';
+import axios from 'axios'
+import ReviewStore from '@/stores/ReviewStore.js'
+import UrlBuilder from '@/utilities/UrlBuilder.js'
+import Service from './Service.js'
 
 class ReviewService extends Service {
   constructor() {
-    super(ReviewStore);
+    super(ReviewStore)
   }
 
   /**
@@ -16,8 +16,8 @@ class ReviewService extends Service {
   async getByWineId(wineId) {
     return axios
       .get(UrlBuilder.review.paths.wineId + wineId)
-      .then((response) => response.data)
-      .catch((error) => console.error(error));
+      .then(response => response.data)
+      .catch(error => console.error(error))
   }
 
   /**
@@ -28,8 +28,8 @@ class ReviewService extends Service {
   async post(wineId, review) {
     return axios
       .post(UrlBuilder.review.paths.base + wineId, review)
-      .then((response) => this.store.add(response.data))
-      .catch((error) => console.error(error));
+      .then(response => this.store.add(response.data))
+      .catch(error => console.error(error))
   }
 
   /**
@@ -39,14 +39,14 @@ class ReviewService extends Service {
      */
   async quickSearch(searchParam, count) {
     if (!isSearchParamValid) {
-      console.error(`Invalid search param: ${searchParam}`);
-      return;
+      console.error(`Invalid search param: ${searchParam}`)
+      return
     }
 
     return axios
       .get(UrlBuilder.review.getQuickSearchUrl(searchParam, count))
-      .then((response) => response.data)
-      .catch((error) => console.error(error));
+      .then(response => response.data)
+      .catch(error => console.error(error))
   }
 
   /**
@@ -57,21 +57,21 @@ class ReviewService extends Service {
      * @returns {Array} wines with property wine.avgRating added.
      */
   calculateAverageRatings(wines, reviews) {
-    const winesCopy = wines.map((wine) => ({ ...wine }));
+    const winesCopy = wines.map(wine => ({ ...wine }))
 
-    winesCopy.map((wine) => {
+    winesCopy.map(wine => {
       const ratings = reviews
-        .filter((review) => review.wine.id === wine.id)
-        .map((review) => review.rating);
+        .filter(review => review.wine.id === wine.id)
+        .map(review => review.rating)
 
       const avgRating = ratings.reduce(
         (prev, current) => prev + current, 0,
-      ) / ratings.length;
+      ) / ratings.length
 
-      wine.avgrating = Number.isNaN(avgRating) ? '-' : avgRating;
-    });
+      wine.avgrating = Number.isNaN(avgRating) ? '-' : avgRating
+    })
 
-    return winesCopy;
+    return winesCopy
   }
 }
 
@@ -81,7 +81,7 @@ class ReviewService extends Service {
  * @returns {Boolean}
  */
 function isSearchParamValid(param) {
-  return ['best', 'worst', 'newest'].includes(param);
+  return ['best', 'worst', 'newest'].includes(param)
 }
 
-export default ReviewService;
+export default ReviewService

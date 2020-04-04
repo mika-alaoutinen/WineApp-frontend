@@ -4,43 +4,55 @@ module.exports = {
     'es6': true,
     "jest": true,
   },
+
   'extends': [
     // 'eslint:recommended',
     'plugin:vue/recommended'
   ],
+
   'parserOptions': {
+    "parser": "babel-eslint",
     'ecmaVersion': 6,
     'sourceType': 'module'
   },
+
   'rules': {
-    'vue/script-indent': [
-        'warn', 2, {
-            'baseIndent': 1
-        }
-    ],
-    'linebreak-style': [
-        'error',
-        'windows'
-    ],
-    'quotes': [
-        'error',
-        'single'
-    ],
-    'semi': [
-        'error',
-        'never'
-    ],
-    'eqeqeq': 'error',
-    'no-trailing-spaces': 'error',
-    'object-curly-spacing': [
-        'error',
-        'always'
+    'arrow-parens': [
+      'error',
+      'as-needed'
     ],
     'arrow-spacing': [
       'error', {
-          'before': true,
-          'after': true
-        }
+        'before': true,
+        'after': true
+      }
+    ],
+    'eqeqeq': [
+      'error'
+    ],
+    'linebreak-style': [
+      'error',
+      'windows'
+    ],
+    'no-trailing-spaces': [
+      'error'
+    ],
+    'object-curly-spacing': [
+      'error',
+      'always'
+    ],
+    'quotes': [
+      'error',
+      'single'
+    ],
+    'semi': [
+      'error',
+      'never'
+    ],
+    'vue/script-indent': [
+      'warn', 2, {
+        'baseIndent': 1
+      }
     ],
   }
 }

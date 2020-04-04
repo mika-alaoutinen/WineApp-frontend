@@ -9,7 +9,7 @@ const ReviewStore = {
   },
 
   add(newReview) {
-    if (!this.data.reviews.some((review) => review.id === newReview.id)) {
+    if (!this.data.reviews.some(review => review.id === newReview.id)) {
       this.data.reviews.push(newReview)
       return true
     }
@@ -17,11 +17,11 @@ const ReviewStore = {
   },
 
   edit(id, editedReview) {
-    this.data.reviews.map((review) => (review.id === id ? editedReview : review))
+    this.data.reviews.map(review => (review.id === id ? editedReview : review))
   },
 
   delete(id) {
-    this.data.reviews = this.data.reviews.filter((review) => review.id !== id)
+    this.data.reviews = this.data.reviews.filter(review => review.id !== id)
   },
 }
 

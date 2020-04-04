@@ -1,13 +1,13 @@
-import axios from 'axios';
-import UrlBuilder from '@/utilities/UrlBuilder.js';
+import axios from 'axios'
+import UrlBuilder from '@/utilities/UrlBuilder.js'
 
 class Service {
   constructor(store) {
-    this.store = store;
-    this.storeType = this.store.data.storeType;
+    this.store = store
+    this.storeType = this.store.data.storeType
   }
 
-  getStore() { return this.store; }
+  getStore() { return this.store }
 
   // CRUD operations:
   /**
@@ -18,8 +18,8 @@ class Service {
   async get(id) {
     return axios
       .get(UrlBuilder[this.storeType].paths.base + id)
-      .then((response) => response.data)
-      .catch((error) => console.error(error));
+      .then(response => response.data)
+      .catch(error => console.error(error))
   }
 
   /**
@@ -28,8 +28,8 @@ class Service {
   async getAll() {
     return axios
       .get(UrlBuilder[this.storeType].paths.base)
-      .then((response) => this.store.addAll(response.data))
-      .catch((error) => console.error(error));
+      .then(response => this.store.addAll(response.data))
+      .catch(error => console.error(error))
   }
 
   /**
@@ -39,8 +39,8 @@ class Service {
   async post(item) {
     return axios
       .post(UrlBuilder[this.storeType].paths.base, item)
-      .then((response) => this.store.add(response.data))
-      .catch((error) => console.error(error));
+      .then(response => this.store.add(response.data))
+      .catch(error => console.error(error))
   }
 
   /**
@@ -50,8 +50,8 @@ class Service {
      */
   async put(id, editedItem) {
     axios.put(UrlBuilder[this.storeType].paths.base + id, editedItem)
-      .then((response) => this.store.edit(id, response.data))
-      .catch((error) => console.error(error));
+      .then(response => this.store.edit(id, response.data))
+      .catch(error => console.error(error))
   }
 
   /**
@@ -61,7 +61,7 @@ class Service {
   async delete(id) {
     axios.delete(UrlBuilder[this.storeType].paths.base + id)
       .then(() => this.store.delete(id))
-      .catch((error) => console.error(error));
+      .catch(error => console.error(error))
   }
 
   // Other operations:
@@ -71,8 +71,8 @@ class Service {
   async getCount() {
     return axios
       .get(UrlBuilder[this.storeType].paths.count)
-      .then((response) => response.data)
-      .catch((error) => console.error(error));
+      .then(response => response.data)
+      .catch(error => console.error(error))
   }
 
   /**
@@ -83,8 +83,8 @@ class Service {
   async search(searchParams) {
     return axios
       .get(UrlBuilder[this.storeType].getSearchUrl(searchParams))
-      .then((response) => response.data)
-      .catch((error) => console.error(error));
+      .then(response => response.data)
+      .catch(error => console.error(error))
   }
 
   // Modifying objects:
@@ -94,9 +94,9 @@ class Service {
      * @returns {Object} item with ID removed.
      */
   removeObjectId(object) {
-    const copy = { ...object };
-    delete copy.id;
-    return copy;
+    const copy = { ...object }
+    delete copy.id
+    return copy
   }
 
   /**
@@ -105,10 +105,10 @@ class Service {
      */
   resetObject(searchParams) {
     Object.keys(searchParams)
-      .map((key) => (Array.isArray(searchParams[key])
+      .map(key => (Array.isArray(searchParams[key])
         ? searchParams[key] = []
-        : searchParams[key] = ''));
+        : searchParams[key] = ''))
   }
 }
 
-export default Service;
+export default Service
