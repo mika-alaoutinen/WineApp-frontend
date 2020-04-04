@@ -1,29 +1,32 @@
 <template>
-  <v-card class="full-page-card" max-width="75%">
-    <v-card-title class="card-title secondary--text">Viinilistaus<v-spacer/>
+  <v-card
+    class="full-page-card"
+    max-width="75%"
+  >
+    <v-card-title class="card-title secondary--text">
+      Viinilistaus<v-spacer />
       <v-text-field
+        v-model="search"
         :append-icon="searchIcon"
         class="search-bar"
         hide-details
         label="Hae viinejä"
         single-line
-        v-model="search">
-      </v-text-field>      
+      />
     </v-card-title>
 
     <WineTable
-      :itemsPerPage="15"
+      :items-per-page="15"
       :search="search"
-      :wines="wineStore.wines">
-    </WineTable>
-    
+      :wines="wineStore.wines"
+    />
   </v-card>
 </template>
 
 <script>
-  import WineService from "@/services/WineService.js";
-  import WineTable from "@/components/wine/WineTable.vue";
-  import { mdiMagnify } from '@mdi/js';
+  import WineService from '@/services/WineService.js'
+  import WineTable from '@/components/wine/WineTable.vue'
+  import { mdiMagnify } from '@mdi/js'
 
   export default {
     components: { WineTable },
@@ -32,12 +35,12 @@
       return {
         searchIcon: mdiMagnify,
 
-        search: "",
+        search: '',
         wineStore: new WineService().getStore().data,
       }
     },
 
-  };
+  }
 </script>
 
 <style scoped>

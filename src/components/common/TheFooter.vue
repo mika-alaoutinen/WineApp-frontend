@@ -1,20 +1,30 @@
 <template>
-  <v-footer absolute class="primary" padless>
+  <v-footer
+    absolute
+    class="primary"
+    padless
+  >
     <v-spacer class="footer">
-      <v-icon large>{{ gitHubIcon }}</v-icon>
+      <v-icon large>
+        {{ gitHubIcon }}
+      </v-icon>
       Lähdekoodi:
 
-      <v-icon large>{{ vueIcon }}</v-icon>
+      <v-icon large>
+        {{ vueIcon }}
+      </v-icon>
       <a href="https://github.com/mika-alaoutinen/WineApp-frontend">frontend</a>
 
-      <v-icon large>{{ javaIcon }}</v-icon>
+      <v-icon large>
+        {{ javaIcon }}
+      </v-icon>
       <a href="https://github.com/mika-alaoutinen/WineApp">backend</a>
     </v-spacer>
   </v-footer>
 </template>
 
 <script>
-  import { mdiGithubCircle, mdiLanguageJava, mdiVuejs } from '@mdi/js';
+  import { mdiGithubCircle, mdiLanguageJava, mdiVuejs } from '@mdi/js'
 
   export default {
     data() {

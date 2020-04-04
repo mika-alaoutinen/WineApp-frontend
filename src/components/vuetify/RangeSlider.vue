@@ -1,36 +1,36 @@
 <template>
   <div>
     <v-switch
-      @change="flipSwitch"
-      :label="setSwitchLabel"
       id="ratingSwitch"
-      v-model="enabled">
-    </v-switch>
+      v-model="enabled"
+      :label="setSwitchLabel"
+      @change="flipSwitch"
+    />
 
     <v-range-slider
-      @change="emitRange"
+      v-model="range"
       :disabled="!enabled"
       :min="$props.defaultRange[0]"
       :max="$props.defaultRange[1]"
       :step="setStep"
-      v-model="range">
-
+      @change="emitRange"
+    >
       <template v-slot:prepend>
         <v-text-field
+          v-model="range[0]"
           class="slider-value-field"
           single-line
           type="number"
-          v-model="range[0]">
-        </v-text-field>
+        />
       </template>
 
       <template v-slot:append>
         <v-text-field
+          v-model="range[1]"
           class="slider-value-field"
           single-line
           type="number"
-          v-model="range[1]">
-        </v-text-field>
+        />
       </template>
     </v-range-slider>
   </div>
@@ -38,36 +38,6 @@
 
 <script>
   export default {
-    computed: {
-      setStep() {
-        return this.$props.step === undefined ? 1 : this.$props.step;
-      },
-
-      setSwitchLabel() {
-        return this.$props.switchLabel === undefined ? "Haku päällä" : this.$props.switchLabel;
-      },
-    },
-    
-    data() {
-      return {
-        enabled: false,
-        range: this.$props.defaultRange,
-      }
-    },
-
-    methods: {
-      emitRange() {
-        if (this.enabled) {
-          this.$emit("get:range", this.range);
-        }
-      },
-
-      flipSwitch() {
-        this.enabled
-          ? this.$emit("get:range", this.range)
-          : this.$emit("get:range", "");
-      }
-    },
 
     props: {
       defaultRange: { type: Array, required: true },
@@ -75,7 +45,37 @@
       switchLabel: { type: String, required: false }
     },
 
-};
+    data() {
+      return {
+        enabled: false,
+        range: this.$props.defaultRange,
+      }
+    },
+    computed: {
+      setStep() {
+        return this.$props.step === undefined ? 1 : this.$props.step
+      },
+
+      setSwitchLabel() {
+        return this.$props.switchLabel === undefined ? 'Haku päällä' : this.$props.switchLabel
+      },
+    },
+
+    methods: {
+      emitRange() {
+        if (this.enabled) {
+          this.$emit('get:range', this.range)
+        }
+      },
+
+      flipSwitch() {
+        this.enabled
+          ? this.$emit('get:range', this.range)
+          : this.$emit('get:range', '')
+      }
+    },
+
+  }
 </script>
 
 <style scoped>
