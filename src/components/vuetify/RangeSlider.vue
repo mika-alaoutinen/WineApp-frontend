@@ -3,7 +3,7 @@
     <v-switch
       id="ratingSwitch"
       v-model="enabled"
-      :label="setSwitchLabel"
+      :label="$props.switchLabel"
       @change="flipSwitch"
     />
 
@@ -12,7 +12,7 @@
       :disabled="!enabled"
       :min="$props.defaultRange[0]"
       :max="$props.defaultRange[1]"
-      :step="setStep"
+      :step="$props.step"
       @change="emitRange"
     >
       <template v-slot:prepend>
@@ -41,8 +41,8 @@
 
     props: {
       defaultRange: { type: Array, required: true },
-      step: { type: Number, required: false },
-      switchLabel: { type: String, required: false }
+      step: { type: Number, required: false, default: 1 },
+      switchLabel: { type: String, required: false, default: 'Haku päällä' }
     },
 
     data() {
@@ -50,15 +50,6 @@
         enabled: false,
         range: this.$props.defaultRange,
       }
-    },
-    computed: {
-      setStep() {
-        return this.$props.step === undefined ? 1 : this.$props.step
-      },
-
-      setSwitchLabel() {
-        return this.$props.switchLabel === undefined ? 'Haku päällä' : this.$props.switchLabel
-      },
     },
 
     methods: {

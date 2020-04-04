@@ -2,7 +2,7 @@
   <v-data-table
     :headers="translateHeaders"
     :items="getWines"
-    :items-per-page="getItemsPerPage"
+    :items-per-page="$props.itemsPerPage"
     :search="$props.search"
     loading-text="Haetaan viinejä..."
     no-data-text="Haulla ei löytynyt yhtään tulosta."
@@ -22,10 +22,9 @@
   const reviewService = new ReviewService()
 
   export default {
-
     props: {
-      itemsPerPage: { type: Number, required: false },
-      search: { type: String, required: false },
+      itemsPerPage: { type: Number, required: false, default: 10 },
+      search: { type: String, required: false, default: '' },
       wines: { type: Array, required: true },
     },
 
@@ -35,10 +34,6 @@
       }
     },
     computed: {
-      getItemsPerPage() {
-        return this.$props.itemsPerPage === undefined ? 10 : this.$props.itemsPerPage
-      },
-
       getWines() {
         const reviews = reviewService.getStore().data.reviews
         return reviewService.calculateAverageRatings(this.$props.wines, reviews)
