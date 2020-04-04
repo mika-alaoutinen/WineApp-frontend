@@ -17,7 +17,7 @@
     <v-date-picker
       v-model="date"
       :disabled="!enabled"
-      :type="type"
+      :type="$props.calendarType"
       no-title
       scrollable
     />
@@ -30,13 +30,12 @@
     props: {
       enabled: { type: Boolean, required: true },
       labelText: { type: String, required: true },
-      calendarType: { type: String, required: false },
+      calendarType: { type: String, required: false, default: 'date' },
       selectedDate: { type: String, required: false },
     },
     data() {
       return {
         date: new Date(),
-        type: 'date',
       }
     },
 
@@ -53,13 +52,8 @@
         return
       }
 
-      // Set the calendar type, default option is "date":
-      if (this.$props.calendarType !== undefined) {
-        this.type = this.$props.calendarType
-      }
-
       // Format date string based on calendar type: 1) regular calendar 2) month calendar
-      this.date = this.type === 'date'
+      this.date = this.$props.calendarType === 'date'
         ? this.date.toISOString().split('T')[0]
         : this.date.toISOString().substr(0, 7)
 

@@ -2,7 +2,7 @@
   <v-data-table
     :headers="translateHeaders"
     :items="$props.reviews"
-    :items-per-page="getItemsPerPage"
+    :items-per-page="$props.itemsPerPage"
     :search="$props.search"
     loading-text="Haetaan arvosteluja..."
     no-data-text="Haulla ei löytynyt yhtään tulosta."
@@ -57,8 +57,8 @@
 
     props: {
       reviews: { type: Array, required: true },
-      itemsPerPage: { type: Number, required: false },
-      search: { type: String, required: false },
+      itemsPerPage: { type: Number, required: false, default: 10 },
+      search: { type: String, required: false, default: '' },
     },
 
     data() {
@@ -66,11 +66,8 @@
         util: Utilities,
       }
     },
-    computed: {
-      getItemsPerPage() {
-        return this.$props.itemsPerPage === undefined ? 10 : this.$props.itemsPerPage
-      },
 
+    computed: {
       translateHeaders() {
         const headers = [ 'date', 'author', 'reviewText', 'rating', 'wine' ]
         return headers.map(header => ({
