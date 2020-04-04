@@ -41,17 +41,27 @@
 
     computed: {
       dateString() {
-        return this.$props.calendarType === 'date'
-          ? this.date.split('T')[0]
-          : this.date.substr(0, 7)
+        return this.formatDate()
       }
     },
 
     watch: {
       date() {
-        this.$emit('get:date', this.date)
+        this.$emit('get:date', this.formatDate())
       }
     },
 
+    mounted() {
+      this.$emit('get:date', this.formatDate())
+    },
+
+    methods: {
+      formatDate() {
+        return this.$props.calendarType === 'date'
+          ? this.date.split('T')[0]
+          : this.date.substr(0, 7)
+      }
+    }
   }
+
 </script>
