@@ -103,7 +103,7 @@
     components: { DatePicker, DetailsButtons },
 
     props: {
-      reviewId: { required: true, type: string }
+      reviewId: { required: true, type: String }
     },
 
     data() {
