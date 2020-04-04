@@ -2,73 +2,106 @@
   <div>
     <!-- Review search form -->
     <v-card class="full-page-card">
-      <v-card-title class="card-title secondary--text">Hae arvosteluja</v-card-title>
+      <v-card-title class="card-title secondary--text">
+        Hae arvosteluja
+      </v-card-title>
 
       <v-form @submit.prevent>
-
-        <!-- Review quick search: -->  
-        <v-subheader class="subheader">Pikahaut</v-subheader>
-        <v-btn-toggle class="quick-search" group>
-          <v-btn @click="quickSearch('best')" class="primary--text" small>Parhaat</v-btn>
-          <v-btn @click="quickSearch('worst')" class="primary--text" small>Huonoimmat</v-btn>
-          <v-btn @click="quickSearch('newest')" class="primary--text" small>Uusimmat</v-btn>
+        <!-- Review quick search: -->
+        <v-subheader class="subheader">
+          Pikahaut
+        </v-subheader>
+        <v-btn-toggle
+          class="quick-search"
+          group
+        >
+          <v-btn
+            class="primary--text"
+            small
+            @click="quickSearch('best')"
+          >
+            Parhaat
+          </v-btn>
+          <v-btn
+            class="primary--text"
+            small
+            @click="quickSearch('worst')"
+          >
+            Huonoimmat
+          </v-btn>
+          <v-btn
+            class="primary--text"
+            small
+            @click="quickSearch('newest')"
+          >
+            Uusimmat
+          </v-btn>
         </v-btn-toggle>
 
         <!-- Search by author: -->
-        <v-subheader class="subheader">Hae arvostelijan nimen perusteella</v-subheader>
+        <v-subheader class="subheader">
+          Hae arvostelijan nimen perusteella
+        </v-subheader>
         <v-autocomplete
+          v-model="searchParams.author"
           :items="allAuthors"
           label="Arvostelijan nimi"
-          v-model="searchParams.author">
-        </v-autocomplete>
+        />
 
         <!-- Search by date range: -->
-        <v-subheader class="subheader">Hae arvostelun päivämäärän perusteella</v-subheader>
-        <MonthPicker @get:range="getDateRange"></MonthPicker>
+        <v-subheader class="subheader">
+          Hae arvostelun päivämäärän perusteella
+        </v-subheader>
+        <MonthPicker @get:range="getDateRange" />
 
         <!-- Search by rating: -->
-        <v-subheader class="subheader">Hae arvosanan perusteella</v-subheader>
+        <v-subheader class="subheader">
+          Hae arvosanan perusteella
+        </v-subheader>
         <RangeSlider
-          @get:range="getRatingRange"
-          :defaultRange="rating.defaultRange"
+          :default-range="rating.defaultRange"
           :step="0.25"
-          :switchLabel="'Arvosanahaku päällä'">
-        </RangeSlider>
+          :switch-label="'Arvosanahaku päällä'"
+          @get:range="getRatingRange"
+        />
 
-        <v-btn @click="submitForm" class="button-save secondary--text" large text>
+        <v-btn
+          class="button-save secondary--text"
+          large
+          text
+          @click="submitForm"
+        >
           <v-icon>{{ searchIcon }}</v-icon>
-          Hae arvosteluja</v-btn>
+          Hae arvosteluja
+        </v-btn>
       </v-form>
     </v-card>
 
-    <div class="search-results-table" v-show="searchDone">
+    <div
+      v-show="searchDone"
+      class="search-results-table"
+    >
       <v-card class="full-page-card">
-        <v-card-title class="card-title secondary--text">Haun tulokset</v-card-title>
-        <ReviewTable :reviews="foundReviews"/>
+        <v-card-title class="card-title secondary--text">
+          Haun tulokset
+        </v-card-title>
+        <ReviewTable :reviews="foundReviews" />
       </v-card>
     </div>
-
   </div>
 </template>
 
 <script>
-  import MonthPicker from "@/components/vuetify/MonthPicker.vue";
-  import RangeSlider from "@/components/vuetify/RangeSlider.vue";
-  import ReviewService from "@/services/ReviewService.js";
-  import ReviewTable from "@/components/review/ReviewTable.vue";
-  import { mdiMagnify } from '@mdi/js';
+  import MonthPicker from '@/components/vuetify/MonthPicker.vue'
+  import RangeSlider from '@/components/vuetify/RangeSlider.vue'
+  import ReviewService from '@/services/ReviewService.js'
+  import ReviewTable from '@/components/review/ReviewTable.vue'
+  import { mdiMagnify } from '@mdi/js'
 
-  const reviewService = new ReviewService();
+  const reviewService = new ReviewService()
 
   export default {
     components: { MonthPicker, RangeSlider, ReviewTable, },
-
-    computed: {
-      allAuthors() {
-        const reviews = reviewService.getStore().data.reviews;
-        return reviews.map(review => review.author);
-      }
-    },
 
     data() {
       return {
@@ -78,7 +111,7 @@
         date: {
           range: [],
         },
-        
+
         // Placeholders for rating search:
         rating: {
           defaultRange: [ 0.0, 5.0 ],
@@ -87,15 +120,22 @@
 
         // Search parameters that get sent to backend:
         searchParams: {
-          author: "",
+          author: '',
           dateRange: [],
           ratingRange: [],
-          wineId: "",
+          wineId: '',
         },
 
         // Search results:
         foundReviews: [],
         searchDone: false,
+      }
+    },
+
+    computed: {
+      allAuthors() {
+        const reviews = reviewService.getStore().data.reviews
+        return reviews.map(review => review.author)
       }
     },
 
@@ -106,26 +146,26 @@
 
       quickSearch(searchType) {
         reviewService.quickSearch(searchType, 10)
-                     .then(reviews => this.foundReviews = reviews)
-                     .finally(() => this.setSearchDone(true));
+          .then(reviews => this.foundReviews = reviews)
+          .finally(() => this.setSearchDone(true))
       },
 
       submitForm() {
-        this.searchParams.dateRange = this.date.range;
-        this.searchParams.ratingRange = this.rating.range;
+        this.searchParams.dateRange = this.date.range
+        this.searchParams.ratingRange = this.rating.range
 
         reviewService.search(this.searchParams)
-                     .then(reviews => this.foundReviews = reviews)
-                     .finally(() => this.setSearchDone(true));
+          .then(reviews => this.foundReviews = reviews)
+          .finally(() => this.setSearchDone(true))
       },
 
       setSearchDone(boolean) {
-        this.searchDone = boolean;
-        reviewService.resetObject(this.searchParams);
+        this.searchDone = boolean
+        reviewService.resetObject(this.searchParams)
       },
-      
+
     }
-  };
+  }
 </script>
 
 <style scoped>

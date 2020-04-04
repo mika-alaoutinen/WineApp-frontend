@@ -1,43 +1,43 @@
-// const basePath = "http://localhost:8080/api/"
-const basePath = "https://maistissa-backend.herokuapp.com/api/"
-const winePath = basePath + "wines/";
-const reviewPath = basePath + "reviews/";
+// const basePath = 'http://localhost:8080/api/'
+const basePath = 'https://maistissa-backend.herokuapp.com/api/'
+const winePath = `${basePath}wines/`
+const reviewPath = `${basePath}reviews/`
 
 export default {
-    wine: {
-        paths: {
-            base: winePath,
-            count: winePath + "count",
-            countries: winePath + "countries",
-            descriptions: winePath + "descriptions",
-            foodPairings: winePath + "food-pairings",
-            search: winePath + "search?",
-        },
-
-        getSearchUrl(params) {
-            return this.paths.search + buildQueryParams(params);
-        },
+  wine: {
+    paths: {
+      base: winePath,
+      count: `${winePath}count`,
+      countries: `${winePath}countries`,
+      descriptions: `${winePath}descriptions`,
+      foodPairings: `${winePath}food-pairings`,
+      search: `${winePath}search?`,
     },
 
-    review: {
-        paths: {
-            base: reviewPath,
-            count: reviewPath + "count",
-            quicksearch: reviewPath + "search/",
-            search: reviewPath + "search?",
-            wineId: reviewPath + "wine/id/",
-            wineName: reviewPath + "wine/name/",
-        },
-        
-        getQuickSearchUrl(searchParam, count) {
-            return this.paths.quicksearch + searchParam + buildQueryLimit(count);
-        },
-
-        getSearchUrl(searchParams) {
-            return this.paths.search + buildQueryParams(searchParams);
-        },
+    getSearchUrl(params) {
+      return this.paths.search + buildQueryParams(params)
     },
-};
+  },
+
+  review: {
+    paths: {
+      base: reviewPath,
+      count: `${reviewPath}count`,
+      quicksearch: `${reviewPath}search/`,
+      search: `${reviewPath}search?`,
+      wineId: `${reviewPath}wine/id/`,
+      wineName: `${reviewPath}wine/name/`,
+    },
+
+    getQuickSearchUrl(searchParam, count) {
+      return this.paths.quicksearch + searchParam + buildQueryLimit(count)
+    },
+
+    getSearchUrl(searchParams) {
+      return this.paths.search + buildQueryParams(searchParams)
+    },
+  },
+}
 
 /**
  * Builds a query parameter with optional limit on wanted results.
@@ -46,9 +46,9 @@ export default {
  * @returns {String} query parameter.
  */
 function buildQueryLimit(count) {
-    return count !== 0 && count !== null && count !== undefined
-        ? "?limit=" + count
-        : "";
+  return count !== 0 && count !== null && count !== undefined
+    ? `?limit=${count}`
+    : ''
 }
 
 /**
@@ -57,8 +57,8 @@ function buildQueryLimit(count) {
  * @returns {String} query string
  */
 function buildQueryParams(searchParams) {
-    return Object.keys(searchParams)
-        .filter(key => searchParams[key] != "")
-        .map(key => key + "=" + searchParams[key])
-        .join("&");
+  return Object.keys(searchParams)
+    .filter(key => searchParams[key].length > 0)
+    .map(key => `${key}=${searchParams[key]}`)
+    .join('&')
 }

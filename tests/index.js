@@ -1,9 +1,9 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify';
-import { createLocalVue, mount, RouterLinkStub } from '@vue/test-utils';
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import { createLocalVue, mount, RouterLinkStub } from '@vue/test-utils'
 
-Vue.config.productionTip = false;
-Vue.use(Vuetify);
+Vue.config.productionTip = false
+Vue.use(Vuetify)
 
 /**
  * A helper function used to mount components that use Vuetify elements.
@@ -13,40 +13,40 @@ Vue.use(Vuetify);
  * @param {Object} propsData props that the component has.
  */
 export function mountVuetifyComponent(Component, propsData) {
-    // Used to get rid of the following warning:
-    // "[Vuetify] Missing v-app or a non-body wrapping element with the [data-app] attribute"
-    const app = document.createElement('div');
-    app.setAttribute('data-app', true);
-    document.body.appendChild(app);
-    
-    // Use localVue and Vuetify to get rid of vuetify error messages:
-    const localVue = createLocalVue();
-    const vuetify = new Vuetify();
+  // Used to get rid of the following warning:
+  // "[Vuetify] Missing v-app or a non-body wrapping element with the [data-app] attribute"
+  const app = document.createElement('div')
+  app.setAttribute('data-app', true)
+  document.body.appendChild(app)
 
-    return mount(Component, {
-        localVue,
-        vuetify,
-        propsData,
-        stubs: { RouterLink: RouterLinkStub },
-    });
+  // Use localVue and Vuetify to get rid of vuetify error messages:
+  const localVue = createLocalVue()
+  const vuetify = new Vuetify()
+
+  return mount(Component, {
+    localVue,
+    vuetify,
+    propsData,
+    stubs: { RouterLink: RouterLinkStub },
+  })
 }
 
 /**
  * A helper function that clicks a button.
- * @param {Object} wrapper 
- * @param {string} buttonId 
+ * @param {Object} wrapper
+ * @param {string} buttonId
  */
 export async function clickButton(wrapper, buttonId) {
-    wrapper.find(buttonId).trigger("click");
-    await wrapper.vm.$nextTick();
+  wrapper.find(buttonId).trigger('click')
+  await wrapper.vm.$nextTick()
 }
 
 /**
  * A helper function that clicks a switch.
- * @param {Object} wrapper 
- * @param {string} switchId 
+ * @param {Object} wrapper
+ * @param {string} switchId
  */
 export async function flipSwitch(wrapper, switchId) {
-    wrapper.find(switchId).trigger("click");
-    await wrapper.vm.$nextTick();
+  wrapper.find(switchId).trigger('click')
+  await wrapper.vm.$nextTick()
 }
