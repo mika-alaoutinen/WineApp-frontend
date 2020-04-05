@@ -22,12 +22,12 @@ describe('Check expansion panels', () => {
     expect(wrapper.findAll('.v-expansion-panel').length).toBe(reviews.length)
   })
 
-  // test('expansion panel header contains review author name', () => {
-  //   const wrapper = mountComponent(reviews)
-  //   const header = wrapper.findAll('.v-expansion-panel-header')
-  //   console.log(header)
-  //   expect(header).toContain('Mika')
-  // })
+  test('expansion panel header contains review author name', () => {
+    const wrapper = mountComponent(reviews)
+    const headers = wrapper.findAll('.v-expansion-panel-header')
+    expect(headers.at(0).text()).toContain('Mika')
+    expect(headers.at(1).text()).toContain('Salla')
+  })
 })
 
 describe('Check that review fields are present', () => {
