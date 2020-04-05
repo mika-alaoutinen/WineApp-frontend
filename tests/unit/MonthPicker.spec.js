@@ -3,10 +3,12 @@ import { flipSwitch, mountVuetifyComponent } from '../index.js'
 
 const currentMonth = new Date().toISOString().substr(0, 7)
 
-test('component contains two date picker components and a switch', () => {
-  const wrapper = mountVuetifyComponent(MonthPicker)
-  expect(wrapper.findAll('.v-menu').length).toBe(2)
-  expect(wrapper.findAll('.v-input--switch').length).toBe(1)
+describe('component sanity checks', () => {
+  test('component contains two date picker components and a switch', () => {
+    const wrapper = mountVuetifyComponent(MonthPicker)
+    expect(wrapper.findAll('.v-menu').length).toBe(2)
+    expect(wrapper.findAll('.v-input--switch').length).toBe(1)
+  })
 })
 
 describe('Switch functionality', () => {
@@ -25,8 +27,11 @@ describe('Switch functionality', () => {
   })
 })
 
-// Emiting date range:
 describe('Component emits date range', () => {
+  // test('emits range on component mount', () => {
+
+  // })
+
   test('emits current month when component is actived the first time', () => {
     const expectedRange = [currentMonth, currentMonth]
     const wrapper = mountVuetifyComponent(MonthPicker)
@@ -36,15 +41,16 @@ describe('Component emits date range', () => {
   })
 
   test('BROKEN TEST CASE: emits empty date range when component is set from active to inactive', () => {
+    const range = ['2019-01', '2019-03']
     const wrapper = mountVuetifyComponent(MonthPicker)
-    wrapper.setData({ range: ['2019-01', '2019-03'] })
+    wrapper.setData({ range: range })
 
-    flipSwitch(wrapper, '#calendarSwitch') // on
-    flipSwitch(wrapper, '#calendarSwitch') // off
+    flipSwitch(wrapper, '#calendarSwitch')
+    flipSwitch(wrapper, '#calendarSwitch')
 
     expect(wrapper.vm.enabled).toEqual(false)
-    // For whatever reason the following test doesn't work.
-    // expect(wrapper.emitted("get:range")[0]).toEqual([""]);
+    expect(wrapper.emitted('get:range')[0]).toEqual([range])
+    expect(wrapper.emitted('get:range')[1]).toEqual([[]])
   })
 
   test('emits selected month range when component is active', () => {
