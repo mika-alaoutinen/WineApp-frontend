@@ -1,43 +1,48 @@
-import ReviewTable from "@/components/review/ReviewTable.vue";
-import { mountVuetifyComponent } from "../index.js";
-import { reviews } from "../testdata.js";
+import ReviewTable from '@/components/review/ReviewTable.vue'
+import { mountVuetifyComponent } from '../index.js'
+import { reviews } from '../testdata.js'
 
-const wrapper = mountComponent();
+const wrapper = mountComponent()
 
-// Sanity check props:
-test("reviews prop is received correctly", () => {
-    expect(wrapper.props("reviews")).toHaveLength(2);
-});
+describe('Props values', () => {
+  test('itemsPerPage default value is 10', () => {
+    expect(wrapper.props('itemsPerPage')).toBe(10)
+  })
 
-test("search prop is received correctly", () => {
-    wrapper.setProps({ search: "haku" });
-    expect(wrapper.props("search")).toEqual("haku");
-});
+  test('itemsPerPage is received correctly', () => {
+    wrapper.setProps({ itemsPerPage: 20 })
+    expect(wrapper.props('itemsPerPage')).toBe(20)
+  })
 
-// Computed properties:
-test("itemsPerPage prop is given default value of 10 when it's undefined", () => {
-    expect(wrapper.vm.getItemsPerPage).toBe(10);
-});
+  test('reviews prop is received correctly', () => {
+    const review1 = wrapper.props('reviews')[0]
+    expect(wrapper.props('reviews')).toHaveLength(2)
+    expect(review1.author).toBe('Mika')
+  })
 
-test("itemsPerPage prop is received correctly", () => {
-    wrapper.setProps({ itemsPerPage: 20 });
-    expect(wrapper.props("itemsPerPage")).toBe(20);
-    expect(wrapper.vm.getItemsPerPage).toBe(20);
-});
+  test('search prop is empty by default', () => {
+    expect(wrapper.props('search')).toEqual('')
+  })
 
-// Methods
-test("The first sentence is retrieved from a review text paragraph, ending with '...' ", () => {
-    const reviewText = reviews[0].reviewText;
-    expect(wrapper.vm.getExcerpt(reviewText)).toEqual("Viinin 1 arvostelu...");
-});
+  test('search prop is received correctly', () => {
+    wrapper.setProps({ search: 'haku' })
+    expect(wrapper.props('search')).toEqual('haku')
+  })
+})
+
+describe('Methods', () => {
+  test('The first sentence is retrieved from a review text paragraph, ending with "..."', () => {
+    const { reviewText } = reviews[0]
+    expect(wrapper.vm.getExcerpt(reviewText)).toEqual('Viinin 1 arvostelu...')
+  })
+})
 
 // Utility functions:
 function mountComponent(itemsPerPage) {
-    const propsData = {
-        reviews: reviews,
-        itemsPerPage: itemsPerPage,
-        search: "",
-    }
-
-    return mountVuetifyComponent(ReviewTable, propsData);
+  const propsData = {
+    reviews,
+    itemsPerPage,
+    search: '',
+  }
+  return mountVuetifyComponent(ReviewTable, propsData)
 }

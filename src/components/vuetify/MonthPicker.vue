@@ -4,37 +4,36 @@
     activates/deactivates the pickers. -->
 
     <v-switch
-      @change="flipSwitch"
       id="calendarSwitch"
+      v-model="enabled"
       label="Päivämäärähaku päällä"
-      v-model="enabled">
-    </v-switch>
+      @change="flipSwitch"
+    />
 
     <v-row>
       <v-col>
         <DatePicker
-          @get:date="getStartDate"
-          :calendarType="'month'"
+          :calendar-type="'month'"
           :enabled="enabled"
-          :labelText="'Aloituspäivämäärä'">
-        </DatePicker>
+          :label-text="'Aloituspäivämäärä'"
+          @get:date="getStartDate"
+        />
       </v-col>
 
       <v-col>
         <DatePicker
-          @get:date="getEndDate"
-          :calendarType="'month'"
+          :calendar-type="'month'"
           :enabled="enabled"
-          :labelText="'Lopetuspäivämäärä'">
-        </DatePicker>
+          :label-text="'Lopetuspäivämäärä'"
+          @get:date="getEndDate"
+        />
       </v-col>
     </v-row>
-
   </div>
 </template>
 
 <script>
-import DatePicker from "@/components/vuetify/DatePicker.vue";
+  import DatePicker from '@/components/vuetify/DatePicker.vue'
 
   export default {
     components: { DatePicker },
@@ -49,8 +48,8 @@ import DatePicker from "@/components/vuetify/DatePicker.vue";
     methods: {
       flipSwitch() {
         this.enabled
-          ? this.$emit("get:range", this.range)
-          : this.$emit("get:range", "");
+          ? this.$emit('get:range', this.range)
+          : this.$emit('get:range', [])
       },
 
       getStartDate(date) { this.range[0] = date },
@@ -58,5 +57,5 @@ import DatePicker from "@/components/vuetify/DatePicker.vue";
       getEndDate(date) { this.range[1] = date },
     },
 
-  };
+  }
 </script>

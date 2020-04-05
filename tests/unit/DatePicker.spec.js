@@ -1,51 +1,75 @@
-import DatePicker from "@/components/vuetify/DatePicker.vue";
-import { mountVuetifyComponent } from "../index.js";
+import DatePicker from '@/components/vuetify/DatePicker.vue'
+import { mountVuetifyComponent } from '../index.js'
 
-// Test that component loads correctly with default values:
-test("component loads correctly with default values", () => {
-    const wrapper = defaultMount();
-    expect(wrapper.vm.type).toBe("date");
-    expect(wrapper.vm.date).toBe(formatDate());
-});
+const today = new Date().toISOString()
 
-test("component loads correctly with month calendar", () => {
-    const wrapper = mountComponent("month", true, "Kuukausi");
-    expect(wrapper.vm.type).toBe("month");
-    expect(wrapper.vm.date).toBe(formatMonth());
-});
+describe('emits changes to component state', () => {
+  test('emits date on component mount', () => {
+    const date = formatDate(today)
+    const wrapper = defaultMount()
+    expect(wrapper.emitted('get:date')[0]).toEqual([date])
+  })
 
-test("component loads correctly if a selected date is given as prop", () => {
-    const date = formatDate(new Date(2019, 11, 17));
-    const wrapper = mountComponent("date", true, "Päivämäärä", date);
-    expect(wrapper.vm.type).toBe("date");
-    expect(wrapper.vm.date).toBe(date);
-});
+  test('emits date when it is changed', () => {
+    const date = formatDate(new Date(2019, 5, 26).toISOString())
+    const wrapper = defaultMount()
+    wrapper.vm.$data.date = date
+    expect(wrapper.emitted('get:date')[1]).toEqual([date])
+  })
+})
+
+describe('Date calendar', () => {
+  test('default calendar format is date and default date is today', () => {
+    const date = formatDate(today)
+    const wrapper = defaultMount()
+    expect(wrapper.vm.$props.calendarType).toBe('date')
+    expect(wrapper.vm.$props.selectedDate).toBe(date)
+    expect(wrapper.vm.date).toBe(date)
+  })
+
+  test('date is given as prop', () => {
+    const wrapper = mountComponent('date', true, 'Päivämäärä', today)
+    expect(wrapper.vm.$props.calendarType).toBe('date')
+    expect(wrapper.vm.$props.selectedDate).toBe(today)
+    expect(wrapper.vm.date).toBe(today)
+  })
+})
+
+describe('Month calendar', () => {
+  test('default month is current month', () => {
+    const month = formatMonth(today)
+    const wrapper = mountComponent('month', true, 'Kuukausi')
+    expect(wrapper.vm.$props.calendarType).toBe('month')
+    expect(wrapper.vm.$props.selectedDate).toBe(month)
+    expect(wrapper.vm.date).toBe(month)
+  })
+
+  test('month is given as prop', () => {
+    const wrapper = mountComponent('month', true, 'Kuukausi', today)
+    expect(wrapper.vm.$props.calendarType).toBe('month')
+    expect(wrapper.vm.$props.selectedDate).toBe(today)
+    expect(wrapper.vm.date).toBe(today)
+  })
+})
 
 // Utility functions:
-function defaultMount() {
-    const defaultPropsData = {
-        enabled: true,
-        labelText: "Päivämäärä",
-    }
-    return mountVuetifyComponent(DatePicker, defaultPropsData);
+const defaultMount = () => {
+  const defaultPropsData = {
+    enabled: true,
+    labelText: 'Päivämäärä',
+  }
+  return mountVuetifyComponent(DatePicker, defaultPropsData)
 }
 
-function mountComponent(calendarType, isEnabled, labelText, selectedDate) {
-    const propsData = {
-        calendarType: calendarType,
-        enabled: isEnabled,
-        labelText: labelText,
-        selectedDate: selectedDate,
-    }
-    return mountVuetifyComponent(DatePicker, propsData);
+const mountComponent = (calendarType, isEnabled, labelText, selectedDate) => {
+  const propsData = {
+    calendarType,
+    enabled: isEnabled,
+    labelText,
+    selectedDate,
+  }
+  return mountVuetifyComponent(DatePicker, propsData)
 }
 
-function formatDate(date) {
-    return date === undefined
-        ? new Date().toISOString().split('T')[0]
-        : date.toISOString().split('T')[0];
-}
-
-function formatMonth() {
-    return new Date().toISOString().substr(0, 7);
-}
+const formatDate = date => date.split('T')[0]
+const formatMonth = month => month.substr(0, 7)

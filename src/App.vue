@@ -1,24 +1,24 @@
 <template>
   <v-app
+    id="vuetify-app"
     :style="{'background-image': 'url(' + getImage + ')'}"
-    id="vuetify-app">
-
-    <TheHeader/>
-    <TheNavigation/>
-    <TheFooter/>
-    <router-view/>
+  >
+    <TheHeader />
+    <TheNavigation />
+    <TheFooter />
+    <router-view />
   </v-app>
 </template>
 
 <script>
-  import TheFooter from "@/components/common/TheFooter.vue";
-  import TheHeader from "@/components/common/TheHeader.vue";
-  import TheNavigation from "@/components/common/TheNavigation.vue";
-  import ReviewService from "@/services/ReviewService.js";
-  import WineService from "@/services/WineService.js";
-  
+  import TheFooter from '@/components/common/TheFooter.vue'
+  import TheHeader from '@/components/common/TheHeader.vue'
+  import TheNavigation from '@/components/common/TheNavigation.vue'
+  import ReviewService from '@/services/ReviewService.js'
+  import WineService from '@/services/WineService.js'
+
   export default {
-    name: "app",
+    name: 'App',
     components: {
       TheFooter,
       TheHeader,
@@ -27,13 +27,13 @@
 
     computed: {
       getImage() {
-        return require("@/assets/background.png");
+        return require('@/assets/background.png')
       }
     },
 
     mounted() {
-      new ReviewService().getAll();
-      new WineService().getAll();
+      new ReviewService().getAll()
+      new WineService().getAll()
     },
   }
 </script>

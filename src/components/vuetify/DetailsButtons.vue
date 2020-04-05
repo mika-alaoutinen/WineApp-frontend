@@ -1,51 +1,63 @@
 <template>
   <!-- Save and cancel edits: -->
   <div v-if="$props.editing">
-    <v-alert dismissible type="error" :value=showErrorAlert>
+    <v-alert
+      dismissible
+      type="error"
+      :value="showErrorAlert"
+    >
       Kenttä ei voi olla tyhjä!
     </v-alert>
 
     <v-btn
-      @click="saveItem"
-      class="secondary--text"
       id="save-edit"
+      class="secondary--text"
       large
-      text>
+      text
+      @click="saveItem"
+    >
       <v-icon>{{ okIcon }}</v-icon>
       Tallenna
     </v-btn>
 
     <v-btn
-      @click="cancelEdit"
-      class="primary--text"
       id="cancel-edit"
+      class="primary--text"
       large
-      text>
+      text
+      @click="cancelEdit"
+    >
       <v-icon>{{ cancelIcon }}</v-icon>
       Peruuta
     </v-btn>
   </div>
-  
+
   <!-- Edit or delete: -->
   <div v-else>
     <v-btn
-      @click="editMode"
-      class="secondary--text"
       id="edit"
+      class="secondary--text"
       large
-      text>
+      text
+      @click="editMode"
+    >
       <v-icon>{{ editIcon }}</v-icon>
       Muokkaa
     </v-btn>
 
-    <v-dialog persistent v-model="dialogActive" width="500">
+    <v-dialog
+      v-model="dialogActive"
+      persistent
+      width="500"
+    >
       <template v-slot:activator="{ on }">
         <v-btn
-          class="primary--text"
           id="delete"
+          class="primary--text"
           large
           text
-          v-on="on">
+          v-on="on"
+        >
           <v-icon>{{ deleteIcon }}</v-icon>
           Poista
         </v-btn>
@@ -55,50 +67,45 @@
       <v-card>
         <v-card-title>Vahvista poisto</v-card-title>
         <v-card-text>Haluatko varmasti poistaa {{ getItem }}?</v-card-text>
-        <v-divider/>
-        
+        <v-divider />
+
         <v-card-actions>
           <v-spacer>
-          <v-btn
-            @click="deleteItem"
-            class="secondary--text"
-            id="confirm-delete"
-            large
-            text>
-            <v-icon>{{ deleteIcon }}</v-icon>
-            Poista
-          </v-btn>
+            <v-btn
+              id="confirm-delete"
+              class="secondary--text"
+              large
+              text
+              @click="deleteItem"
+            >
+              <v-icon>{{ deleteIcon }}</v-icon>
+              Poista
+            </v-btn>
 
-          <v-btn
-            @click="dialogActive = false"
-            class="primary--text"
-            id="cancel-delete"
-            text>
-            <v-icon>{{ cancelIcon }}</v-icon>
-            Peruuta
-          </v-btn>
+            <v-btn
+              id="cancel-delete"
+              class="primary--text"
+              text
+              @click="dialogActive = false"
+            >
+              <v-icon>{{ cancelIcon }}</v-icon>
+              Peruuta
+            </v-btn>
           </v-spacer>
         </v-card-actions>
-
       </v-card>
     </v-dialog>
   </div>
 </template>
 
 <script>
-  import { mdiCancel, mdiCheck, mdiDelete, mdiPencil } from '@mdi/js';
+  import { mdiCancel, mdiCheck, mdiDelete, mdiPencil } from '@mdi/js'
 
   export default {
-    computed: {
-      getItem() {
-        if (this.$props.item.name !== undefined) {
-          return "viinin " + this.$props.item.name;
-        } else if (this.$props.item.author !== undefined) {
-          return "käyttäjän " + this.$props.item.author + " arvostelun";
-        } else {
-          return "tämän";
-        }
-      }
+
+    props: {
+      editing: { type: Boolean, required: true },
+      item: { type: Object, required: true }, // item is either wine or review
     },
 
     data() {
@@ -113,56 +120,62 @@
         showErrorAlert: false,
       }
     },
+    computed: {
+      getItem() {
+        if (this.$props.item.name !== undefined) {
+          return 'viinin ' + this.$props.item.name
+        } else if (this.$props.item.author !== undefined) {
+          return 'käyttäjän ' + this.$props.item.author + ' arvostelun'
+        } else {
+          return 'tämän'
+        }
+      }
+    },
 
     methods: {
       editMode() {
         // Create a deep copy of the original object:
-        this.cachedItem = JSON.parse(JSON.stringify(this.$props.item));
-        this.$emit("get:editing", true);
+        this.cachedItem = JSON.parse(JSON.stringify(this.$props.item))
+        this.$emit('get:editing', true)
       },
 
       cancelEdit() {
-        Object.assign(this.$props.item, this.cachedItem);
-        this.showErrorAlert = false;
-        this.$emit("get:editing", false);
+        Object.assign(this.$props.item, this.cachedItem)
+        this.showErrorAlert = false
+        this.$emit('get:editing', false)
       },
 
       saveItem() {
         if (this.invalidInput(this.$props.item)) {
-          this.showErrorAlert = true;
-          return;
+          this.showErrorAlert = true
+          return
         }
-        this.removeNullsFromArray(this.$props.item);
-        this.showErrorAlert = false;
-        this.$emit("get:editing", false);
-        this.$emit("save:item", this.$props.item);
+        this.removeNullsFromArray(this.$props.item)
+        this.showErrorAlert = false
+        this.$emit('get:editing', false)
+        this.$emit('save:item', this.$props.item)
       },
 
       deleteItem() {
-        this.$emit("delete:item", this.$props.item);
-        this.dialogActive = false;
+        this.$emit('delete:item', this.$props.item)
+        this.dialogActive = false
       },
 
       invalidInput(item) {
         return Object
           .values(item)
-          .some(value => value === "");
+          .some(value => value === '')
       },
 
       removeNullsFromArray(item) {
         Object
           .keys(item)
           .filter(key => Array.isArray(item[key]))
-          .map(key => item[key] = item[key].filter(item => item));
+          .map(key => item[key] = item[key].filter(item => item))
       },
     },
 
-    props: {
-      editing: { type: Boolean, required: true },
-      item: { type: Object, required: true }, // item is either wine or review
-    },
-
-  };
+  }
 </script>
 
 <style scoped>
