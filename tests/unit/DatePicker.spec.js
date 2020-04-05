@@ -3,6 +3,21 @@ import { mountVuetifyComponent } from '../index.js'
 
 const today = new Date().toISOString()
 
+describe('emits changes to component state', () => {
+  test('emits date on component mount', () => {
+    const date = formatDate(today)
+    const wrapper = defaultMount()
+    expect(wrapper.emitted('get:date')[0]).toEqual([date])
+  })
+
+  test('emits date when it is changed', () => {
+    const date = formatDate(new Date(2019, 5, 26).toISOString())
+    const wrapper = defaultMount()
+    wrapper.vm.$data.date = date
+    expect(wrapper.emitted('get:date')[1]).toEqual([date])
+  })
+})
+
 describe('Date calendar', () => {
   test('default calendar format is date and default date is today', () => {
     const date = formatDate(today)
@@ -38,7 +53,7 @@ describe('Month calendar', () => {
 })
 
 // Utility functions:
-function defaultMount() {
+const defaultMount = () => {
   const defaultPropsData = {
     enabled: true,
     labelText: 'Päivämäärä',
@@ -46,7 +61,7 @@ function defaultMount() {
   return mountVuetifyComponent(DatePicker, defaultPropsData)
 }
 
-function mountComponent(calendarType, isEnabled, labelText, selectedDate) {
+const mountComponent = (calendarType, isEnabled, labelText, selectedDate) => {
   const propsData = {
     calendarType,
     enabled: isEnabled,

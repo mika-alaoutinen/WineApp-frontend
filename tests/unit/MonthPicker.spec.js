@@ -28,10 +28,6 @@ describe('Switch functionality', () => {
 })
 
 describe('Component emits date range', () => {
-  // test('emits range on component mount', () => {
-
-  // })
-
   test('emits current month when component is actived the first time', () => {
     const expectedRange = [currentMonth, currentMonth]
     const wrapper = mountVuetifyComponent(MonthPicker)
@@ -40,7 +36,19 @@ describe('Component emits date range', () => {
     expect(wrapper.emitted('get:range')[0]).toEqual([expectedRange])
   })
 
-  test('BROKEN TEST CASE: emits empty date range when component is set from active to inactive', () => {
+  test('emits selected month range when component is active', () => {
+    const range = ['2018-06', '2019-01']
+    const wrapper = mountVuetifyComponent(MonthPicker)
+
+    wrapper.setData({ range: range })
+    flipSwitch(wrapper, '#calendarSwitch')
+
+    expect(wrapper.vm.enabled).toEqual(true)
+    expect(wrapper.vm.range).toBe(range)
+    expect(wrapper.emitted('get:range')[0]).toEqual([range])
+  })
+
+  test('emits empty date range when component is set from active to inactive', () => {
     const range = ['2019-01', '2019-03']
     const wrapper = mountVuetifyComponent(MonthPicker)
     wrapper.setData({ range: range })
@@ -52,20 +60,4 @@ describe('Component emits date range', () => {
     expect(wrapper.emitted('get:range')[0]).toEqual([range])
     expect(wrapper.emitted('get:range')[1]).toEqual([[]])
   })
-
-  test('emits selected month range when component is active', () => {
-    const dates = ['2019-01', '2019-03']
-    const wrapper = mountVuetifyComponent(MonthPicker)
-
-    wrapper.setData({ range: dates })
-    flipSwitch(wrapper, '#calendarSwitch')
-
-    expect(wrapper.vm.range).toBe(dates)
-    expect(wrapper.emitted('get:range')[0]).toEqual([dates])
-  })
 })
-
-// Utility functions:
-function formatMonth() {
-  return new Date().toISOString().substr(0, 7)
-}
