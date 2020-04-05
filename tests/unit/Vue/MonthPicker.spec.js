@@ -1,5 +1,5 @@
 import MonthPicker from '@/components/vuetify/MonthPicker.vue'
-import { flipSwitch, mountVuetifyComponent } from '../index.js'
+import { flipSwitch, mountVuetifyComponent } from '../../index.js'
 
 const currentMonth = new Date().toISOString().substr(0, 7)
 

@@ -1,6 +1,6 @@
 import ReviewTable from '@/components/review/ReviewTable.vue'
-import { mountVuetifyComponent } from '../index.js'
-import { reviews } from '../testdata.js'
+import { mountVuetifyComponent } from '../../index.js'
+import { reviews } from '../../testdata.js'
 
 const wrapper = mountComponent()
 

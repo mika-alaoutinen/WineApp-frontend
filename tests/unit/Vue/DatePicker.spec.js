@@ -1,5 +1,5 @@
 import DatePicker from '@/components/vuetify/DatePicker.vue'
-import { mountVuetifyComponent } from '../index.js'
+import { mountVuetifyComponent } from '../../index.js'
 
 const today = new Date().toISOString()
 

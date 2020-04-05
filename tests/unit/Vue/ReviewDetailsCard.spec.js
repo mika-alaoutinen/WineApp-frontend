@@ -1,6 +1,6 @@
 import ReviewDetailsCard from '@/components/review/ReviewDetailsCard.vue'
-import { mountVuetifyComponent, clickAllButtons } from '../index.js'
-import { reviews } from '../testdata.js'
+import { mountVuetifyComponent, clickAllButtons } from '../../index.js'
+import { reviews } from '../../testdata.js'
 
 describe('Check props', () => {
   test('reviews prop is received correctly', () => {

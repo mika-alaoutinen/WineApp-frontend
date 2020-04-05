@@ -1,6 +1,6 @@
 import WineTable from '@/components/wine/WineTable.vue'
-import { mountVuetifyComponent } from '../index.js'
-import { wines } from '../testdata.js'
+import { mountVuetifyComponent } from '../../index.js'
+import { wines } from '../../testdata.js'
 
 const wrapper = mountComponent()
 

@@ -1,6 +1,6 @@
 import DetailsButtons from '@/components/vuetify/DetailsButtons.vue'
-import { clickButton, mountVuetifyComponent } from '../index.js'
-import { wines, invalidWine, wineWithEmptyValues, expectedWine } from '../testdata.js'
+import { clickButton, mountVuetifyComponent } from '../../index.js'
+import { wines, invalidWine, wineWithEmptyValues, expectedWine } from '../../testdata.js'
 
 let wine
 beforeEach(() => wine = wines[0])

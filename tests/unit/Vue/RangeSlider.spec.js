@@ -1,5 +1,5 @@
 import RangeSlider from '@/components/vuetify/RangeSlider.vue'
-import { flipSwitch, mountVuetifyComponent } from '../index.js'
+import { flipSwitch, mountVuetifyComponent } from '../../index.js'
 
 describe('Component sanity checks', () => {
   test('component contains range slider and two text-fields', () => {
