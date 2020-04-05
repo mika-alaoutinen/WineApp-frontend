@@ -43,7 +43,7 @@
 
           <v-row>
             <v-col
-              class="link-to-review"
+              class="linkToReview"
               sm="3"
             >
               Linkki

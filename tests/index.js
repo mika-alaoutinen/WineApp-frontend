@@ -42,6 +42,16 @@ export async function clickButton(wrapper, buttonId) {
 }
 
 /**
+ * A helper function for clicking all buttons with a given class name.
+ * @param {Object} wrapper
+ * @param {string} class name of buttons to be clicked
+ */
+export async function clickAllButtons(wrapper, className) {
+  wrapper.findAll(className).trigger('click')
+  await wrapper.vm.$nextTick()
+}
+
+/**
  * A helper function that clicks a switch.
  * @param {Object} wrapper
  * @param {string} switchId

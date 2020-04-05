@@ -1,5 +1,5 @@
 import ReviewDetailsCard from '@/components/review/ReviewDetailsCard.vue'
-import { mountVuetifyComponent } from '../index.js'
+import { mountVuetifyComponent, clickAllButtons } from '../index.js'
 import { reviews } from '../testdata.js'
 
 describe('Check props', () => {
@@ -31,34 +31,50 @@ describe('Check expansion panels', () => {
 })
 
 describe('Check that review fields are present', () => {
-  test('author fields are rendered and have text', async () => {
+  test('author fields are rendered and have text', () => {
     const wrapper = mountComponent(reviews)
-    wrapper
-      .findAll('.v-expansion-panel-header')
-      .trigger('click')
-
-    await wrapper.vm.$nextTick()
+    clickAllButtons(wrapper, '.v-expansion-panel-header')
     const authors = wrapper.findAll('.author')
 
     expect(authors.length).toBe(2)
     expect(authors.at(0).text()).toBe('Arvostelija')
   })
 
-  // test('author field', () => {
-  //   // date
-  // })
+  test('date fields are rendered and have text', () => {
+    const wrapper = mountComponent(reviews)
+    clickAllButtons(wrapper, '.v-expansion-panel-header')
+    const dates = wrapper.findAll('.date')
 
-  // test('author field', () => {
-  //   // reviewText
-  // })
+    expect(dates.length).toBe(2)
+    expect(dates.at(0).text()).toBe('Päivämäärä')
+  })
 
-  // test('author field', () => {
-  //   // rating
-  // })
+  test('review text fields are rendered and have text', () => {
+    const wrapper = mountComponent(reviews)
+    clickAllButtons(wrapper, '.v-expansion-panel-header')
+    const reviewTexts = wrapper.findAll('.reviewText')
 
-  // test('author field', () => {
-  //   // link-to-review
-  // })
+    expect(reviewTexts.length).toBe(2)
+    expect(reviewTexts.at(0).text()).toBe('Arvostelu')
+  })
+
+  test('rating fields are rendered and have text', () => {
+    const wrapper = mountComponent(reviews)
+    clickAllButtons(wrapper, '.v-expansion-panel-header')
+    const ratings = wrapper.findAll('.rating')
+
+    expect(ratings.length).toBe(2)
+    expect(ratings.at(0).text()).toBe('Arvosana')
+  })
+
+  test('review links are rendered and have text', () => {
+    const wrapper = mountComponent(reviews)
+    clickAllButtons(wrapper, '.v-expansion-panel-header')
+    const links = wrapper.findAll('.linkToReview')
+
+    expect(links.length).toBe(2)
+    expect(links.at(0).text()).toBe('Linkki')
+  })
 })
 
 function mountComponent(reviews) {
