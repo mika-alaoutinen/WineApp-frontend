@@ -2,35 +2,38 @@ import DatePicker from '@/components/vuetify/DatePicker.vue'
 import { mountVuetifyComponent } from '../index.js'
 
 const today = new Date().toISOString()
-const todayCompare = today.substr(0, 15) // today's date at a reasonable accuracy
 
 describe('Date calendar', () => {
-  test('Default calendar format is date', () => {
+  test('default calendar format is date and default date is today', () => {
+    const date = formatDate(today)
     const wrapper = defaultMount()
     expect(wrapper.vm.$props.calendarType).toBe('date')
-    expect(wrapper.vm.date).toContain(todayCompare)
-    expect(wrapper.vm.dateString).toBe(formatDate(today))
+    expect(wrapper.vm.$props.selectedDate).toBe(date)
+    expect(wrapper.vm.date).toBe(date)
   })
 
   test('date is given as prop', () => {
-    const date = new Date(2019, 11, 17).toISOString()
-    const wrapper = mountComponent('date', true, 'Päivämäärä', date)
+    const wrapper = mountComponent('date', true, 'Päivämäärä', today)
     expect(wrapper.vm.$props.calendarType).toBe('date')
-    expect(wrapper.vm.dateString).toBe(formatDate(date))
+    expect(wrapper.vm.$props.selectedDate).toBe(today)
+    expect(wrapper.vm.date).toBe(today)
   })
 })
 
 describe('Month calendar', () => {
-  test('default date is current month', () => {
+  test('default month is current month', () => {
+    const month = formatMonth(today)
     const wrapper = mountComponent('month', true, 'Kuukausi')
     expect(wrapper.vm.$props.calendarType).toBe('month')
-    expect(wrapper.vm.dateString).toBe(formatMonth(today))
+    expect(wrapper.vm.$props.selectedDate).toBe(month)
+    expect(wrapper.vm.date).toBe(month)
   })
 
   test('month is given as prop', () => {
     const wrapper = mountComponent('month', true, 'Kuukausi', today)
     expect(wrapper.vm.$props.calendarType).toBe('month')
-    expect(wrapper.vm.dateString).toBe(formatMonth(today))
+    expect(wrapper.vm.$props.selectedDate).toBe(today)
+    expect(wrapper.vm.date).toBe(today)
   })
 })
 

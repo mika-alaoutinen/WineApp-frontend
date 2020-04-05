@@ -7,7 +7,7 @@
   >
     <template v-slot:activator="{ on }">
       <v-text-field
-        v-model="dateString"
+        v-model="date"
         :label="$props.labelText"
         readonly
         v-on="on"
@@ -30,7 +30,15 @@
       enabled: { type: Boolean, required: true },
       labelText: { type: String, required: true },
       calendarType: { type: String, required: false, default: 'date' },
-      selectedDate: { type: String, required: false, default: new Date().toISOString() },
+      selectedDate: {
+        type: String,
+        required: false,
+        default: function() {
+          return this.$props.calendarType === 'date'
+            ? new Date().toISOString().split('T')[0]
+            : new Date().toISOString().substr(0, 7)
+        }
+      },
     },
 
     data() {
@@ -39,29 +47,15 @@
       }
     },
 
-    computed: {
-      dateString() {
-        return this.formatDate()
-      }
-    },
-
     watch: {
       date() {
-        this.$emit('get:date', this.formatDate())
+        this.$emit('get:date', this.date)
       }
     },
 
     mounted() {
-      this.$emit('get:date', this.formatDate())
+      this.$emit('get:date', this.date)
     },
-
-    methods: {
-      formatDate() {
-        return this.$props.calendarType === 'date'
-          ? this.date.split('T')[0]
-          : this.date.substr(0, 7)
-      }
-    }
   }
 
 </script>
