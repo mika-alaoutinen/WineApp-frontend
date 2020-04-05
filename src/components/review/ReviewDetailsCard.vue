@@ -25,6 +25,7 @@
             <v-col
               v-if="attribute !== 'id' && attribute !== 'wine'"
               sm="3"
+              :class="attribute"
             >
               {{ util.translate("review", attribute) }}
             </v-col>
@@ -41,7 +42,10 @@
           </v-row>
 
           <v-row>
-            <v-col sm="3">
+            <v-col
+              class="link-to-review"
+              sm="3"
+            >
               Linkki
             </v-col>
             <v-col>
