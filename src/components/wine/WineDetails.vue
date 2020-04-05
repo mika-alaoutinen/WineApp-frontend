@@ -123,7 +123,7 @@
     components: { DetailsButtons, ReviewDetailsCard },
 
     props: {
-      wineId: { required: true, type: Number },
+      wineId: { required: true, type: [Number, String] },
     },
 
     data() {
