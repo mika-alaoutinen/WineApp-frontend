@@ -60,15 +60,16 @@
   import Utilities from '@/utilities/Utilities.js'
 
   export default {
-
     props: {
       reviews: { type: Array, required: true },
     },
+
     data() {
       return {
         util: Utilities
       }
     }
+
   }
 </script>
 
