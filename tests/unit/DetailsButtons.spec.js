@@ -10,8 +10,7 @@ test('component loads correctly', () => {
   expect(wrapper.props().item.name).toBe('Viini 1')
 })
 
-// Edit item functionality:
-describe('Editing item', () => {
+describe('Editing and saving item', () => {
   test('click on edit button saves copy of item in data and emits editing state as true', async () => {
     const wrapper = mountComponent(false)
     clickButton(wrapper, '#edit')
