@@ -27,6 +27,8 @@ describe('Props values', () => {
   test('search prop is received correctly', () => {
     wrapper.setProps({ search: 'haku' })
     expect(wrapper.props('search')).toEqual('haku')
+    // Reset search because mounting wrapper again randomly breaks one test case. Thanks Vue Test Utils!
+    wrapper.setProps({ search: '' })
   })
 })
 
