@@ -15,8 +15,8 @@ describe('Service utility functions', () => {
     service.resetObject(wine)
     const allPropertiesEmpty = Object
       .values(wine)
-      .some(value => value.length > 0)
+      .every(value => value.length < 1)
 
-    expect(allPropertiesEmpty).toBeFalsy()
+    expect(allPropertiesEmpty).toBe(true)
   })
 })
