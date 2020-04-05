@@ -1,5 +1,6 @@
 export const wines = [
   {
+    id: 1,
     name: 'Viini 1',
     type: 'RED',
     country: 'Italia',
@@ -11,6 +12,7 @@ export const wines = [
     reviews: [],
   },
   {
+    id: 2,
     name: 'Viini 2',
     type: 'RED',
     country: 'Espanja',
