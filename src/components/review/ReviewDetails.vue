@@ -14,6 +14,7 @@
     <div class="card-contents">
       <v-row
         v-for="(value, attribute) in reviewWithoutId"
+        :id="attribute"
         :key="attribute"
       >
         <!-- Left column for attribute names. -->
@@ -103,7 +104,7 @@
     components: { DatePicker, DetailsButtons },
 
     props: {
-      reviewId: { required: true, type: String }
+      reviewId: { required: true, type: [Number, String] }
     },
 
     data() {
