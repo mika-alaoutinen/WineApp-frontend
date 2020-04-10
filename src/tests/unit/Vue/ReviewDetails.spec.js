@@ -10,26 +10,44 @@ const wrapper = mountComponent()
 // Wait until async component mount operation is done:
 beforeAll(async () => await wrapper.vm.$nextTick())
 
-describe('Sanity check props', () => {
+describe('Component mount', () => {
   test('reviewId is given', () => {
     expect(wrapper.props('reviewId')).toBe(review.id)
   })
-})
 
-describe('Component mount', () => {
   test('review is set to data on component mount', () => {
     expect(wrapper.vm.review).toBe(review)
   })
 })
 
-describe('Check that review fields are present', () => {
-  test('author row contains two columns with header and value fields', () => {
-    const authorColumns = wrapper.find('#author').findAll('.col')
-    expect(authorColumns.length).toBe(2)
-    expect(authorColumns.at(0).text()).toBe('Arvostelija')
-    expect(authorColumns.at(1).text()).toBe('Mika')
+describe('Check that review columns have a header and a value', () => {
+  test('author row', () => {
+    validateColumns('#author', 'Arvostelija', review.author)
+  })
+
+  test('date row', () => {
+    validateColumns('#date', 'Päivämäärä', '05.01.2020')
+  })
+
+  test('review text row', () => {
+    validateColumns('#reviewText', 'Arvostelu', review.reviewText)
+  })
+
+  test('rating row', () => {
+    validateColumns('#rating', 'Arvosana', review.rating.toString())
+  })
+
+  test('wine row', () => {
+    validateColumns('#wine', 'Viini', review.wine.name)
   })
 })
+
+const validateColumns = (identifier, col1Value, col2Value) => {
+  const columns = wrapper.find(identifier).findAll('.col')
+  expect(columns.length).toBe(2)
+  expect(columns.at(0).text()).toBe(col1Value)
+  expect(columns.at(1).text()).toBe(col2Value)
+}
 
 // Utility functions:
 function mountComponent() {
