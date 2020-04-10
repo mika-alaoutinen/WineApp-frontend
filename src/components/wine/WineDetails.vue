@@ -14,6 +14,7 @@
     <div class="card-contents">
       <v-row
         v-for="(value, attribute) in wineWithoutId"
+        :id="attribute"
         :key="attribute"
       >
         <!-- Left column for attribute names. -->
@@ -150,11 +151,10 @@
 
     computed: {
       getImage() {
-        const invalid = ['', undefined, null]
-
-        return invalid.includes(this.wine.type)
-          ? require('@/assets/wine-images/wines.png')
-          : require('@/assets/wine-images/' + this.wine.type.toLowerCase() + '.png')
+        const type = this.wine.type.toLowerCase()
+        return this.wine.type
+          ? require('../../../public/assets/wine-images/' + type + '.png')
+          : require('../../../public/assets/wine-images/wines.png')
       },
 
       wineWithoutId() {

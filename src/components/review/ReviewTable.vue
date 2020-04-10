@@ -54,7 +54,6 @@
   import Utilities from '@/utilities/Utilities.js'
 
   export default {
-
     props: {
       reviews: { type: Array, required: true },
       itemsPerPage: { type: Number, required: false, default: 10 },

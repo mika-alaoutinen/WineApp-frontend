@@ -102,7 +102,6 @@
   import { mdiCancel, mdiCheck, mdiDelete, mdiPencil } from '@mdi/js'
 
   export default {
-
     props: {
       editing: { type: Boolean, required: true },
       item: { type: Object, required: true }, // item is either wine or review
@@ -120,6 +119,7 @@
         showErrorAlert: false,
       }
     },
+
     computed: {
       getItem() {
         if (this.$props.item.name !== undefined) {

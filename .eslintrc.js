@@ -48,6 +48,8 @@ module.exports = {
       'error',
       'never'
     ],
+
+    // Vue specific rules:
     'vue/script-indent': [
       'warn', 2, {
         'baseIndent': 1

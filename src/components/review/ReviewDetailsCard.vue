@@ -25,6 +25,7 @@
             <v-col
               v-if="attribute !== 'id' && attribute !== 'wine'"
               sm="3"
+              :class="attribute"
             >
               {{ util.translate("review", attribute) }}
             </v-col>
@@ -41,7 +42,10 @@
           </v-row>
 
           <v-row>
-            <v-col sm="3">
+            <v-col
+              class="linkToReview"
+              sm="3"
+            >
               Linkki
             </v-col>
             <v-col>
@@ -60,15 +64,16 @@
   import Utilities from '@/utilities/Utilities.js'
 
   export default {
-
     props: {
       reviews: { type: Array, required: true },
     },
+
     data() {
       return {
         util: Utilities
       }
     }
+
   }
 </script>
 

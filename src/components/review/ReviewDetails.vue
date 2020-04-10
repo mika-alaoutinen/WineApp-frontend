@@ -5,7 +5,7 @@
   >
     <v-img
       height="25em"
-      src="https://cdn.pixabay.com/photo/2016/10/22/20/34/wine-1761613_960_720.jpg"
+      :src="require('../../../public/assets/review.png')"
     />
     <v-card-title class="card-title secondary--text">
       Arvostelun tiedot
@@ -14,6 +14,7 @@
     <div class="card-contents">
       <v-row
         v-for="(value, attribute) in reviewWithoutId"
+        :id="attribute"
         :key="attribute"
       >
         <!-- Left column for attribute names. -->
@@ -103,7 +104,7 @@
     components: { DatePicker, DetailsButtons },
 
     props: {
-      reviewId: { required: true, type: String }
+      reviewId: { required: true, type: [Number, String] }
     },
 
     data() {
