@@ -9,7 +9,6 @@ export const wines = [
     description: ['keskitanniininen', 'luumuinen'],
     foodPairings: ['seurustelujuoma', 'liharuuat'],
     url: 'http://viini.fi',
-    reviews: [],
   },
   {
     id: 2,
@@ -21,7 +20,6 @@ export const wines = [
     description: ['tanniininen', 'tamminen'],
     foodPairings: ['seurustelujuoma', 'liharuuat'],
     url: 'http://viini.fi',
-    reviews: [],
   },
 ]
 

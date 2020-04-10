@@ -14,6 +14,7 @@
     <div class="card-contents">
       <v-row
         v-for="(value, attribute) in wineWithoutId"
+        :id="attribute"
         :key="attribute"
       >
         <!-- Left column for attribute names. -->
