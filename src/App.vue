@@ -27,7 +27,7 @@
 
     computed: {
       getImage() {
-        return require('@/assets/background.png')
+        return require('../public/assets/background.png')
       }
     },
 

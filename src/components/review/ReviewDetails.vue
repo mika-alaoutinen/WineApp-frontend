@@ -5,7 +5,7 @@
   >
     <v-img
       height="25em"
-      src="https://cdn.pixabay.com/photo/2016/10/22/20/34/wine-1761613_960_720.jpg"
+      :src="require('../../../public/assets/review.png')"
     />
     <v-card-title class="card-title secondary--text">
       Arvostelun tiedot
