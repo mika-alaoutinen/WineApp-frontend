@@ -1,11 +1,11 @@
 import ReviewDetails from '@/components/review/ReviewDetails.vue'
-import { mountVuetifyComponent } from '../../index.js'
-import { reviews } from '../../testdata.js'
+import { mountVuetifyComponent } from '@/tests/index.js'
+import { reviews } from '@/tests/testdata.js'
 
 jest.mock('@/services/ReviewService')
 
 const review = reviews[0]
-const wrapper = mountComponent()
+const wrapper = mountVuetifyComponent(ReviewDetails, { reviewId: review.id })
 
 // Wait until async component mount operation is done:
 beforeAll(async () => await wrapper.vm.$nextTick())
@@ -42,14 +42,10 @@ describe('Check that review columns have a header and a value', () => {
   })
 })
 
+// Utility functions:
 const validateColumns = (identifier, col1Value, col2Value) => {
   const columns = wrapper.find(identifier).findAll('.col')
   expect(columns.length).toBe(2)
   expect(columns.at(0).text()).toBe(col1Value)
   expect(columns.at(1).text()).toBe(col2Value)
-}
-
-// Utility functions:
-function mountComponent() {
-  return mountVuetifyComponent(ReviewDetails, { reviewId: review.id })
 }
