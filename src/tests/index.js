@@ -24,6 +24,7 @@ export function mountVuetifyComponent(Component, propsData) {
   const vuetify = new Vuetify()
 
   return mount(Component, {
+    sync: false,
     localVue,
     vuetify,
     propsData,
