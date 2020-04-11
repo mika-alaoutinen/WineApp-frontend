@@ -71,6 +71,7 @@
         />
 
         <v-btn
+          id="submit-wine-search"
           class="button-save secondary--text"
           large
           text

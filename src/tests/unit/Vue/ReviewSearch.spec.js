@@ -1,4 +1,4 @@
-import ReviewSearch from '@/components/review/ReviewSearch'
+import ReviewSearch from '@/components/review/ReviewSearch.vue'
 import { mountVuetifyComponent, clickButton } from '@/tests/index.js'
 
 jest.mock('@/services/ReviewService')
@@ -53,8 +53,7 @@ describe('Search results table', () => {
   })
 
   test('table is shown after a search', async () => {
-    testQuickSearchButtons(0, 'Parhaat')
-    await wrapper.vm.$nextTick()
+    await testQuickSearchButtons(0, 'Parhaat')
     const style = wrapper.find('.search-results-table').attributes('style')
     expect(style).toBe('')
   })

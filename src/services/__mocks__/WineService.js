@@ -14,6 +14,19 @@ class WineService extends Service {
   get(id) {
     return Promise.resolve(wines.find(wine => wine.id === id))
   }
+
+  search(searchParam) {
+    return Promise.resolve(wines)
+  }
+
+  getStore() {
+    return {
+      data: {
+        wines,
+        storeType: 'wine'
+      }
+    }
+  }
 }
 
 export default WineService
