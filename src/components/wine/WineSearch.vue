@@ -12,10 +12,12 @@
           Hae nimen tai maan perusteella
         </v-subheader>
         <v-text-field
+          id="name-input"
           v-model="searchParams.name"
           label="Nimi"
         />
         <v-autocomplete
+          id="country-autocomplete"
           v-model="searchParams.countries"
           :items="allCountries"
           :search-input.sync="searchInput"
@@ -32,6 +34,7 @@
           Hae viinin tyypin perusteella
         </v-subheader>
         <v-radio-group
+          id="wine-types-radio-group"
           v-model="searchParams.type"
           row
         >
@@ -47,7 +50,7 @@
         <v-subheader class="subheader">
           Hae määrän perusteella (litraa)
         </v-subheader>
-        <v-row>
+        <v-row id="volume-checkboxes">
           <v-col
             v-for="volume in wineVolumes"
             :key="volume"
@@ -65,6 +68,7 @@
           Hae hinnan perusteella (€)
         </v-subheader>
         <RangeSlider
+          id="price-range-slider"
           :default-range="price.defaultRange"
           :switch-label="'Hintahaku päällä'"
           @get:range="getRange"
