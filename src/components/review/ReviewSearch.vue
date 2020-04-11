@@ -66,6 +66,7 @@
         />
 
         <v-btn
+          id="submit-review-search"
           class="button-save secondary--text"
           large
           text

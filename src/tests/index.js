@@ -12,7 +12,7 @@ Vue.use(Vuetify)
  * @param {Object} Component to be tested.
  * @param {Object} propsData props that the component has.
  */
-export function mountVuetifyComponent(Component, propsData) {
+export function mountVuetifyComponent(Component, propsData, sync) {
   // Used to get rid of the following warning:
   // "[Vuetify] Missing v-app or a non-body wrapping element with the [data-app] attribute"
   const app = document.createElement('div')
@@ -24,7 +24,7 @@ export function mountVuetifyComponent(Component, propsData) {
   const vuetify = new Vuetify()
 
   return mount(Component, {
-    sync: false,
+    sync: sync,
     localVue,
     vuetify,
     propsData,

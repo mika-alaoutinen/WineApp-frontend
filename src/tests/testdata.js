@@ -35,7 +35,7 @@ export const reviews = [
   {
     id: 2,
     author: 'Salla',
-    date: '2020-01-05',
+    date: '2020-02-05',
     reviewText: 'Viinin 1 arvostelu. Viini on kohtuullisen herkullinen.',
     rating: 3.5,
     wine: wines[0],

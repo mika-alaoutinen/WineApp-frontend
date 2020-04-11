@@ -26,6 +26,10 @@ class ReviewService extends Service {
     return Promise.resolve(reviews)
   }
 
+  search(searchParam) {
+    return Promise.resolve(reviews)
+  }
+
   getStore() {
     return {
       data: {
