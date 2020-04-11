@@ -1,5 +1,5 @@
 import ReviewSearch from '@/components/review/ReviewSearch.vue'
-import { mountVuetifyComponent, clickButton } from '@/tests/index.js'
+import { mountVuetifyComponent, clickButton, testTextInput, findByLabel } from '@/tests/index.js'
 
 jest.mock('@/services/ReviewService')
 
@@ -9,6 +9,20 @@ beforeEach(() => wrapper = mountVuetifyComponent(ReviewSearch, undefined, false)
 describe('Computed properties', () => {
   test('allAuthors return a list of author names', () => {
     expect(wrapper.vm.allAuthors).toStrictEqual(['Mika', 'Salla'])
+  })
+})
+
+describe('Search form elements', () => {
+  test('form contains author select', () => {
+    testTextInput(wrapper, '#author-autocomplete', 'Arvostelijan nimi')
+  })
+
+  test('form contains month picker', () => {
+    expect(wrapper.find('.month-picker')).toBeTruthy()
+  })
+
+  test('form contains author select', () => {
+    expect(wrapper.find('.range-slider')).toBeTruthy()
   })
 })
 

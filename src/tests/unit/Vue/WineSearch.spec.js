@@ -1,5 +1,5 @@
 import WineSearch from '@/components/wine/WineSearch.vue'
-import { mountVuetifyComponent, clickButton } from '@/tests/index.js'
+import { mountVuetifyComponent, clickButton, testTextInput, findByLabel } from '@/tests/index.js'
 
 jest.mock('@/services/WineService')
 
@@ -14,11 +14,11 @@ describe('Computed properties', () => {
 
 describe('Search form elements', () => {
   test('form contains name input', () => {
-    testTextInput('#name-input', 'Nimi')
+    testTextInput(wrapper, '#name-input', 'Nimi')
   })
 
   test('form contains country autocomplete', () => {
-    testTextInput('#country-autocomplete', 'Maa')
+    testTextInput(wrapper, '#country-autocomplete', 'Maa')
   })
 
   test('form contains wine type radio buttons', () => {
@@ -27,7 +27,7 @@ describe('Search form elements', () => {
 
     const radioLabels = ['Kuohuviini', 'Punaviini', 'Roseeviini', 'Valkoviini', 'Muu viini']
     radioLabels.forEach(label =>
-      expect(findByLabel(label)).toBeTruthy()
+      expect(findByLabel(wrapper, label)).toBeTruthy()
     )
   })
 
@@ -37,7 +37,7 @@ describe('Search form elements', () => {
 
     const cbLabels = ['0.75', '1', '1.5', '2', '3']
     cbLabels.forEach(label =>
-      expect(findByLabel(label)).toBeTruthy()
+      expect(findByLabel(wrapper, label)).toBeTruthy()
     )
   })
 
@@ -79,20 +79,3 @@ describe('Search results table', () => {
     expect(style).toBe('')
   })
 })
-
-// Utility functions:
-const testTextInput = (identifier, expectedLabel) => {
-  const input = wrapper.find(identifier)
-  expect(input.name()).toBe('input')
-  expect(input.attributes('type')).toBe('text')
-
-  const label = `label[for=${identifier.substring(1)}]` // Strip # from CSS id
-  const labelText = wrapper.find(label).text()
-  expect(labelText).toContain(expectedLabel)
-}
-
-const findByLabel = labelText => wrapper
-  .findAll('.v-label')
-  .filter(label => label.text().includes(labelText))
-  .at(0)
-  .text()

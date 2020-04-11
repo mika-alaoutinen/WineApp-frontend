@@ -61,3 +61,32 @@ export async function flipSwitch(wrapper, switchId) {
   wrapper.find(switchId).trigger('click')
   await wrapper.vm.$nextTick()
 }
+
+/**
+ * Test that input field is valid text input and that it has a suitable label.
+ * @param {Object} wrapper
+ * @param {string} identifier CSS id
+ * @param {string} expectedLabel
+ */
+export function testTextInput(wrapper, identifier, expectedLabel) {
+  const input = wrapper.find(identifier)
+  expect(input.name()).toBe('input')
+  expect(input.attributes('type')).toBe('text')
+
+  const label = `label[for=${identifier.substring(1)}]` // Strip # from CSS id
+  const labelText = wrapper.find(label).text()
+  expect(labelText).toContain(expectedLabel)
+}
+
+/**
+ * Find label text.
+ * @param {Object} wrapper
+ * @param {string} labelText to find
+ */
+export function findByLabel(wrapper, labelText) {
+  return wrapper
+    .findAll('.v-label')
+    .filter(label => label.text().includes(labelText))
+    .at(0)
+    .text()
+}
