@@ -63,6 +63,19 @@ export async function flipSwitch(wrapper, switchId) {
 }
 
 /**
+ * A helper function for submitting a form.
+ * @param {Object} wrapper
+ * @param {Object} wine
+ * @param {Object} review, optional
+ */
+export async function submitForm(wrapper, wine, review) {
+  wrapper.vm.wine = wine
+  wrapper.vm.review = review
+  wrapper.vm.submitForm()
+  await wrapper.vm.$nextTick()
+}
+
+/**
  * Test that input field is valid text input and that it has a suitable label.
  * @param {Object} wrapper
  * @param {string} identifier CSS id

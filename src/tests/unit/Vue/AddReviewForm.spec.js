@@ -1,6 +1,6 @@
 import AddReviewForm from '@/components/review/AddReviewForm.vue'
 import { reviews, wines } from '@/tests/testdata.js'
-import { mountVuetifyComponent } from '@/tests/index.js'
+import { mountVuetifyComponent, submitForm } from '@/tests/index.js'
 
 jest.mock('@/services/WineService')
 jest.mock('@/services/ReviewService')
@@ -24,17 +24,13 @@ describe('Computed properties', () => {
 
 describe('Component\'s methods', () => {
   test('successful submit should return true', async () => {
-    expect(wrapper.vm.showSuccessAlert).toBe(false)
-    expect(wrapper.vm.showErrorAlert).toBe(false)
-    await submit(wines[0])
+    await submitForm(wrapper, wines[0], review)
     expect(wrapper.vm.showSuccessAlert).toBe(true)
     expect(wrapper.vm.showErrorAlert).toBe(false)
   })
 
   test('failed submit should return false and raise error flag', async () => {
-    expect(wrapper.vm.showSuccessAlert).toBe(false)
-    expect(wrapper.vm.showErrorAlert).toBe(false)
-    await submit(wines[1])
+    await submitForm(wrapper, wines[1], review)
     expect(wrapper.vm.showSuccessAlert).toBe(false)
     expect(wrapper.vm.showErrorAlert).toBe(true)
   })
@@ -49,7 +45,6 @@ describe('Component\'s methods', () => {
       wine: '',
     }
 
-    expect(wrapper.vm.showSuccessAlert).toBe(false)
     wrapper.vm.review = review
     expect(wrapper.vm.review).toBe(review)
 
@@ -93,11 +88,3 @@ describe('Showing alert dialog after submit', () => {
     expect(errorAlert.attributes('style')).toBe('')
   })
 })
-
-// Utility functions:
-const submit = async wine => {
-  wrapper.vm.wine = wine
-  wrapper.vm.review = review
-  wrapper.vm.submitForm()
-  await wrapper.vm.$nextTick()
-}

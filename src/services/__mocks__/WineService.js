@@ -30,6 +30,14 @@ class WineService extends Service {
     return Promise.resolve([... new Set(foodPairings)])
   }
 
+  /**
+   * Return true if wine id is 1, else return false
+   * @param {Object} wine
+   */
+  post(wine) {
+    return Promise.resolve(wine.id === 1)
+  }
+
   search(searchParam) {
     return Promise.resolve(wines)
   }
