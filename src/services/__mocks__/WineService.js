@@ -15,6 +15,21 @@ class WineService extends Service {
     return Promise.resolve(wines.find(wine => wine.id === id))
   }
 
+  getCountries() {
+    return Promise.resolve(wines.map(wine => wine.country))
+  }
+
+  getDescriptions() {
+    return Promise.resolve(
+      wines.map(wine => wine.description).flat()
+    )
+  }
+
+  getFoodPairings() {
+    const foodPairings = wines.map(wine => wine.foodPairings).flat()
+    return Promise.resolve([... new Set(foodPairings)])
+  }
+
   search(searchParam) {
     return Promise.resolve(wines)
   }

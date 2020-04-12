@@ -18,7 +18,7 @@ export const wines = [
     price: 9,
     volume: 0.75,
     description: ['tanniininen', 'tamminen'],
-    foodPairings: ['seurustelujuoma', 'liharuuat'],
+    foodPairings: ['seurustelujuoma', 'kana'],
     url: 'http://viini.fi',
   },
 ]
