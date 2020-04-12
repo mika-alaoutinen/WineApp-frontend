@@ -162,6 +162,7 @@
         />
 
         <v-btn
+          id="submit-wine-form-button"
           class="button-save secondary--text"
           large
           text
