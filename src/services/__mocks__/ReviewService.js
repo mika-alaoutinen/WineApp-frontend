@@ -22,6 +22,10 @@ class ReviewService extends Service {
     return Promise.resolve(reviews)
   }
 
+  getCount() {
+    return Promise.resolve(reviews.length)
+  }
+
   /**
    * Return true if wineId is 1, else return false.
    * @param {number} wineId
@@ -31,7 +35,7 @@ class ReviewService extends Service {
     return Promise.resolve(wineId === 1)
   }
 
-  quickSearch(searchParam) {
+  quickSearch() {
     return Promise.resolve(reviews)
   }
 
