@@ -43,6 +43,7 @@
           Hae arvostelijan nimen perusteella
         </v-subheader>
         <v-autocomplete
+          id="author-autocomplete"
           v-model="searchParams.author"
           :items="allAuthors"
           label="Arvostelijan nimi"
@@ -66,6 +67,7 @@
         />
 
         <v-btn
+          id="submit-review-search"
           class="button-save secondary--text"
           large
           text

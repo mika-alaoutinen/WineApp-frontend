@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="range-slider">
     <v-switch
       id="ratingSwitch"
       v-model="enabled"

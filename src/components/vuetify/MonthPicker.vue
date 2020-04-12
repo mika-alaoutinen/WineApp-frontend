@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="month-picker">
     <!-- Wrapper component for two month pickers and a switch that
     activates/deactivates the pickers. -->
 
