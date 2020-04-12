@@ -22,6 +22,15 @@ class ReviewService extends Service {
     return Promise.resolve(reviews)
   }
 
+  /**
+   * Return true if wineId is 1, else return false.
+   * @param {number} wineId
+   * @param {Object} review
+   */
+  post(wineId, review) {
+    return Promise.resolve(wineId === 1)
+  }
+
   quickSearch(searchParam) {
     return Promise.resolve(reviews)
   }

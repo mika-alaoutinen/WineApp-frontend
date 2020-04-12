@@ -3,7 +3,6 @@ import AddWineForm from '@/components/wine/AddWineForm.vue'
 import { shallowMount } from '@vue/test-utils'
 
 jest.mock('@/services/WineService')
-jest.mock('@/stores/WineStore')
 
 let wrapper
 beforeEach(() => wrapper = shallowMount(AddWineForm))
