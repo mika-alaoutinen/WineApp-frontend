@@ -1,5 +1,5 @@
 import ReviewSearch from '@/components/review/ReviewSearch.vue'
-import { mountVuetifyComponent, clickButton, testTextInput, findByLabel } from '@/tests/index.js'
+import { mountVuetifyComponent, clickButton, testTextInput } from '@/tests/index.js'
 
 jest.mock('@/services/ReviewService')
 
