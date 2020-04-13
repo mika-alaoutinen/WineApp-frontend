@@ -54,6 +54,12 @@ class WineService extends Service {
       }
     }
   }
+
+  validateWineName(name) {
+    return Promise.resolve(
+      !wines.map(wine => wine.name).includes(name)
+    )
+  }
 }
 
 export default WineService
