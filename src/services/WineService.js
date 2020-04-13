@@ -31,6 +31,18 @@ class WineService extends Service {
   getFoodPairings() {
     return getDistinctItems('foodPairings')
   }
+
+  /**
+   * Checks that wine name is unique. Returns true if name is valid, else returns false.
+   * @param {string} name of wine
+   * @returns {Promise} boolean name is valid
+   */
+  async validateWineName(name) {
+    return axios
+      .get(UrlBuilder.wine.getValidateUrl(name))
+      .then(response => response.data)
+      .catch(error => console.error(error))
+  }
 }
 
 /**

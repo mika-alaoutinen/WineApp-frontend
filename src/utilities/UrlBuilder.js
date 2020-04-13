@@ -12,10 +12,15 @@ export default {
       descriptions: `${winePath}descriptions`,
       foodPairings: `${winePath}food-pairings`,
       search: `${winePath}search?`,
+      validate: `${winePath}validate?`,
     },
 
     getSearchUrl(params) {
       return this.paths.search + buildQueryParams(params)
+    },
+
+    getValidateUrl(name) {
+      return `${this.paths.validate}name=${name}`
     },
   },
 

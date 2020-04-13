@@ -93,6 +93,22 @@ describe('Showing alert dialog after submit', () => {
   })
 })
 
+describe('Error handling', () => {
+  test('Adding a wine with a unique name should not give an error', async () => {
+    expect(wrapper.vm.isNameValid).toBe(true)
+    wrapper.vm.wine = { name: 'Uusi viini' }
+    await wrapper.vm.validateName()
+    expect(wrapper.vm.isNameValid).toBe(true)
+  })
+
+  test('Adding a wine with an existing name should give an error', async () => {
+    expect(wrapper.vm.isNameValid).toBe(true)
+    wrapper.vm.wine = wines[0]
+    await wrapper.vm.validateName()
+    expect(wrapper.vm.isNameValid).toBe(false)
+  })
+})
+
 // describe('interacting with form elements modifies component data', () => {
 //   // TODO: No idea why this doesn't work.
 //   test('select red wine as wine type', async () => {
