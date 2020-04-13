@@ -35,8 +35,15 @@
           <v-text-field
             v-model="wine.name"
             :label="util.translate('wine', 'name')"
+            @change="validateName"
           />
           <span class="validationErrorMessage">{{ errors[0] }}</span>
+          <span
+            v-if="!isNameValid"
+            class="validationErrorMessage"
+          >
+            Samalla nimellä on jo olemassa viini!
+          </span>
         </validation-provider>
 
         <!-- Country text field, required -->
@@ -204,6 +211,8 @@
           foodPairings: [],
         },
 
+        isNameValid: true, // Check database if wine name is unique
+
         // Contains the inputs for combobox:
         searchInput: {
           description: '',
@@ -246,6 +255,11 @@
         this.showSuccessAlert = true
         wineService.resetObject(this.wine)
         this.$refs.form.reset()
+      },
+
+      validateName() {
+        wineService.validateWineName(this.wine.name)
+          .then(isValid => this.isNameValid = isValid)
       },
     },
 

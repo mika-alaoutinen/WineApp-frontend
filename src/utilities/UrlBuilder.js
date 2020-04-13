@@ -1,5 +1,5 @@
-// const basePath = 'http://localhost:8080/api/'
-const basePath = 'https://maistissa-backend.herokuapp.com/api/'
+const basePath = 'http://localhost:8080/api/'
+// const basePath = 'https://maistissa-backend.herokuapp.com/api/'
 const winePath = `${basePath}wines/`
 const reviewPath = `${basePath}reviews/`
 
@@ -12,10 +12,15 @@ export default {
       descriptions: `${winePath}descriptions`,
       foodPairings: `${winePath}food-pairings`,
       search: `${winePath}search?`,
+      validate: `${winePath}validate?`,
     },
 
     getSearchUrl(params) {
       return this.paths.search + buildQueryParams(params)
+    },
+
+    getValidateUrl(name) {
+      return `${this.paths.validate}name=${name}`
     },
   },
 
