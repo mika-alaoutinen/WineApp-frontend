@@ -1,29 +1,19 @@
 <template>
-  <v-card
-    class="full-page-card"
-    min-width="30%"
-    max-width="60%"
-  >
-    <v-card-title class="card-title secondary--text">
-      Kirjaudu sisään
-    </v-card-title>
-
-    <p>Käyttäjänimi</p>
-  </v-card>
+  <div class="tabs-container">
+    <LoginForm />
+  </div>
 </template>
 
 <script>
+  import LoginForm from '@/components/authentication/LoginForm.vue'
   import { login, register } from '@/services/AuthenticationService.js'
 
   export default {
+    components: { LoginForm },
+
     data() {
-      return {
-        user: {
-          username: '',
-          password: '',
-        }
-      }
-    }
+      return {}
+    },
   }
 </script>
 
