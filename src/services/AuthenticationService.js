@@ -41,7 +41,6 @@ export function logout() {
  * @param {Object} jwtToken token
  */
 export function saveToken(jwtToken) {
-  const token = JSON.stringify(jwtToken)
-  console.log('received token', token)
+  const token = `${jwtToken.type} ${jwtToken.token}`
   window.localStorage.setItem('token', token)
 }

@@ -17,7 +17,7 @@ class Service {
      */
   async get(id) {
     return axios
-      .get(UrlBuilder[this.storeType].paths.base + id)
+      .get(UrlBuilder[this.storeType].paths.base + id, this.createHeaders())
       .then(response => response.data)
       .catch(error => console.error(error))
   }
@@ -27,7 +27,7 @@ class Service {
      */
   async getAll() {
     return axios
-      .get(UrlBuilder[this.storeType].paths.base)
+      .get(UrlBuilder[this.storeType].paths.base, this.createHeaders())
       .then(response => this.store.addAll(response.data))
       .catch(error => console.error(error))
   }
@@ -38,7 +38,7 @@ class Service {
      */
   async post(item) {
     return axios
-      .post(UrlBuilder[this.storeType].paths.base, item)
+      .post(UrlBuilder[this.storeType].paths.base, item, this.createHeaders())
       .then(response => this.store.add(response.data))
       .catch(error => console.error(error))
   }
@@ -49,7 +49,7 @@ class Service {
      * @param {Object} editedItem.
      */
   async put(id, editedItem) {
-    axios.put(UrlBuilder[this.storeType].paths.base + id, editedItem)
+    axios.put(UrlBuilder[this.storeType].paths.base + id, editedItem, this.createHeaders())
       .then(response => this.store.edit(id, response.data))
       .catch(error => console.error(error))
   }
@@ -59,7 +59,7 @@ class Service {
      * @param {Number} id
      */
   async delete(id) {
-    axios.delete(UrlBuilder[this.storeType].paths.base + id)
+    axios.delete(UrlBuilder[this.storeType].paths.base + id, this.createHeaders())
       .then(() => this.store.delete(id))
       .catch(error => console.error(error))
   }
@@ -70,7 +70,7 @@ class Service {
      */
   async getCount() {
     return axios
-      .get(UrlBuilder[this.storeType].paths.count)
+      .get(UrlBuilder[this.storeType].paths.count, this.createHeaders())
       .then(response => response.data)
       .catch(error => console.error(error))
   }
@@ -82,7 +82,7 @@ class Service {
      */
   async search(searchParams) {
     return axios
-      .get(UrlBuilder[this.storeType].getSearchUrl(searchParams))
+      .get(UrlBuilder[this.storeType].getSearchUrl(searchParams), this.createHeaders())
       .then(response => response.data)
       .catch(error => console.error(error))
   }
@@ -108,6 +108,14 @@ class Service {
       .map(key => (Array.isArray(searchParams[key])
         ? searchParams[key] = []
         : searchParams[key] = ''))
+  }
+
+  // Create Authorization header
+  createHeaders() {
+    const token = window.localStorage.getItem('token')
+    return {
+      headers: { Authorization: token }
+    }
   }
 }
 
