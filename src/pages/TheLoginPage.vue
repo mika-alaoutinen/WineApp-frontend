@@ -27,15 +27,15 @@
 <script>
   import LoginForm from '@/components/authentication/LoginForm.vue'
   import RegisterUserForm from '@/components/authentication/RegisterUserForm.vue'
-  import { mdiGlassWine, mdiFileDocumentEditOutline } from '@mdi/js'
+  import { mdiLogin, mdiAccountPlus } from '@mdi/js'
 
   export default {
     components: { LoginForm, RegisterUserForm },
 
     data() {
       return {
-        loginIcon: mdiFileDocumentEditOutline,
-        registerIcon: mdiGlassWine,
+        loginIcon: mdiLogin,
+        registerIcon: mdiAccountPlus,
       }
     },
   }
