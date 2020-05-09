@@ -56,6 +56,7 @@
 
     props: {
       buttonText: { required: false, type: String, default: 'Lähetä' },
+      emitIdentifier: { required: true, type: String },
       passwordValidationRule: { required: false, type: String, default: 'required' },
     },
 
@@ -72,7 +73,7 @@
 
     methods: {
       submitForm() {
-        this.$emit('post:user', this.user)
+        this.$emit(this.$props.emitIdentifier, this.user)
       },
     },
 

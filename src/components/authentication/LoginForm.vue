@@ -6,27 +6,22 @@
 
     <UserCredentialsForm
       :button-text="'Kirjaudu'"
-      @post:user="doLogin"
+      :emit-identifier="'post:login'"
+      @post:login="doLogin"
     />
   </v-card>
 </template>
 
 <script>
   import UserCredentialsForm from '@/components/authentication/UserCredentialsForm.vue'
-  import { login, register } from '@/services/AuthenticationService.js'
+  import { login } from '@/services/AuthenticationService.js'
 
   export default {
     components: { UserCredentialsForm },
 
-    data() {
-      return {}
-    },
-
     methods: {
       doLogin(user) {
-        console.log('login')
-        console.log('username', user.username)
-        console.log('password', user.password)
+        login(user)
       }
     },
 

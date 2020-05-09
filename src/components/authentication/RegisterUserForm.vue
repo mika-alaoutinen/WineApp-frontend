@@ -6,27 +6,24 @@
 
     <UserCredentialsForm
       :button-text="'Rekisteröidy'"
+      :emit-identifier="'post:register'"
       password-validation-rule="password"
-      @post:user="doRegister"
+      @post:register="doRegister"
     />
   </v-card>
 </template>
 
 <script>
   import UserCredentialsForm from '@/components/authentication/UserCredentialsForm.vue'
+  import { register } from '@/services/AuthenticationService.js'
 
   export default {
     components: { UserCredentialsForm },
 
-    data() {
-      return {}
-    },
-
     methods: {
       doRegister(user) {
-        console.log('register')
-        console.log('username', user.username)
-        console.log('password', user.password)
+        console.log('new user', user)
+        // const newUser = register(user)
       }
     },
   }
