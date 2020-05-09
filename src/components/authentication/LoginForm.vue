@@ -13,20 +13,24 @@
 
 <script>
   import UserCredentialsForm from '@/components/authentication/UserCredentialsForm.vue'
-  import { login, register } from '@/services/AuthenticationService.js'
+  import { login } from '@/services/AuthenticationService.js'
 
   export default {
     components: { UserCredentialsForm },
 
-    data() {
-      return {}
-    },
-
     methods: {
-      doLogin(user) {
-        console.log('login')
-        console.log('username', user.username)
-        console.log('password', user.password)
+      async doLogin(user) {
+        login(user)
+          .then(token => token ? this.successfulLogin() : this.failedLogin())
+      },
+
+      successfulLogin() {
+        console.log('ok')
+        // GET username from user service
+      },
+
+      failedLogin() {
+        console.log('fail')
       }
     },
 
