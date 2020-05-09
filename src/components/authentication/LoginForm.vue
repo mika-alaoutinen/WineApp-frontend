@@ -4,7 +4,7 @@
       Kirjaudu sisään
     </v-card-title>
 
-    <UserCredentialsForm />
+    <UserCredentialsForm :button-text="'Kirjaudu'" />
   </v-card>
 </template>
 
@@ -34,6 +34,3 @@
 
   }
 </script>
-
-<style scoped>
-</style>

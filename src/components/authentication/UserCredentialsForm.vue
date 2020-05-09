@@ -29,6 +29,16 @@
         />
         <span class="validationErrorMessage">{{ errors[0] }}</span>
       </validation-provider>
+
+      <!-- Form submit button to save the new review: -->
+      <v-btn
+        class="button-save secondary--text"
+        large
+        text
+        type="submit"
+      >
+        {{ buttonText }}
+      </v-btn>
     </v-form>
   </ValidationObserver>
 </template>
@@ -42,6 +52,7 @@
     components: { ValidationObserver, ValidationProvider },
 
     props: {
+      buttonText: { required: false, type: String, default: 'Lähetä' },
       passwordValidationRule: { required: false, type: String, default: 'required' },
     },
 
@@ -64,6 +75,3 @@
 
   }
 </script>
-
-<style scoped>
-</style>

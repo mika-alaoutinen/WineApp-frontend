@@ -5,6 +5,7 @@
     </v-card-title>
 
     <UserCredentialsForm
+      :button-text="'Rekisteröidy'"
       password-validation-rule="password"
     />
   </v-card>
@@ -23,6 +24,3 @@
     }
   }
 </script>
-
-<style scoped>
-</style>
