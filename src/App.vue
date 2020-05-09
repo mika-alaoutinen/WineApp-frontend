@@ -44,6 +44,10 @@
     color: #0D47A1 !important
   }
 
+  .button-save {
+    font-weight: bold;
+  }
+
   .full-page-card {
     margin-left: auto;
     margin-right: auto;
@@ -59,6 +63,10 @@
     min-width: 60%;
     max-width: 80%;
     margin: 0 auto 0;
+  }
+
+  .validationErrorMessage {
+    color: #880E4F; /* indigo.darken4 */
   }
 
   .v-icon {

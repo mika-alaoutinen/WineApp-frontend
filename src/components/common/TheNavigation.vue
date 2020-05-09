@@ -27,7 +27,7 @@
   export default {
     data() {
       return {
-        pages: [ 'home', 'reviews', 'wines', 'add', 'search' ],
+        pages: [ 'home', 'reviews', 'wines', 'add', 'search', 'login' ],
         util: Utilities,
       }
     }

@@ -265,8 +265,3 @@
 
   }
 </script>
-
-<style scoped>
-  .button-save { font-weight: bold }
-  .validationErrorMessage { color: #880E4F } /* indigo.darken4 */
-</style>

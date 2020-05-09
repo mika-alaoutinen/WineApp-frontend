@@ -8,6 +8,7 @@ const dictionary = {
     wines: 'Viinit',
     add: 'Lisää uusi',
     search: 'Haku',
+    login: 'Kirjaudu sisään'
   },
 
   review: {
@@ -38,6 +39,11 @@ const dictionary = {
     bag: 'Pussi',
     bottle: 'Pullo',
     box: 'Tonkka',
+  },
+
+  user: {
+    username: 'Käyttäjänimi',
+    password: 'Salasana',
   },
 }
 
