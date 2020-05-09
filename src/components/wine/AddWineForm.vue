@@ -4,7 +4,6 @@
       Lisää uusi viini
     </v-card-title>
 
-    <!-- Alerts that inform user if adding new wine was successful or not: -->
     <Alerts
       :show-error-alert="showErrorAlert"
       :show-success-alert="showSuccessAlert"
@@ -240,6 +239,7 @@
       setVolume(volume) { this.wine.volume = volume },
 
       submitForm() {
+        this.showErrorAlert = false
         wineService.post(this.wine)
           .then(wasOk => wasOk ? this.successfulPost() : this.showErrorAlert = true)
       },

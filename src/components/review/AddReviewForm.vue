@@ -4,7 +4,6 @@
       Lisää uusi arvostelu
     </v-card-title>
 
-    <!-- Alerts that inform user if adding new wine was successful or not: -->
     <Alerts
       :show-error-alert="showErrorAlert"
       :show-success-alert="showSuccessAlert"
@@ -132,6 +131,7 @@
       getDate(date) { this.review.date = date },
 
       submitForm() {
+        this.showErrorAlert = false
         reviewService.post(this.wine.id, this.review)
           .then(wasOk => wasOk ? this.successfulPost() : this.showErrorAlert = true)
       },
