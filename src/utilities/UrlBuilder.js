@@ -1,27 +1,15 @@
 const basePath = 'http://localhost:8080/api/'
 // const basePath = 'https://maistissa-backend.herokuapp.com/api/'
-const winePath = `${basePath}wines/`
+const authPath = `${basePath}auth/`
 const reviewPath = `${basePath}reviews/`
+const winePath = `${basePath}wines/`
 
 export default {
-  wine: {
+  auth: {
     paths: {
-      base: winePath,
-      count: `${winePath}count`,
-      countries: `${winePath}countries`,
-      descriptions: `${winePath}descriptions`,
-      foodPairings: `${winePath}food-pairings`,
-      search: `${winePath}search?`,
-      validate: `${winePath}validate?`,
-    },
-
-    getSearchUrl(params) {
-      return this.paths.search + buildQueryParams(params)
-    },
-
-    getValidateUrl(name) {
-      return `${this.paths.validate}name=${name}`
-    },
+      login: `${authPath}login`,
+      register: `${authPath}register`
+    }
   },
 
   review: {
@@ -40,6 +28,26 @@ export default {
 
     getSearchUrl(searchParams) {
       return this.paths.search + buildQueryParams(searchParams)
+    },
+  },
+
+  wine: {
+    paths: {
+      base: winePath,
+      count: `${winePath}count`,
+      countries: `${winePath}countries`,
+      descriptions: `${winePath}descriptions`,
+      foodPairings: `${winePath}food-pairings`,
+      search: `${winePath}search?`,
+      validate: `${winePath}validate?`,
+    },
+
+    getSearchUrl(params) {
+      return this.paths.search + buildQueryParams(params)
+    },
+
+    getValidateUrl(name) {
+      return `${this.paths.validate}name=${name}`
     },
   },
 }

@@ -10,18 +10,18 @@ let wine
 
 // Reset search params:
 beforeEach(() => {
+  review = {
+    author: '',
+    dateRange: [],
+    ratingRange: [],
+  }
+
   wine = {
     name: '',
     type: '',
     countries: [],
     priceRange: [],
     volumes: [],
-  }
-
-  review = {
-    author: '',
-    dateRange: [],
-    ratingRange: [],
   }
 })
 
