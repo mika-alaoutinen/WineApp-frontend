@@ -4,6 +4,13 @@
       Kirjaudu sisään
     </v-card-title>
 
+    <Alerts
+      :show-error-alert="showErrorAlert"
+      :show-success-alert="showSuccessAlert"
+      :error-text="'Käyttäjätunnus tai salasana väärin'"
+      :success-text="'Kirjautuminen onnistui'"
+    />
+
     <UserCredentialsForm
       :button-text="'Kirjaudu'"
       @post:user="doLogin"
@@ -12,26 +19,31 @@
 </template>
 
 <script>
+  import Alerts from '@/components/common/Alerts.vue'
   import UserCredentialsForm from '@/components/authentication/UserCredentialsForm.vue'
   import { login } from '@/services/AuthenticationService.js'
 
   export default {
-    components: { UserCredentialsForm },
+    components: { Alerts, UserCredentialsForm },
+
+    data() {
+      return {
+        showErrorAlert: false,
+        showSuccessAlert: false,
+      }
+    },
 
     methods: {
       async doLogin(user) {
+        this.showErrorAlert = false
         login(user)
-          .then(token => token ? this.successfulLogin() : this.failedLogin())
+          .then(token => token ? this.successfulLogin() : this.showErrorAlert = true)
       },
 
       successfulLogin() {
-        console.log('ok')
+        this.showSuccessAlert = true
         // GET username from user service
       },
-
-      failedLogin() {
-        console.log('fail')
-      }
     },
 
   }

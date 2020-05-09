@@ -42,7 +42,7 @@ const dictionary = {
   },
 
   user: {
-    username: 'Käyttäjänimi',
+    username: 'Käyttäjätunnus',
     password: 'Salasana',
   },
 }

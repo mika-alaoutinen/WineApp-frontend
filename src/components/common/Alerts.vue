@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Alerts that inform user if adding new wine was successful or not: -->
     <v-alert
       dismissible
       type="success"
