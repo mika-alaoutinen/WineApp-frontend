@@ -6,9 +6,8 @@
 
     <UserCredentialsForm
       :button-text="'Rekisteröidy'"
-      :emit-identifier="'post:register'"
       password-validation-rule="password"
-      @post:register="doRegister"
+      @post:user="doRegister"
     />
   </v-card>
 </template>
@@ -22,8 +21,7 @@
 
     methods: {
       doRegister(user) {
-        console.log('new user', user)
-        // const newUser = register(user)
+        register(user)
       }
     },
   }

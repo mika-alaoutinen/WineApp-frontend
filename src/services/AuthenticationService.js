@@ -23,7 +23,7 @@ export async function login(credentials) {
  */
 export async function register(user) {
   return axios
-    .post(UrlBuilder.auth.paths.login, user)
+    .post(UrlBuilder.auth.paths.register, user)
     .then(response => response.data)
     .catch(error => console.error(error))
 }

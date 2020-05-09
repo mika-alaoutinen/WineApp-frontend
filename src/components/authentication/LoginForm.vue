@@ -6,8 +6,7 @@
 
     <UserCredentialsForm
       :button-text="'Kirjaudu'"
-      :emit-identifier="'post:login'"
-      @post:login="doLogin"
+      @post:user="doLogin"
     />
   </v-card>
 </template>
