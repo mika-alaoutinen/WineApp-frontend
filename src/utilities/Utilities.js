@@ -8,6 +8,7 @@ const dictionary = {
     wines: 'Viinit',
     add: 'Lisää uusi',
     search: 'Haku',
+    login: 'Kirjaudu sisään'
   },
 
   review: {
