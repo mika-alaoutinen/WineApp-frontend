@@ -22,6 +22,7 @@
   import Alerts from '@/components/common/Alerts.vue'
   import UserCredentialsForm from '@/components/authentication/UserCredentialsForm.vue'
   import { login } from '@/services/AuthenticationService.js'
+  import { getUsername } from '@/services/UserService.js'
 
   export default {
     components: { Alerts, UserCredentialsForm },
@@ -42,7 +43,8 @@
 
       successfulLogin() {
         this.showSuccessAlert = true
-        // GET username from user service
+        getUsername()
+          .then(username => console.log('username', username))
       },
     },
 

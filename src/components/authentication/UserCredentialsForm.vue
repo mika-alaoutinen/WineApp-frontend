@@ -26,6 +26,7 @@
       >
         <v-text-field
           v-model="user.password"
+          type="password"
           :label="util.translate('user', 'password')"
         />
         <span class="validationErrorMessage">{{ errors[0] }}</span>
