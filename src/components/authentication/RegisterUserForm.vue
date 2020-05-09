@@ -20,8 +20,17 @@
     components: { UserCredentialsForm },
 
     methods: {
-      doRegister(user) {
+      async doRegister(user) {
         register(user)
+          .then(user => user ? successfulRegister() : failedRegister())
+      },
+
+      successfulRegister() {
+        console.log('register ok')
+      },
+
+      failedRegister() {
+        console.log('register fail')
       }
     },
   }
