@@ -6,6 +6,15 @@ extend('required', {
   message: '{_field_} on pakollinen!',
 })
 
+extend('password', {
+  validate: password => ({
+    required: true,
+    valid: password.length >= 6,
+  }),
+  message: 'Salasanan tulee olla vähintään 6 merkkiä pitkä!',
+  computesRequired: true,
+})
+
 extend('price', {
   validate: number => ({
     required: true,

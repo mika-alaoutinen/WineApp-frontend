@@ -40,6 +40,11 @@ const dictionary = {
     bottle: 'Pullo',
     box: 'Tonkka',
   },
+
+  user: {
+    username: 'Käyttäjänimi',
+    password: 'Salasana',
+  },
 }
 
 export default {
