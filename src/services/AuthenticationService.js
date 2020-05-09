@@ -8,38 +8,40 @@ import UrlBuilder from '@/utilities/UrlBuilder.js'
  * @param {Object} credentials containing username and password
  * @returns {Object} JWT token
  */
-const login = credentials =>
-  axios.post(UrlBuilder.auth.paths.login, credentials)
-  .then(response => response.data)
-  .then(jwtToken => saveToken(jwtToken))
-  .catch(error => console.error(error))
+export async function login(credentials) {
+  return axios
+    .post(UrlBuilder.auth.paths.login, credentials)
+    .then(response => response.data)
+    .then(jwtToken => saveToken(jwtToken))
+    .catch(error => console.error(error))
+}
 
 /**
  * Create and save new user in database. A new user has a default role of ROLE_USER.
  * @param {Object} user with username and password
  * @returns {Object} user
  */
-const register = user =>
-  axios.post(UrlBuilder.auth.paths.login, user)
-  .then(response => response.data)
-  .catch(error => console.error(error))
+export async function register(user) {
+  return axios
+    .post(UrlBuilder.auth.paths.login, user)
+    .then(response => response.data)
+    .catch(error => console.error(error))
+}
 
 /**
  * Clears local storage, thus clearing the valid JWT token.
  */
-const logout = () => {
-    window.localStorage.clear()
-    window.localStorage.reload()
-  }
+export function logout() {
+  window.localStorage.clear()
+  window.localStorage.reload()
+}
 
 /**
  * Saves a valid JWT token to local storage.
  * @param {Object} jwtToken token
  */
-const saveToken = jwtToken => {
+export function saveToken(jwtToken) {
   const token = JSON.stringify(jwtToken)
   console.log('received token', token)
   window.localStorage.setItem('token', token)
 }
-
-export default { login, logout, register }
