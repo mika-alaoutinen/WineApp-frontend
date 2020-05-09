@@ -20,8 +20,18 @@
     components: { UserCredentialsForm },
 
     methods: {
-      doLogin(user) {
+      async doLogin(user) {
         login(user)
+          .then(token => token ? this.successfulLogin() : this.failedLogin())
+      },
+
+      successfulLogin() {
+        console.log('ok')
+        // GET username from user service
+      },
+
+      failedLogin() {
+        console.log('fail')
       }
     },
 

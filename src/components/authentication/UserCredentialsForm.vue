@@ -72,9 +72,16 @@
     },
 
     methods: {
-      submitForm() {
-        this.$emit(this.$props.emitIdentifier, this.user)
+      async submitForm() {
+        await this.$emit(this.$props.emitIdentifier, this.user)
+        this.resetForm()
       },
+
+      resetForm() {
+        this.$refs.form.reset()
+        this.user.username = ''
+        this.user.password = ''
+      }
     },
 
   }

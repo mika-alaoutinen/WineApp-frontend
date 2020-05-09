@@ -43,4 +43,5 @@ export function logout() {
 export function saveToken(jwtToken) {
   const token = `${jwtToken.type} ${jwtToken.token}`
   window.localStorage.setItem('token', token)
+  return token
 }
