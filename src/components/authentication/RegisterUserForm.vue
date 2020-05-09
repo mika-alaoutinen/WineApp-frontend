@@ -1,9 +1,5 @@
 <template>
-  <v-card
-    class="full-page-card"
-    min-width="30%"
-    max-width="60%"
-  >
+  <v-card class="full-page-card">
     <v-card-title class="card-title secondary--text">
       Rekisteröi uusi käyttäjä
     </v-card-title>
