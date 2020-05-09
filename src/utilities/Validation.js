@@ -7,12 +7,9 @@ extend('required', {
 })
 
 extend('password', {
-  validate: password => ({
-    required: true,
-    valid: password.length >= 6,
-  }),
+  ...required,
+  validate: password => password.length >= 6,
   message: 'Salasanan tulee olla vähintään 6 merkkiä pitkä!',
-  computesRequired: true,
 })
 
 extend('price', {

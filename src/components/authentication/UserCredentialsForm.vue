@@ -7,7 +7,7 @@
       <!-- Username, required -->
       <validation-provider
         v-slot="{ errors }"
-        name="Username"
+        name="Käyttäjätunnus"
         rules="required"
       >
         <v-text-field
@@ -20,7 +20,8 @@
       <!-- Password, required, min 6 characters -->
       <validation-provider
         v-slot="{ errors }"
-        name="Password"
+        mode="lazy"
+        name="Salasana"
         :rules="passwordValidationRule"
       >
         <v-text-field
@@ -31,14 +32,16 @@
       </validation-provider>
 
       <!-- Form submit button to save the new review: -->
-      <v-btn
-        class="button-save secondary--text"
-        large
-        text
-        type="submit"
-      >
-        {{ buttonText }}
-      </v-btn>
+      <p>
+        <v-btn
+          class="button-save secondary--text"
+          large
+          text
+          type="submit"
+        >
+          {{ buttonText }}
+        </v-btn>
+      </p>
     </v-form>
   </ValidationObserver>
 </template>
@@ -69,7 +72,7 @@
 
     methods: {
       submitForm() {
-        this.$emit('get:credentials', this.user)
+        this.$emit('post:user', this.user)
       },
     },
 

@@ -4,7 +4,10 @@
       Kirjaudu sisään
     </v-card-title>
 
-    <UserCredentialsForm :button-text="'Kirjaudu'" />
+    <UserCredentialsForm
+      :button-text="'Kirjaudu'"
+      @post:user="doLogin"
+    />
   </v-card>
 </template>
 
@@ -16,19 +19,14 @@
     components: { UserCredentialsForm },
 
     data() {
-      return {
-        user: {
-          username: '',
-          password: '',
-        },
-      }
+      return {}
     },
 
     methods: {
-      doLogin() {
+      doLogin(user) {
         console.log('login')
-        console.log('username', this.user.username)
-        console.log('password', this.user.password)
+        console.log('username', user.username)
+        console.log('password', user.password)
       }
     },
 

@@ -7,6 +7,7 @@
     <UserCredentialsForm
       :button-text="'Rekisteröidy'"
       password-validation-rule="password"
+      @post:user="doRegister"
     />
   </v-card>
 </template>
@@ -18,9 +19,15 @@
     components: { UserCredentialsForm },
 
     data() {
-      return {
+      return {}
+    },
 
+    methods: {
+      doRegister(user) {
+        console.log('register')
+        console.log('username', user.username)
+        console.log('password', user.password)
       }
-    }
+    },
   }
 </script>
