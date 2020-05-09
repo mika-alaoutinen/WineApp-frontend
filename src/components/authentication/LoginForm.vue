@@ -8,26 +8,31 @@
       Kirjaudu sisään
     </v-card-title>
 
-    <p>Käyttäjänimi</p>
+    <UserCredentialsForm />
   </v-card>
 </template>
 
 <script>
+  import UserCredentialsForm from '@/components/authentication/UserCredentialsForm.vue'
   import { login, register } from '@/services/AuthenticationService.js'
 
   export default {
+    components: { UserCredentialsForm },
+
     data() {
       return {
         user: {
           username: '',
           password: '',
-        }
+        },
       }
     },
 
     methods: {
       doLogin() {
-
+        console.log('login')
+        console.log('username', this.user.username)
+        console.log('password', this.user.password)
       }
     },
 
