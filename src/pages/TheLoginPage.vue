@@ -1,15 +1,16 @@
 <template>
   <div class="tabs-container">
     <LoginForm />
+    <RegisterUserForm />
   </div>
 </template>
 
 <script>
   import LoginForm from '@/components/authentication/LoginForm.vue'
-  import { login, register } from '@/services/AuthenticationService.js'
+  import RegisterUserForm from '@/components/authentication/RegisterUserForm.vue'
 
   export default {
-    components: { LoginForm },
+    components: { LoginForm, RegisterUserForm },
 
     data() {
       return {}
