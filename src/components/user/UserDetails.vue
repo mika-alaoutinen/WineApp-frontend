@@ -8,15 +8,9 @@
       Käyttäjä
     </v-card-title>
 
-    <p v-if="userLoggedIn">
-      Olet kirjautunut sisään käyttäjällä {{ username }}.
-    </p>
-    <p v-else>
-      Kirjaudu sisään.
-    </p>
+    <p>Olet kirjautunut sisään käyttäjällä {{ username }}.</p>
 
     <v-btn
-      v-show="userLoggedIn"
       id="logout"
       class="primary--text"
       text
@@ -32,20 +26,17 @@
   import { getUsername } from '@/services/UserService.js'
 
   export default {
-    props: {
-      userLoggedIn: { required: true, type: Boolean }
-    },
-
     data() {
       return {
         username: ''
       }
     },
 
-    mounted() {
-      getUsername().then(name => name
+    async mounted() {
+      const name = await getUsername()
+      name
         ? this.username = name
-        : this.username = '')
+        : this.username = ''
     },
 
     methods: {

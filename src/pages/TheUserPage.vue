@@ -3,7 +3,6 @@
     <!-- Show user details or login page depending on if user is logged in: -->
     <UserDetails
       v-if="userLoggedIn"
-      :user-logged-in="userLoggedIn"
       @get:userLoggedIn="getLoggedIn"
     />
 

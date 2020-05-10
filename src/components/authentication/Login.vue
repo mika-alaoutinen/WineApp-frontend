@@ -40,9 +40,10 @@
       async doLogin(user) {
         this.showErrorAlert = false
 
-        login(user).then(token => token
+        const token = await login(user)
+        token
           ? this.$emit('get:userLoggedIn', true)
-          : this.showErrorAlert = true)
+          : this.showErrorAlert = true
       },
     },
   }
