@@ -1,5 +1,5 @@
 import axios from 'axios'
-import UrlBuilder from '@/utilities/UrlBuilder.js'
+import UrlBuilder, { createHeaders } from '@/utilities/UrlBuilder.js'
 import WineStore from '@/stores/WineStore.js'
 import Service from './Service.js'
 
@@ -13,7 +13,7 @@ class WineService extends Service {
      * @returns {Promise} containing Array of unique countries.
      */
   getCountries() {
-    return getDistinctItems('countries', super.createHeaders())
+    return getDistinctItems('countries', createHeaders())
   }
 
   /**
@@ -21,7 +21,7 @@ class WineService extends Service {
      * @returns {Promise} containing Array of unique descriptions.
      */
   getDescriptions() {
-    return getDistinctItems('descriptions', super.createHeaders())
+    return getDistinctItems('descriptions', createHeaders())
   }
 
   /**
@@ -29,7 +29,7 @@ class WineService extends Service {
      * @returns {Promise} containing Array of unique food pairings.
      */
   getFoodPairings() {
-    return getDistinctItems('foodPairings', super.createHeaders())
+    return getDistinctItems('foodPairings', createHeaders())
   }
 
   /**
@@ -39,7 +39,7 @@ class WineService extends Service {
    */
   async validateWineName(name) {
     return axios
-      .get(UrlBuilder.wine.getValidateUrl(name), super.createHeaders())
+      .get(UrlBuilder.wine.getValidateUrl(name), createHeaders())
       .then(response => response.data)
       .catch(error => console.error(error))
   }

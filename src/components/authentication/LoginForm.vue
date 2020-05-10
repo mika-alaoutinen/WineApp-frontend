@@ -4,6 +4,14 @@
       Kirjaudu sisään
     </v-card-title>
 
+    <v-alert
+      dismissible
+      type="error"
+      :value="showErrorAlert"
+    >
+      Käyttäjätunnus tai salasana väärin!
+    </v-alert>
+
     <UserCredentialsForm
       :button-text="'Kirjaudu'"
       @post:user="doLogin"
@@ -18,21 +26,21 @@
   export default {
     components: { UserCredentialsForm },
 
-    methods: {
-      async doLogin(user) {
-        login(user)
-          .then(token => token ? this.successfulLogin() : this.failedLogin())
-      },
-
-      successfulLogin() {
-        console.log('ok')
-        // GET username from user service
-      },
-
-      failedLogin() {
-        console.log('fail')
+    data() {
+      return {
+        showErrorAlert: false,
       }
     },
 
+    methods: {
+      async doLogin(user) {
+        this.showErrorAlert = false
+
+        const token = await login(user)
+        token
+          ? this.$emit('get:userLoggedIn', true)
+          : this.showErrorAlert = true
+      },
+    },
   }
 </script>

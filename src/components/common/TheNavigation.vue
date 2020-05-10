@@ -27,10 +27,10 @@
   export default {
     data() {
       return {
-        pages: [ 'home', 'reviews', 'wines', 'add', 'search', 'login' ],
+        pages: [ 'home', 'reviews', 'wines', 'add', 'search', 'user' ],
         util: Utilities,
       }
-    }
+    },
   }
 </script>
 

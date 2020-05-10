@@ -26,12 +26,13 @@
       >
         <v-text-field
           v-model="user.password"
+          type="password"
           :label="util.translate('user', 'password')"
         />
         <span class="validationErrorMessage">{{ errors[0] }}</span>
       </validation-provider>
 
-      <!-- Form submit button to save the new review: -->
+      <!-- Form submit button -->
       <p>
         <v-btn
           class="button-save secondary--text"

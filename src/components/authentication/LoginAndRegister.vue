@@ -10,7 +10,7 @@
         Kirjaudu sisään
       </v-tab>
       <v-tab-item>
-        <LoginForm />
+        <LoginForm @get:userLoggedIn="getLoggedIn" />
       </v-tab-item>
 
       <v-tab>
@@ -18,7 +18,7 @@
         Rekisteröi uusi käyttäjä
       </v-tab>
       <v-tab-item>
-        <RegisterUserForm />
+        <RegistrationForm />
       </v-tab-item>
     </v-tabs>
   </div>
@@ -26,16 +26,22 @@
 
 <script>
   import LoginForm from '@/components/authentication/LoginForm.vue'
-  import RegisterUserForm from '@/components/authentication/RegisterUserForm.vue'
+  import RegistrationForm from '@/components/authentication/RegistrationForm.vue'
   import { mdiLogin, mdiAccountPlus } from '@mdi/js'
 
   export default {
-    components: { LoginForm, RegisterUserForm },
+    components: { LoginForm, RegistrationForm },
 
     data() {
       return {
         loginIcon: mdiLogin,
         registerIcon: mdiAccountPlus,
+      }
+    },
+
+    methods: {
+      getLoggedIn(isLoggedIn) {
+        this.$emit('get:userLoggedIn', isLoggedIn)
       }
     },
   }

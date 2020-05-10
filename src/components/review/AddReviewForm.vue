@@ -4,21 +4,12 @@
       Lisää uusi arvostelu
     </v-card-title>
 
-    <!-- Alerts that inform user if adding new wine was successful or not: -->
-    <v-alert
-      dismissible
-      type="success"
-      :value="showSuccessAlert"
-    >
-      Uusi arvostelu lisätty!
-    </v-alert>
-    <v-alert
-      dismissible
-      type="error"
-      :value="showErrorAlert"
-    >
-      Arvostelun lisääminen epäonnistui!
-    </v-alert>
+    <Alerts
+      :show-error-alert="showErrorAlert"
+      :show-success-alert="showSuccessAlert"
+      :error-text="'Arvostelun lisääminen epäonnistui!'"
+      :success-text="'Uusi arvostelu lisätty!'"
+    />
 
     <!-- Form begins -->
     <ValidationObserver
@@ -95,6 +86,7 @@
 </template>
 
 <script>
+  import Alerts from '@/components/common/Alerts.vue'
   import DatePicker from '@/components/vuetify/DatePicker.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities from '@/utilities/Utilities.js'
@@ -107,7 +99,7 @@
   const wineService = new WineService()
 
   export default {
-    components: { DatePicker, ValidationObserver, ValidationProvider },
+    components: { Alerts, DatePicker, ValidationObserver, ValidationProvider },
 
     data() {
       return {
@@ -139,6 +131,7 @@
       getDate(date) { this.review.date = date },
 
       submitForm() {
+        this.showErrorAlert = false
         reviewService.post(this.wine.id, this.review)
           .then(wasOk => wasOk ? this.successfulPost() : this.showErrorAlert = true)
       },

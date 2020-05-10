@@ -4,21 +4,12 @@
       Lisää uusi viini
     </v-card-title>
 
-    <!-- Alerts that inform user if adding new wine was successful or not: -->
-    <v-alert
-      dismissible
-      type="success"
-      :value="showSuccessAlert"
-    >
-      Uusi viini lisätty!
-    </v-alert>
-    <v-alert
-      dismissible
-      type="error"
-      :value="showErrorAlert"
-    >
-      Viinin lisääminen epäonnistui!
-    </v-alert>
+    <Alerts
+      :show-error-alert="showErrorAlert"
+      :show-success-alert="showSuccessAlert"
+      :error-text="'Viinin lisääminen epäonnistui!'"
+      :success-text="'Uusi viini lisätty!'"
+    />
 
     <!-- Form begins -->
     <ValidationObserver
@@ -184,6 +175,7 @@
 </template>
 
 <script>
+  import Alerts from '@/components/common/Alerts.vue'
   import Utilities from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'
   import { mdiPlus } from '@mdi/js'
@@ -193,7 +185,7 @@
   const wineService = new WineService()
 
   export default {
-    components: { ValidationObserver, ValidationProvider },
+    components: { Alerts, ValidationObserver, ValidationProvider },
 
     data() {
       return {
@@ -247,6 +239,7 @@
       setVolume(volume) { this.wine.volume = volume },
 
       submitForm() {
+        this.showErrorAlert = false
         wineService.post(this.wine)
           .then(wasOk => wasOk ? this.successfulPost() : this.showErrorAlert = true)
       },
