@@ -29,6 +29,15 @@ export async function register(user) {
 }
 
 /**
+ * Checks if local storage contains a JWT token. If a token exists, user is logged in.
+ * @returns {boolean} is user logged in
+ */
+export function isUserLoggedIn() {
+  const token = window.localStorage.getItem('token')
+  return token && token.includes('Bearer')
+}
+
+/**
  * Clears local storage, thus clearing the valid JWT token.
  */
 export function logout() {
