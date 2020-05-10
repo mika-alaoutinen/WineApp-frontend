@@ -13,6 +13,7 @@
     </v-alert>
 
     <UserCredentialsForm
+      :button-icon="buttonIcon"
       :button-text="'Kirjaudu'"
       @post:user="doLogin"
     />
@@ -22,12 +23,14 @@
 <script>
   import UserCredentialsForm from '@/components/authentication/UserCredentialsForm.vue'
   import { login } from '@/services/AuthenticationService.js'
+  import { mdiLockOpen } from '@mdi/js'
 
   export default {
     components: { UserCredentialsForm },
 
     data() {
       return {
+        buttonIcon: mdiLockOpen,
         showErrorAlert: false,
       }
     },

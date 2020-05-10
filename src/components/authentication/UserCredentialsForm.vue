@@ -40,6 +40,7 @@
           text
           type="submit"
         >
+          <v-icon>{{ buttonIcon }}</v-icon>
           {{ buttonText }}
         </v-btn>
       </p>
@@ -56,6 +57,7 @@
     components: { ValidationObserver, ValidationProvider },
 
     props: {
+      buttonIcon: { required: false, type: String, default: 'mdiPlus' },
       buttonText: { required: false, type: String, default: 'Lähetä' },
       passwordValidationRule: { required: false, type: String, default: 'required' },
     },

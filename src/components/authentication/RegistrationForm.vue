@@ -12,6 +12,7 @@
     />
 
     <UserCredentialsForm
+      :button-icon="buttonIcon"
       :button-text="'Rekisteröidy'"
       password-validation-rule="password"
       @post:user="doRegister"
@@ -23,12 +24,14 @@
   import Alerts from '@/components/common/Alerts.vue'
   import UserCredentialsForm from '@/components/authentication/UserCredentialsForm.vue'
   import { register } from '@/services/AuthenticationService.js'
+  import { mdiContentSave } from '@mdi/js'
 
   export default {
     components: { Alerts, UserCredentialsForm },
 
     data() {
       return {
+        buttonIcon: mdiContentSave,
         showErrorAlert: false,
         showSuccessAlert: false,
       }
