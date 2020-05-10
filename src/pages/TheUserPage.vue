@@ -6,7 +6,7 @@
       @get:userLoggedIn="getLoggedIn"
     />
 
-    <Login
+    <LoginAndRegister
       v-else
       @get:userLoggedIn="getLoggedIn"
     />
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-  import Login from '@/components/authentication/Login.vue'
+  import LoginAndRegister from '@/components/authentication/LoginAndRegister.vue'
   import UserDetails from '@/components/user/UserDetails.vue'
 
   export default {
-    components: { Login, UserDetails },
+    components: { LoginAndRegister, UserDetails },
 
     data() {
       return {
