@@ -36,8 +36,9 @@
 
     methods: {
       async doRegister(user) {
-        register(user)
-          .then(user => user ? this.showSuccessAlert = true : this.showErrorAlert = true)
+        register(user).then(user => user
+          ? this.showSuccessAlert = true
+          : this.showErrorAlert = true)
       },
     },
   }
