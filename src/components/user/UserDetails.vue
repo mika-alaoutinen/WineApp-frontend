@@ -8,7 +8,7 @@
       Käyttäjä
     </v-card-title>
 
-    <p>Olet kirjautunut sisään käyttäjällä {{ username }}.</p>
+    <p>Olet kirjautunut sisään käyttäjänimellä <b>{{ username }}</b>.</p>
 
     <v-btn
       id="logout"
@@ -47,3 +47,7 @@
     },
   }
 </script>
+
+<style scoped>
+  p { text-align: left }
+</style>

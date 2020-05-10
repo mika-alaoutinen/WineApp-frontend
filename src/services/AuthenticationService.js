@@ -39,7 +39,7 @@ export function logout() {
  * Saves a valid JWT token to local storage.
  * @param {Object} jwtToken token
  */
-export async function saveToken(jwtToken) {
+function saveToken(jwtToken) {
   const token = `${jwtToken.type} ${jwtToken.token}`
   window.localStorage.setItem('token', token)
   return token

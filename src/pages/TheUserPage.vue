@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="user-page-container">
     <!-- Show user details or login page depending on if user is logged in: -->
     <UserDetails
       v-if="userLoggedIn"

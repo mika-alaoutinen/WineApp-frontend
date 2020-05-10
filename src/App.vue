@@ -65,6 +65,12 @@
     margin: 0 auto 0;
   }
 
+  .user-page-container {
+    min-width: 60%;
+    max-width: 60%;
+    margin: 0 auto 0;
+  }
+
   .validationErrorMessage {
     color: #880E4F; /* indigo.darken4 */
   }
