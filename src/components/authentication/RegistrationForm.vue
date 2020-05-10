@@ -36,9 +36,10 @@
 
     methods: {
       async doRegister(user) {
-        register(user).then(user => user
+        const newUser = await register(user)
+        newUser
           ? this.showSuccessAlert = true
-          : this.showErrorAlert = true)
+          : this.showErrorAlert = true
       },
     },
   }
