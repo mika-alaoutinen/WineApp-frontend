@@ -1,60 +1,41 @@
 <template>
-  <v-card
-    class="full-page-card"
-    min-width="30%"
-    max-width="60%"
-  >
-    <v-card-title class="card-title secondary--text">
-      Käyttäjä
-    </v-card-title>
+  <div>
+    <!-- Show user details or login page depending on if user is logged in: -->
+    <UserDetails
+      v-if="userLoggedIn"
+      :user-logged-in="userLoggedIn"
+      @get:userLoggedIn="getLoggedIn"
+    />
 
-    <p v-if="userLoggedIn">
-      Olet kirjautunut sisään käyttäjällä {{ username }}.
-    </p>
-    <p v-else>
-      Kirjaudu sisään.
-    </p>
-
-    <v-btn
-      v-show="userLoggedIn"
-      id="logout"
-      class="primary--text"
-      text
-      @click="doLogout"
-    >
-      Kirjaudu ulos
-    </v-btn>
-  </v-card>
+    <Login
+      v-else
+      @get:userLoggedIn="getLoggedIn"
+    />
+  </div>
 </template>
 
 <script>
-  import { logout } from '@/services/AuthenticationService.js'
-  import { getUsername } from '@/services/UserService.js'
+  import Login from '@/components/authentication/Login.vue'
+  import UserDetails from '@/components/user/UserDetails.vue'
 
   export default {
+    components: { Login, UserDetails },
+
     data() {
       return {
-        username: ''
-      }
-    },
-
-    computed: {
-      userLoggedIn() {
-        return this.username.length > 0
+        userLoggedIn: false,
       }
     },
 
     mounted() {
-      getUsername().then(name => name
-        ? this.username = name
-        : this.username = '')
+      const token = window.localStorage.token || false
+      this.userLoggedIn = token && token.includes('Bearer')
     },
 
     methods: {
-      doLogout() {
-        logout()
-        this.$router.push({ name: 'login' })
-      },
+      getLoggedIn(isLoggedIn) {
+        this.userLoggedIn = isLoggedIn
+      }
     },
   }
 </script>

@@ -8,7 +8,7 @@
     >
       <v-toolbar-items>
         <v-btn
-          v-for="page in shownPages"
+          v-for="page in pages"
           :key="page"
           :to="{ name: page }"
           class="primary--text"
@@ -23,20 +23,12 @@
 
 <script>
   import Utilities from '@/utilities/Utilities.js'
-  import { getToken } from '@/services/AuthenticationService.js'
 
   export default {
     data() {
       return {
+        pages: [ 'home', 'reviews', 'wines', 'add', 'search', 'user' ],
         util: Utilities,
-      }
-    },
-
-    computed: {
-      shownPages() {
-        return window.localStorage.token
-          ? [ 'home', 'reviews', 'wines', 'add', 'search', 'user' ]
-          : [ 'home', 'reviews', 'wines', 'add', 'search', 'login' ]
       }
     },
   }

@@ -29,19 +29,10 @@ export async function register(user) {
 }
 
 /**
- * Returns the JWT token stored in local storage.
- * @returns {String} JWT token
- */
-export function getToken() {
-  return window.localStorage.getItem('token')
-}
-
-/**
  * Clears local storage, thus clearing the valid JWT token.
  */
 export function logout() {
   window.localStorage.clear()
-  window.location.reload()
 }
 
 /**
@@ -51,6 +42,5 @@ export function logout() {
 export async function saveToken(jwtToken) {
   const token = `${jwtToken.type} ${jwtToken.token}`
   window.localStorage.setItem('token', token)
-  window.location.reload()
   return token
 }

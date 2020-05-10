@@ -1,5 +1,9 @@
 <template>
-  <v-card class="full-page-card">
+  <v-card
+    class="full-page-card"
+    min-width="30%"
+    max-width="60%"
+  >
     <v-card-title class="card-title secondary--text">
       Kirjaudu sisään
     </v-card-title>
@@ -22,7 +26,6 @@
 <script>
   import UserCredentialsForm from '@/components/authentication/UserCredentialsForm.vue'
   import { login } from '@/services/AuthenticationService.js'
-  import { getUsername } from '@/services/UserService.js'
 
   export default {
     components: { UserCredentialsForm },
@@ -38,7 +41,7 @@
         this.showErrorAlert = false
 
         login(user).then(token => token
-          ? this.$router.push({ name: 'user' })
+          ? this.$emit('get:userLoggedIn', true)
           : this.showErrorAlert = true)
       },
     },

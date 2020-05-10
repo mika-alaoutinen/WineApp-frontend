@@ -3,7 +3,6 @@ import Router from 'vue-router'
 
 import TheAddNewPage from '@/pages/TheAddNewPage.vue'
 import TheHomePage from '@/pages/TheHomePage.vue'
-import TheLoginPage from '@/pages/TheLoginPage.vue'
 import TheReviewsPage from '@/pages/TheReviewsPage.vue'
 import TheSearchPage from '@/pages/TheSearchPage.vue'
 import TheUserPage from '@/pages/TheUserPage.vue'
@@ -21,11 +20,6 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: TheHomePage,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: TheLoginPage,
     },
     {
       path: '/reviews',
