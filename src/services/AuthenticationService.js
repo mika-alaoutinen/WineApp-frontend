@@ -33,7 +33,6 @@ export async function register(user) {
  */
 export function logout() {
   window.localStorage.clear()
-  window.localStorage.reload()
 }
 
 /**

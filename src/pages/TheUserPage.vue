@@ -7,9 +7,16 @@
     <v-card-title class="card-title secondary--text">
       Käyttäjä
     </v-card-title>
-    <p>Olet kirjautunut sisään käyttäjällä {{ username }}</p>
+
+    <p v-if="userLoggedIn">
+      Olet kirjautunut sisään käyttäjällä {{ username }}.
+    </p>
+    <p v-else>
+      Kirjaudu sisään.
+    </p>
 
     <v-btn
+      v-show="userLoggedIn"
       id="logout"
       class="primary--text"
       text
@@ -25,20 +32,28 @@
   import { getUsername } from '@/services/UserService.js'
 
   export default {
-
     data() {
       return {
         username: ''
       }
     },
 
+    computed: {
+      userLoggedIn() {
+        return this.username.length > 0
+      }
+    },
+
     mounted() {
-      getUsername().then(name => this.username = name)
+      getUsername().then(name => name
+        ? this.username = name
+        : this.username = '')
     },
 
     methods: {
       doLogout() {
         logout()
+        this.$router.push({ name: 'login' })
       },
     },
   }
