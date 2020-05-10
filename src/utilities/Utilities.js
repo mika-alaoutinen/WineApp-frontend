@@ -3,12 +3,13 @@
  */
 const dictionary = {
   common: {
-    home: 'Aloitus',
-    reviews: 'Arvostelut',
-    wines: 'Viinit',
     add: 'Lisää uusi',
+    home: 'Aloitus',
+    login: 'Kirjaudu sisään',
+    reviews: 'Arvostelut',
     search: 'Haku',
-    login: 'Kirjaudu sisään'
+    user: 'Käyttäjä',
+    wines: 'Viinit',
   },
 
   review: {
