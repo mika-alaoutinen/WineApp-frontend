@@ -42,18 +42,6 @@ describe('SubmitForm() method', () => {
     await submitForm(wrapper)
     expect(wrapper.emitted('post:user')[0]).toEqual([user])
   })
-
-  test('Form is reset after submit', async () => {
-    const user = {
-      username: 'user',
-      password: 'password'
-    }
-    const wrapper = mount()
-    wrapper.setData({ user: user })
-    await submitForm(wrapper)
-    expect(wrapper.vm.user.username = '')
-    expect(wrapper.vm.user.password = '')
-  })
 })
 
 const mount = props => mountVuetifyComponent(UserCredentialsForm, props)
