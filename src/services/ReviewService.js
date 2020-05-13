@@ -1,6 +1,6 @@
 import axios from 'axios'
 import ReviewStore from '@/stores/ReviewStore.js'
-import UrlBuilder from '@/utilities/UrlBuilder.js'
+import UrlBuilder, { createHeaders } from '@/utilities/UrlBuilder.js'
 import Service from './Service.js'
 
 class ReviewService extends Service {
@@ -15,7 +15,7 @@ class ReviewService extends Service {
      */
   async getByWineId(wineId) {
     return axios
-      .get(UrlBuilder.review.paths.wineId + wineId)
+      .get(UrlBuilder.review.paths.wineId + wineId, createHeaders())
       .then(response => response.data)
       .catch(error => console.error(error))
   }
@@ -27,7 +27,7 @@ class ReviewService extends Service {
      */
   async post(wineId, review) {
     return axios
-      .post(UrlBuilder.review.paths.base + wineId, review)
+      .post(UrlBuilder.review.paths.base + wineId, review, createHeaders())
       .then(response => this.store.add(response.data))
       .catch(error => console.error(error))
   }
@@ -44,7 +44,7 @@ class ReviewService extends Service {
     }
 
     return axios
-      .get(UrlBuilder.review.getQuickSearchUrl(searchParam, count))
+      .get(UrlBuilder.review.getQuickSearchUrl(searchParam, count), createHeaders())
       .then(response => response.data)
       .catch(error => console.error(error))
   }
@@ -64,9 +64,8 @@ class ReviewService extends Service {
         .filter(review => review.wine.id === wine.id)
         .map(review => review.rating)
 
-      const avgRating = ratings.reduce(
-        (prev, current) => prev + current, 0,
-      ) / ratings.length
+      const avgRating = ratings.reduce((prev, current) =>
+        prev + current, 0) / ratings.length
 
       wine.avgrating = Number.isNaN(avgRating) ? '-' : avgRating
     })

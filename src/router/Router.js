@@ -3,8 +3,9 @@ import Router from 'vue-router'
 
 import TheAddNewPage from '@/pages/TheAddNewPage.vue'
 import TheHomePage from '@/pages/TheHomePage.vue'
-import TheSearchPage from '@/pages/TheSearchPage.vue'
 import TheReviewsPage from '@/pages/TheReviewsPage.vue'
+import TheSearchPage from '@/pages/TheSearchPage.vue'
+import TheUserPage from '@/pages/TheUserPage.vue'
 import TheWinesPage from '@/pages/TheWinesPage.vue'
 
 import ReviewDetails from '@/components/review/ReviewDetails.vue'
@@ -24,6 +25,11 @@ export default new Router({
       path: '/reviews',
       name: 'reviews',
       component: TheReviewsPage,
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: TheUserPage,
     },
     {
       path: '/wines',

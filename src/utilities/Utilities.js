@@ -3,11 +3,13 @@
  */
 const dictionary = {
   common: {
-    home: 'Aloitus',
-    reviews: 'Arvostelut',
-    wines: 'Viinit',
     add: 'Lisää uusi',
+    home: 'Aloitus',
+    login: 'Kirjaudu sisään',
+    reviews: 'Arvostelut',
     search: 'Haku',
+    user: 'Käyttäjä',
+    wines: 'Viinit',
   },
 
   review: {
@@ -38,6 +40,11 @@ const dictionary = {
     bag: 'Pussi',
     bottle: 'Pullo',
     box: 'Tonkka',
+  },
+
+  user: {
+    username: 'Käyttäjätunnus',
+    password: 'Salasana',
   },
 }
 

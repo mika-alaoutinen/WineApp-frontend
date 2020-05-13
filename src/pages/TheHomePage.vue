@@ -67,6 +67,7 @@
     }
   }
 </script>
+
 <style scoped>
   p { text-align: left }
   .ratingIcon { margin-left: 1em }

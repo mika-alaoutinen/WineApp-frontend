@@ -1,5 +1,5 @@
 import axios from 'axios'
-import UrlBuilder from '@/utilities/UrlBuilder.js'
+import UrlBuilder, { createHeaders } from '@/utilities/UrlBuilder.js'
 import WineStore from '@/stores/WineStore.js'
 import Service from './Service.js'
 
@@ -13,7 +13,7 @@ class WineService extends Service {
      * @returns {Promise} containing Array of unique countries.
      */
   getCountries() {
-    return getDistinctItems('countries')
+    return getDistinctItems('countries', createHeaders())
   }
 
   /**
@@ -21,7 +21,7 @@ class WineService extends Service {
      * @returns {Promise} containing Array of unique descriptions.
      */
   getDescriptions() {
-    return getDistinctItems('descriptions')
+    return getDistinctItems('descriptions', createHeaders())
   }
 
   /**
@@ -29,7 +29,7 @@ class WineService extends Service {
      * @returns {Promise} containing Array of unique food pairings.
      */
   getFoodPairings() {
-    return getDistinctItems('foodPairings')
+    return getDistinctItems('foodPairings', createHeaders())
   }
 
   /**
@@ -39,7 +39,7 @@ class WineService extends Service {
    */
   async validateWineName(name) {
     return axios
-      .get(UrlBuilder.wine.getValidateUrl(name))
+      .get(UrlBuilder.wine.getValidateUrl(name), createHeaders())
       .then(response => response.data)
       .catch(error => console.error(error))
   }
@@ -50,9 +50,9 @@ class WineService extends Service {
  * @param {String} item to request.
  * @returns {Promise} containing Array of Strings.
  */
-async function getDistinctItems(item) {
+async function getDistinctItems(item, headers) {
   return axios
-    .get(UrlBuilder.wine.paths[item])
+    .get(UrlBuilder.wine.paths[item], headers)
     .then(response => response.data)
     .catch(error => console.error(error))
 }
