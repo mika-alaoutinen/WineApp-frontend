@@ -16,17 +16,11 @@ describe('Alerts work', () => {
   })
 
   test('Successful login raises no alert', async () => {
-    login.mockReturnValue(Promise.resolve(false))
-    await wrapper.vm.doLogin()
-    expect(login).toBeCalled()
-    expect(wrapper.vm.showErrorAlert).toBe(true)
+    testAlerts(false)
   })
 
   test('Unsuccessful login raises an alert', async () => {
-    login.mockReturnValue(Promise.resolve(true))
-    await wrapper.vm.doLogin()
-    expect(login).toBeCalled()
-    expect(wrapper.vm.showErrorAlert).toBe(false)
+    testAlerts(true)
   })
 })
 
@@ -38,3 +32,10 @@ describe('Emitting get:userLoggedIn on login', () => {
     expect(wrapper.emitted('get:userLoggedIn')[0]).toStrictEqual([true])
   })
 })
+
+const testAlerts = async loginOk => {
+  login.mockReturnValue(Promise.resolve(loginOk))
+  await wrapper.vm.doLogin()
+  expect(login).toBeCalled()
+  expect(wrapper.vm.showErrorAlert).toBe(!loginOk)
+}
