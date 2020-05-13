@@ -74,16 +74,9 @@
     },
 
     methods: {
-      async submitForm() {
-        await this.$emit('post:user', this.user)
-        this.resetForm()
+      submitForm() {
+        this.$emit('post:user', this.user)
       },
-
-      resetForm() {
-        this.$refs.form.reset()
-        this.user.username = ''
-        this.user.password = ''
-      }
     },
 
   }
