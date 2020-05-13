@@ -17,6 +17,21 @@
       :button-text="'Kirjaudu'"
       @post:user="doLogin"
     />
+
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <span
+          class="info-text"
+          v-on="on"
+        >
+          Kirjautuminen?
+        </span>
+      </template>
+      <p>
+        Sovellukseen tallennettujen tietojen muuttaminen vaatii kirjautumista.<br>
+        Käyttäjät voivat muokata ainoastaan omia viinejään ja arvostelujaan.
+      </p>
+    </v-tooltip>
   </v-card>
 </template>
 
@@ -47,3 +62,10 @@
     },
   }
 </script>
+
+<style scoped>
+  .info-text {
+    color: grey;
+    font-size: 85%;
+  }
+</style>
