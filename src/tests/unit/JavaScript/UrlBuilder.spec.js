@@ -25,13 +25,6 @@ beforeEach(() => {
   }
 })
 
-describe('Test backend URL for release', () => {
-  test('ensure that backend endpoint is set correctly for deployment', () => {
-    expect(UrlBuilder.wine.paths.base).toBe('https://maistissa-backend.herokuapp.com/api/wines/')
-    expect(UrlBuilder.review.paths.base).toBe('https://maistissa-backend.herokuapp.com/api/reviews/')
-  })
-})
-
 describe('Review quicksearch', () => {
   test('find best reviews with quick search', () => {
     expect(UrlBuilder.review.getQuickSearchUrl('best')).toBe(`${reviewQuickSearchUrl}best`)
