@@ -7,7 +7,6 @@ on:
   push:
     branches:
      - master
-     - devops # delete
 
 jobs:
   build:
@@ -54,4 +53,3 @@ jobs:
         uses: mathieudutour/github-tag-action@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          dry_run: true # delete
