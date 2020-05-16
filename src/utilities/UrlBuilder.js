@@ -1,4 +1,7 @@
-const basePath = process.env.BACKEND_URL ? `${process.env.BACKEND_URL}/` : 'http://localhost:8080/api/'
+const basePath = process.env.NODE_ENV === 'production'
+  ? 'https://maistissa-backend.herokuapp.com/api/'
+  : 'http://localhost:8080/api/'
+
 const authPath = `${basePath}auth/`
 const userPath = `${basePath}users/`
 const reviewPath = `${basePath}reviews/`
