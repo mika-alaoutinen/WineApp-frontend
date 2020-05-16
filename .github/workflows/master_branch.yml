@@ -25,6 +25,7 @@ jobs:
       with:
         node-version: '12.x'
     - run: npm ci
+    - run: npm audit --fix
     - run: npm run build --if-present
       env:
         CI: true
@@ -72,3 +73,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: mikaalaoutinen/wineapp
           tags: latest
+          push: false # todo
