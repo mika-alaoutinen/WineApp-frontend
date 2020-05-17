@@ -27,7 +27,7 @@
 
 <script>
   import ConfirmDeleteDialog from '@/components/vuetify/ConfirmDeleteDialog.vue'
-  import { canUserEdit, getUsername } from '@/services/UserService.js'
+  import { canUserEdit } from '@/services/UserService.js'
   import { mdiDelete } from '@mdi/js'
 
   export default {

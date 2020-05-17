@@ -9,7 +9,10 @@
 
   <!-- Buttons for entering edit or delete mode: -->
   <div v-else>
-    <DetailsEditButton @edit:mode="editMode" />
+    <DetailsEditButton
+      :item="item"
+      @edit:mode="editMode"
+    />
 
     <DetailsDeleteButton
       :item="item"

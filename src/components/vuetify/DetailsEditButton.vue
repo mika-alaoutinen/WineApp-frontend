@@ -13,10 +13,14 @@
 </template>
 
 <script>
-  import { getUsername } from '@/services/UserService.js'
+  import { canUserEdit } from '@/services/UserService.js'
   import { mdiPencil } from '@mdi/js'
 
   export default {
+    props: {
+      item: { type: Object, required: true }, // item is either wine or review
+    },
+
     data() {
       return {
         editIcon: mdiPencil,
@@ -25,8 +29,8 @@
     },
 
     mounted() {
-      getUsername()
-        .then(username => username ? this.isDisabled = false : this.isDisabled = true)
+      canUserEdit(this.$props.item)
+        .then(canEdit => this.isDisabled = !canEdit)
     }
   }
 </script>
