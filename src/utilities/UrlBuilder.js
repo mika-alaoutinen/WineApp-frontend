@@ -31,6 +31,10 @@ export default {
       wineName: `${reviewPath}wine/name/`,
     },
 
+    isEditable(id) {
+      return this.paths.base + id + '/editable'
+    },
+
     getQuickSearchUrl(searchParam, count) {
       return this.paths.quicksearch + searchParam + buildQueryLimit(count)
     },
@@ -49,6 +53,10 @@ export default {
       foodPairings: `${winePath}food-pairings`,
       search: `${winePath}search?`,
       validate: `${winePath}validate?`,
+    },
+
+    isEditable(id) {
+      return this.paths.base + id + '/editable'
     },
 
     getSearchUrl(params) {
