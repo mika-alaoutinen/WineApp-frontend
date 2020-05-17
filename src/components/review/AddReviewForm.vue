@@ -70,16 +70,7 @@
           thumb-label
         />
 
-        <!-- Form submit button to save the new review: -->
-        <v-btn
-          class="button-save secondary--text"
-          large
-          text
-          type="submit"
-        >
-          <v-icon>{{ addIcon }}</v-icon>
-          Lisää arvostelu
-        </v-btn>
+        <ButtonSubmitForm button-text="Lisää arvostelu" />
       </v-form>
     </ValidationObserver>
   </v-card>
@@ -87,6 +78,7 @@
 
 <script>
   import Alerts from '@/components/common/Alerts.vue'
+  import ButtonSubmitForm from '@/components/vuetify/ButtonSubmitForm.vue'
   import DatePicker from '@/components/vuetify/DatePicker.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities from '@/utilities/Utilities.js'
@@ -99,7 +91,7 @@
   const wineService = new WineService()
 
   export default {
-    components: { Alerts, DatePicker, ValidationObserver, ValidationProvider },
+    components: { Alerts, ButtonSubmitForm, DatePicker, ValidationObserver, ValidationProvider },
 
     data() {
       return {

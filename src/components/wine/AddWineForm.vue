@@ -159,16 +159,7 @@
           :label="util.translate('wine', 'url')"
         />
 
-        <v-btn
-          id="submit-wine-form-button"
-          class="button-save secondary--text"
-          large
-          text
-          type="submit"
-        >
-          <v-icon>{{ addIcon }}</v-icon>
-          Lisää viini
-        </v-btn>
+        <ButtonSubmitForm button-text="Lisää viini" />
       </v-form>
     </ValidationObserver>
   </v-card>
@@ -176,6 +167,7 @@
 
 <script>
   import Alerts from '@/components/common/Alerts.vue'
+  import ButtonSubmitForm from '@/components/vuetify/ButtonSubmitForm.vue'
   import Utilities from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'
   import { mdiPlus } from '@mdi/js'
@@ -185,7 +177,7 @@
   const wineService = new WineService()
 
   export default {
-    components: { Alerts, ValidationObserver, ValidationProvider },
+    components: { Alerts, ButtonSubmitForm, ValidationObserver, ValidationProvider },
 
     data() {
       return {
