@@ -8,16 +8,31 @@
       Käyttäjä
     </v-card-title>
 
-    <p>Olet kirjautunut sisään käyttäjänimellä <b>{{ username }}</b>.</p>
+    <div v-if="invalidLogin">
+      <p>Kirjautumisesi on vanhentunut. Ole hyvä kirjaudu uudelleen.</p>
 
-    <v-btn
-      id="logout"
-      class="primary--text"
-      text
-      @click="doLogout"
-    >
-      Kirjaudu ulos
-    </v-btn>
+      <v-btn
+        id="go-to-login"
+        class="primary--text"
+        text
+        @click="goToLogin"
+      >
+        Kirjaudu sisään
+      </v-btn>
+    </div>
+
+    <div v-else>
+      <p>Olet kirjautunut sisään käyttäjänimellä <b>{{ username }}</b>.</p>
+
+      <v-btn
+        id="logout"
+        class="primary--text"
+        text
+        @click="doLogout"
+      >
+        Kirjaudu ulos
+      </v-btn>
+    </div>
   </v-card>
 </template>
 
@@ -28,7 +43,8 @@
   export default {
     data() {
       return {
-        username: ''
+        invalidLogin: false,
+        username: '',
       }
     },
 
@@ -36,13 +52,18 @@
       const name = await getUsername()
       name
         ? this.username = name
-        : this.username = ''
+        : this.invalidLogin = true
     },
 
     methods: {
       doLogout() {
         logout()
         this.$emit('get:userLoggedIn', false)
+      },
+      goToLogin() {
+        this.$emit('get:userLoggedIn', false)
+        this.$router.push({ name: 'user' })
+          .catch(error => console.info('Caught a NavigationDuplicated error'))
       },
     },
   }
