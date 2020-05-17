@@ -1,7 +1,7 @@
 <template>
   <!-- Save and cancel edits when in editing mode: -->
   <div v-if="$props.editing">
-    <EditingButtons
+    <ConfirmEditButtons
       :show-error-alert="showErrorAlert"
       @confirm:edit="confirmEdit"
     />
@@ -9,16 +9,7 @@
 
   <!-- Enter edit or delete mode: -->
   <div v-else>
-    <v-btn
-      id="edit"
-      class="secondary--text"
-      large
-      text
-      @click="editMode"
-    >
-      <v-icon>{{ editIcon }}</v-icon>
-      Muokkaa
-    </v-btn>
+    <DetailsEditButton @edit:mode="editMode" />
 
     <!-- Clicking delete button opens confirm delete dialog -->
     <v-dialog
@@ -50,11 +41,12 @@
 
 <script>
   import ConfirmDeleteDialog from '@/components/vuetify/ConfirmDeleteDialog.vue'
-  import EditingButtons from '@/components/vuetify/EditingButtons.vue'
-  import { mdiCancel, mdiCheck, mdiDelete, mdiPencil } from '@mdi/js'
+  import ConfirmEditButtons from '@/components/vuetify/ConfirmEditButtons.vue'
+  import DetailsEditButton from '@/components/vuetify/DetailsEditButton.vue'
+  import { mdiDelete } from '@mdi/js'
 
   export default {
-    components: { ConfirmDeleteDialog, EditingButtons },
+    components: { ConfirmDeleteDialog, ConfirmEditButtons, DetailsEditButton },
 
     props: {
       editing: { type: Boolean, required: true },
@@ -64,7 +56,6 @@
     data() {
       return {
         deleteIcon: mdiDelete,
-        editIcon: mdiPencil,
 
         cachedItem: {},
         dialogActive: false,
