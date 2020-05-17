@@ -63,45 +63,22 @@
         </v-btn>
       </template>
 
-      <!-- Confirm delete dialog -->
-      <v-card>
-        <v-card-title>Vahvista poisto</v-card-title>
-        <v-card-text>Haluatko varmasti poistaa {{ getItem }}?</v-card-text>
-        <v-divider />
-
-        <v-card-actions>
-          <v-spacer>
-            <v-btn
-              id="confirm-delete"
-              class="secondary--text"
-              large
-              text
-              @click="deleteItem"
-            >
-              <v-icon>{{ deleteIcon }}</v-icon>
-              Poista
-            </v-btn>
-
-            <v-btn
-              id="cancel-delete"
-              class="primary--text"
-              text
-              @click="dialogActive = false"
-            >
-              <v-icon>{{ cancelIcon }}</v-icon>
-              Peruuta
-            </v-btn>
-          </v-spacer>
-        </v-card-actions>
-      </v-card>
+      <ConfirmDeleteDialog
+        :item="item"
+        @confirm:delete="confirmDelete"
+        @update:dialogActive="dialogActive=false"
+      />
     </v-dialog>
   </div>
 </template>
 
 <script>
+  import ConfirmDeleteDialog from '@/components/vuetify/ConfirmDeleteDialog.vue'
   import { mdiCancel, mdiCheck, mdiDelete, mdiPencil } from '@mdi/js'
 
   export default {
+    components: { ConfirmDeleteDialog },
+
     props: {
       editing: { type: Boolean, required: true },
       item: { type: Object, required: true }, // item is either wine or review
@@ -120,19 +97,11 @@
       }
     },
 
-    computed: {
-      getItem() {
-        if (this.$props.item.name !== undefined) {
-          return 'viinin ' + this.$props.item.name
-        } else if (this.$props.item.author !== undefined) {
-          return 'käyttäjän ' + this.$props.item.author + ' arvostelun'
-        } else {
-          return 'tämän'
-        }
-      }
-    },
-
     methods: {
+      confirmDelete(confirm) {
+        confirm ? this.deleteItem() : this.dialogActive = false
+      },
+
       editMode() {
         // Create a deep copy of the original object:
         this.cachedItem = JSON.parse(JSON.stringify(this.$props.item))
@@ -157,7 +126,8 @@
       },
 
       deleteItem() {
-        this.$emit('delete:item', this.$props.item)
+        // this.$emit('delete:item', this.$props.item)
+        console.log('deleted')
         this.dialogActive = false
       },
 
