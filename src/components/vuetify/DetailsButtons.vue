@@ -19,7 +19,6 @@
 </template>
 
 <script>
-  import ConfirmDeleteDialog from '@/components/vuetify/ConfirmDeleteDialog.vue'
   import ConfirmEditButtons from '@/components/vuetify/ConfirmEditButtons.vue'
   import DetailsDeleteButton from '@/components/vuetify/DetailsDeleteButton.vue'
   import DetailsEditButton from '@/components/vuetify/DetailsEditButton.vue'

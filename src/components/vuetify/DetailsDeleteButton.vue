@@ -10,6 +10,7 @@
         class="primary--text"
         large
         text
+        :disabled="isDisabled"
         v-on="on"
       >
         <v-icon>{{ deleteIcon }}</v-icon>
@@ -26,6 +27,7 @@
 
 <script>
   import ConfirmDeleteDialog from '@/components/vuetify/ConfirmDeleteDialog.vue'
+  import { getUsername } from '@/services/UserService.js'
   import { mdiDelete } from '@mdi/js'
 
   export default {
@@ -39,7 +41,13 @@
       return {
         deleteIcon: mdiDelete,
         dialogActive: false,
+        isDisabled: true,
       }
+    },
+
+    mounted() {
+      getUsername()
+        .then(username => username ? this.isDisabled = false : this.isDisabled = true)
     },
 
     methods: {
@@ -47,6 +55,6 @@
         this.$emit('confirm:delete', confirm)
         this.dialogActive = false
       }
-    }
+    },
   }
 </script>
