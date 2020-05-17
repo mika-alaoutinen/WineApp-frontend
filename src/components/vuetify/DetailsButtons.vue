@@ -1,38 +1,13 @@
 <template>
-  <!-- Save and cancel edits: -->
+  <!-- Save and cancel edits when in editing mode: -->
   <div v-if="$props.editing">
-    <v-alert
-      dismissible
-      type="error"
-      :value="showErrorAlert"
-    >
-      Kenttä ei voi olla tyhjä!
-    </v-alert>
-
-    <v-btn
-      id="save-edit"
-      class="secondary--text"
-      large
-      text
-      @click="saveItem"
-    >
-      <v-icon>{{ okIcon }}</v-icon>
-      Tallenna
-    </v-btn>
-
-    <v-btn
-      id="cancel-edit"
-      class="primary--text"
-      large
-      text
-      @click="cancelEdit"
-    >
-      <v-icon>{{ cancelIcon }}</v-icon>
-      Peruuta
-    </v-btn>
+    <EditingButtons
+      :show-error-alert="showErrorAlert"
+      @confirm:edit="confirmEdit"
+    />
   </div>
 
-  <!-- Edit or delete: -->
+  <!-- Enter edit or delete mode: -->
   <div v-else>
     <v-btn
       id="edit"
@@ -45,6 +20,7 @@
       Muokkaa
     </v-btn>
 
+    <!-- Clicking delete button opens confirm delete dialog -->
     <v-dialog
       v-model="dialogActive"
       persistent
@@ -74,10 +50,11 @@
 
 <script>
   import ConfirmDeleteDialog from '@/components/vuetify/ConfirmDeleteDialog.vue'
+  import EditingButtons from '@/components/vuetify/EditingButtons.vue'
   import { mdiCancel, mdiCheck, mdiDelete, mdiPencil } from '@mdi/js'
 
   export default {
-    components: { ConfirmDeleteDialog },
+    components: { ConfirmDeleteDialog, EditingButtons },
 
     props: {
       editing: { type: Boolean, required: true },
@@ -86,10 +63,8 @@
 
     data() {
       return {
-        cancelIcon: mdiCancel,
         deleteIcon: mdiDelete,
         editIcon: mdiPencil,
-        okIcon: mdiCheck,
 
         cachedItem: {},
         dialogActive: false,
@@ -100,6 +75,10 @@
     methods: {
       confirmDelete(confirm) {
         confirm ? this.deleteItem() : this.dialogActive = false
+      },
+
+      confirmEdit(confirm) {
+        confirm ? this.saveItem() : this.cancelEdit()
       },
 
       editMode() {
@@ -126,8 +105,7 @@
       },
 
       deleteItem() {
-        // this.$emit('delete:item', this.$props.item)
-        console.log('deleted')
+        this.$emit('delete:item', this.$props.item)
         this.dialogActive = false
       },
 
