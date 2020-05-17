@@ -27,6 +27,7 @@
 
 <script>
   import ConfirmDeleteDialog from '@/components/vuetify/ConfirmDeleteDialog.vue'
+  import { canUserEdit } from '@/services/Service.js'
   import { getUsername } from '@/services/UserService.js'
   import { mdiDelete } from '@mdi/js'
 
@@ -46,8 +47,8 @@
     },
 
     mounted() {
-      getUsername()
-        .then(username => username ? this.isDisabled = false : this.isDisabled = true)
+      canUserEdit(this.$props.item)
+        .then(canEdit => this.isDisabled = !canEdit)
     },
 
     methods: {

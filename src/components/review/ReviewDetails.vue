@@ -83,6 +83,7 @@
 
     <!-- Edit and delete buttons -->
     <DetailsButtons
+      v-if="review"
       :editing="editing"
       :item="review"
       @delete:item="deleteReview"
@@ -110,7 +111,7 @@
     data() {
       return {
         editing: false,
-        review: {},
+        review: null,
         util: Utilities
       }
     },

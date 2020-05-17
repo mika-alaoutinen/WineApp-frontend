@@ -112,4 +112,28 @@ class Service {
   }
 }
 
+export async function canUserEdit(item) {
+  // Check if item is wine or review:
+  console.log('item', item)
+  const type = getItemType(item)
+  const url = UrlBuilder[type].paths.base + item.id + '/editable'
+  console.log('url', url)
+
+  return axios
+    .get(url, createHeaders())
+    .then(response => response.data)
+    .catch(error => handleError(error))
+}
+
+function getItemType(item) {
+  if (item.author) {
+    return 'review'
+  } else if (item.name) {
+    return 'wine'
+  } else {
+    console.log('Unknown item in DetailsButtons:', item)
+    return false
+  }
+}
+
 export default Service
