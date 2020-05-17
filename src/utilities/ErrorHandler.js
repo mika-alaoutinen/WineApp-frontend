@@ -1,27 +1,32 @@
+import { logout } from '@/services/AuthenticationService.js'
+
 /**
  * Handler for errors returned from the backend via axios calls.
  * For now, just log the error message.
  * @param {Object} http error returned by axios
  */
 export function handleError({ data, ...error }) {
-  const message = errorMessage(data.path, data.status)
-  console.log(message)
-  return message
-}
+  const { status, path } = data
 
-function errorMessage(path, status) {
   switch (status) {
     case 400:
-      return `Pyyntöä resurssiin ${path} ei pystytty käsittelemään.`
+      console.error(`Pyyntöä resurssiin ${path} ei pystytty käsittelemään.`)
+      break
     case 401:
-      return `Pääsy estetty resurssiin ${path}. Oletko kirjautunut sisään?`
+      logout() // purge expired JWT token from local storage
+      console.error(`Pääsy estetty resurssiin ${path}. Oletko kirjautunut sisään?`)
+      break
     case 403:
-      return `Pääsy estetty resurssiin ${path}. Oletko resurssin omistaja?`
+      console.error(`Pääsy estetty resurssiin ${path}. Oletko resurssin omistaja?`)
+      break
     case 404:
-      return `Resurssia ${path} ei löytynyt.`
+      console.error(`Resurssia ${path} ei löytynyt.`)
+      break
     case 500:
-      return `Palvelinvirhe resurssissa ${path}.`
+      console.error(`Palvelinvirhe resurssissa ${path}.`)
+      break
     default:
-      return `Tunnistamaton virhe ${status} resurssissa ${path}.`
+      console.error(`Tunnistamaton virhe ${status} resurssissa ${path}.`)
+      break
   }
 }
