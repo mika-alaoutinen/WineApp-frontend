@@ -2,6 +2,7 @@ import axios from 'axios'
 import UrlBuilder, { createHeaders } from '@/utilities/UrlBuilder.js'
 import WineStore from '@/stores/WineStore.js'
 import Service from './Service.js'
+import { handleError } from '@/utilities/ErrorHandler.js'
 
 class WineService extends Service {
   constructor() {
@@ -41,7 +42,7 @@ class WineService extends Service {
     return axios
       .get(UrlBuilder.wine.getValidateUrl(name), createHeaders())
       .then(response => response.data)
-      .catch(error => console.error(error))
+      .catch(error => handleError(error.response))
   }
 }
 
@@ -54,7 +55,7 @@ async function getDistinctItems(item, headers) {
   return axios
     .get(UrlBuilder.wine.paths[item], headers)
     .then(response => response.data)
-    .catch(error => console.error(error))
+    .catch(error => handleError(error.response))
 }
 
 export default WineService

@@ -2,6 +2,7 @@ import axios from 'axios'
 import ReviewStore from '@/stores/ReviewStore.js'
 import UrlBuilder, { createHeaders } from '@/utilities/UrlBuilder.js'
 import Service from './Service.js'
+import { handleError } from '@/utilities/ErrorHandler.js'
 
 class ReviewService extends Service {
   constructor() {
@@ -17,7 +18,7 @@ class ReviewService extends Service {
     return axios
       .get(UrlBuilder.review.paths.wineId + wineId, createHeaders())
       .then(response => response.data)
-      .catch(error => console.error(error))
+      .catch(error => handleError(error.response))
   }
 
   /**
@@ -29,7 +30,7 @@ class ReviewService extends Service {
     return axios
       .post(UrlBuilder.review.paths.base + wineId, review, createHeaders())
       .then(response => this.store.add(response.data))
-      .catch(error => console.error(error))
+      .catch(error => handleError(error.response))
   }
 
   /**
@@ -46,7 +47,7 @@ class ReviewService extends Service {
     return axios
       .get(UrlBuilder.review.getQuickSearchUrl(searchParam, count), createHeaders())
       .then(response => response.data)
-      .catch(error => console.error(error))
+      .catch(error => handleError(error.response))
   }
 
   /**
