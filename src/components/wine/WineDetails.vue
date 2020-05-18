@@ -5,7 +5,7 @@
   >
     <v-img
       height="25em"
-      :src="getImage"
+      :src="wineImage"
     />
     <v-card-title class="card-title secondary--text">
       Viinin tiedot
@@ -96,6 +96,7 @@
 
       <!-- Edit and delete buttons -->
       <DetailsButtons
+        v-if="wine"
         :editing="editing"
         :item="wine"
         @delete:item="deleteWine"
@@ -130,44 +131,30 @@
     data() {
       return {
         addIcon: mdiPlus,
+        wineImage: '',
+        util: Utilities,
 
         editing: false,
         reviews: [],
-        util: Utilities,
         wineTypes: [ 'sparkling', 'red', 'rose', 'white', 'other' ],
-
-        wine: {
-          name: '',
-          type: 'other',
-          country: '',
-          price: null,
-          volume: null,
-          description: [],
-          foodPairings: [],
-          url: '',
-        },
+        wine: null
       }
     },
 
     computed: {
-      getImage() {
-        const type = this.wine.type.toLowerCase()
-        return this.wine.type
-          ? require('../../../public/assets/wine-images/' + type + '.png')
-          : require('../../../public/assets/wine-images/wines.png')
-      },
-
       wineWithoutId() {
         return wineService.removeObjectId(this.wine)
       },
     },
 
-    mounted() {
-      wineService.get(this.$props.wineId)
-        .then(wine => this.wine = wine)
+    async mounted() {
+      this.wine = await wineService.get(this.$props.wineId)
+      const type = this.wine.type.toLowerCase()
+      this.wineImage = type
+        ? require('../../../public/assets/wine-images/' + type + '.png')
+        : require('../../../public/assets/wine-images/wines.png')
 
-      reviewService.getByWineId(this.$props.wineId)
-        .then(reviews => this.reviews = reviews)
+      this.reviews = await reviewService.getByWineId(this.$props.wineId)
     },
 
     methods: {
