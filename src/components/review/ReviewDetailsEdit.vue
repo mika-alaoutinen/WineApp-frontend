@@ -10,8 +10,8 @@
     </v-card-title>
 
     <div class="card-body">
+      <!-- Review's author -->
       <v-row>
-        <!-- Review's author -->
         <v-col sm="3">
           {{ util.translate('review', 'author') }}
         </v-col>
@@ -24,8 +24,8 @@
         </v-col>
       </v-row>
 
+      <!-- Review's date -->
       <v-row>
-        <!-- Review's date -->
         <v-col sm="3">
           {{ util.translate('review', 'date') }}
         </v-col>
@@ -34,7 +34,7 @@
             :enabled="true"
             :label-text="'Päivämäärä'"
             :selected-date="review.date"
-            @get:date="review.date"
+            @get:date="setDate"
           />
         </v-col>
       </v-row>
@@ -77,7 +77,7 @@
         </v-col>
         <v-col>
           <v-text-field
-            :value="review.wine.name"
+            :value="wineName"
             class="ma-0 pa-0"
             disabled
           />
@@ -85,8 +85,9 @@
       </v-row>
     </div>
 
-    <v-btn>Nappula 1</v-btn>
-    <v-btn>Nappula 2</v-btn>
+    <!-- Buttons for saving and cancelling changes -->
+    <v-btn>Tallenna</v-btn>
+    <v-btn>Peruuta</v-btn>
   </v-card>
 </template>
 
@@ -103,19 +104,24 @@
 
     props: {
       originalReview: { required: true, type: Object },
+      wineName: { required: true, type: String },
     },
 
     data() {
       return {
         util: Utilities,
-        review: {}
+        review: {},
       }
     },
 
     mounted() {
       // Create deep copy of review
       this.review = JSON.parse(JSON.stringify(this.$props.originalReview))
-    }
+    },
+
+    methods: {
+      setDate(date) { this.review.date = date }
+    },
 
   }
 </script>

@@ -46,11 +46,12 @@
     />
 
     <v-btn
+      v-if="review"
       id="go-to-edit"
       class="secondary--text"
       large
       text
-      :to="{ name: 'edit-review', params: { originalReview: review } }"
+      :to="{ name: 'edit-review', params: createParams }"
     >
       <v-icon>{{ editIcon }}</v-icon>
       Muokkaa
@@ -88,6 +89,16 @@
       reviewWithoutId() {
         return reviewService.removeObjectId(this.review)
       },
+
+      createParams() {
+        const reviewWithoutWine = { ...this.review }
+        delete reviewWithoutWine.wine
+
+        return {
+          originalReview: reviewWithoutWine,
+          wineName: this.review.wine.name
+        }
+      }
     },
 
     mounted() {
