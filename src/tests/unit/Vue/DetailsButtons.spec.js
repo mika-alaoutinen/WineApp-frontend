@@ -11,12 +11,12 @@ test('component loads correctly', () => {
 })
 
 describe('Editing and saving item', () => {
-  test('click on edit button saves copy of item in data and emits editing state as true', async () => {
-    const wrapper = mountComponent(false)
-    clickButton(wrapper, '#edit')
-    expect(wrapper.vm.cachedItem).toEqual(wine)
-    expect(wrapper.emitted('get:editing')[0]).toEqual([true])
-  })
+  // test('click on edit button saves copy of item in data and emits editing state as true', async () => {
+  //   const wrapper = mountComponent(false)
+  //   clickButton(wrapper, '#edit')
+  //   expect(wrapper.vm.cachedItem).toEqual(wine)
+  //   expect(wrapper.emitted('get:editing')[0]).toEqual([true])
+  // })
 
   test('click on save edit button emits save message and emits editing state as false', async () => {
     const wrapper = mountComponent(true)
@@ -57,28 +57,29 @@ describe('Editing and saving item', () => {
   })
 })
 
-describe('Deleting item', () => {
-  test('click on delete button opens confirmation dialog', async () => {
-    const wrapper = mountComponent(false)
-    clickButton(wrapper, '#delete')
-    expect(wrapper.vm.dialogActive).toBe(true)
-  })
+// describe('Deleting item', () => {
+//   test('click on delete button opens confirmation dialog', async () => {
+//     const wrapper = mountComponent(false)
+//     clickButton(wrapper, '#delete')
+//     expect(button).toBeCalledTimes(1)
+//     expect(wrapper.emitted('delete:item')).toBe(true)
+//   })
 
-  test('click on confirm delete button closes confirm delete dialog and emits delete message', async () => {
-    const wrapper = mountComponent(false)
-    clickButton(wrapper, '#delete')
-    clickButton(wrapper, '#confirm-delete')
-    expect(wrapper.vm.dialogActive).toBe(false)
-    expect(wrapper.emitted('delete:item')[0]).toEqual([wine])
-  })
+//   test('click on confirm delete button closes confirm delete dialog and emits delete message', async () => {
+//     const wrapper = mountComponent(false)
+//     clickButton(wrapper, '#delete')
+//     clickButton(wrapper, '#confirm-delete')
+//     expect(wrapper.vm.dialogActive).toBe(false)
+//     expect(wrapper.emitted('delete:item')[0]).toEqual([wine])
+//   })
 
-  test('click on cancel delete button closes confirm delete dialog', async () => {
-    const wrapper = mountComponent(false)
-    clickButton(wrapper, '#delete')
-    clickButton(wrapper, '#cancel-delete')
-    expect(wrapper.vm.dialogActive).toBe(false)
-  })
-})
+//   test('click on cancel delete button closes confirm delete dialog', async () => {
+//     const wrapper = mountComponent(false)
+//     clickButton(wrapper, '#delete')
+//     clickButton(wrapper, '#cancel-delete')
+//     expect(wrapper.vm.dialogActive).toBe(false)
+//   })
+// })
 
 // Utility functions:
 function mountComponent(isEditing) {
