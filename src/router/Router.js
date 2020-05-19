@@ -9,6 +9,7 @@ import TheUserPage from '@/pages/TheUserPage.vue'
 import TheWinesPage from '@/pages/TheWinesPage.vue'
 
 import ReviewDetails from '@/components/review/ReviewDetails.vue'
+import ReviewDetailsEdit from '@/components/review/ReviewDetailsEdit.vue'
 import WineDetails from '@/components/wine/WineDetails.vue'
 
 Vue.use(Router)
@@ -52,6 +53,12 @@ export default new Router({
       path: '/reviews/:reviewId',
       name: 'review',
       component: ReviewDetails,
+      props: true,
+    },
+    {
+      path: '/reviews/:reviewId/edit',
+      name: 'edit-review',
+      component: ReviewDetailsEdit,
       props: true,
     },
 

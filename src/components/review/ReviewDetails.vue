@@ -3,15 +3,13 @@
     class="details-card"
     max-width="60em"
   >
-    <v-img
-      height="25em"
-      :src="require('../../../public/assets/review.png')"
-    />
+    <ReviewDetailsHeroImage />
+
     <v-card-title class="card-title secondary--text">
       Arvostelun tiedot
     </v-card-title>
 
-    <div class="card-contents">
+    <div class="card-body">
       <v-row
         v-for="(value, attribute) in reviewWithoutId"
         :id="attribute"
@@ -22,52 +20,8 @@
           {{ util.translate("review", attribute) }}
         </v-col>
 
-        <!-- Right column for values. -->
-        <!-- Editing mode: -->
-        <v-col v-if="editing">
-          <DatePicker
-            v-if="attribute === 'date'"
-            :enabled="true"
-            :label-text="'Päivämäärä'"
-            :selected-date="review.date"
-            @get:date="getDate"
-          />
-
-          <v-textarea
-            v-else-if="attribute === 'reviewText'"
-            v-model="review[attribute]"
-            auto-grow
-            class="ma-0 pa-0"
-          />
-
-          <v-slider
-            v-else-if="attribute === 'rating'"
-            v-model="review.rating"
-            :label="util.translate('review', 'rating')"
-            min="0.0"
-            max="5.0"
-            step="0.25"
-            ticks
-            thumb-label
-          />
-
-          <v-text-field
-            v-else-if="attribute === 'wine'"
-            :value="value.name"
-            class="ma-0 pa-0"
-            disabled
-          />
-
-          <v-text-field
-            v-else
-            v-model="review[attribute]"
-            class="ma-0 pa-0"
-            @keyup.enter="saveEditedReview(review)"
-          />
-        </v-col>
-
         <!-- View mode: -->
-        <v-col v-else>
+        <v-col>
           <div v-if="attribute === 'wine'">
             {{ value.name }}
           </div>
@@ -90,19 +44,31 @@
       @get:editing="getEditing"
       @save:item="saveEditedReview"
     />
+
+    <v-btn
+      id="go-to-edit"
+      class="secondary--text"
+      large
+      text
+      :to="{ name: 'edit-review', params: { originalReview: review } }"
+    >
+      <v-icon>{{ editIcon }}</v-icon>
+      Muokkaa
+    </v-btn>
   </v-card>
 </template>
 
 <script>
-  import DatePicker from '@/components/vuetify/DatePicker.vue'
   import DetailsButtons from '@/components/vuetify/DetailsButtons.vue'
+  import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities from '@/utilities/Utilities.js'
+  import { mdiPencil } from '@mdi/js'
 
   const reviewService = new ReviewService()
 
   export default {
-    components: { DatePicker, DetailsButtons },
+    components: { DetailsButtons, ReviewDetailsHeroImage },
 
     props: {
       reviewId: { required: true, type: [Number, String] }
@@ -110,9 +76,11 @@
 
     data() {
       return {
+        editIcon: mdiPencil,
+        util: Utilities,
+
         editing: false,
         review: null,
-        util: Utilities
       }
     },
 
@@ -128,8 +96,6 @@
     },
 
     methods: {
-      getDate(date) { this.review.date = date },
-
       getEditing(boolean) { this.editing = boolean },
 
       deleteReview(review) {
@@ -147,7 +113,7 @@
 </script>
 
 <style scoped>
-  .card-contents { margin: 0 2em }
+  .card-body { margin: 0 2em }
   .card-title { padding-left: 1.5em }
   .col {
     padding-bottom: 6px;
