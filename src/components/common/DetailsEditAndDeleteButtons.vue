@@ -73,8 +73,9 @@
       }
     },
 
-    async mounted() {
-      this.disabled = await !canUserEdit(this.$props.item)
+    mounted() {
+      canUserEdit(this.$props.item)
+        .then(canEdit => this.disabled = !canEdit)
     },
 
     methods: {
