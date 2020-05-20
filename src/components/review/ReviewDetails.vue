@@ -36,15 +36,6 @@
     </div>
 
     <!-- Edit and delete buttons -->
-    <DetailsButtons
-      v-if="review"
-      :editing="editing"
-      :item="review"
-      @delete:item="deleteReview"
-      @get:editing="getEditing"
-      @save:item="saveEditedReview"
-    />
-
     <v-btn
       v-if="review"
       id="go-to-edit"
@@ -60,7 +51,6 @@
 </template>
 
 <script>
-  import DetailsButtons from '@/components/vuetify/DetailsButtons.vue'
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities from '@/utilities/Utilities.js'
@@ -69,7 +59,7 @@
   const reviewService = new ReviewService()
 
   export default {
-    components: { DetailsButtons, ReviewDetailsHeroImage },
+    components: { ReviewDetailsHeroImage },
 
     props: {
       reviewId: { required: true, type: [Number, String] }

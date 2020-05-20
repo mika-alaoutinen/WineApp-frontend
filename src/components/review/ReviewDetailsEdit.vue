@@ -70,7 +70,7 @@
         </v-col>
       </v-row>
 
-      <!-- Wine name -->
+      <!-- Wine name, not possible to edit -->
       <v-row>
         <v-col sm="3">
           {{ util.translate('wine', 'name') }}
@@ -85,13 +85,17 @@
       </v-row>
     </div>
 
-    <!-- Buttons for saving and cancelling changes -->
-    <v-btn>Tallenna</v-btn>
-    <v-btn>Peruuta</v-btn>
+    <!-- Buttons for saving and cancelling changes. Probably want to make a component for the buttons
+    that emits true or false to indicate editing and cancelling. -->
+    <ConfirmEditButtons
+      :disabled="disabled"
+      @edit:confirm="confirmEdit"
+    />
   </v-card>
 </template>
 
 <script>
+  import ConfirmEditButtons from '@/components/common/ConfirmEditButtons.vue'
   import DatePicker from '@/components/vuetify/DatePicker.vue'
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
@@ -100,7 +104,7 @@
   const reviewService = new ReviewService()
 
   export default {
-    components: { DatePicker, ReviewDetailsHeroImage },
+    components: { ConfirmEditButtons, DatePicker, ReviewDetailsHeroImage },
 
     props: {
       originalReview: { required: true, type: Object },
@@ -110,6 +114,7 @@
     data() {
       return {
         util: Utilities,
+        disabled: false,
         review: {},
       }
     },
@@ -120,7 +125,11 @@
     },
 
     methods: {
-      setDate(date) { this.review.date = date }
+      setDate(date) { this.review.date = date },
+
+      confirmEdit(confirm) {
+        console.log('confirm', confirm)
+      }
     },
 
   }
