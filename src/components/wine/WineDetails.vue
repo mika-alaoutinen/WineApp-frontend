@@ -114,7 +114,7 @@
   import DetailsButtons from '@/components/vuetify/DetailsButtons.vue'
   import ReviewDetailsCard from '@/components/review/ReviewDetailsCard.vue'
   import ReviewService from '@/services/ReviewService.js'
-  import Utilities from '@/utilities/Utilities.js'
+  import Utilities, { removeObjectId } from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'
   import { mdiPlus } from '@mdi/js'
 
@@ -143,7 +143,7 @@
 
     computed: {
       wineWithoutId() {
-        return wineService.removeObjectId(this.wine)
+        return removeObjectId(this.wine)
       },
     },
 

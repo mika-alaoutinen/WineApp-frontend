@@ -1,4 +1,5 @@
-import Utilities from '@/utilities/Utilities.js'
+import Utilities, { removeObjectId, resetObject } from '@/utilities/Utilities.js'
+import { wines } from '../../testdata.js'
 
 describe('date formatter', () => {
   test('test that date format is converted from yyyy-mm-dd to dd.mm.yyyy', () => {
@@ -123,5 +124,22 @@ describe('Translating keywords, wine', () => {
 describe('translation functionality', () => {
   test('test that translate function is case insensitive', () => {
     expect(Utilities.translate('wine', 'nAMe')).toBe('Nimi')
+  })
+})
+
+describe('Utility functions', () => {
+  test('ID property of object is removed', () => {
+    const wine = removeObjectId(wines[0])
+    expect(wine.id).toBeUndefined()
+  })
+
+  test('objects properties are reset', () => {
+    const wine = wines[0]
+    resetObject(wine)
+    const allPropertiesEmpty = Object
+      .values(wine)
+      .every(value => value.length < 1)
+
+    expect(allPropertiesEmpty).toBe(true)
   })
 })

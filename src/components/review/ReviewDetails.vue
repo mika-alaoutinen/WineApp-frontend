@@ -54,7 +54,7 @@
 <script>
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
-  import Utilities from '@/utilities/Utilities.js'
+  import Utilities, { removeObjectId } from '@/utilities/Utilities.js'
   import { getUsername } from '@/services/UserService.js'
   import { mdiPencil } from '@mdi/js'
 
@@ -80,7 +80,7 @@
 
     computed: {
       reviewWithoutId() {
-        return reviewService.removeObjectId(this.review)
+        return removeObjectId(this.review)
       },
 
       createParams() {

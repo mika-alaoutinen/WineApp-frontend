@@ -168,7 +168,7 @@
 <script>
   import Alerts from '@/components/common/Alerts.vue'
   import ButtonSubmitForm from '@/components/vuetify/ButtonSubmitForm.vue'
-  import Utilities from '@/utilities/Utilities.js'
+  import Utilities, { resetObject } from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'
   import { mdiPlus } from '@mdi/js'
   import { ValidationObserver, ValidationProvider } from 'vee-validate'
@@ -238,7 +238,7 @@
 
       successfulPost() {
         this.showSuccessAlert = true
-        wineService.resetObject(this.wine)
+        resetObject(this.wine)
         this.$refs.form.reset()
       },
 

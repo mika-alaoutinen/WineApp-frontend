@@ -81,7 +81,7 @@
   import ButtonSubmitForm from '@/components/vuetify/ButtonSubmitForm.vue'
   import DatePicker from '@/components/vuetify/DatePicker.vue'
   import ReviewService from '@/services/ReviewService.js'
-  import Utilities from '@/utilities/Utilities.js'
+  import Utilities, { resetObject } from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'
   import { mdiPlus } from '@mdi/js'
   import { ValidationObserver, ValidationProvider } from 'vee-validate'
@@ -130,7 +130,7 @@
 
       successfulPost() {
         this.showSuccessAlert = true
-        reviewService.resetObject(this.review)
+        resetObject(this.review)
         this.$refs.form.reset()
       },
     },
