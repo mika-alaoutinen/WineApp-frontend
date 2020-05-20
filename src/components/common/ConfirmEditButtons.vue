@@ -6,7 +6,6 @@
       class="secondary--text"
       large
       text
-      :disabled="disabled"
       @click="$emit('edit:confirm', true)"
     >
       <v-icon>{{ confirmIcon }}</v-icon>
@@ -18,7 +17,6 @@
       class="primary--text"
       large
       text
-      :disabled="disabled"
       @click="$emit('edit:confirm', false)"
     >
       <v-icon>{{ cancelIcon }}</v-icon>
@@ -31,10 +29,6 @@
   import { mdiCancel, mdiCheck } from '@mdi/js'
 
   export default {
-    props: {
-      disabled: { required: true, type: Boolean },
-    },
-
     data() {
       return {
         cancelIcon: mdiCancel,

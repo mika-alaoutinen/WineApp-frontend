@@ -50,7 +50,8 @@ class Service {
      * @param {Object} editedItem.
      */
   async put(id, editedItem) {
-    axios.put(UrlBuilder[this.storeType].paths.base + id, editedItem, createHeaders())
+    return axios
+      .put(UrlBuilder[this.storeType].paths.base + id, editedItem, createHeaders())
       .then(response => this.store.edit(id, response.data))
       .catch(error => handleError(error.response))
   }
@@ -60,7 +61,8 @@ class Service {
      * @param {Number} id
      */
   async delete(id) {
-    axios.delete(UrlBuilder[this.storeType].paths.base + id, createHeaders())
+    axios
+      .delete(UrlBuilder[this.storeType].paths.base + id, createHeaders())
       .then(() => this.store.delete(id))
       .catch(error => handleError(error.response))
   }
@@ -89,6 +91,38 @@ class Service {
   }
 
   // Modifying objects:
+
+  /**
+   * Deep copies an object into a new independent instance of the same object.
+   * @param {Object} object to be copied
+   * @returns {Object} identical copy of the object
+   */
+  deepCopy(object) {
+    return JSON.parse(JSON.stringify(object))
+  }
+
+  /**
+   * Checks object literal for empty values and returns outcome as Boolean.
+   * @param {Object} object literal, either review or wine.
+   * @returns {Boolean} true if there are empty values, else false.
+   */
+  doesObjectContainEmptyValues(object) {
+    return Object
+      .values(object)
+      .some(value => value === '')
+  }
+
+  /**
+   * Iterates though object's fields, looks for arrays and removes null values from them.
+   * @param {Object} object literal with array fields, either review or wine.
+   */
+  removeNullsFromArray(object) {
+    return Object
+      .keys(object)
+      .filter(key => Array.isArray(object[key]))
+      .map(key => object[key] = object[key].filter(item => item))
+  }
+
   /**
      * Removes the ID property of an item so that it is not displayed in views.
      * @param {Object} object, either wine or review.

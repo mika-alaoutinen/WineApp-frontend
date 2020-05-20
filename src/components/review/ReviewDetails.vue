@@ -15,12 +15,12 @@
         :id="attribute"
         :key="attribute"
       >
-        <!-- Left column for attribute names. -->
+        <!-- Left column for attributes, or "headers" -->
         <v-col sm="3">
           {{ util.translate("review", attribute) }}
         </v-col>
 
-        <!-- View mode: -->
+        <!-- Right column for values: -->
         <v-col>
           <div v-if="attribute === 'wine'">
             {{ value.name }}
@@ -42,6 +42,7 @@
       class="secondary--text"
       large
       text
+      :disabled="disabled"
       :to="{ name: 'edit-review', params: createParams }"
     >
       <v-icon>{{ editIcon }}</v-icon>
@@ -54,6 +55,7 @@
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities from '@/utilities/Utilities.js'
+  import { getUsername } from '@/services/UserService.js'
   import { mdiPencil } from '@mdi/js'
 
   const reviewService = new ReviewService()
@@ -70,6 +72,7 @@
         editIcon: mdiPencil,
         util: Utilities,
 
+        disabled: true,
         editing: false,
         review: null,
       }
@@ -91,22 +94,17 @@
       }
     },
 
-    mounted() {
-      reviewService.get(this.$props.reviewId)
-        .then(review => this.review = review)
+    async mounted() {
+      this.review = await reviewService.get(this.$props.reviewId)
+
+      const username = await getUsername()
+      this.disabled = username ? false : true
     },
 
     methods: {
-      getEditing(boolean) { this.editing = boolean },
-
       deleteReview(review) {
         reviewService.delete(review.id)
         this.$router.push({ name: 'reviews' })
-      },
-
-      saveEditedReview(review) {
-        reviewService.put(review.id, review)
-        this.editing = false
       },
     },
 

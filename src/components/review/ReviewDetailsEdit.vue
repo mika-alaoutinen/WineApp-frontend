@@ -85,12 +85,8 @@
       </v-row>
     </div>
 
-    <!-- Buttons for saving and cancelling changes. Probably want to make a component for the buttons
-    that emits true or false to indicate editing and cancelling. -->
-    <ConfirmEditButtons
-      :disabled="disabled"
-      @edit:confirm="confirmEdit"
-    />
+    <!-- Buttons for confirming and canceling edits -->
+    <ConfirmEditButtons @edit:confirm="confirmEdit" />
   </v-card>
 </template>
 
@@ -116,22 +112,37 @@
         util: Utilities,
         disabled: false,
         review: {},
+        showErrorAlert: false,
       }
     },
 
     mounted() {
       // Create deep copy of review
-      this.review = JSON.parse(JSON.stringify(this.$props.originalReview))
+      this.review = reviewService.deepCopy(this.$props.originalReview)
     },
 
     methods: {
       setDate(date) { this.review.date = date },
 
       confirmEdit(confirm) {
-        console.log('confirm', confirm)
-      }
-    },
+        confirm ? this.saveItem() : this.goBackToReviewDetails(this.review.id)
+      },
 
+      saveItem() {
+        if (reviewService.doesObjectContainEmptyValues(this.review)) {
+          this.showErrorAlert = true
+          return
+        }
+
+        reviewService.removeNullsFromArray(this.review)
+        reviewService.put(this.review.id, this.review)
+          .then(() => this.goBackToReviewDetails(this.review.id))
+      },
+
+      goBackToReviewDetails(id) {
+        this.$router.push({ name: 'review', params: { reviewId: id } })
+      },
+    },
   }
 </script>
 
