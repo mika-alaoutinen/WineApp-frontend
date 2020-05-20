@@ -9,6 +9,14 @@
       Muokkaa arvostelua
     </v-card-title>
 
+    <v-alert
+      dismissible
+      type="error"
+      :value="showErrorAlert"
+    >
+      Kenttä ei voi olla tyhjä!
+    </v-alert>
+
     <div class="card-body">
       <!-- Review's author -->
       <v-row>
@@ -95,7 +103,7 @@
   import DatePicker from '@/components/vuetify/DatePicker.vue'
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
-  import Utilities from '@/utilities/Utilities.js'
+  import Utilities, { deepCopy, doesObjectContainEmptyValues, removeNullsFromArray } from '@/utilities/Utilities.js'
 
   const reviewService = new ReviewService()
 
@@ -117,8 +125,7 @@
     },
 
     mounted() {
-      // Create deep copy of review
-      this.review = reviewService.deepCopy(this.$props.originalReview)
+      this.review = deepCopy(this.$props.originalReview)
     },
 
     methods: {
@@ -129,12 +136,12 @@
       },
 
       saveItem() {
-        if (reviewService.doesObjectContainEmptyValues(this.review)) {
+        if (doesObjectContainEmptyValues(this.review)) {
           this.showErrorAlert = true
           return
         }
 
-        reviewService.removeNullsFromArray(this.review)
+        removeNullsFromArray(this.review)
         reviewService.put(this.review.id, this.review)
           .then(() => this.goBackToReviewDetails(this.review.id))
       },
