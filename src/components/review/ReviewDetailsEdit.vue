@@ -94,13 +94,13 @@
     </div>
 
     <!-- Buttons for confirming and canceling edits -->
-    <ConfirmEditButtons @edit:confirm="confirmEdit" />
+    <DetailsConfirmEditButtons @edit:confirm="confirmEdit" />
   </v-card>
 </template>
 
 <script>
-  import ConfirmEditButtons from '@/components/common/ConfirmEditButtons.vue'
   import DatePicker from '@/components/vuetify/DatePicker.vue'
+  import DetailsConfirmEditButtons from '@/components/common/DetailsConfirmEditButtons.vue'
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities, { deepCopy, doesObjectContainEmptyValues, removeNullsFromArray } from '@/utilities/Utilities.js'
@@ -108,7 +108,7 @@
   const reviewService = new ReviewService()
 
   export default {
-    components: { ConfirmEditButtons, DatePicker, ReviewDetailsHeroImage },
+    components: { DetailsConfirmEditButtons, DatePicker, ReviewDetailsHeroImage },
 
     props: {
       originalReview: { required: true, type: Object },

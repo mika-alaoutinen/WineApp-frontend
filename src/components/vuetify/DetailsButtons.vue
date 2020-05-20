@@ -14,7 +14,7 @@
       @edit:mode="editMode"
     />
 
-    <DetailsDeleteButton
+    <DetailsEditAndDeleteButtons
       :item="item"
       @confirm:delete="confirmDelete"
     />
@@ -23,11 +23,11 @@
 
 <script>
   import ConfirmEditButtons from '@/components/vuetify/ConfirmEditButtons.vue'
-  import DetailsDeleteButton from '@/components/vuetify/DetailsDeleteButton.vue'
+  import DetailsEditAndDeleteButtons from '@/components/common/DetailsEditAndDeleteButtons.vue'
   import DetailsEditButton from '@/components/vuetify/DetailsEditButton.vue'
 
   export default {
-    components: { ConfirmEditButtons, DetailsDeleteButton, DetailsEditButton },
+    components: { ConfirmEditButtons, DetailsEditAndDeleteButtons, DetailsEditButton },
 
     props: {
       editing: { type: Boolean, required: true },

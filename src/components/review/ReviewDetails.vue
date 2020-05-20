@@ -35,33 +35,26 @@
       </v-row>
     </div>
 
-    <!-- Edit and delete buttons -->
-    <v-btn
+    <DetailsEditAndDeleteButtons
       v-if="review"
-      id="go-to-edit"
-      class="secondary--text"
-      large
-      text
-      :disabled="disabled"
-      :to="{ name: 'edit-review', params: createParams }"
-    >
-      <v-icon>{{ editIcon }}</v-icon>
-      Muokkaa
-    </v-btn>
+      :item="review"
+      :router-params="createParams"
+      @confirm:delete="confirmDelete"
+    />
   </v-card>
 </template>
 
 <script>
+  import DetailsEditAndDeleteButtons from '@/components/common/DetailsEditAndDeleteButtons.vue'
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities, { removeObjectId } from '@/utilities/Utilities.js'
   import { getUsername } from '@/services/UserService.js'
-  import { mdiPencil } from '@mdi/js'
 
   const reviewService = new ReviewService()
 
   export default {
-    components: { ReviewDetailsHeroImage },
+    components: { DetailsEditAndDeleteButtons, ReviewDetailsHeroImage },
 
     props: {
       reviewId: { required: true, type: [Number, String] }
@@ -69,12 +62,10 @@
 
     data() {
       return {
-        editIcon: mdiPencil,
-        util: Utilities,
-
         disabled: true,
         editing: false,
         review: null,
+        util: Utilities,
       }
     },
 
@@ -102,9 +93,11 @@
     },
 
     methods: {
-      deleteReview(review) {
-        reviewService.delete(review.id)
-        this.$router.push({ name: 'reviews' })
+      confirmDelete(confirm) {
+        if (confirm) {
+          reviewService.delete(this.review.id)
+          this.$router.push({ name: 'reviews' })
+        }
       },
     },
 
