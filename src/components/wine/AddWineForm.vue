@@ -159,7 +159,7 @@
           :label="util.translate('wine', 'url')"
         />
 
-        <ButtonSubmitForm button-text="Lisää viini" />
+        <FormSubmitButton button-text="Lisää viini" />
       </v-form>
     </ValidationObserver>
   </v-card>
@@ -167,7 +167,7 @@
 
 <script>
   import Alerts from '@/components/common/Alerts.vue'
-  import ButtonSubmitForm from '@/components/vuetify/ButtonSubmitForm.vue'
+  import FormSubmitButton from '@/components/common/FormSubmitButton.vue'
   import Utilities, { resetObject } from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'
   import { mdiPlus } from '@mdi/js'
@@ -177,7 +177,7 @@
   const wineService = new WineService()
 
   export default {
-    components: { Alerts, ButtonSubmitForm, ValidationObserver, ValidationProvider },
+    components: { Alerts, FormSubmitButton, ValidationObserver, ValidationProvider },
 
     data() {
       return {

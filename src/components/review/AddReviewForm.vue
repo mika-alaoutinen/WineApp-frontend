@@ -70,7 +70,7 @@
           thumb-label
         />
 
-        <ButtonSubmitForm button-text="Lisää arvostelu" />
+        <FormSubmitButton button-text="Lisää arvostelu" />
       </v-form>
     </ValidationObserver>
   </v-card>
@@ -78,8 +78,8 @@
 
 <script>
   import Alerts from '@/components/common/Alerts.vue'
-  import ButtonSubmitForm from '@/components/vuetify/ButtonSubmitForm.vue'
   import DatePicker from '@/components/common/DatePicker.vue'
+  import FormSubmitButton from '@/components/common/FormSubmitButton.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities, { resetObject } from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'
@@ -91,7 +91,7 @@
   const wineService = new WineService()
 
   export default {
-    components: { Alerts, ButtonSubmitForm, DatePicker, ValidationObserver, ValidationProvider },
+    components: { Alerts, DatePicker, FormSubmitButton, ValidationObserver, ValidationProvider },
 
     data() {
       return {
