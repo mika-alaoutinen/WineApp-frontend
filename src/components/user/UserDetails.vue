@@ -48,11 +48,12 @@
       }
     },
 
-    async mounted() {
-      const name = await getUsername()
-      name
-        ? this.username = name
-        : this.invalidLogin = true
+    mounted() {
+      getUsername()
+        .then(name => name
+          ? this.username = name
+          : this.invalidLogin = true)
+        .catch(() => this.invalidLogin = true)
     },
 
     methods: {
