@@ -3,10 +3,11 @@
     class="details-card"
     max-width="60em"
   >
-    <v-img
-      height="25em"
-      :src="wineImage"
+    <WineDetailsHeroImage
+      v-if="wine"
+      :wine-type="wine.type"
     />
+
     <v-card-title class="card-title secondary--text">
       Viinin tiedot
     </v-card-title>
@@ -64,6 +65,7 @@
   import DetailsEditAndDeleteButtons from '@/components/common/DetailsEditAndDeleteButtons.vue'
   import ReviewDetailsCard from '@/components/review/ReviewDetailsCard.vue'
   import ReviewService from '@/services/ReviewService.js'
+  import WineDetailsHeroImage from '@/components/wine/WineDetailsHeroImage.vue'
   import Utilities, { removeObjectId } from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'
 
@@ -71,7 +73,7 @@
   const wineService = new WineService()
 
   export default {
-    components: { DetailsEditAndDeleteButtons, ReviewDetailsCard },
+    components: { DetailsEditAndDeleteButtons, ReviewDetailsCard, WineDetailsHeroImage },
 
     props: {
       wineId: { required: true, type: [Number, String] },
