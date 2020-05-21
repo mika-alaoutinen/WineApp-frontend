@@ -23,7 +23,7 @@
         large
         text
         :disabled="disabled"
-        :to="{ name: 'edit-review', params: routerParams }"
+        :to="redirectRoute"
       >
         <v-icon>{{ editIcon }}</v-icon>
         Muokkaa
@@ -40,6 +40,7 @@
 <script>
   import ConfirmDeleteDialog from '@/components/common/ConfirmDeleteDialog.vue'
   import { canUserEdit } from '@/services/UserService.js'
+  import { getItemType } from '@/utilities/Utilities.js'
   import { mdiDelete, mdiPencil } from '@mdi/js'
 
   export default {
@@ -47,7 +48,7 @@
 
     props: {
       item: { type: Object, required: true }, // item is either wine or review
-      routerParams: { type: Object, required: true },
+      redirectRoute: { type: Object, required: true },
     },
 
     data() {
@@ -62,13 +63,16 @@
     computed: {
       deleteConfirmText() {
         const confirmation = 'Haluatko varmasti poistaa'
+        const item = this.$props.item
+        const type = getItemType(item)
 
-        if (this.$props.item.name) {
-          return `${confirmation} viinin ${this.$props.item.name}?`
-        } else if (this.$props.item.author) {
-          return `${confirmation} käyttäjän ${this.$props.item.author} arvostelun?`
-        } else {
-          return `${confirmation} tämän?`
+        switch (type) {
+          case 'review':
+            return `${confirmation} käyttäjän ${item.author} arvostelun?`
+          case 'wine':
+            return `${confirmation} viinin ${item.name}?`
+          default:
+            return `${confirmation} tämän?`
         }
       }
     },

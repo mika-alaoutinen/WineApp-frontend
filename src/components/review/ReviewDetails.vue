@@ -38,8 +38,8 @@
     <DetailsEditAndDeleteButtons
       v-if="review"
       :item="review"
-      :router-params="createParams"
-      @confirm:delete="confirmDelete"
+      :redirect-route="route"
+      @confirm:delete="deleteReview"
     />
   </v-card>
 </template>
@@ -74,13 +74,16 @@
         return removeObjectId(this.review)
       },
 
-      createParams() {
+      route() {
         const reviewWithoutWine = { ...this.review }
         delete reviewWithoutWine.wine
 
         return {
-          originalReview: reviewWithoutWine,
-          wineName: this.review.wine.name
+          name: 'edit-review',
+          params: {
+            originalReview: reviewWithoutWine,
+            wineName: this.review.wine.name,
+          }
         }
       }
     },
@@ -93,7 +96,7 @@
     },
 
     methods: {
-      confirmDelete(confirm) {
+      deleteReview(confirm) {
         if (confirm) {
           reviewService.delete(this.review.id)
           this.$router.push({ name: 'reviews' })
