@@ -38,7 +38,7 @@
 
 <script>
   import { logout } from '@/services/AuthenticationService.js'
-  import { getUsername } from '@/services/UserService.js'
+  import { getUsername } from '@/services/AuthenticationService.js'
 
   export default {
     data() {

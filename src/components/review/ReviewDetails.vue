@@ -49,7 +49,7 @@
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities, { removeObjectId } from '@/utilities/Utilities.js'
-  import { getUsername } from '@/services/UserService.js'
+  import { getUsername } from '@/services/AuthenticationService.js'
 
   const reviewService = new ReviewService()
 

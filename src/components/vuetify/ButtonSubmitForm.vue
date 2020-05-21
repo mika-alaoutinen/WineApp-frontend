@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import { getUsername } from '@/services/UserService.js'
+  import { getUsername } from '@/services/AuthenticationService.js'
   import { mdiPlus } from '@mdi/js'
 
   export default {
