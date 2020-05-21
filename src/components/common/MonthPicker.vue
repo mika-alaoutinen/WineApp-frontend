@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import DatePicker from '@/components/vuetify/DatePicker.vue'
+  import DatePicker from '@/components/common/DatePicker.vue'
 
   export default {
     components: { DatePicker },

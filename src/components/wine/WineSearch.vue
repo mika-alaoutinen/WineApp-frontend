@@ -102,7 +102,7 @@
 </template>
 
 <script>
-  import RangeSlider from '@/components/vuetify/RangeSlider.vue'
+  import RangeSlider from '@/components/common/RangeSlider.vue'
   import Utilities, { resetObject } from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'
   import WineTable from '@/components/wine/WineTable.vue'

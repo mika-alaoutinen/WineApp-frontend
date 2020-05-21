@@ -108,9 +108,8 @@
 
     methods: {
       deleteWine(wine) {
-        console.log('delete wine', this.wine)
-        // wineService.delete(wine.id)
-        // this.$router.push({ name: 'wines' })
+        wineService.delete(wine.id)
+        this.$router.push({ name: 'wines' })
       },
 
       validateUrl(url) {

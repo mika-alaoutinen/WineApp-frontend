@@ -94,8 +94,8 @@
 </template>
 
 <script>
-  import MonthPicker from '@/components/vuetify/MonthPicker.vue'
-  import RangeSlider from '@/components/vuetify/RangeSlider.vue'
+  import MonthPicker from '@/components/common/MonthPicker.vue'
+  import RangeSlider from '@/components/common/RangeSlider.vue'
   import ReviewService from '@/services/ReviewService.js'
   import ReviewTable from '@/components/review/ReviewTable.vue'
   import { resetObject } from '@/utilities/Utilities.js'

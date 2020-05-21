@@ -99,7 +99,7 @@
 </template>
 
 <script>
-  import DatePicker from '@/components/vuetify/DatePicker.vue'
+  import DatePicker from '@/components/common/DatePicker.vue'
   import DetailsConfirmEditButtons from '@/components/common/DetailsConfirmEditButtons.vue'
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
