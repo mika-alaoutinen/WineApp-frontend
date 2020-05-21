@@ -132,10 +132,10 @@
       setDate(date) { this.review.date = date },
 
       confirmEdit(confirm) {
-        confirm ? this.saveItem() : this.goBackToReviewDetails(this.review.id)
+        confirm ? this.saveReview() : this.goBackToReviewDetails(this.review.id)
       },
 
-      saveItem() {
+      saveReview() {
         if (doesObjectContainEmptyValues(this.review)) {
           this.showErrorAlert = true
           return
