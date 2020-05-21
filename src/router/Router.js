@@ -11,12 +11,14 @@ import TheWinesPage from '@/pages/TheWinesPage.vue'
 import ReviewDetails from '@/components/review/ReviewDetails.vue'
 import ReviewDetailsEdit from '@/components/review/ReviewDetailsEdit.vue'
 import WineDetails from '@/components/wine/WineDetails.vue'
+import WineDetailsEdit from '@/components/wine/WineDetailsEdit.vue'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
+    // Routes in main navigation bar:
     {
       path: '/home',
       name: 'home',
@@ -26,11 +28,6 @@ export default new Router({
       path: '/reviews',
       name: 'reviews',
       component: TheReviewsPage,
-    },
-    {
-      path: '/user',
-      name: 'user',
-      component: TheUserPage,
     },
     {
       path: '/wines',
@@ -46,6 +43,11 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: TheSearchPage,
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: TheUserPage,
     },
 
     // Review details:
@@ -67,6 +69,12 @@ export default new Router({
       path: '/wines/:wineId',
       name: 'wine',
       component: WineDetails,
+      props: true,
+    },
+    {
+      path: '/wines/:wineId/edit',
+      name: 'edit-wine',
+      component: WineDetailsEdit,
       props: true,
     },
   ],
