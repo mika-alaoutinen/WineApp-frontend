@@ -9,6 +9,14 @@
       Muokkaa viiniä
     </v-card-title>
 
+    <v-alert
+      dismissible
+      type="error"
+      :value="showErrorAlert"
+    >
+      Kenttä ei voi olla tyhjä!
+    </v-alert>
+
     <div class="card-body">
       <v-row
         v-for="(value, attribute) in wineWithoutId"
@@ -112,25 +120,27 @@
         this.wine[attribute].push('')
       },
 
-      confirmEdit(confirm) {
-        confirm ? this.saveWine() : this.goBackToWineDetails(this.$props.originalWine.id)
-      },
-
-      saveWine() {
-        wineService.put(this.$props.originalWine.id, this.wine)
-          .then(() => this.goBackToWineDetails(this.$props.originalWine.id))
-      },
-
-      goBackToWineDetails(id) {
-        this.$router.push({ name: 'wine', params: { wineId: id } })
-      },
-
       isButtonDisabled(attribute) {
         const emptyTextFields = this.wine[attribute]
           .filter (item => item === '' || item === undefined || item === null)
           .length
 
         return emptyTextFields > 0
+      },
+
+      confirmEdit(confirm) {
+        confirm ? this.saveWine() : this.goBackToWineDetails(this.$props.originalWine.id)
+      },
+
+      saveWine() {
+        wineService.isValid(this.wine)
+          ? wineService.put(this.$props.originalWine.id, this.wine)
+            .then(() => this.goBackToWineDetails(this.$props.originalWine.id))
+          : this.showErrorAlert = true
+      },
+
+      goBackToWineDetails(id) {
+        this.$router.push({ name: 'wine', params: { wineId: id } })
       },
     }
   }
