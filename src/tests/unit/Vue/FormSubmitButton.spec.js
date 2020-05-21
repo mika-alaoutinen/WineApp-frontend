@@ -26,7 +26,10 @@ describe('Button can be disabled', () => {
   })
 
   test('button is enabled if username is received', () => {
-
+    const wrapper = mount()
+    wrapper.setData({ disabled: false })
+    const button = wrapper.find('.button-save')
+    expect(button.element.disabled).toBe(false)
   })
 })
 
