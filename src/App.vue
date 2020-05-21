@@ -11,9 +11,9 @@
 </template>
 
 <script>
-  import TheFooter from '@/components/common/TheFooter.vue'
-  import TheHeader from '@/components/common/TheHeader.vue'
-  import TheNavigation from '@/components/common/TheNavigation.vue'
+  import TheFooter from '@/components/page_elements/TheFooter.vue'
+  import TheHeader from '@/components/page_elements/TheHeader.vue'
+  import TheNavigation from '@/components/page_elements/TheNavigation.vue'
   import ReviewService from '@/services/ReviewService.js'
   import WineService from '@/services/WineService.js'
 
