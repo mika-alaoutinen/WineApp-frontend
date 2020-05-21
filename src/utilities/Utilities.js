@@ -109,6 +109,22 @@ export function doesObjectContainEmptyValues(object) {
 }
 
 /**
+ * Checks whether an items is a review or wine.
+ * @param {Object} item either review or wine
+ * @returns {String} review or wine. If item type is unknown, returns false.
+ */
+export function getItemType(item) {
+  if (item.author) {
+    return 'review'
+  } else if (item.name) {
+    return 'wine'
+  } else {
+    console.log('Unknown item:', item)
+    return false
+  }
+}
+
+/**
  * Iterates though object's fields, looks for arrays and removes null values from them.
  * @param {Object} object literal with array fields, either review or wine.
  */

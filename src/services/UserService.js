@@ -1,5 +1,6 @@
 import axios from 'axios'
 import UrlBuilder, { createHeaders } from '@/utilities/UrlBuilder.js'
+import { getItemType } from '@/utilities/Utilities.js'
 import { handleError } from '@/utilities/ErrorHandler.js'
 
 /**
@@ -20,21 +21,11 @@ export async function getUsername() {
  */
 export async function canUserEdit(item) {
   const type = getItemType(item)
-  const url = UrlBuilder[type].isEditable(item.id)
 
-  return axios
-    .get(url, createHeaders())
-    .then(response => response.data)
-    .catch(error => handleError(error))
-}
-
-function getItemType(item) {
-  if (item.author) {
-    return 'review'
-  } else if (item.name) {
-    return 'wine'
-  } else {
-    console.log('Unknown item in DetailsButtons:', item)
-    return false
-  }
+  return type
+    ? axios
+      .get(UrlBuilder[type].isEditable(item.id), createHeaders())
+      .then(response => response.data)
+      .catch(error => handleError(error))
+    : false
 }
