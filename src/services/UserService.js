@@ -18,3 +18,25 @@ export async function canUserEdit(item) {
       .catch(error => handleError(error))
     : false
 }
+
+/**
+ * Retrieves the username for the logged in user.
+ * @returns {String} username
+ */
+export async function getUsername() {
+  return axios
+    .get(UrlBuilder.user.paths.username, createHeaders())
+    .then(result => result.data)
+    .catch(error => handleError(error.response))
+}
+
+/**
+ * Queries if user has logged in or not.
+ * @returns {Boolean} logged in.
+ */
+export async function isLoggedIn() {
+  return axios
+    .get(UrlBuilder.user.paths.loggedIn, createHeaders())
+    .then(result => result.data)
+    .catch(error => handleError(error.response))
+}

@@ -1,17 +1,5 @@
 import axios from 'axios'
-import UrlBuilder, { createHeaders } from '@/utilities/UrlBuilder.js'
-import { handleError } from '@/utilities/ErrorHandler.js'
-
-/**
- * Retrieves the username for the logged in user.
- * @returns {String} username
- */
-export async function getUsername() {
-  return axios
-    .get(UrlBuilder.auth.paths.username, createHeaders())
-    .then(result => result.data)
-    .catch(error => handleError(error.response))
-}
+import UrlBuilder from '@/utilities/UrlBuilder.js'
 
 /**
  * Pass user credentials to backend. Returns a JWT token on successful login.
