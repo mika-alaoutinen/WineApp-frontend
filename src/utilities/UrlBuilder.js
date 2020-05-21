@@ -3,7 +3,6 @@ const basePath = process.env.NODE_ENV === 'production'
   : 'http://localhost:8080/api/'
 
 const authPath = `${basePath}auth/`
-const userPath = `${basePath}users/`
 const reviewPath = `${basePath}reviews/`
 const winePath = `${basePath}wines/`
 
@@ -11,13 +10,8 @@ export default {
   auth: {
     paths: {
       login: `${authPath}login`,
-      register: `${authPath}register`
-    }
-  },
-
-  user: {
-    paths: {
-      username: `${userPath}username`
+      register: `${authPath}register`,
+      username: `${authPath}username`,
     }
   },
 

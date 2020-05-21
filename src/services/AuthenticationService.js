@@ -1,5 +1,6 @@
 import axios from 'axios'
-import UrlBuilder, { createHeaders } from '@/utilities/UrlBuilder.js'
+import UrlBuilder from '@/utilities/UrlBuilder.js'
+import { handleError } from '@/utilities/ErrorHandler.js'
 
 /**
  * Retrieves the username for the logged in user.
@@ -7,7 +8,7 @@ import UrlBuilder, { createHeaders } from '@/utilities/UrlBuilder.js'
  */
 export async function getUsername() {
   return axios
-    .get(UrlBuilder.user.paths.username, createHeaders())
+    .get(UrlBuilder.auth.paths.username)
     .then(result => result.data)
     .catch(error => handleError(error.response))
 }
