@@ -1,5 +1,6 @@
 import axios from 'axios'
 import UrlBuilder, { createHeaders } from '@/utilities/UrlBuilder.js'
+import { doesObjectContainEmptyValues, removeNullsFromArray } from '@/utilities/Utilities.js'
 import { handleError } from '@/utilities/ErrorHandler.js'
 
 class Service {
@@ -88,6 +89,16 @@ class Service {
       .get(UrlBuilder[this.storeType].getSearchUrl(searchParams), createHeaders())
       .then(response => response.data)
       .catch(error => handleError(error.response))
+  }
+
+  /**
+   * Validates a review or wine object literal.
+   * @param {Object} item review or wine
+   * @returns {Boolean} valid. If valid, item can be persisted.
+   */
+  isValid(item) {
+    removeNullsFromArray(item)
+    return !doesObjectContainEmptyValues(item)
   }
 }
 

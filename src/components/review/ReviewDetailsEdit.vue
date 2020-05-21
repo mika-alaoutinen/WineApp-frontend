@@ -103,7 +103,7 @@
   import DetailsConfirmEditButtons from '@/components/common/DetailsConfirmEditButtons.vue'
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
-  import Utilities, { deepCopy, doesObjectContainEmptyValues, removeNullsFromArray } from '@/utilities/Utilities.js'
+  import Utilities, { deepCopy } from '@/utilities/Utilities.js'
 
   const reviewService = new ReviewService()
 
@@ -136,14 +136,10 @@
       },
 
       saveReview() {
-        if (doesObjectContainEmptyValues(this.review)) {
-          this.showErrorAlert = true
-          return
-        }
-
-        removeNullsFromArray(this.review)
-        reviewService.put(this.review.id, this.review)
-          .then(() => this.goBackToReviewDetails(this.review.id))
+        reviewService.isValid(this.review)
+          ? reviewService.put(this.review.id, this.review)
+            .then(() => this.goBackToReviewDetails(this.review.id))
+          : this.showErrorAlert = true
       },
 
       goBackToReviewDetails(id) {
