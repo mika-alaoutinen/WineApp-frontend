@@ -90,7 +90,6 @@
 
     async mounted() {
       this.review = await reviewService.get(this.$props.reviewId)
-
       const username = await getUsername()
       this.disabled = username ? false : true
     },

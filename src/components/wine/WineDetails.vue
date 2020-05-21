@@ -81,11 +81,9 @@
 
     data() {
       return {
-        wineImage: '',
         util: Utilities,
-
-        reviews: [],
         wineTypes: [ 'sparkling', 'red', 'rose', 'white', 'other' ],
+        reviews: [],
         wine: null
       }
     },
@@ -105,11 +103,6 @@
 
     async mounted() {
       this.wine = await wineService.get(this.$props.wineId)
-      const type = this.wine.type.toLowerCase()
-      this.wineImage = type
-        ? require('@/../public/assets/wine-images/' + type + '.png')
-        : require('@/../public/assets/wine-images/wines.png')
-
       this.reviews = await reviewService.getByWineId(this.$props.wineId)
     },
 
