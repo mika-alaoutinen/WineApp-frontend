@@ -1,5 +1,5 @@
 import { mountVuetifyComponent } from '../../index.js'
-import TheNavigation from '@/components/common/TheNavigation.vue'
+import TheNavigation from '@/components/page_elements/TheNavigation.vue'
 
 const wrapper = mountVuetifyComponent(TheNavigation)
 

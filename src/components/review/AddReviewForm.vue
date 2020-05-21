@@ -79,7 +79,7 @@
 <script>
   import Alerts from '@/components/common/Alerts.vue'
   import DatePicker from '@/components/common/DatePicker.vue'
-  import FormSubmitButton from '@/components/common/FormSubmitButton.vue'
+  import FormSubmitButton from '@/components/buttons/FormSubmitButton.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities, { resetObject } from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'

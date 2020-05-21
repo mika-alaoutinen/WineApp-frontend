@@ -167,7 +167,7 @@
 
 <script>
   import Alerts from '@/components/common/Alerts.vue'
-  import FormSubmitButton from '@/components/common/FormSubmitButton.vue'
+  import FormSubmitButton from '@/components/buttons/FormSubmitButton.vue'
   import Utilities, { resetObject } from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'
   import { mdiPlus } from '@mdi/js'

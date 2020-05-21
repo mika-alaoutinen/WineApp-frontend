@@ -79,7 +79,7 @@
 </template>
 
 <script>
-  import DetailsConfirmEditButtons from '@/components/common/DetailsConfirmEditButtons.vue'
+  import DetailsConfirmEditButtons from '@/components/buttons/DetailsConfirmEditButtons.vue'
   import WineDetailsHeroImage from '@/components/wine/WineDetailsHeroImage.vue'
   import Utilities, { deepCopy, removeObjectId } from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'

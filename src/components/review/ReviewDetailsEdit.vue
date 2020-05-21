@@ -100,7 +100,7 @@
 
 <script>
   import DatePicker from '@/components/common/DatePicker.vue'
-  import DetailsConfirmEditButtons from '@/components/common/DetailsConfirmEditButtons.vue'
+  import DetailsConfirmEditButtons from '@/components/buttons/DetailsConfirmEditButtons.vue'
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities, { deepCopy } from '@/utilities/Utilities.js'

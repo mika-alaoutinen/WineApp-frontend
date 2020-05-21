@@ -45,7 +45,7 @@
 </template>
 
 <script>
-  import DetailsEditAndDeleteButtons from '@/components/common/DetailsEditAndDeleteButtons.vue'
+  import DetailsEditAndDeleteButtons from '@/components/buttons/DetailsEditAndDeleteButtons.vue'
   import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
   import Utilities, { removeObjectId } from '@/utilities/Utilities.js'
