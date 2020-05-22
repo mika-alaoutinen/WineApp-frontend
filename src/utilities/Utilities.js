@@ -105,7 +105,7 @@ export function deepCopy(object) {
 export function doesObjectContainEmptyValues(object) {
   return Object
     .values(object)
-    .some(value => value === '')
+    .some(value => !value)
 }
 
 /**

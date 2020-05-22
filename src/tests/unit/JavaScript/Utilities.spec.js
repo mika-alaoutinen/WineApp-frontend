@@ -1,5 +1,9 @@
-import Utilities, { removeObjectId, resetObject } from '@/utilities/Utilities.js'
-import { wines } from '../../testdata.js'
+import Utilities, {
+  deepCopy, doesObjectContainEmptyValues, getItemType, removeObjectId,
+  removeNullsFromArray, resetObject
+} from '@/utilities/Utilities.js'
+
+import { reviews, wines } from '../../testdata.js'
 
 describe('date formatter', () => {
   test('test that date format is converted from yyyy-mm-dd to dd.mm.yyyy', () => {
@@ -128,6 +132,48 @@ describe('translation functionality', () => {
 })
 
 describe('Utility functions', () => {
+  test('deepCopy return a copy of item', () => {
+    const wine = wines[0]
+    const copy = deepCopy(wine)
+    expect(copy).toEqual(wine)
+  })
+
+  test('doesObjectContainEmptyValues returns true if object has empty fields', () => {
+    const wine = { name: 'Viini 1', volume: undefined }
+    expect(doesObjectContainEmptyValues(wine)).toBe(true)
+  })
+
+  test('doesObjectContainEmptyValues returns false if object has no empty fields', () => {
+    expect(doesObjectContainEmptyValues(wines[0])).toBe(false)
+  })
+
+  test('getItemType recognizes a wine', () => {
+    expect(getItemType(wines[0])).toBe('wine')
+  })
+
+  test('getItemType recognizes a review', () => {
+    expect(getItemType(reviews[0])).toBe('review')
+  })
+
+  test('getItemType returns false on unrecognized item', () => {
+    const item = { foo: 'bar' }
+    expect(getItemType(item)).toBe(false)
+  })
+
+  test('removeNullsFromArray removes empty items from an array that is inside an object', () => {
+    const item = {
+      name: 'item',
+      array: [ 1, 2, null, undefined, '', 3 ]
+    }
+    const expected = {
+      name: 'item',
+      array: [ 1, 2, 3 ]
+    }
+
+    removeNullsFromArray(item)
+    expect(item).toStrictEqual(expected)
+  })
+
   test('ID property of object is removed', () => {
     const wine = removeObjectId(wines[0])
     expect(wine.id).toBeUndefined()
