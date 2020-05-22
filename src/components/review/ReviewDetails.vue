@@ -3,71 +3,25 @@
     class="details-card"
     max-width="60em"
   >
-    <v-img
-      height="25em"
-      :src="require('../../../public/assets/review.png')"
-    />
+    <ReviewDetailsHeroImage />
+
     <v-card-title class="card-title secondary--text">
       Arvostelun tiedot
     </v-card-title>
 
-    <div class="card-contents">
+    <div class="card-body">
       <v-row
         v-for="(value, attribute) in reviewWithoutId"
         :id="attribute"
         :key="attribute"
       >
-        <!-- Left column for attribute names. -->
+        <!-- Left column for attributes, or "headers" -->
         <v-col sm="3">
           {{ util.translate("review", attribute) }}
         </v-col>
 
-        <!-- Right column for values. -->
-        <!-- Editing mode: -->
-        <v-col v-if="editing">
-          <DatePicker
-            v-if="attribute === 'date'"
-            :enabled="true"
-            :label-text="'Päivämäärä'"
-            :selected-date="review.date"
-            @get:date="getDate"
-          />
-
-          <v-textarea
-            v-else-if="attribute === 'reviewText'"
-            v-model="review[attribute]"
-            auto-grow
-            class="ma-0 pa-0"
-          />
-
-          <v-slider
-            v-else-if="attribute === 'rating'"
-            v-model="review.rating"
-            :label="util.translate('review', 'rating')"
-            min="0.0"
-            max="5.0"
-            step="0.25"
-            ticks
-            thumb-label
-          />
-
-          <v-text-field
-            v-else-if="attribute === 'wine'"
-            :value="value.name"
-            class="ma-0 pa-0"
-            disabled
-          />
-
-          <v-text-field
-            v-else
-            v-model="review[attribute]"
-            class="ma-0 pa-0"
-            @keyup.enter="saveEditedReview(review)"
-          />
-        </v-col>
-
-        <!-- View mode: -->
-        <v-col v-else>
+        <!-- Right column for values: -->
+        <v-col>
           <div v-if="attribute === 'wine'">
             {{ value.name }}
           </div>
@@ -81,28 +35,26 @@
       </v-row>
     </div>
 
-    <!-- Edit and delete buttons -->
-    <DetailsButtons
+    <DetailsEditAndDeleteButtons
       v-if="review"
-      :editing="editing"
       :item="review"
-      @delete:item="deleteReview"
-      @get:editing="getEditing"
-      @save:item="saveEditedReview"
+      :redirect-route="route"
+      @confirm:delete="deleteReview"
     />
   </v-card>
 </template>
 
 <script>
-  import DatePicker from '@/components/vuetify/DatePicker.vue'
-  import DetailsButtons from '@/components/vuetify/DetailsButtons.vue'
+  import DetailsEditAndDeleteButtons from '@/components/buttons/DetailsEditAndDeleteButtons.vue'
+  import ReviewDetailsHeroImage from '@/components/review/ReviewDetailsHeroImage.vue'
   import ReviewService from '@/services/ReviewService.js'
-  import Utilities from '@/utilities/Utilities.js'
+  import Utilities, { removeObjectId } from '@/utilities/Utilities.js'
+  import { getUsername } from '@/services/UserService.js'
 
   const reviewService = new ReviewService()
 
   export default {
-    components: { DatePicker, DetailsButtons },
+    components: { DetailsEditAndDeleteButtons, ReviewDetailsHeroImage },
 
     props: {
       reviewId: { required: true, type: [Number, String] }
@@ -110,36 +62,44 @@
 
     data() {
       return {
+        disabled: true,
         editing: false,
         review: null,
-        util: Utilities
+        util: Utilities,
       }
     },
 
     computed: {
       reviewWithoutId() {
-        return reviewService.removeObjectId(this.review)
+        return removeObjectId(this.review)
       },
+
+      route() {
+        const reviewWithoutWine = { ...this.review }
+        delete reviewWithoutWine.wine
+
+        return {
+          name: 'edit-review',
+          params: {
+            originalReview: reviewWithoutWine,
+            wineName: this.review.wine.name,
+          }
+        }
+      }
     },
 
-    mounted() {
-      reviewService.get(this.$props.reviewId)
-        .then(review => this.review = review)
+    async mounted() {
+      this.review = await reviewService.get(this.$props.reviewId)
+      const username = await getUsername()
+      this.disabled = username ? false : true
     },
 
     methods: {
-      getDate(date) { this.review.date = date },
-
-      getEditing(boolean) { this.editing = boolean },
-
-      deleteReview(review) {
-        reviewService.delete(review.id)
-        this.$router.push({ name: 'reviews' })
-      },
-
-      saveEditedReview(review) {
-        reviewService.put(review.id, review)
-        this.editing = false
+      deleteReview(confirm) {
+        if (confirm) {
+          reviewService.delete(this.review.id)
+          this.$router.push({ name: 'reviews' })
+        }
       },
     },
 
@@ -147,7 +107,7 @@
 </script>
 
 <style scoped>
-  .card-contents { margin: 0 2em }
+  .card-body { margin: 0 2em }
   .card-title { padding-left: 1.5em }
   .col {
     padding-bottom: 6px;

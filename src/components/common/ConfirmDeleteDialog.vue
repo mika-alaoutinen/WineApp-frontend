@@ -2,7 +2,7 @@
   <!-- Confirm delete dialog -->
   <v-card>
     <v-card-title>Vahvista poisto</v-card-title>
-    <v-card-text>Haluatko varmasti poistaa {{ getItem }}?</v-card-text>
+    <v-card-text>{{ confirmText }}</v-card-text>
     <v-divider />
 
     <v-card-actions>
@@ -37,25 +37,13 @@
 
   export default {
     props: {
-      item: { type: Object, required: true }, // item is either wine or review
+      confirmText: { required: false, type: String, default: 'Haluatko varmasti poistaa tämän?' }
     },
 
     data() {
       return {
         cancelIcon: mdiCancel,
         deleteIcon: mdiDelete,
-      }
-    },
-
-    computed: {
-      getItem() {
-        if (this.$props.item.name !== undefined) {
-          return 'viinin ' + this.$props.item.name
-        } else if (this.$props.item.author !== undefined) {
-          return 'käyttäjän ' + this.$props.item.author + ' arvostelun'
-        } else {
-          return 'tämän'
-        }
       }
     },
 

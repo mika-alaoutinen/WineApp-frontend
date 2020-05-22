@@ -21,6 +21,18 @@ describe('Component mount', () => {
   })
 })
 
+describe('Computed properties', () => {
+  test('removing ID from wine', () => {
+    expect(wrapper.vm.wineWithoutId).not.toContain({ id: 1 })
+  })
+
+  test('route is given', () => {
+    const route = wrapper.vm.route
+    expect(route.name).toBe('edit-wine')
+    expect(route.params.originalWine).toBeTruthy()
+  })
+})
+
 describe('Check that wine columns have a header and a value', () => {
   test('name row', () => {
     validateColumns('#name', 'Nimi', wine.name)

@@ -50,10 +50,10 @@ const dictionary = {
 
 export default {
   /**
-     * Takes a date string in yyyy-mm-dd format and converts it into dd.mm.yyyy.
-     * @param {String} date.
-     * @returns {String} formatted date.
-     */
+   * Takes a date string in yyyy-mm-dd format and converts it into dd.mm.yyyy.
+   * @param {String} date.
+   * @returns {String} formatted date.
+   */
   formatDate(date) {
     const dateArray = Array.from(date.split('-'))
 
@@ -66,11 +66,11 @@ export default {
   },
 
   /**
-     * Translates a given word from English to Finnish.
-     * @param {String} object the word belongs to. Options are 'common', 'review' and 'wine'.
-     * @param {String} word the word to be translated.
-     * @returns {String} translated word or blank if translation is not found.
-     */
+   * Translates a given word from English to Finnish.
+   * @param {String} object the word belongs to. Options are 'common', 'review' and 'wine'.
+   * @param {String} word the word to be translated.
+   * @returns {String} translated word or blank if translation is not found.
+   */
   translate(object, word) {
     const faultyInputs = [null, undefined, '']
 
@@ -86,4 +86,73 @@ export default {
         : translation
     }
   },
+}
+
+/**
+* Deep copies an object into a new independent instance of the same object.
+* @param {Object} object to be copied
+* @returns {Object} identical copy of the object
+*/
+export function deepCopy(object) {
+  return JSON.parse(JSON.stringify(object))
+}
+
+/**
+ * Checks object literal for empty values and returns outcome as Boolean.
+ * @param {Object} object literal, either review or wine.
+ * @returns {Boolean} true if there are empty values, else false.
+ */
+export function doesObjectContainEmptyValues(object) {
+  return Object
+    .values(object)
+    .some(value => !value)
+}
+
+/**
+ * Checks whether an items is a review or wine.
+ * @param {Object} item either review or wine
+ * @returns {String} review or wine. If item type is unknown, returns false.
+ */
+export function getItemType(item) {
+  if (item.author) {
+    return 'review'
+  } else if (item.name) {
+    return 'wine'
+  } else {
+    console.log('Unknown item:', item)
+    return false
+  }
+}
+
+/**
+ * Iterates though object's fields, looks for arrays and removes null values from them.
+ * @param {Object} object literal with array fields, either review or wine.
+ */
+export function removeNullsFromArray(object) {
+  return Object
+    .keys(object)
+    .filter(key => Array.isArray(object[key]))
+    .map(key => object[key] = object[key].filter(item => item))
+}
+
+/**
+ * Removes the ID property of an item so that it is not displayed in views.
+ * @param {Object} object, either wine or review.
+ * @returns {Object} item with ID removed.
+ */
+export function removeObjectId(object) {
+  const copy = { ...object }
+  delete copy.id
+  return copy
+}
+
+/**
+ * Clears all values in a object.
+ * @param {Object} searchParams
+ */
+export function resetObject(searchParams) {
+  Object.keys(searchParams)
+    .map(key => (Array.isArray(searchParams[key])
+      ? searchParams[key] = []
+      : searchParams[key] = ''))
 }

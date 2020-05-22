@@ -1,5 +1,6 @@
 import axios from 'axios'
 import UrlBuilder, { createHeaders } from '@/utilities/UrlBuilder.js'
+import { doesObjectContainEmptyValues, removeNullsFromArray } from '@/utilities/Utilities.js'
 import { handleError } from '@/utilities/ErrorHandler.js'
 
 class Service {
@@ -50,7 +51,8 @@ class Service {
      * @param {Object} editedItem.
      */
   async put(id, editedItem) {
-    axios.put(UrlBuilder[this.storeType].paths.base + id, editedItem, createHeaders())
+    return axios
+      .put(UrlBuilder[this.storeType].paths.base + id, editedItem, createHeaders())
       .then(response => this.store.edit(id, response.data))
       .catch(error => handleError(error.response))
   }
@@ -60,7 +62,8 @@ class Service {
      * @param {Number} id
      */
   async delete(id) {
-    axios.delete(UrlBuilder[this.storeType].paths.base + id, createHeaders())
+    axios
+      .delete(UrlBuilder[this.storeType].paths.base + id, createHeaders())
       .then(() => this.store.delete(id))
       .catch(error => handleError(error.response))
   }
@@ -88,27 +91,14 @@ class Service {
       .catch(error => handleError(error.response))
   }
 
-  // Modifying objects:
   /**
-     * Removes the ID property of an item so that it is not displayed in views.
-     * @param {Object} object, either wine or review.
-     * @returns {Object} item with ID removed.
-     */
-  removeObjectId(object) {
-    const copy = { ...object }
-    delete copy.id
-    return copy
-  }
-
-  /**
-     * Clears all values in a object.
-     * @param {Object} searchParams
-     */
-  resetObject(searchParams) {
-    Object.keys(searchParams)
-      .map(key => (Array.isArray(searchParams[key])
-        ? searchParams[key] = []
-        : searchParams[key] = ''))
+   * Validates a review or wine object literal.
+   * @param {Object} item review or wine
+   * @returns {Boolean} valid. If valid, item can be persisted.
+   */
+  isValid(item) {
+    removeNullsFromArray(item)
+    return !doesObjectContainEmptyValues(item)
   }
 }
 

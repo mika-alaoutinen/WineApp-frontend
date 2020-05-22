@@ -11,13 +11,14 @@ export default {
   auth: {
     paths: {
       login: `${authPath}login`,
-      register: `${authPath}register`
+      register: `${authPath}register`,
     }
   },
 
   user: {
     paths: {
-      username: `${userPath}username`
+      username: `${userPath}username`,
+      loggedIn: `${userPath}loggedIn`,
     }
   },
 

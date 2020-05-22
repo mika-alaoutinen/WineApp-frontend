@@ -102,8 +102,8 @@
 </template>
 
 <script>
-  import RangeSlider from '@/components/vuetify/RangeSlider.vue'
-  import Utilities from '@/utilities/Utilities.js'
+  import RangeSlider from '@/components/common/RangeSlider.vue'
+  import Utilities, { resetObject } from '@/utilities/Utilities.js'
   import WineService from '@/services/WineService.js'
   import WineTable from '@/components/wine/WineTable.vue'
   import { mdiMagnify } from '@mdi/js'
@@ -165,7 +165,7 @@
 
       setSearchDone(boolean) {
         this.searchDone = boolean
-        wineService.resetObject(this.searchParams)
+        resetObject(this.searchParams)
       },
 
     },

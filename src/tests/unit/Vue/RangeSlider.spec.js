@@ -1,4 +1,4 @@
-import RangeSlider from '@/components/vuetify/RangeSlider.vue'
+import RangeSlider from '@/components/common/RangeSlider.vue'
 import { flipSwitch, mountVuetifyComponent } from '../../index.js'
 
 describe('Component sanity checks', () => {

@@ -1,7 +1,7 @@
 <template>
   <v-btn
     class="button-save secondary--text"
-    :disabled="isDisabled"
+    :disabled="disabled"
     large
     text
     type="submit"
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import { getUsername } from '@/services/UserService.js'
+  import { isLoggedIn } from '@/services/UserService.js'
   import { mdiPlus } from '@mdi/js'
 
   export default {
@@ -23,13 +23,13 @@
     data() {
       return {
         addIcon: mdiPlus,
-        isDisabled: true
+        disabled: true
       }
     },
 
-    mounted() {
-      getUsername()
-        .then(username => username ? this.isDisabled = false : this.isDisabled = true)
+    async mounted() {
+      const loggedIn = await isLoggedIn()
+      this.disabled = !loggedIn
     }
   }
 </script>

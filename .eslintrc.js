@@ -52,8 +52,9 @@ module.exports = {
     // Vue specific rules:
     'vue/script-indent': [
       'warn', 2, {
-        'baseIndent': 1
-      }
+        'baseIndent': 1,
+        'switchCase': 1,
+      },
     ],
   }
 }

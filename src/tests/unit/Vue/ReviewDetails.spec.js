@@ -20,6 +20,19 @@ describe('Component mount', () => {
   })
 })
 
+describe('Computed properties', () => {
+  test('removing ID from review', () => {
+    expect(wrapper.vm.reviewWithoutId).not.toContain({ id: 1 })
+  })
+
+  test('route is given', () => {
+    const route = wrapper.vm.route
+    expect(route.name).toBe('edit-review')
+    expect(route.params.originalReview).toBeTruthy()
+    expect(route.params.wineName).toBe('Viini 1')
+  })
+})
+
 describe('Check that review columns have a header and a value', () => {
   test('author row', () => {
     validateColumns('#author', 'Arvostelija', review.author)
