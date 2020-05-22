@@ -118,7 +118,6 @@
     data() {
       return {
         util: Utilities,
-        disabled: false,
         review: {},
         showErrorAlert: false,
       }
