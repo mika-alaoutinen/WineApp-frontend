@@ -69,5 +69,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: mikaalaoutinen/wineapp
+          repository: mikaalaoutinen/wineapp-frontend
           tags: latest
