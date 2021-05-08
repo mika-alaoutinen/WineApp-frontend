@@ -2,7 +2,7 @@ module.exports = {
   'env': {
     'browser': true,
     'es6': true,
-    "jest": true,
+    'jest': true,
   },
 
   'extends': [
@@ -10,7 +10,7 @@ module.exports = {
   ],
 
   'parserOptions': {
-    "parser": "babel-eslint",
+    'parser': 'babel-eslint',
     'ecmaVersion': 6,
     'sourceType': 'module'
   },
