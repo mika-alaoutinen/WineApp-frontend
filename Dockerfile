@@ -1,5 +1,4 @@
-# Container for development.
-FROM node:lts-alpine
+FROM node:14-alpine AS build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
