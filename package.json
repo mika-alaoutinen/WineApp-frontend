@@ -14,7 +14,7 @@
     "vee-validate": "^3.4.5",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
-    "vuetify": "^2.4.11"
+    "vuetify": "^2.6.10"
   },
   "devDependencies": {
     "@mdi/js": "^5.9.55",
